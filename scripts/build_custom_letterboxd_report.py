@@ -590,6 +590,9 @@ def justwatch_graphql(query: str) -> dict[str, Any]:
             return payload.get("data", {})
         except (HTTPError, URLError, TimeoutError, ValueError, RuntimeError) as exc:
             last_error = exc
+            if _attempt < 2:
+                sleep_seconds = 4.0 if isinstance(exc, HTTPError) and exc.code == 429 else 1.25 * (_attempt + 1)
+                time.sleep(sleep_seconds)
 
     raise RuntimeError(f"Unable to fetch JustWatch catalog: {normalize_cell(last_error)}")
 
@@ -711,6 +714,7 @@ def fetch_justwatch_provider_catalog(provider: dict[str, str]) -> list[dict[str,
         if not connection.get("pageInfo", {}).get("hasNextPage"):
             break
         offset += page_size
+        time.sleep(0.35)
 
     return rows
 
@@ -730,6 +734,63 @@ def build_streaming_catalog() -> pd.DataFrame:
     catalog["jw_score"] = pd.to_numeric(catalog["jw_score"], errors="coerce")
     catalog["tmdb_score"] = pd.to_numeric(catalog["tmdb_score"], errors="coerce")
     return catalog
+
+
+def empty_streaming_section() -> dict[str, Any]:
+    return {
+        "summary": [],
+        "rows": [],
+        "genre_options": [],
+        "stats": {
+            "provider_titles": 0,
+            "indexed_titles": 0,
+            "scored_titles": 0,
+            "watched_titles": 0,
+            "unwatched_titles": 0,
+            "exclusive_titles": 0,
+            "new_lookups_requested": 0,
+        },
+        "top_unwatched": [],
+    }
+
+
+def load_cached_streaming_section(output_dir: Path) -> dict[str, Any] | None:
+    candidate_paths = [
+        output_dir / "custom-report-data.json",
+        output_dir / "share-site" / "custom-report-data.json",
+        Path.cwd() / "custom-report-data.json",
+        Path.cwd() / "share-site" / "custom-report-data.json",
+    ]
+    seen_paths: set[Path] = set()
+    for candidate in candidate_paths:
+        path = candidate.resolve()
+        if path in seen_paths or not path.exists():
+            continue
+        seen_paths.add(path)
+        try:
+            payload = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            continue
+        streaming = payload.get("streaming")
+        if not isinstance(streaming, dict):
+            continue
+        if "rows" not in streaming or "stats" not in streaming:
+            continue
+        return streaming
+    return None
+
+
+def should_fallback_to_cached_streaming(exc: Exception) -> bool:
+    message = normalize_cell(exc).lower()
+    return any(
+        needle in message
+        for needle in (
+            "unable to fetch justwatch catalog",
+            "http error 429",
+            "too many requests",
+            "justwatch",
+        )
+    )
 
 
 def get_letterboxd_session() -> Any:
@@ -1989,23 +2050,31 @@ def build_streaming_section(
     workers: int,
     refresh_cache: bool,
 ) -> dict[str, Any]:
-    streaming_catalog = build_streaming_catalog()
+    try:
+        streaming_catalog = build_streaming_catalog()
+    except Exception as exc:  # noqa: BLE001
+        if should_fallback_to_cached_streaming(exc):
+            cached_section = load_cached_streaming_section(output_dir)
+            if cached_section is not None:
+                cached_stats = cached_section.setdefault("stats", {})
+                cached_stats["fallback_used"] = True
+                cached_stats["fallback_reason"] = normalize_cell(exc)
+                print(
+                    "Streaming catalog fetch failed; falling back to cached streaming data: "
+                    f"{normalize_cell(exc)}",
+                    file=sys.stderr,
+                )
+                return cached_section
+            print(
+                "Streaming catalog fetch failed and no cached streaming snapshot was found; "
+                "continuing with an empty streaming section.",
+                file=sys.stderr,
+            )
+            return empty_streaming_section()
+        raise
+
     if streaming_catalog.empty:
-        return {
-            "summary": [],
-            "rows": [],
-            "genre_options": [],
-            "stats": {
-                "provider_titles": 0,
-                "indexed_titles": 0,
-                "scored_titles": 0,
-                "watched_titles": 0,
-                "unwatched_titles": 0,
-                "exclusive_titles": 0,
-                "new_lookups_requested": 0,
-            },
-            "top_unwatched": [],
-        }
+        return empty_streaming_section()
 
     watched_keys = set(ratings_df["film_key"])
     user_rating_lookup = (
