@@ -1,0 +1,8 @@
+.vendor/
+__pycache__/
+data/public-sync/
+outputs/
+
+__pycache__/
+*.pyc
+.DS_Store

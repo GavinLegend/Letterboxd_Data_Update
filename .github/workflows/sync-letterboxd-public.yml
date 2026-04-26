@@ -1,0 +1,111 @@
+name: Sync Letterboxd Public Report
+
+on:
+  push:
+    paths:
+      - ".github/workflows/sync-letterboxd-public.yml"
+      - "scripts/**"
+      - "README.md"
+      - ".gitignore"
+  workflow_dispatch:
+  schedule:
+    - cron: "17 */6 * * *"
+    - cron: "43 9 * * 0"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: letterboxd-public-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Restore sync caches
+        id: restore-sync-cache
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            .vendor
+            data/public-sync/cache
+            outputs/public-sync-report
+          key: letterboxd-public-sync-${{ runner.os }}-${{ github.run_id }}
+          restore-keys: |
+            letterboxd-public-sync-${{ runner.os }}-
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install --target .vendor pandas numpy lxml curl_cffi openpyxl
+
+      - name: Validate scripts
+        env:
+          PYTHONPATH: .vendor
+        run: |
+          python -m py_compile scripts/*.py
+
+      - name: Sync from public Letterboxd pages
+        env:
+          PYTHONPATH: .vendor
+          LETTERBOXD_USERNAME: goorison
+          SCHEDULE_EXPR: ${{ github.event.schedule }}
+        run: |
+          FULL_REFRESH_FLAG=""
+          if [ "$SCHEDULE_EXPR" = "43 9 * * 0" ]; then
+            FULL_REFRESH_FLAG="--force-refresh-all-entry-pages"
+          fi
+          python scripts/sync_letterboxd_public.py \
+            --username "$LETTERBOXD_USERNAME" \
+            --output-dir data/public-sync/input \
+            --cache-dir data/public-sync/cache \
+            --workers 6 \
+            --refresh-recent 60 \
+            $FULL_REFRESH_FLAG
+
+      - name: Build report site
+        env:
+          PYTHONPATH: .vendor
+        run: |
+          python scripts/build_custom_letterboxd_report.py \
+            --input-dir data/public-sync/input \
+            --output-dir outputs/public-sync-report
+
+      - name: Update published root files
+        run: |
+          cp outputs/public-sync-report/share-site/index.html ./index.html
+          cp outputs/public-sync-report/share-site/custom-report-data.json ./custom-report-data.json
+          cp outputs/public-sync-report/share-site/.nojekyll ./.nojekyll
+
+      - name: Save sync caches
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            .vendor
+            data/public-sync/cache
+            outputs/public-sync-report
+          key: letterboxd-public-sync-${{ runner.os }}-${{ github.run_id }}
+
+      - name: Commit and push if the site changed
+        run: |
+          if git diff --quiet -- index.html custom-report-data.json .nojekyll; then
+            echo "No published changes detected."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html custom-report-data.json .nojekyll
+          git commit -m "Auto-sync Letterboxd public report"
+          git push

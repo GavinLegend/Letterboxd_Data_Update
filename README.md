@@ -1,34 +1,42 @@
-# Share Site
+# Letterboxd Custom Report
 
-This folder is a deployment-ready static site.
+This repository publishes a shareable Letterboxd analysis site to GitHub Pages and now supports automatic refresh from the public Letterboxd profile for `goorison`.
 
-## Files
+## What updates automatically
 
-- `index.html`: the shareable page to host
-- `custom-report-data.json`: the embedded source data in JSON form
-- `.nojekyll`: keeps GitHub Pages from rewriting the site
+- Public diary entries
+- Public reviews and review text
+- Public tags attached to diary/review entries
+- Public watchlist
+- Public custom lists and list contents
+- The generated website at `index.html`
 
-## Fastest ways to share
+## How it works
 
-### GitHub Pages
+1. GitHub Actions fetches the public Letterboxd profile pages and RSS feed.
+2. The sync script rebuilds a local export-like folder with `ratings.csv`, `diary.csv`, `reviews.csv`, `watchlist.csv`, `profile.csv`, and `lists/*.csv`.
+3. The existing custom report generator rebuilds the site.
+4. If `index.html` or `custom-report-data.json` changed, the workflow commits the update back to `main`.
 
-1. Create a new GitHub repository.
-2. Upload everything in this folder to the repository root.
-3. In GitHub, open `Settings` -> `Pages`.
-4. Set the source to `Deploy from a branch`, pick `main`, and save.
+## Schedule
 
-### Netlify
+- Every 6 hours: incremental refresh of the newest public activity
+- Every Sunday: full refresh of cached diary/review detail pages
+- Any time: manual run from the `Actions` tab with `workflow_dispatch`
 
-1. Open Netlify.
-2. Drag this whole folder into the deploy area.
-3. Netlify will publish it as a static site immediately.
+## Important limitation
 
-### Local preview
+This automation is based on public pages and RSS, not on the private Letterboxd export bundle or private API access. That means it can stay hands-off, but it may miss data that only exists in account exports or private content.
 
-Run this inside the folder:
+## Local run
+
+From the repository root:
 
 ```bash
-python3 -m http.server 8000
+./scripts/run_public_sync.sh
 ```
 
-Then open `http://localhost:8000`.
+If you ever want to point this at a different public Letterboxd account, change the default username in:
+
+- `.github/workflows/sync-letterboxd-public.yml`
+- `scripts/run_public_sync.sh`
