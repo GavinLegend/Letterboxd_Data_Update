@@ -80,10 +80,10 @@ jobs:
           python scripts/build_custom_letterboxd_report.py \
             --input-dir data/public-sync/input \
             --output-dir outputs/public-sync-report \
-            --streaming-lookups 650 \
-            --streaming-workers 4 \
-            --douban-lookups 140 \
-            --streaming-catalog-timeout 180
+            --streaming-lookups 200 \
+            --streaming-workers 3 \
+            --douban-lookups 40 \
+            --streaming-catalog-timeout 120
 
       - name: Update published root files
         run: |

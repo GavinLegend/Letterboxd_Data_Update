@@ -478,25 +478,25 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--streaming-lookups",
         type=int,
-        default=3000,
+        default=300,
         help="Max number of uncached streaming titles to match against Letterboxd in this run",
     )
     parser.add_argument(
         "--streaming-workers",
         type=int,
-        default=8,
+        default=4,
         help="Concurrent Letterboxd lookups for the streaming section",
     )
     parser.add_argument(
         "--douban-lookups",
         type=int,
-        default=160,
+        default=40,
         help="Max number of uncached streaming titles to match against Douban in this run",
     )
     parser.add_argument(
         "--streaming-catalog-timeout",
         type=int,
-        default=180,
+        default=120,
         help="Seconds to spend on live streaming catalog refresh before falling back to cached data",
     )
     parser.add_argument("--refresh-cache", action="store_true")
