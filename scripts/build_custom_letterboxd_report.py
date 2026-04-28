@@ -6,6 +6,7 @@ import csv
 import html
 import json
 import math
+import os
 import re
 import sys
 import threading
@@ -13,12 +14,14 @@ import time
 from collections import Counter
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from difflib import SequenceMatcher
+from email.utils import parsedate_to_datetime
 from pathlib import Path
 from statistics import mean
 from typing import Any
 from urllib.error import HTTPError, URLError
 from urllib.parse import quote_plus
 from urllib.request import Request, urlopen
+from xml.etree import ElementTree as ET
 
 import numpy as np
 import pandas as pd
@@ -39,6 +42,7 @@ from analyze_letterboxd import (
     load_csv,
     normalize_cell,
     serialize_frame,
+    slugify_identifier,
     split_tags,
 )
 
@@ -347,8 +351,13 @@ JUSTWATCH_GRAPHQL_URL = "https://apis.justwatch.com/graphql"
 JUSTWATCH_BASE_URL = "https://www.justwatch.com"
 LETTERBOXD_BASE_URL = "https://letterboxd.com"
 LETTERBOXD_IMPERSONATE = "chrome136"
+DOUBAN_API_BASE_URL = "https://m.douban.com/rexxar/api/v2"
+DOUBAN_SUGGEST_URL = "https://movie.douban.com/j/subject_suggest"
+BILIBILI_PGC_INDEX_URL = "https://api.bilibili.com/pgc/season/index/result"
+BILIBILI_PGC_MEDIA_URL = "https://api.bilibili.com/pgc/view/web/media"
 RATING_BUCKET_VALUES = [0.5 + 0.5 * index for index in range(10)]
 STREAMING_CACHE_VERSION = 2
+CRITERION_ON_DEMAND_COOKIE_ENV = "CRITERION_ON_DEMAND_COOKIE"
 LIST_CATEGORY_LABELS = {
     "watch_plan": "待看计划",
     "preference": "偏好声明",
@@ -364,48 +373,137 @@ LIST_CATEGORY_WEIGHTS = {
     "preference": 0.72,
     "theme": 0.55,
 }
+ORIGIN_LABEL_OVERRIDES = {
+    "Hong Kong": "Hong Kong SAR",
+    "Taiwan": "Taiwan region",
+    "Macau": "Macau SAR",
+}
+ZH_ORIGIN_LABEL_OVERRIDES = {
+    "中国香港": "Hong Kong SAR",
+    "香港": "Hong Kong SAR",
+    "中國香港": "Hong Kong SAR",
+    "台湾": "Taiwan region",
+    "台灣": "Taiwan region",
+    "中国台湾": "Taiwan region",
+    "中國台灣": "Taiwan region",
+    "澳门": "Macau SAR",
+    "澳門": "Macau SAR",
+    "中国澳门": "Macau SAR",
+    "中國澳門": "Macau SAR",
+}
+BILIBILI_STYLE_TRANSLATIONS = {
+    "剧情": "Drama",
+    "喜剧": "Comedy",
+    "爱情": "Romance",
+    "动画": "Animation",
+    "科幻": "Science Fiction",
+    "惊悚": "Thriller",
+    "悬疑": "Mystery",
+    "犯罪": "Crime",
+    "纪录片": "Documentary",
+    "纪录": "Documentary",
+    "家庭": "Family",
+    "历史": "History",
+    "战争": "War",
+    "传记": "Biography",
+    "奇幻": "Fantasy",
+    "冒险": "Adventure",
+    "动作": "Action",
+    "恐怖": "Horror",
+    "音乐": "Music",
+    "歌舞": "Musical",
+    "短片": "Short",
+    "西部": "Western",
+    "儿童": "Family",
+}
+NEWS_FEEDS = [
+    {
+        "label": "Variety",
+        "url": "https://variety.com/v/film/feed/",
+    },
+    {
+        "label": "Deadline",
+        "url": "https://deadline.com/category/film/feed/",
+    },
+    {
+        "label": "IndieWire",
+        "url": "https://www.indiewire.com/c/film/feed/",
+    },
+    {
+        "label": "The Hollywood Reporter",
+        "url": "https://www.hollywoodreporter.com/c/movies/movie-news/feed/",
+    },
+]
 STREAMING_PROVIDERS = [
     {
         "provider_id": "netflix_ca",
         "label": "Netflix",
+        "source": "justwatch",
+        "scope_label": "加拿大订阅目录",
         "package_code": "nfx",
         "provider_url": "https://www.justwatch.com/ca/provider/netflix/movies",
     },
     {
         "provider_id": "crave_ca",
         "label": "Crave",
+        "source": "justwatch",
+        "scope_label": "加拿大订阅目录",
         "package_code": "crv",
         "provider_url": "https://www.justwatch.com/ca/provider/crave/movies",
     },
     {
         "provider_id": "prime_ca",
         "label": "Amazon Prime",
+        "source": "justwatch",
+        "scope_label": "加拿大订阅目录",
         "package_code": "prv",
         "provider_url": "https://www.justwatch.com/ca/provider/amazon-prime-video/movies",
     },
     {
         "provider_id": "criterion_ca",
         "label": "Criterion",
+        "source": "justwatch",
+        "scope_label": "加拿大订阅目录",
         "package_code": "crc",
         "provider_url": "https://www.justwatch.com/ca/provider/criterion-channel/movies",
     },
     {
         "provider_id": "apple_tv_ca",
         "label": "Apple TV+",
+        "source": "justwatch",
+        "scope_label": "加拿大订阅目录",
         "package_code": "atp",
         "provider_url": "https://www.justwatch.com/ca/provider/apple-tv-plus/movies",
     },
     {
         "provider_id": "disney_plus_ca",
         "label": "Disney+",
+        "source": "justwatch",
+        "scope_label": "加拿大订阅目录",
         "package_code": "dnp",
         "provider_url": "https://www.justwatch.com/ca/provider/disney-plus/movies",
     },
     {
         "provider_id": "crunchyroll_ca",
         "label": "Crunchyroll",
+        "source": "justwatch",
+        "scope_label": "加拿大订阅目录",
         "package_code": "cru",
         "provider_url": "https://www.justwatch.com/ca/provider/crunchyroll/movies",
+    },
+    {
+        "provider_id": "criterion_on_demand",
+        "label": "Criterion on Demand",
+        "source": "criterion_on_demand",
+        "scope_label": "机构授权片库",
+        "provider_url": "https://media3.criterionpic.com/cod/",
+    },
+    {
+        "provider_id": "bilibili_cn",
+        "label": "Bilibili",
+        "source": "bilibili",
+        "scope_label": "中国大陆版权目录",
+        "provider_url": "https://www.bilibili.com/v/popular/cinema/",
     },
 ]
 _LETTERBOXD_THREAD_LOCAL = threading.local()
@@ -481,6 +579,32 @@ def normalize_string_list(values: Any) -> list[str]:
     return unique_preserve_order(cleaned)
 
 
+def relabel_origin(value: Any) -> str:
+    text = normalize_cell(value)
+    if not text:
+        return ""
+    return ORIGIN_LABEL_OVERRIDES.get(text) or ZH_ORIGIN_LABEL_OVERRIDES.get(text) or text
+
+
+def relabel_origin_list(values: Any) -> list[str]:
+    return unique_preserve_order([label for label in (relabel_origin(value) for value in ensure_list(values)) if label])
+
+
+def translate_bilibili_style(value: Any) -> str:
+    text = normalize_cell(value)
+    if not text:
+        return ""
+    return BILIBILI_STYLE_TRANSLATIONS.get(text, text)
+
+
+def normalize_loose_title(value: Any) -> str:
+    text = html.unescape(normalize_cell(value)).lower()
+    text = re.sub(r"[‘’´`]", "'", text)
+    text = re.sub(r"[^0-9a-z\u4e00-\u9fff]+", " ", text)
+    text = re.sub(r"\s+", " ", text).strip()
+    return text
+
+
 def normalize_source_uri(value: Any) -> str:
     text = normalize_cell(value).strip()
     return text.rstrip("/")
@@ -539,9 +663,9 @@ def parse_letterboxd_page_metadata(html_text: str) -> dict[str, Any]:
     ]
     genres = [normalize_cell(item) for item in ensure_list(json_ld.get("genre")) if normalize_cell(item)]
     countries = [
-        normalize_cell(item.get("name"))
+        relabel_origin(item.get("name"))
         for item in ensure_list(json_ld.get("countryOfOrigin"))
-        if isinstance(item, dict) and normalize_cell(item.get("name"))
+        if isinstance(item, dict) and relabel_origin(item.get("name"))
     ]
     runtime_minutes = parse_iso_duration_minutes(json_ld.get("duration"))
     if runtime_minutes is None:
@@ -719,21 +843,222 @@ def fetch_justwatch_provider_catalog(provider: dict[str, str]) -> list[dict[str,
     return rows
 
 
-def build_streaming_catalog() -> pd.DataFrame:
+def fetch_json_resource(url: str, headers: dict[str, str] | None = None, timeout: int = 40) -> dict[str, Any]:
+    request = Request(
+        url,
+        headers={
+            "User-Agent": (
+                "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+                "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36"
+            ),
+            **(headers or {}),
+        },
+    )
+    with urlopen(request, timeout=timeout) as response:
+        return json.loads(response.read().decode("utf-8", errors="ignore"))
+
+
+def parse_bilibili_runtime_minutes(publish_payload: dict[str, Any]) -> int | None:
+    runtime_text = normalize_cell(publish_payload.get("time_length_show"))
+    match = re.search(r"(\d+)\s*分钟", runtime_text)
+    return int(match.group(1)) if match else None
+
+
+def fetch_bilibili_media_detail(media_id: int) -> dict[str, Any]:
+    payload = fetch_json_resource(
+        f"{BILIBILI_PGC_MEDIA_URL}?media_id={media_id}",
+        headers={"Referer": "https://www.bilibili.com/"},
+        timeout=40,
+    )
+    if payload.get("code") != 0 or not isinstance(payload.get("result"), dict):
+        raise RuntimeError(
+            f"Bilibili media detail failed for {media_id}: {normalize_cell(payload.get('message'))}"
+        )
+    return payload["result"]
+
+
+def build_bilibili_catalog_row(
+    provider: dict[str, str],
+    detail: dict[str, Any],
+) -> dict[str, Any] | None:
+    if normalize_cell(detail.get("type_name")) != "电影":
+        return None
+    publish = detail.get("publish") if isinstance(detail.get("publish"), dict) else {}
+    if publish.get("is_started") is False:
+        return None
+
+    title = normalize_cell(detail.get("title"))
+    year_match = re.search(r"(\d{{4}})", normalize_cell(publish.get("pub_date")))
+    year = int(year_match.group(1)) if year_match else None
+    runtime_minutes = parse_bilibili_runtime_minutes(publish)
+    if runtime_minutes is not None and runtime_minutes < 45:
+        return None
+
+    genres = []
+    for style in ensure_list(detail.get("styles")):
+        label = translate_bilibili_style(style.get("name") if isinstance(style, dict) else style)
+        if not label:
+            continue
+        genres.append(
+            {
+                "code": label,
+                "slug": slugify_identifier(label),
+                "label": label,
+            }
+        )
+
+    rating = detail.get("rating") if isinstance(detail.get("rating"), dict) else {}
+    film_key_value = film_key(title, year)
+    media_id = pd.to_numeric(detail.get("media_id"), errors="coerce")
+    season_id = pd.to_numeric(detail.get("season_id"), errors="coerce")
+    if not title or not film_key_value:
+        return None
+
+    return {
+        "film_key": film_key_value,
+        "name": title,
+        "year": year,
+        "runtime_minutes": runtime_minutes,
+        "genres": genres,
+        "provider_id": provider["provider_id"],
+        "provider_label": provider["label"],
+        "provider_url": provider["provider_url"],
+        "justwatch_path": f"/bangumi/play/ss{int(season_id)}" if pd.notna(season_id) else None,
+        "justwatch_url": (
+            f"https://www.bilibili.com/bangumi/play/ss{int(season_id)}?theme=movie"
+            if pd.notna(season_id)
+            else f"https://www.bilibili.com/bangumi/media/md{int(media_id)}"
+            if pd.notna(media_id)
+            else provider["provider_url"]
+        ),
+        "imdb_score": None,
+        "imdb_votes": None,
+        "jw_score": None,
+        "tmdb_score": None,
+        "bilibili_score": pd.to_numeric(rating.get("score"), errors="coerce"),
+        "bilibili_rating_count": pd.to_numeric(rating.get("count"), errors="coerce"),
+    }
+
+
+def fetch_bilibili_provider_catalog(provider: dict[str, str], cache_path: Path) -> list[dict[str, Any]]:
+    detail_cache = load_json_cache(cache_path)
+    listing_items: list[dict[str, Any]] = []
+    page = 1
+    page_size = 100
+
+    while True:
+        payload = fetch_json_resource(
+            (
+                f"{BILIBILI_PGC_INDEX_URL}?season_type=2&page={page}&pagesize={page_size}"
+                "&type=1&order=4&sort=0"
+            ),
+            headers={"Referer": provider["provider_url"]},
+            timeout=40,
+        )
+        if payload.get("code") != 0 or not isinstance(payload.get("data"), dict):
+            raise RuntimeError(
+                f"Bilibili catalog failed for page {page}: {normalize_cell(payload.get('message'))}"
+            )
+        data = payload["data"]
+        listing_items.extend(ensure_list(data.get("list")))
+        if not data.get("has_next"):
+            break
+        page += 1
+        time.sleep(0.15)
+
+    media_ids: list[int] = []
+    for item in listing_items:
+        media_id = pd.to_numeric(item.get("media_id"), errors="coerce")
+        if pd.notna(media_id):
+            media_ids.append(int(media_id))
+    media_ids = list(dict.fromkeys(media_ids))
+
+    missing_media_ids = [media_id for media_id in media_ids if str(media_id) not in detail_cache]
+    if missing_media_ids:
+        with ThreadPoolExecutor(max_workers=8) as pool:
+            futures = {
+                pool.submit(fetch_bilibili_media_detail, media_id): media_id
+                for media_id in missing_media_ids
+            }
+            for future in as_completed(futures):
+                media_id = futures[future]
+                try:
+                    detail = future.result()
+                except Exception as exc:  # noqa: BLE001
+                    detail_cache[str(media_id)] = {
+                        "status": "error",
+                        "error": normalize_cell(exc),
+                        "updated_at": pd.Timestamp.now("UTC").isoformat(),
+                    }
+                    continue
+                detail_cache[str(media_id)] = {
+                    "status": "ok",
+                    "payload": detail,
+                    "updated_at": pd.Timestamp.now("UTC").isoformat(),
+                }
+        write_json_cache(cache_path, detail_cache)
+
+    rows: list[dict[str, Any]] = []
+    seen_keys: set[str] = set()
+    for media_id in media_ids:
+        cached = detail_cache.get(str(media_id)) or {}
+        detail = cached.get("payload") if isinstance(cached, dict) else None
+        if not isinstance(detail, dict):
+            continue
+        row = build_bilibili_catalog_row(provider, detail)
+        if row is None or row["film_key"] in seen_keys:
+            continue
+        seen_keys.add(row["film_key"])
+        rows.append(row)
+
+    return rows
+
+
+def fetch_criterion_on_demand_provider_catalog(provider: dict[str, str]) -> tuple[list[dict[str, Any]], str | None]:
+    cookie = normalize_cell(os.environ.get(CRITERION_ON_DEMAND_COOKIE_ENV))
+    if not cookie:
+        return [], (
+            "该目录需要学校或机构提供的 Criterion on Demand 登录态。"
+            "当前自动同步环境尚未配置对应 session cookie。"
+        )
+    return [], "已检测到 Criterion on Demand session cookie，但自动目录解析尚未接通。"
+
+
+def build_streaming_catalog(output_dir: Path) -> tuple[pd.DataFrame, list[dict[str, str]]]:
     provider_rows: list[dict[str, Any]] = []
+    provider_warnings: list[dict[str, str]] = []
+    bilibili_cache_path = output_dir / "bilibili_media_cache.json"
     for provider in STREAMING_PROVIDERS:
-        provider_rows.extend(fetch_justwatch_provider_catalog(provider))
+        source = normalize_cell(provider.get("source"))
+        if source == "justwatch":
+            provider_rows.extend(fetch_justwatch_provider_catalog(provider))
+            continue
+        if source == "bilibili":
+            provider_rows.extend(fetch_bilibili_provider_catalog(provider, bilibili_cache_path))
+            continue
+        if source == "criterion_on_demand":
+            rows, warning = fetch_criterion_on_demand_provider_catalog(provider)
+            provider_rows.extend(rows)
+            if warning:
+                provider_warnings.append({"provider": provider["label"], "note": warning})
+            continue
 
     catalog = pd.DataFrame(provider_rows)
     if catalog.empty:
-        return catalog
+        return catalog, provider_warnings
     catalog["year"] = pd.to_numeric(catalog["year"], errors="coerce")
     catalog["runtime_minutes"] = pd.to_numeric(catalog["runtime_minutes"], errors="coerce")
     catalog["imdb_score"] = pd.to_numeric(catalog["imdb_score"], errors="coerce")
     catalog["imdb_votes"] = pd.to_numeric(catalog["imdb_votes"], errors="coerce")
     catalog["jw_score"] = pd.to_numeric(catalog["jw_score"], errors="coerce")
     catalog["tmdb_score"] = pd.to_numeric(catalog["tmdb_score"], errors="coerce")
-    return catalog
+    if "bilibili_score" not in catalog.columns:
+        catalog["bilibili_score"] = None
+    if "bilibili_rating_count" not in catalog.columns:
+        catalog["bilibili_rating_count"] = None
+    catalog["bilibili_score"] = pd.to_numeric(catalog["bilibili_score"], errors="coerce")
+    catalog["bilibili_rating_count"] = pd.to_numeric(catalog["bilibili_rating_count"], errors="coerce")
+    return catalog, provider_warnings
 
 
 def empty_streaming_section() -> dict[str, Any]:
@@ -741,6 +1066,7 @@ def empty_streaming_section() -> dict[str, Any]:
         "summary": [],
         "rows": [],
         "genre_options": [],
+        "provider_warnings": [],
         "stats": {
             "provider_titles": 0,
             "indexed_titles": 0,
@@ -903,6 +1229,126 @@ def is_valid_streaming_cache_entry(entry: Any) -> bool:
     return int(version) >= STREAMING_CACHE_VERSION if pd.notna(version) else False
 
 
+def has_streaming_douban_entry(entry: Any) -> bool:
+    if not isinstance(entry, dict):
+        return False
+    return normalize_cell(entry.get("douban_status")) in {"matched", "not_found", "error"}
+
+
+def fetch_douban_suggestions(query: str) -> list[dict[str, Any]]:
+    text = normalize_cell(query)
+    if not text:
+        return []
+    payload = fetch_json_resource(
+        f"{DOUBAN_SUGGEST_URL}?q={quote_plus(text)}",
+        headers={"Referer": "https://movie.douban.com/"},
+        timeout=30,
+    )
+    return ensure_list(payload)
+
+
+def choose_douban_match(
+    candidates: list[dict[str, Any]],
+    title_candidates: list[str],
+    year: Any,
+) -> dict[str, Any] | None:
+    target_year = pd.to_numeric(year, errors="coerce")
+    normalized_targets = [normalize_loose_title(value) for value in title_candidates if normalize_loose_title(value)]
+    if not normalized_targets:
+        return None
+
+    best_candidate: dict[str, Any] | None = None
+    best_score = -999.0
+    for candidate in candidates:
+        candidate_titles = [
+            normalize_loose_title(candidate.get("title")),
+            normalize_loose_title(candidate.get("sub_title")),
+        ]
+        candidate_titles = [value for value in candidate_titles if value]
+        if not candidate_titles:
+            continue
+        candidate_year = pd.to_numeric(candidate.get("year"), errors="coerce")
+        similarity = max(
+            SequenceMatcher(None, target, candidate_title).ratio()
+            for target in normalized_targets
+            for candidate_title in candidate_titles
+        )
+        score = similarity * 100
+        if any(target == candidate_title for target in normalized_targets for candidate_title in candidate_titles):
+            score += 30
+        if pd.notna(target_year) and pd.notna(candidate_year) and int(target_year) == int(candidate_year):
+            score += 35
+        elif pd.notna(target_year) and pd.notna(candidate_year) and abs(int(target_year) - int(candidate_year)) == 1:
+            score += 8
+
+        if score > best_score:
+            best_score = score
+            best_candidate = candidate
+
+    if not best_candidate or best_score < 72:
+        return None
+    return best_candidate
+
+
+def fetch_douban_detail(subject_id: str) -> dict[str, Any]:
+    payload = fetch_json_resource(
+        f"{DOUBAN_API_BASE_URL}/movie/{subject_id}?ck=&for_mobile=1",
+        headers={"Referer": "https://m.douban.com/"},
+        timeout=30,
+    )
+    if not isinstance(payload, dict):
+        raise RuntimeError(f"Unexpected Douban payload for {subject_id}")
+    return payload
+
+
+def fetch_douban_streaming_entry(
+    row: dict[str, Any],
+    cached_entry: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    existing = dict(cached_entry) if isinstance(cached_entry, dict) else {}
+    title_candidates = unique_preserve_order(
+        [
+            normalize_cell(existing.get("metadata_title")),
+            normalize_cell(existing.get("match_name")),
+            normalize_cell(row.get("name")),
+        ]
+    )
+    year = row.get("year") or existing.get("match_year")
+
+    for query in title_candidates:
+        try:
+            suggestions = fetch_douban_suggestions(query)
+        except Exception:
+            continue
+        match = choose_douban_match(suggestions, title_candidates, year)
+        if match is None:
+            continue
+        subject_id = normalize_cell(match.get("id"))
+        if not subject_id:
+            continue
+        detail = fetch_douban_detail(subject_id)
+        rating = detail.get("rating") if isinstance(detail.get("rating"), dict) else {}
+        return {
+            **existing,
+            "film_key": row["film_key"],
+            "douban_status": "matched",
+            "douban_id": subject_id,
+            "douban_title": normalize_cell(detail.get("title")) or normalize_cell(match.get("title")),
+            "douban_url": normalize_source_uri(f"https://movie.douban.com/subject/{subject_id}/"),
+            "douban_rating": pd.to_numeric(rating.get("value"), errors="coerce"),
+            "douban_rating_count": int(rating.get("count")) if pd.notna(pd.to_numeric(rating.get("count"), errors="coerce")) else None,
+            "douban_year": normalize_cell(detail.get("year")) or normalize_cell(match.get("year")),
+            "douban_updated_at": pd.Timestamp.now("UTC").isoformat(),
+        }
+
+    return {
+        **existing,
+        "film_key": row["film_key"],
+        "douban_status": "not_found",
+        "douban_updated_at": pd.Timestamp.now("UTC").isoformat(),
+    }
+
+
 def fetch_letterboxd_streaming_entry(
     row: dict[str, Any],
     cached_entry: dict[str, Any] | None = None,
@@ -936,7 +1382,7 @@ def fetch_letterboxd_streaming_entry(
                 "status": "not_found",
                 "query": query,
                 "cache_version": STREAMING_CACHE_VERSION,
-                "updated_at": pd.Timestamp.utcnow().isoformat(),
+                "updated_at": pd.Timestamp.now("UTC").isoformat(),
             }
 
         slug = normalize_cell(match.get("slug"))
@@ -976,7 +1422,7 @@ def fetch_letterboxd_streaming_entry(
         "countries": page_metadata["countries"],
         "metadata_title": page_metadata["metadata_title"],
         "cache_version": STREAMING_CACHE_VERSION,
-        "updated_at": pd.Timestamp.utcnow().isoformat(),
+        "updated_at": pd.Timestamp.now("UTC").isoformat(),
     }
 
 
@@ -1012,7 +1458,52 @@ def update_streaming_letterboxd_cache(
                     "film_key": film_key_value,
                     "status": "error",
                     "error": normalize_cell(exc),
-                    "updated_at": pd.Timestamp.utcnow().isoformat(),
+                    "updated_at": pd.Timestamp.now("UTC").isoformat(),
+                }
+            cache[result["film_key"]] = result
+            if index % 50 == 0 or index == len(futures):
+                write_json_cache(cache_path, cache)
+
+    write_json_cache(cache_path, cache)
+    return cache
+
+
+def update_streaming_douban_cache(
+    targets: pd.DataFrame,
+    cache_path: Path,
+    max_new_lookups: int,
+    workers: int,
+    refresh_cache: bool,
+) -> dict[str, Any]:
+    cache = load_json_cache(cache_path)
+    lookup_frame = targets.copy()
+    if not refresh_cache:
+        lookup_frame = lookup_frame[
+            lookup_frame["film_key"].apply(lambda key: not has_streaming_douban_entry(cache.get(key)))
+        ]
+    if max_new_lookups >= 0:
+        lookup_frame = lookup_frame.head(max_new_lookups)
+    if lookup_frame.empty:
+        return cache
+
+    max_workers = max(1, workers)
+    with ThreadPoolExecutor(max_workers=max_workers) as pool:
+        futures = {
+            pool.submit(fetch_douban_streaming_entry, row, cache.get(row["film_key"])): row["film_key"]
+            for row in lookup_frame.to_dict(orient="records")
+        }
+        for index, future in enumerate(as_completed(futures), start=1):
+            film_key_value = futures[future]
+            try:
+                result = future.result()
+            except Exception as exc:  # noqa: BLE001
+                existing = cache.get(film_key_value) if isinstance(cache.get(film_key_value), dict) else {}
+                result = {
+                    **existing,
+                    "film_key": film_key_value,
+                    "douban_status": "error",
+                    "douban_error": normalize_cell(exc),
+                    "douban_updated_at": pd.Timestamp.now("UTC").isoformat(),
                 }
             cache[result["film_key"]] = result
             if index % 50 == 0 or index == len(futures):
@@ -1520,7 +2011,7 @@ def score_recommendations(
             ensure_list(row["genres"]), genre_bonus, 0.26, 5, "类型"
         )
         country_part, country_conf, country_hits = collect_bonus(
-            ensure_list(row["countries"]), country_bonus, 0.12, 3, "国家"
+            ensure_list(row["countries"]), country_bonus, 0.12, 3, "国家 / 地区"
         )
         actor_part, actor_conf, actor_hits = collect_bonus(
             ensure_list(row["actors"])[:5], actor_bonus, 0.08, 4, "演员"
@@ -1549,7 +2040,7 @@ def score_recommendations(
         for value, bonus, _count in genre_hits:
             reasons.append((f"类型 {value}", 0.26 * bonus))
         for value, bonus, _count in country_hits:
-            reasons.append((f"国家 {value}", 0.12 * bonus))
+            reasons.append((f"国家 / 地区 {value}", 0.12 * bonus))
         for value, bonus, _count in actor_hits:
             reasons.append((f"演员 {value}", 0.08 * bonus))
 
@@ -1564,7 +2055,7 @@ def score_recommendations(
         elif row["source_lists"]:
             reasons.append((f"来自 {row['source_lists'][0]}", list_part))
         elif row["in_watchlist"]:
-            reasons.append(("在官方 watchlist 里", list_part))
+            reasons.append(("官方 watchlist 收录", list_part))
 
         availability_part = 0.08 * float(row.get("availability_signal", 0.0) or 0.0)
         if row.get("currently_streaming"):
@@ -1614,7 +2105,7 @@ def score_recommendations(
                 "exclusive_streaming": bool(row.get("exclusive_streaming")),
                 "discovery_only": bool(row.get("discovery_only")),
                 "list_categories": ensure_list(row.get("list_categories")),
-                "reason": explanation or "基于你的历史评分特征、站内口碑和片单发现信号",
+                "reason": explanation or "历史评分特征、站内口碑与片单覆盖信号",
             }
         )
 
@@ -2051,7 +2542,7 @@ def build_streaming_section(
     refresh_cache: bool,
 ) -> dict[str, Any]:
     try:
-        streaming_catalog = build_streaming_catalog()
+        streaming_catalog, provider_warnings = build_streaming_catalog(output_dir)
     except Exception as exc:  # noqa: BLE001
         if should_fallback_to_cached_streaming(exc):
             cached_section = load_cached_streaming_section(output_dir)
@@ -2074,7 +2565,9 @@ def build_streaming_section(
         raise
 
     if streaming_catalog.empty:
-        return empty_streaming_section()
+        empty_section = empty_streaming_section()
+        empty_section["provider_warnings"] = provider_warnings
+        return empty_section
 
     watched_keys = set(ratings_df["film_key"])
     user_rating_lookup = (
@@ -2134,6 +2627,8 @@ def build_streaming_section(
                 "imdb_votes": pd.to_numeric(grouped["imdb_votes"], errors="coerce").max(),
                 "jw_score": pd.to_numeric(grouped["jw_score"], errors="coerce").max(),
                 "tmdb_score": pd.to_numeric(grouped["tmdb_score"], errors="coerce").max(),
+                "bilibili_score": pd.to_numeric(grouped.get("bilibili_score"), errors="coerce").max(),
+                "bilibili_rating_count": pd.to_numeric(grouped.get("bilibili_rating_count"), errors="coerce").max(),
                 "lookup_priority": (
                     (60 if streaming_key not in watched_keys else 0)
                     + (35 if len(providers) == 1 else 0)
@@ -2166,6 +2661,13 @@ def build_streaming_section(
         cache_path=cache_path,
         max_new_lookups=max_new_lookups,
         workers=workers,
+        refresh_cache=refresh_cache,
+    )
+    lookup_cache = update_streaming_douban_cache(
+        streaming_df[["film_key", "name", "year", "runtime_minutes"]],
+        cache_path=cache_path,
+        max_new_lookups=max_new_lookups,
+        workers=max(1, workers // 2),
         refresh_cache=refresh_cache,
     )
 
@@ -2205,6 +2707,15 @@ def build_streaming_section(
     streaming_df["metadata_title"] = streaming_df["film_key"].map(
         lambda key: lookup_cache.get(key, {}).get("metadata_title")
     )
+    streaming_df["douban_rating"] = streaming_df["film_key"].map(
+        lambda key: lookup_cache.get(key, {}).get("douban_rating")
+    )
+    streaming_df["douban_rating_count"] = streaming_df["film_key"].map(
+        lambda key: lookup_cache.get(key, {}).get("douban_rating_count")
+    )
+    streaming_df["douban_url"] = streaming_df["film_key"].map(
+        lambda key: lookup_cache.get(key, {}).get("douban_url")
+    )
     cached_runtime = streaming_df["film_key"].map(
         lambda key: lookup_cache.get(key, {}).get("runtime_minutes")
     )
@@ -2218,6 +2729,27 @@ def build_streaming_section(
     )
     streaming_df.loc[streaming_df["year"].isna(), "decade_label"] = None
     streaming_df["runtime_bucket"] = build_runtime_bucket(streaming_df["runtime_minutes"])
+    streaming_df["genres"] = streaming_df.apply(
+        lambda row: (
+            [
+                {
+                    "code": genre,
+                    "slug": slugify_identifier(genre),
+                    "label": genre,
+                }
+                for genre in normalize_string_list(lookup_cache.get(row["film_key"], {}).get("genres"))
+            ]
+            if normalize_string_list(lookup_cache.get(row["film_key"], {}).get("genres"))
+            else row["genres"]
+        ),
+        axis=1,
+    )
+    streaming_df["genre_labels"] = streaming_df["genres"].apply(
+        lambda values: [normalize_cell(item.get("label")) for item in ensure_list(values) if isinstance(item, dict)]
+    )
+    streaming_df["genre_codes"] = streaming_df["genres"].apply(
+        lambda values: [normalize_cell(item.get("code")) for item in ensure_list(values) if isinstance(item, dict)]
+    )
 
     scored_df = streaming_df[streaming_df["letterboxd_rating"].notna()].copy()
     scored_df = scored_df.sort_values(
@@ -2232,13 +2764,18 @@ def build_streaming_section(
     genre_rows: list[dict[str, Any]] = []
     exploded_genres = streaming_df[["film_key", "watched", "genres"]].explode("genres")
     exploded_genres = exploded_genres[exploded_genres["genres"].notna()]
-    for _, genre_group in exploded_genres.groupby(exploded_genres["genres"].apply(lambda value: value["code"])):
+    for _, genre_group in exploded_genres.groupby(
+        exploded_genres["genres"].apply(
+            lambda value: normalize_cell(value.get("label")) or normalize_cell(value.get("code"))
+        )
+    ):
         sample = genre_group.iloc[0]["genres"]
+        label = normalize_cell(sample.get("label")) or normalize_cell(sample.get("code"))
         genre_rows.append(
             {
-                "code": sample["code"],
-                "slug": sample["slug"],
-                "label": sample["label"],
+                "code": label,
+                "slug": slugify_identifier(label),
+                "label": label,
                 "titles": int(genre_group["film_key"].nunique()),
                 "watched_titles": int(genre_group[genre_group["watched"]]["film_key"].nunique()),
             }
@@ -2246,13 +2783,17 @@ def build_streaming_section(
     genre_options = sorted(genre_rows, key=lambda row: (-row["titles"], row["label"]))
 
     summary_rows: list[dict[str, Any]] = []
+    warning_lookup = {row["provider"]: row["note"] for row in provider_warnings}
     for provider in STREAMING_PROVIDERS:
         scoped = streaming_df[streaming_df["providers"].apply(lambda values: provider["label"] in values)]
         scored_scoped = scoped[scoped["letterboxd_rating"].notna()]
+        douban_scoped = scoped[scoped["douban_rating"].notna()]
         watched_scoped = scoped[scoped["watched"] & scoped["user_rating"].notna()]
         summary_rows.append(
             {
                 "provider": provider["label"],
+                "scope_label": provider.get("scope_label"),
+                "catalog_note": warning_lookup.get(provider["label"]),
                 "available_titles": int(len(scoped)),
                 "indexed_titles": int(len(scored_scoped)),
                 "watched_titles": int(scoped["watched"].sum()),
@@ -2260,6 +2801,9 @@ def build_streaming_section(
                 "exclusive_titles": int(scoped["exclusive"].sum()),
                 "avg_letterboxd_rating": round(float(scored_scoped["letterboxd_rating"].mean()), 3)
                 if not scored_scoped.empty
+                else None,
+                "avg_douban_rating": round(float(douban_scoped["douban_rating"].mean()), 3)
+                if not douban_scoped.empty
                 else None,
                 "avg_user_rating": round(float(watched_scoped["user_rating"].mean()), 3)
                 if not watched_scoped.empty
@@ -2295,8 +2839,13 @@ def build_streaming_section(
             "letterboxd_status",
             "site_average_rating",
             "site_rating_count",
+            "douban_rating",
+            "douban_rating_count",
+            "douban_url",
             "imdb_score",
             "imdb_votes",
+            "bilibili_score",
+            "bilibili_rating_count",
         ]
     ].sort_values(
         ["letterboxd_rating", "letterboxd_rating_count", "imdb_score"],
@@ -2312,6 +2861,7 @@ def build_streaming_section(
         "summary": summary_rows,
         "rows": serialize_frame(row_export),
         "genre_options": genre_options,
+        "provider_warnings": provider_warnings,
         "stats": {
             "provider_titles": int(len(streaming_df)),
             "indexed_titles": int(len(scored_df)),
@@ -2319,10 +2869,254 @@ def build_streaming_section(
             "watched_titles": int(streaming_df["watched"].sum()),
             "unwatched_titles": int((~streaming_df["watched"]).sum()),
             "exclusive_titles": int(streaming_df["exclusive"].sum()),
+            "warning_count": int(len(provider_warnings)),
             "new_lookups_requested": int(min(max_new_lookups, missing_before)) if max_new_lookups >= 0 else missing_before,
         },
         "top_unwatched": top_unwatched,
     }
+
+
+def load_cached_daily_signal_section(output_dir: Path) -> dict[str, Any] | None:
+    candidate_paths = [
+        output_dir / "custom-report-data.json",
+        output_dir / "share-site" / "custom-report-data.json",
+        Path.cwd() / "custom-report-data.json",
+        Path.cwd() / "share-site" / "custom-report-data.json",
+    ]
+    seen_paths: set[Path] = set()
+    for candidate in candidate_paths:
+        path = candidate.resolve()
+        if path in seen_paths or not path.exists():
+            continue
+        seen_paths.add(path)
+        try:
+            payload = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            continue
+        daily_signal = payload.get("daily_signal")
+        if isinstance(daily_signal, dict) and daily_signal.get("items"):
+            return daily_signal
+    return None
+
+
+def clean_html_excerpt(value: Any) -> str:
+    text = normalize_cell(value)
+    if not text:
+        return ""
+    text = re.sub(r"<[^>]+>", " ", text)
+    text = html.unescape(text)
+    text = re.sub(r"\s+", " ", text).strip()
+    return text
+
+
+def fetch_rss_feed_entries(feed: dict[str, str]) -> list[dict[str, Any]]:
+    xml_text = urlopen(
+        Request(feed["url"], headers={"User-Agent": "Mozilla/5.0"}),
+        timeout=30,
+    ).read()
+    root = ET.fromstring(xml_text)
+    entries: list[dict[str, Any]] = []
+    for item in root.findall(".//item")[:10]:
+        title = clean_html_excerpt(item.findtext("title"))
+        link = normalize_cell(item.findtext("link"))
+        description = clean_html_excerpt(item.findtext("description"))
+        pub_date = normalize_cell(item.findtext("pubDate"))
+        published_at = None
+        if pub_date:
+            try:
+                published_at = parsedate_to_datetime(pub_date).isoformat()
+            except (TypeError, ValueError, IndexError, OverflowError):
+                published_at = None
+        if not title or not link:
+            continue
+        entries.append(
+            {
+                "source": feed["label"],
+                "title": title,
+                "url": link,
+                "summary": description,
+                "published_at": published_at,
+            }
+        )
+    return entries
+
+
+def build_daily_signal_section(
+    ratings_df: pd.DataFrame,
+    recommendations: pd.DataFrame,
+    streaming: dict[str, Any],
+    output_dir: Path,
+) -> dict[str, Any]:
+    try:
+        top_genres = (
+            ratings_df.explode("genres")
+            .dropna(subset=["genres"])
+            .groupby("genres")
+            .agg(avg_rating=("user_rating", "mean"), films=("film_key", "nunique"))
+            .query("films >= 4")
+            .sort_values(["avg_rating", "films"], ascending=[False, False])
+            .head(6)
+            .reset_index()["genres"]
+            .astype(str)
+            .tolist()
+        )
+        top_regions = (
+            ratings_df.explode("countries")
+            .dropna(subset=["countries"])
+            .groupby("countries")
+            .agg(avg_rating=("user_rating", "mean"), films=("film_key", "nunique"))
+            .query("films >= 3")
+            .sort_values(["avg_rating", "films"], ascending=[False, False])
+            .head(5)
+            .reset_index()["countries"]
+            .astype(str)
+            .tolist()
+        )
+        top_directors = (
+            ratings_df.explode("directors")
+            .dropna(subset=["directors"])
+            .groupby("directors")
+            .agg(avg_rating=("user_rating", "mean"), films=("film_key", "nunique"))
+            .query("films >= 2")
+            .sort_values(["avg_rating", "films"], ascending=[False, False])
+            .head(5)
+            .reset_index()["directors"]
+            .astype(str)
+            .tolist()
+        )
+        top_titles = unique_preserve_order(
+            recommendations.head(20)["name"].astype(str).tolist()
+            + [row["name"] for row in streaming.get("top_unwatched", [])[:10] if normalize_cell(row.get("name"))]
+        )
+
+        news_rows: list[dict[str, Any]] = []
+        seen_urls: set[str] = set()
+        for feed in NEWS_FEEDS:
+            for entry in fetch_rss_feed_entries(feed):
+                if entry["url"] in seen_urls:
+                    continue
+                seen_urls.add(entry["url"])
+                news_rows.append(entry)
+
+        scored_rows: list[dict[str, Any]] = []
+        for row in news_rows:
+            haystack = normalize_loose_title(" ".join([row["title"], row["summary"]]))
+            if not haystack:
+                continue
+            matched_signals: list[str] = []
+            score = 0.0
+
+            for title in top_titles:
+                normalized = normalize_loose_title(title)
+                if normalized and len(normalized) >= 4 and normalized in haystack:
+                    matched_signals.append(f"片名: {title}")
+                    score += 3.0
+
+            for director in top_directors:
+                normalized = normalize_loose_title(director)
+                if normalized and normalized in haystack:
+                    matched_signals.append(f"创作者: {director}")
+                    score += 2.2
+
+            for genre in top_genres:
+                normalized = normalize_loose_title(genre)
+                if normalized and normalized in haystack:
+                    matched_signals.append(f"类型: {genre}")
+                    score += 1.6
+
+            for region in top_regions:
+                normalized = normalize_loose_title(region)
+                if normalized and normalized in haystack:
+                    matched_signals.append(f"地区: {region}")
+                    score += 1.3
+
+            if any(token in haystack for token in ["festival", "cannes", "venice", "berlin", "oscars", "awards"]):
+                matched_signals.append("趋势: 影展 / 奖季")
+                score += 0.8
+            if any(token in haystack for token in ["animation", "animated", "anime"]):
+                matched_signals.append("趋势: 动画")
+                score += 0.8
+            if any(token in haystack for token in ["restoration", "retro", "classic", "archive"]):
+                matched_signals.append("趋势: 修复 / 经典")
+                score += 0.5
+
+            scored_rows.append(
+                {
+                    **row,
+                    "match_score": round(score, 2),
+                    "matched_signals": unique_preserve_order(matched_signals)[:4],
+                }
+            )
+
+        scored_rows = sorted(
+            scored_rows,
+            key=lambda row: (
+                row["match_score"],
+                normalize_cell(row.get("published_at")),
+            ),
+            reverse=True,
+        )
+        selected_rows = scored_rows[:5]
+        if not selected_rows:
+            selected_rows = sorted(
+                news_rows,
+                key=lambda row: normalize_cell(row.get("published_at")),
+                reverse=True,
+            )[:5]
+
+        fun_facts: list[str] = []
+        if selected_rows:
+            trend_counter = Counter(
+                signal.split(": ", 1)[1]
+                for row in selected_rows
+                for signal in row.get("matched_signals", [])
+                if ": " in signal
+            )
+            if trend_counter:
+                label, count = trend_counter.most_common(1)[0]
+                fun_facts.append(f"最近新闻匹配最集中的标签是 {label}（共 {count} 条）。")
+            provider_counter = Counter(
+                provider
+                for row in streaming.get("top_unwatched", [])[:8]
+                for provider in ensure_list(row.get("providers"))
+            )
+            if provider_counter:
+                provider_label, count = provider_counter.most_common(1)[0]
+                fun_facts.append(
+                    f"当前高优先级未看流媒体样本里，{provider_label} 出现频次最高（前样本 {count} 部）。"
+                )
+            if top_genres:
+                fun_facts.append(
+                    f"新闻匹配目前主要依据高分偏好类型信号，当前靠前的是 {', '.join(top_genres[:3])}。"
+                )
+
+        return {
+            "generated_at": pd.Timestamp.now("UTC").isoformat(),
+            "items": [
+                {
+                    "headline": row["title"],
+                    "source": row["source"],
+                    "url": row["url"],
+                    "published_at": row.get("published_at"),
+                    "summary": row.get("summary", "")[:240],
+                    "matched_signals": row.get("matched_signals", []),
+                    "match_score": row.get("match_score"),
+                }
+                for row in selected_rows
+            ],
+            "fun_facts": fun_facts[:4],
+        }
+    except Exception as exc:  # noqa: BLE001
+        cached = load_cached_daily_signal_section(output_dir)
+        if cached is not None:
+            cached["fallback_reason"] = normalize_cell(exc)
+            return cached
+        return {
+            "generated_at": pd.Timestamp.now("UTC").isoformat(),
+            "items": [],
+            "fun_facts": [],
+            "fallback_reason": normalize_cell(exc),
+        }
 
 
 def build_custom_insights(
@@ -2339,50 +3133,50 @@ def build_custom_insights(
     if animation_profile:
         top = animation_profile[0]
         insights.append(
-            f"在动画片里，`{top['country']}` 占你的片库来源份额最高，且平均分有 {top['avg_rating']:.2f}。"
+            f"在动画样本中，{top['country']} 是占比最高的来源地区，平均分为 {top['avg_rating']:.1f}。"
         )
 
     if genre_country["top_combos"]:
         combo = genre_country["top_combos"][0]
         insights.append(
-            f"你最强的国家×类型组合之一是 `{combo['country']} × {combo['genre']}`，样本 {combo['films']} 部，平均分 {combo['avg_rating']:.2f}。"
+            f"当前加权表现最强的国家 / 地区 × 类型组合之一是 {combo['country']} × {combo['genre']}，样本 {combo['films']} 部，平均分 {combo['avg_rating']:.1f}。"
         )
 
     if tags["social_stats"]:
         best_social = max(tags["social_stats"], key=lambda row: (row["avg_rating"], row["watches"]))
         insights.append(
-            f"从 tags 看，你评分最高的观影语境是 `{best_social['social_context']}`，平均分 {best_social['avg_rating']:.2f}。"
+            f"在 tags 记录的观影语境里，{best_social['social_context']} 的平均分最高，为 {best_social['avg_rating']:.1f}。"
         )
 
     social_delta = tags["social_genre_delta"]
     if social_delta:
         top_delta = max(social_delta, key=lambda row: row["diff"])
         insights.append(
-            f"社交场景最能抬高你体验的类型是 `{top_delta['genre']}`，比 solo 平均高出 {top_delta['diff']:.2f} 分。"
+            f"社交观影抬升最明显的类型是 {top_delta['genre']}，比 solo 观影高 {top_delta['diff']:.1f} 分。"
         )
 
     if reviews["positive_terms"]:
         pos = reviews["positive_terms"][0]["term"]
         neg = reviews["negative_terms"][0]["term"] if reviews["negative_terms"] else "logic"
-        insights.append(f"你的高分 review 更偏向提到 `{pos}`，低分 review 更偏向提到 `{neg}`。")
+        insights.append(f"高分评论中更常出现的词是 {pos}，低分评论中更常出现的词是 {neg}。")
 
     if reviews["theme_stats"]:
         theme = max(reviews["theme_stats"], key=lambda row: row["avg_rating"])
         insights.append(
-            f"在 review 里，只要你提到 `{theme['theme']}`，平均分就会来到 {theme['avg_rating']:.2f}。"
+            f"提到 {theme['theme']} 的评论在当前样本中的平均分为 {theme['avg_rating']:.1f}。"
         )
 
     if lists["preference_country_bias"]:
         bias = lists["preference_country_bias"][0]
         insights.append(
-            f"你的“偏好声明”型 lists 相比整个片库明显更偏向 `{bias['country']}`。"
+            f"偏好声明型 lists 相对整个片库最明显地偏向 {bias['country']}。"
         )
 
     if streaming["top_unwatched"]:
         top_streaming = streaming["top_unwatched"][0]
         providers = ", ".join(top_streaming["providers"][:2])
         insights.append(
-            f"在加拿大现在就能看的片里，你还没看且 Letterboxd 口碑最值得先补的一批里有《{top_streaming['name']}》({int(top_streaming['year'])})，可在 {providers} 找到。"
+            f"当前可看且评分较高的未看影片里，{top_streaming['name']} ({int(top_streaming['year'])}) 的优先级较高，可在 {providers} 找到。"
         )
 
     if not recommendations.empty:
@@ -2393,7 +3187,7 @@ def build_custom_insights(
         providers = ", ".join(top_row["providers"][:2])
         source = providers if providers else ", ".join(top_row["source_lists"][:2])
         insights.append(
-            f"如果想跳出你现成的 watchlist 和 lists，当前最值得先看的外部新候选之一是《{top_row['name']}》({int(top_row['year'])})，线索主要来自 {source}。"
+            f"在 watchlist 和自建 lists 之外，{top_row['name']} ({int(top_row['year'])}) 是当前外部发现池里信号较强的一部，主要线索来自 {source}。"
         )
 
     return insights[:8]
@@ -2412,16 +3206,33 @@ def rerank_rows(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
     return ranked
 
 
+def format_static_value(value: Any) -> str:
+    if value is None or (isinstance(value, float) and math.isnan(value)):
+        return "—"
+    if isinstance(value, bool):
+        return "Yes" if value else "No"
+    if isinstance(value, (int, np.integer)):
+        return f"{int(value):,}"
+    if isinstance(value, (float, np.floating)):
+        number = float(value)
+        if abs(number) >= 100 or number.is_integer():
+            return f"{number:,.0f}"
+        return f"{number:.2f}".rstrip("0").rstrip(".")
+    if isinstance(value, list):
+        return " / ".join(format_static_value(item) for item in value if format_static_value(item) != "—") or "—"
+    return normalize_cell(value) or "—"
+
+
 def render_table(rows: list[dict[str, Any]], columns: list[tuple[str, str]]) -> str:
     if not rows:
-        return "<p class='muted'>No rows.</p>"
+        return "<p class='muted'>暂无数据。</p>"
     head = "".join(f"<th>{html.escape(label)}</th>" for _, label in columns)
     body_rows = []
     for row in rows:
         body_rows.append(
             "<tr>"
             + "".join(
-                f"<td>{html.escape(str(row.get(key, '')))}</td>"
+                f"<td>{html.escape(format_static_value(row.get(key)))}</td>"
                 for key, _label in columns
             )
             + "</tr>"
@@ -2429,16 +3240,44 @@ def render_table(rows: list[dict[str, Any]], columns: list[tuple[str, str]]) -> 
     return f"<table><thead><tr>{head}</tr></thead><tbody>{''.join(body_rows)}</tbody></table>"
 
 
+def render_daily_signal_items(signal: dict[str, Any]) -> str:
+    items = signal.get("items") or []
+    if not items:
+        return "<p class='muted'>暂无当日信号。</p>"
+    cards = []
+    for item in items:
+        tags = "".join(
+            f"<span class='signal-tag'>{html.escape(tag)}</span>"
+            for tag in ensure_list(item.get("matched_signals"))[:4]
+        )
+        published = normalize_cell(item.get("published_at"))[:10] if normalize_cell(item.get("published_at")) else "最近"
+        cards.append(
+            "<article class='signal-card'>"
+            f"<div class='signal-meta'>{html.escape(item.get('source', ''))} · {html.escape(published)}</div>"
+            f"<h3><a href=\"{html.escape(item.get('url', '#'))}\" target=\"_blank\" rel=\"noopener noreferrer\">{html.escape(item.get('headline', ''))}</a></h3>"
+            f"<p>{html.escape(item.get('summary', ''))}</p>"
+            f"<div class='signal-tags'>{tags}</div>"
+            "</article>"
+        )
+    return "".join(cards)
+
+
 def build_html(payload: dict[str, Any]) -> str:
     username = payload["profile"].get("username") or "Letterboxd"
     share_title = f"{username}'s Letterboxd Custom Report"
     share_description = (
-        "A shareable deep-dive into genre-country taste, streaming availability in Canada, "
-        "review themes, custom lists, and recommendation patterns."
+        "A shareable Letterboxd research report focused on genre-region patterns, streaming availability, review language, custom lists, and recommendation signals."
     )
     streaming_provider_labels = "、".join(provider["label"] for provider in STREAMING_PROVIDERS)
     initial_genre = payload["genre_country"]["top_genres"][0] if payload["genre_country"]["top_genres"] else ""
     insights_html = "".join(f"<li>{html.escape(text)}</li>" for text in payload["custom_insights"])
+    daily_signal_html = render_daily_signal_items(payload.get("daily_signal") or {})
+    daily_signal_facts = (payload.get("daily_signal") or {}).get("fun_facts", [])
+    daily_signal_fact_table_html = (
+        render_table([{"fact": text} for text in daily_signal_facts], [("fact", "当日摘要")])
+        if daily_signal_facts
+        else "<p class='muted'>暂无新的摘要条目。</p>"
+    )
     list_summary_html = render_table(
         payload["lists"]["list_summary"][:10],
         [
@@ -2501,6 +3340,11 @@ def build_html(payload: dict[str, Any]) -> str:
       width: min(1380px, calc(100vw - 32px));
       margin: 20px auto 48px;
     }}
+    h1, h2, h3, p, li, td, th, label, .metric .label, .metric .value {{
+      overflow-wrap: anywhere;
+      word-break: break-word;
+      hyphens: auto;
+    }}
     .hero {{
       background: linear-gradient(130deg, #15223b 0%, #1d3357 70%, #25486d 100%);
       color: white;
@@ -2551,6 +3395,7 @@ def build_html(payload: dict[str, Any]) -> str:
       border-radius: 24px;
       padding: 24px;
       box-shadow: 0 12px 36px rgba(23,35,59,0.06);
+      overflow: hidden;
     }}
     .section h2 {{
       margin: 0 0 8px;
@@ -2586,6 +3431,8 @@ def build_html(payload: dict[str, Any]) -> str:
       padding: 10px 14px;
       font-size: 0.95rem;
       cursor: pointer;
+      min-width: 0;
+      max-width: 100%;
     }}
     .filter-group {{
       display: grid;
@@ -2625,18 +3472,24 @@ def build_html(payload: dict[str, Any]) -> str:
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 18px;
     }}
+    .grid-2 > *,
+    .grid-3 > * {{
+      min-width: 0;
+    }}
     .plot {{
       background: var(--card);
       border: 1px solid rgba(23,35,59,0.07);
       border-radius: 18px;
-      min-height: 360px;
+      min-height: 320px;
       padding: 8px;
+      overflow: hidden;
     }}
     .mini-card {{
       background: linear-gradient(180deg, #fffaf2 0%, #f7efe2 100%);
       border: 1px solid var(--line);
       border-radius: 18px;
       padding: 16px;
+      min-width: 0;
     }}
     .mini-card h3 {{
       margin: 0 0 8px;
@@ -2647,11 +3500,19 @@ def build_html(payload: dict[str, Any]) -> str:
       border-collapse: collapse;
       font-size: 0.92rem;
     }}
+    #streaming-table,
+    #recommendation-table {{
+      min-width: 1180px;
+    }}
+    #genre-country-table {{
+      min-width: 720px;
+    }}
     th, td {{
       padding: 10px 12px;
       border-bottom: 1px solid rgba(23,35,59,0.08);
       text-align: left;
       vertical-align: top;
+      word-break: break-word;
     }}
     th {{
       background: var(--accent-soft);
@@ -2683,10 +3544,66 @@ def build_html(payload: dict[str, Any]) -> str:
       font-size: 1.15rem;
       color: var(--ink);
     }}
+    .provider-note {{
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 0.84rem;
+      line-height: 1.45;
+    }}
     .results-summary {{
       margin: -6px 0 12px;
       color: var(--muted);
       font-size: 0.92rem;
+    }}
+    .subtle-note {{
+      margin: -4px 0 12px;
+      color: var(--muted);
+      font-size: 0.84rem;
+      line-height: 1.45;
+    }}
+    .signal-card {{
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(23,35,59,0.08);
+    }}
+    .signal-card:last-child {{
+      border-bottom: 0;
+      padding-bottom: 0;
+    }}
+    .signal-card h3 {{
+      margin: 4px 0 6px;
+      font-size: 1rem;
+      line-height: 1.35;
+    }}
+    .signal-card p {{
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.5;
+    }}
+    .signal-card a {{
+      color: var(--ink);
+      text-decoration: none;
+    }}
+    .signal-meta {{
+      color: var(--muted);
+      font-size: 0.82rem;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }}
+    .signal-tags {{
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }}
+    .signal-tag {{
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: #efe7d9;
+      color: var(--ink);
+      font-size: 0.8rem;
     }}
     .inline-links a {{
       color: var(--teal);
@@ -2698,13 +3615,35 @@ def build_html(payload: dict[str, Any]) -> str:
       color: var(--muted);
       font-size: 0.92rem;
     }}
+    @media (max-width: 768px) {{
+      .page {{
+        width: min(100vw - 20px, 1380px);
+        margin: 10px auto 32px;
+      }}
+      .hero, .section {{
+        padding: 18px;
+        border-radius: 20px;
+      }}
+      .controls {{
+        gap: 10px;
+      }}
+      .controls label {{
+        width: 100%;
+      }}
+      .controls select {{
+        width: 100%;
+      }}
+      .table-wrap {{
+        max-height: 360px;
+      }}
+    }}
   </style>
 </head>
 <body>
   <div class="page">
     <section class="hero">
       <h1>Letterboxd<br>Custom Research Desk</h1>
-      <p>这版只做 Letterboxd 原生会员页没有真的帮你做透的部分：国家×类型交叉、加拿大流媒体可看片单、观看语境、review 文本、lists 偏好，以及不局限于 watchlist 的候选预测。</p>
+      <p>这个页面汇总的是 Letterboxd 原生会员页之外更适合横向比较的观察维度，包括国家 / 地区 × 类型结构、加拿大流媒体可看范围、观影语境标签、review 用词、lists 意图，以及不限于 watchlist 的候选推荐。</p>
       <div class="metrics">
         <div class="metric"><div class="label">Rated films</div><div class="value">{payload['metrics']['unique_rated_films']}</div></div>
         <div class="metric"><div class="label">Watch events</div><div class="value">{payload['metrics']['watch_events']}</div></div>
@@ -2717,89 +3656,8 @@ def build_html(payload: dict[str, Any]) -> str:
     </section>
 
     <section class="section">
-      <h2>Eight Custom Insights</h2>
-      <p class="lead">这部分只总结你在官方 data 页面上看不到、或者看得没这么清楚的东西。</p>
-      <ol class="insights">{insights_html}</ol>
-    </section>
-
-    <section class="section">
-      <h2>Genre × Country</h2>
-      <p class="lead">选择一个类型，就能看这个类型下不同国家地区的占比和评分差异。下面的热力图则是整个片库里最常出现的国家×类型组合。</p>
-      <div class="controls">
-        <label for="genre-select">类型：</label>
-        <select id="genre-select"></select>
-      </div>
-      <div class="grid-2">
-        <div id="genre-country-share" class="plot"></div>
-        <div id="genre-country-ratings" class="plot"></div>
-      </div>
-      <div class="grid-2" style="margin-top:18px;">
-        <div id="country-genre-heatmap" class="plot"></div>
-        <div id="country-genre-rating-heatmap" class="plot"></div>
-      </div>
-      <div class="table-wrap" style="margin-top:18px;">
-        <table id="genre-country-table"></table>
-      </div>
-    </section>
-
-    <section class="section">
-      <h2>Tags As Context</h2>
-      <p class="lead">你的 tags 不是装饰，而是完整的观看场景记录。我把它们拆成社交语境、设备、平台和场所来比较。</p>
-      <div class="grid-3">
-        <div id="social-context-chart" class="plot"></div>
-        <div id="device-context-chart" class="plot"></div>
-        <div id="platform-context-chart" class="plot"></div>
-      </div>
-      <div class="grid-2" style="margin-top:18px;">
-        <div id="social-genre-delta-chart" class="plot"></div>
-        <div class="mini-card">
-          <h3>Companion Snapshot</h3>
-          <div class="table-wrap">{render_table(payload['tags']['companion_stats'], [('companion','Companion'), ('watches','Watches'), ('avg_rating','Avg rating')])}</div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <h2>What Your Reviews Reveal</h2>
-      <p class="lead">这里不只看你写了多少，而是看你在高分和低分评论里到底在谈什么、哪些主题会把评分拉高或拉低。</p>
-      <div class="grid-2">
-        <div id="review-length-chart" class="plot"></div>
-        <div id="review-theme-chart" class="plot"></div>
-      </div>
-      <div class="grid-2" style="margin-top:18px;">
-        <div class="mini-card">
-          <h3>High-rating vocabulary</h3>
-          <div class="table-wrap">{render_table(payload['reviews']['positive_terms'], [('term','Term'), ('positive_count','High-count'), ('score','Score')])}</div>
-        </div>
-        <div class="mini-card">
-          <h3>Low-rating vocabulary</h3>
-          <div class="table-wrap">{render_table(payload['reviews']['negative_terms'], [('term','Term'), ('negative_count','Low-count'), ('score','Score')])}</div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <h2>Lists As Self-declared Taste</h2>
-      <p class="lead">这里不再用内部黑话分类，而是把你的 lists 拆成三种意图来看：待看计划、偏好声明、主题整理。下面重点看的，是那些明确在表达“我偏爱什么”的 lists。</p>
-      <div class="grid-2">
-        <div class="mini-card">
-          <h3>List Inventory</h3>
-          <div class="table-wrap">{list_summary_html}</div>
-        </div>
-        <div class="mini-card">
-          <h3>Repeated picks across preference lists</h3>
-          <div class="table-wrap">{preference_overlap_html}</div>
-        </div>
-      </div>
-      <div class="grid-2" style="margin-top:18px;">
-        <div id="preference-country-bias-chart" class="plot"></div>
-        <div id="preference-genre-bias-chart" class="plot"></div>
-      </div>
-    </section>
-
-    <section class="section">
       <h2>Canada Streaming Availability</h2>
-      <p class="lead">这里看的是加拿大区当前可看的 {html.escape(streaming_provider_labels)} 电影，并优先把它们匹配到 Letterboxd 官方电影页上的加权均分。默认给你看“已匹配评分 + 我还没看过”的榜单，也可以进一步筛选只看动画、排除纪录片、切到已看、平台独占或全部片单。</p>
+      <p class="lead">本区以加拿大流媒体目录为主，并补充 Bilibili 中国大陆版权片单，以及在可配置学校机构登录时可接入的 Criterion on Demand。榜单优先展示已匹配 Letterboxd 评分的影片，并同步显示可用的豆瓣评分。</p>
       <div class="controls">
         <label for="streaming-provider-filter">平台：</label>
         <select id="streaming-provider-filter"></select>
@@ -2830,6 +3688,7 @@ def build_html(payload: dict[str, Any]) -> str:
         <div id="streaming-genre-exclude-pills" class="pill-group"></div>
       </div>
       <p id="streaming-results-summary" class="results-summary"></p>
+      <p id="streaming-data-note" class="subtle-note"></p>
       <div class="grid-2">
         <div id="streaming-provider-summary-chart" class="plot"></div>
         <div id="streaming-ranking-chart" class="plot"></div>
@@ -2841,8 +3700,25 @@ def build_html(payload: dict[str, Any]) -> str:
     </section>
 
     <section class="section">
+      <h2>Eight Custom Insights</h2>
+      <p class="lead">本区汇总当前数据里最具代表性的偏好信号，作为整页的快速阅读入口。</p>
+      <div class="grid-2">
+        <div class="mini-card">
+          <h3>Eight Custom Insights</h3>
+          <ol class="insights">{insights_html}</ol>
+        </div>
+        <div class="mini-card">
+          <h3>Daily Signal Desk</h3>
+          <p class="lead">该栏位会结合最近电影新闻 RSS 与当前高分偏好信号自动刷新，用于补充推荐线索和当日趣味摘要。</p>
+          {daily_signal_html}
+          <div class="table-wrap" style="margin-top:14px;">{daily_signal_fact_table_html}</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
       <h2>Recommendations Beyond Watchlist</h2>
-      <p class="lead">这次推荐池不再只盯着 watchlist 和未来 lists，而是同时纳入你所有导出的 lists，以及加拿大区当前能看的片单发现。你可以自己决定只看 watchlist 内、只看站外新发现、只看当前平台可看，或者把这些来源混着筛。</p>
+      <p class="lead">推荐池同时包含 watchlist、导出 lists 与当前流媒体目录里的外部发现条目；筛选器可分别限定 watchlist、lists、平台可看状态与类型范围。</p>
       <div class="controls">
         <label for="recommendation-watchlist-filter">Watchlist：</label>
         <select id="recommendation-watchlist-filter">
@@ -2886,7 +3762,82 @@ def build_html(payload: dict[str, Any]) -> str:
       </div>
     </section>
 
-    <div class="footer">Generated from export on {html.escape(payload['generated_at'])}. The interactive charts use embedded data in this file.</div>
+    <section class="section">
+      <h2>Genre × Country / Region</h2>
+      <p class="lead">选择一个类型后，可比较该类型在不同国家 / 地区之间的占比与平均分；展示层对香港、台湾、澳门统一按地区处理。</p>
+      <div class="controls">
+        <label for="genre-select">类型：</label>
+        <select id="genre-select"></select>
+      </div>
+      <div class="grid-2">
+        <div id="genre-country-share" class="plot"></div>
+        <div id="genre-country-ratings" class="plot"></div>
+      </div>
+      <div class="grid-2" style="margin-top:18px;">
+        <div id="country-genre-heatmap" class="plot"></div>
+        <div id="country-genre-rating-heatmap" class="plot"></div>
+      </div>
+      <div class="table-wrap" style="margin-top:18px;">
+        <table id="genre-country-table"></table>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Viewing Context Tags</h2>
+      <p class="lead">本区将 tags 视为观影语境元数据，拆分为社交关系、设备、平台和场所四类进行对照。</p>
+      <div class="grid-3">
+        <div id="social-context-chart" class="plot"></div>
+        <div id="device-context-chart" class="plot"></div>
+        <div id="platform-context-chart" class="plot"></div>
+      </div>
+      <div class="grid-2" style="margin-top:18px;">
+        <div id="social-genre-delta-chart" class="plot"></div>
+        <div class="mini-card">
+          <h3>Companion Snapshot</h3>
+          <div class="table-wrap">{render_table(payload['tags']['companion_stats'], [('companion','Companion'), ('watches','Watches'), ('avg_rating','Avg rating')])}</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Review Language Patterns</h2>
+      <p class="lead">本区从评论长度、主题与词汇分布三个角度整理 review 文本特征。</p>
+      <div class="grid-2">
+        <div id="review-length-chart" class="plot"></div>
+        <div id="review-theme-chart" class="plot"></div>
+      </div>
+      <div class="grid-2" style="margin-top:18px;">
+        <div class="mini-card">
+          <h3>High-rating vocabulary</h3>
+          <div class="table-wrap">{render_table(payload['reviews']['positive_terms'], [('term','Term'), ('positive_count','High-count'), ('score','Score')])}</div>
+        </div>
+        <div class="mini-card">
+          <h3>Low-rating vocabulary</h3>
+          <div class="table-wrap">{render_table(payload['reviews']['negative_terms'], [('term','Term'), ('negative_count','Low-count'), ('score','Score')])}</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>List Signals</h2>
+      <p class="lead">本区按待看计划、偏好声明和主题整理三类意图汇总 lists，并重点展示更能代表个人口味的条目。</p>
+      <div class="grid-2">
+        <div class="mini-card">
+          <h3>List Inventory</h3>
+          <div class="table-wrap">{list_summary_html}</div>
+        </div>
+        <div class="mini-card">
+          <h3>Repeated picks across preference lists</h3>
+          <div class="table-wrap">{preference_overlap_html}</div>
+        </div>
+      </div>
+      <div class="grid-2" style="margin-top:18px;">
+        <div id="preference-country-bias-chart" class="plot"></div>
+        <div id="preference-genre-bias-chart" class="plot"></div>
+      </div>
+    </section>
+
+    <div class="footer">页面生成时间：{html.escape(payload['generated_at'])}。交互图表所需数据已内嵌在当前文件中。</div>
   </div>
 
   <script>
@@ -2895,12 +3846,15 @@ def build_html(payload: dict[str, Any]) -> str:
     const plotLayout = {{
       paper_bgcolor: 'rgba(0,0,0,0)',
       plot_bgcolor: 'rgba(0,0,0,0)',
-      margin: {{t: 46, r: 18, b: 48, l: 48}},
+      margin: {{t: 52, r: 24, b: 56, l: 72}},
       font: {{family: 'IBM Plex Sans, sans-serif', color: '#17233b'}},
+      hoverlabel: {{font: {{family: 'IBM Plex Sans, sans-serif'}}}},
     }};
 
     function formatPct(value) {{
-      return (value * 100).toFixed(1) + '%';
+      if (value === null || value === undefined || value === '') return '—';
+      const number = Number(value);
+      return Number.isFinite(number) ? `${{(number * 100).toFixed(1)}}%` : '—';
     }}
 
     function formatCount(value) {{
@@ -2914,8 +3868,44 @@ def build_html(payload: dict[str, Any]) -> str:
     }}
 
     function formatRating(value) {{
+      if (value === null || value === undefined || value === '') return '—';
       const number = Number(value);
       return Number.isFinite(number) ? number.toFixed(2) : '—';
+    }}
+
+    function formatOneDecimal(value) {{
+      if (value === null || value === undefined || value === '') return '—';
+      const number = Number(value);
+      return Number.isFinite(number) ? number.toFixed(1) : '—';
+    }}
+
+    function wrapLabel(value, width = 18) {{
+      const text = String(value ?? '').trim();
+      if (!text) return '—';
+      const tokens = text.split(/\\s+/);
+      if (tokens.length === 1 && text.length <= width) return text;
+      const lines = [];
+      let line = '';
+      tokens.forEach(token => {{
+        if ((line + ' ' + token).trim().length > width) {{
+          if (line) lines.push(line);
+          line = token;
+        }} else {{
+          line = (line ? line + ' ' : '') + token;
+        }}
+      }});
+      if (line) lines.push(line);
+      return lines.join('<br>');
+    }}
+
+    function shortenLabel(value, width = 38) {{
+      const text = String(value ?? '').trim();
+      if (!text) return '—';
+      return text.length > width ? `${{text.slice(0, width - 1)}}…` : text;
+    }}
+
+    function barChartHeight(count, base = 180, step = 28, max = 620) {{
+      return Math.min(max, Math.max(280, base + count * step));
     }}
 
     const streamingGenreIncludeSelection = new Set();
@@ -2974,35 +3964,39 @@ def build_html(payload: dict[str, Any]) -> str:
       const topRows = rows.slice(0, 10);
       Plotly.newPlot('genre-country-share', [{{
         type: 'pie',
-        labels: topRows.map(row => row.country),
+        labels: topRows.map(row => wrapLabel(row.country, 16)),
         values: topRows.map(row => row.share_in_genre),
         hole: 0.4,
         texttemplate: '%{{label}}<br>%{{percent}}',
+        hovertemplate: '%{{label}}<br>Share: %{{percent}}<extra></extra>',
       }}], {{
         ...plotLayout,
-        title: `${{genre}} 来源国家占比`,
+        title: `${{genre}} source share by country / region`,
         margin: {{t: 54, r: 18, b: 20, l: 18}},
+        height: 360,
       }}, plotConfig);
 
       const ratingRows = rows.filter(row => row.films >= 2).slice(0, 10).reverse();
       Plotly.newPlot('genre-country-ratings', [{{
         type: 'bar',
         orientation: 'h',
-        y: ratingRows.map(row => row.country),
+        y: ratingRows.map(row => wrapLabel(row.country, 18)),
         x: ratingRows.map(row => row.avg_rating),
         marker: {{color: '#2d6f8e'}},
-        text: ratingRows.map(row => `${{row.films}} films`),
-        textposition: 'outside'
+        customdata: ratingRows.map(row => row.films),
+        hovertemplate: 'Average rating: %{{x:.2f}}<br>Films: %{{customdata}}<extra></extra>',
       }}], {{
         ...plotLayout,
-        title: `${{genre}} 中不同国家的平均分`,
-        xaxis: {{range: [0, 5]}},
+        title: `${{genre}} average rating by country / region`,
+        xaxis: {{range: [0, 5], automargin: true}},
+        yaxis: {{automargin: true}},
+        height: barChartHeight(ratingRows.length, 140, 30, 520),
       }}, plotConfig);
 
       makeTable(
         document.getElementById('genre-country-table'),
         [
-          {{key: 'country', label: 'Country'}},
+          {{key: 'country', label: 'Country / Region'}},
           {{key: 'films', label: 'Films'}},
           {{key: 'avg_rating', label: 'Avg rating'}},
           {{key: 'share_in_genre', label: 'Share in genre'}},
@@ -3011,8 +4005,8 @@ def build_html(payload: dict[str, Any]) -> str:
         rows.map(row => ({{
           ...row,
           share_in_genre: formatPct(row.share_in_genre),
-          avg_rating: row.avg_rating.toFixed ? row.avg_rating.toFixed(2) : row.avg_rating,
-          weighted_score: row.weighted_score.toFixed ? row.weighted_score.toFixed(2) : row.weighted_score,
+          avg_rating: formatRating(row.avg_rating),
+          weighted_score: formatRating(row.weighted_score),
         }}))
       );
     }}
@@ -3026,7 +4020,9 @@ def build_html(payload: dict[str, Any]) -> str:
         colorscale: 'YlOrBr'
       }}], {{
         ...plotLayout,
-        title: '国家 × 类型: 观影数量',
+        title: 'Genre × country / region: watch count',
+        xaxis: {{tickangle: -28, automargin: true}},
+        yaxis: {{automargin: true}},
       }}, plotConfig);
 
       Plotly.newPlot('country-genre-rating-heatmap', [{{
@@ -3039,7 +4035,9 @@ def build_html(payload: dict[str, Any]) -> str:
         zmax: 5.0,
       }}], {{
         ...plotLayout,
-        title: '国家 × 类型: 平均评分',
+        title: 'Genre × country / region: average rating',
+        xaxis: {{tickangle: -28, automargin: true}},
+        yaxis: {{automargin: true}},
       }}, plotConfig);
     }}
 
@@ -3047,60 +4045,70 @@ def build_html(payload: dict[str, Any]) -> str:
       const social = data.tags.social_stats;
       Plotly.newPlot('social-context-chart', [{{
         type: 'bar',
-        x: social.map(row => row.social_context),
-        y: social.map(row => row.avg_rating),
+        orientation: 'h',
+        y: social.map(row => wrapLabel(row.social_context, 18)).reverse(),
+        x: social.map(row => row.avg_rating).reverse(),
         marker: {{color: '#c48a3a'}},
-        text: social.map(row => `${{row.watches}} watches`),
-        textposition: 'outside'
+        customdata: social.map(row => row.watches).reverse(),
+        hovertemplate: 'Average rating: %{{x:.2f}}<br>Watches: %{{customdata}}<extra></extra>',
       }}], {{
         ...plotLayout,
-        title: '社交语境对评分的影响',
-        yaxis: {{range: [0, 5]}},
+        title: 'Average rating by social context',
+        xaxis: {{range: [0, 5], automargin: true}},
+        yaxis: {{automargin: true}},
+        height: barChartHeight(social.length, 140, 28, 520),
       }}, plotConfig);
 
       const device = data.tags.device_stats;
       Plotly.newPlot('device-context-chart', [{{
         type: 'bar',
-        x: device.map(row => row.device_context),
-        y: device.map(row => row.avg_rating),
+        orientation: 'h',
+        y: device.map(row => wrapLabel(row.device_context, 18)).reverse(),
+        x: device.map(row => row.avg_rating).reverse(),
         marker: {{color: '#2d6f8e'}},
-        text: device.map(row => `${{row.watches}}`),
-        textposition: 'outside'
+        customdata: device.map(row => row.watches).reverse(),
+        hovertemplate: 'Average rating: %{{x:.2f}}<br>Watches: %{{customdata}}<extra></extra>',
       }}], {{
         ...plotLayout,
-        title: '设备对评分的影响',
-        yaxis: {{range: [0, 5]}},
+        title: 'Average rating by device',
+        xaxis: {{range: [0, 5], automargin: true}},
+        yaxis: {{automargin: true}},
+        height: barChartHeight(device.length, 140, 28, 520),
       }}, plotConfig);
 
       const platform = data.tags.platform_stats.slice(0, 10);
       Plotly.newPlot('platform-context-chart', [{{
         type: 'bar',
         orientation: 'h',
-        y: platform.map(row => row.platform_context).reverse(),
+        y: platform.map(row => wrapLabel(row.platform_context, 18)).reverse(),
         x: platform.map(row => row.avg_rating).reverse(),
         marker: {{color: '#b75b49'}},
-        text: platform.map(row => `${{row.watches}}`).reverse(),
-        textposition: 'outside'
+        customdata: platform.map(row => row.watches).reverse(),
+        hovertemplate: 'Average rating: %{{x:.2f}}<br>Watches: %{{customdata}}<extra></extra>',
       }}], {{
         ...plotLayout,
-        title: '平台 / 来源标签对评分的影响',
-        xaxis: {{range: [0, 5]}},
+        title: 'Average rating by platform / source tag',
+        xaxis: {{range: [0, 5], automargin: true}},
+        yaxis: {{automargin: true}},
+        height: barChartHeight(platform.length, 140, 28, 520),
       }}, plotConfig);
 
       const delta = data.tags.social_genre_delta.slice(0, 12).reverse();
       Plotly.newPlot('social-genre-delta-chart', [{{
         type: 'bar',
         orientation: 'h',
-        y: delta.map(row => row.genre),
+        y: delta.map(row => wrapLabel(row.genre, 18)),
         x: delta.map(row => row.diff),
         marker: {{
           color: delta.map(row => row.diff >= 0 ? '#2d6f8e' : '#b75b49')
         }},
-        text: delta.map(row => `social ${{row.social_avg.toFixed(2)}} / solo ${{row.solo_avg.toFixed(2)}}`),
-        textposition: 'outside'
+        customdata: delta.map(row => `${{formatRating(row.social_avg)}} / ${{formatRating(row.solo_avg)}}`),
+        hovertemplate: 'Delta: %{{x:.2f}}<br>Social / solo: %{{customdata}}<extra></extra>',
       }}], {{
         ...plotLayout,
-        title: '哪些类型在社交场景里涨分或跌分',
+        title: 'Social-context lift by genre',
+        yaxis: {{automargin: true}},
+        height: barChartHeight(delta.length, 140, 28, 560),
       }}, plotConfig);
     }}
 
@@ -3123,15 +4131,18 @@ def build_html(payload: dict[str, Any]) -> str:
       const themes = data.reviews.theme_stats;
       Plotly.newPlot('review-theme-chart', [{{
         type: 'bar',
-        x: themes.map(row => row.theme),
-        y: themes.map(row => row.avg_rating),
+        orientation: 'h',
+        y: themes.map(row => wrapLabel(row.theme, 18)).reverse(),
+        x: themes.map(row => row.avg_rating).reverse(),
         marker: {{color: '#2d6f8e'}},
-        text: themes.map(row => `${{row.mention_count}} mentions`),
-        textposition: 'outside'
+        customdata: themes.map(row => row.mention_count).reverse(),
+        hovertemplate: 'Average rating: %{{x:.2f}}<br>Mentions: %{{customdata}}<extra></extra>',
       }}], {{
         ...plotLayout,
-        title: '提到哪些主题时你更容易打高分',
-        yaxis: {{range: [0, 5]}},
+        title: 'Average rating by review theme',
+        xaxis: {{range: [0, 5], automargin: true}},
+        yaxis: {{automargin: true}},
+        height: barChartHeight(themes.length, 140, 28, 560),
       }}, plotConfig);
     }}
 
@@ -3140,26 +4151,30 @@ def build_html(payload: dict[str, Any]) -> str:
       Plotly.newPlot('preference-country-bias-chart', [{{
         type: 'bar',
         orientation: 'h',
-        y: countryBias.map(row => row.country).reverse(),
+        y: countryBias.map(row => wrapLabel(row.country, 18)).reverse(),
         x: countryBias.map(row => row.share_diff).reverse(),
         marker: {{color: '#c48a3a'}},
       }}], {{
         ...plotLayout,
-        title: '你的偏好声明 lists 更偏向哪些国家',
+        title: 'Preference lists: strongest country / region tilt',
         xaxis: {{tickformat: '.0%'}},
+        yaxis: {{automargin: true}},
+        height: barChartHeight(countryBias.length, 140, 28, 560),
       }}, plotConfig);
 
       const genreBias = data.lists.preference_genre_bias || [];
       Plotly.newPlot('preference-genre-bias-chart', [{{
         type: 'bar',
         orientation: 'h',
-        y: genreBias.map(row => row.genre).reverse(),
+        y: genreBias.map(row => wrapLabel(row.genre, 18)).reverse(),
         x: genreBias.map(row => row.share_diff).reverse(),
         marker: {{color: '#2d6f8e'}},
       }}], {{
         ...plotLayout,
-        title: '你的偏好声明 lists 更偏向哪些类型',
+        title: 'Preference lists: strongest genre tilt',
         xaxis: {{tickformat: '.0%'}},
+        yaxis: {{automargin: true}},
+        height: barChartHeight(genreBias.length, 140, 28, 560),
       }}, plotConfig);
     }}
 
@@ -3231,12 +4246,16 @@ def build_html(payload: dict[str, Any]) -> str:
       container.innerHTML = data.streaming.summary.map(row => `
         <div class="mini-card">
           <h3>${{row.provider}}</h3>
+          <div class="muted">${{row.scope_label || ''}}</div>
           <div class="provider-card-stat">
             <div><strong>${{formatCount(row.available_titles)}}</strong><span class="muted">当前可看电影</span></div>
             <div><strong>${{formatCount(row.exclusive_titles)}}</strong><span class="muted">平台独占</span></div>
             <div><strong>${{formatCount(row.watched_titles)}}</strong><span class="muted">你已看过</span></div>
             <div><strong>${{formatRating(row.avg_letterboxd_rating)}}</strong><span class="muted">已索引片均分</span></div>
+            <div><strong>${{formatOneDecimal(row.avg_douban_rating)}}</strong><span class="muted">豆瓣均分</span></div>
+            <div><strong>${{formatRating(row.avg_user_rating)}}</strong><span class="muted">已看样本均分</span></div>
           </div>
+          ${{row.catalog_note ? `<div class="provider-note">${{row.catalog_note}}</div>` : ''}}
         </div>
       `).join('');
     }}
@@ -3247,28 +4266,30 @@ def build_html(payload: dict[str, Any]) -> str:
         {{
           type: 'bar',
           name: '当前可看',
-          x: summary.map(row => row.provider),
+          x: summary.map(row => wrapLabel(row.provider, 14)),
           y: summary.map(row => row.available_titles),
           marker: {{color: '#2d6f8e'}},
         }},
         {{
           type: 'bar',
           name: '你看过',
-          x: summary.map(row => row.provider),
+          x: summary.map(row => wrapLabel(row.provider, 14)),
           y: summary.map(row => row.watched_titles),
           marker: {{color: '#b75b49'}},
         }},
         {{
           type: 'bar',
           name: '平台独占',
-          x: summary.map(row => row.provider),
+          x: summary.map(row => wrapLabel(row.provider, 14)),
           y: summary.map(row => row.exclusive_titles),
           marker: {{color: '#c48a3a'}},
         }}
       ], {{
         ...plotLayout,
-        title: `${{formatCount(summary.length)}} 个平台当前目录对比`,
+        title: 'Current catalog comparison by platform',
         barmode: 'group',
+        xaxis: {{automargin: true}},
+        height: 360,
       }}, plotConfig);
     }}
 
@@ -3276,23 +4297,32 @@ def build_html(payload: dict[str, Any]) -> str:
       const rows = getFilteredStreamingRows();
       const scoredRows = rows.filter(row => row.letterboxd_rating !== null && row.letterboxd_rating !== undefined);
       document.getElementById('streaming-results-summary').textContent =
-        `当前筛选结果 ${{formatCount(rows.length)}} 部，其中 ${{formatCount(scoredRows.length)}} 部已匹配到 Letterboxd 评分。当前缓存已覆盖 ${{formatCount(data.streaming.stats.indexed_titles)}} / ${{formatCount(data.streaming.stats.provider_titles)}} 部平台可看电影。`;
+        `当前筛选结果 ${{formatCount(rows.length)}} 部；其中 ${{formatCount(scoredRows.length)}} 部已匹配 Letterboxd 评分。当前缓存已覆盖 ${{formatCount(data.streaming.stats.indexed_titles)}} / ${{formatCount(data.streaming.stats.provider_titles)}} 部平台片单。`;
+      document.getElementById('streaming-data-note').textContent =
+        (data.streaming.provider_warnings || []).map(row => `${{row.provider}}: ${{row.note}}`).join('  ');
 
-      const topRows = scoredRows.slice(0, 15);
+      const topRows = scoredRows.slice(0, 10);
       Plotly.newPlot('streaming-ranking-chart', [{{
         type: 'bar',
         orientation: 'h',
-        y: topRows.map(row => `${{row.name}} (${{row.year ?? '—'}})`).reverse(),
+        y: topRows.map(row => wrapLabel(`${{shortenLabel(row.name, 44)}} (${{row.year ?? '—'}})`, 26)).reverse(),
         x: topRows.map(row => row.letterboxd_rating).reverse(),
         marker: {{
           color: topRows.map(row => row.watched ? '#b75b49' : row.exclusive ? '#c48a3a' : '#2d6f8e').reverse()
         }},
-        text: topRows.map(row => `${{formatCount(row.letterboxd_rating_count)}} ratings · ${{(row.providers || []).join(', ')}}`).reverse(),
-        textposition: 'outside',
+        customdata: topRows.map(row => [
+          formatCount(row.letterboxd_rating_count),
+          formatOneDecimal(row.douban_rating),
+          formatCount(row.douban_rating_count),
+          (row.providers || []).join(', ')
+        ]).reverse(),
+        hovertemplate: 'Letterboxd: %{{x:.2f}} (%{{customdata[0]}} ratings)<br>Douban: %{{customdata[1]}} (%{{customdata[2]}} votes)<br>Platforms: %{{customdata[3]}}<extra></extra>',
       }}], {{
         ...plotLayout,
-        title: '当前筛选下的 Letterboxd 高分可看片单',
-        xaxis: {{range: [0, 5]}},
+        title: 'Top filtered titles by Letterboxd score',
+        xaxis: {{range: [0, 5], automargin: true}},
+        yaxis: {{automargin: true}},
+        height: barChartHeight(topRows.length, 160, 34, 620),
       }}, plotConfig);
 
       makeTable(
@@ -3304,9 +4334,12 @@ def build_html(payload: dict[str, Any]) -> str:
           {{key: 'genres', label: 'Genres'}},
           {{key: 'providers', label: 'Platforms'}},
           {{key: 'letterboxd_rating', label: 'LB rating'}},
+          {{key: 'douban_rating', label: 'Douban'}},
           {{key: 'letterboxd_rating_count', label: 'LB ratings'}},
+          {{key: 'douban_rating_count', label: 'Douban votes'}},
           {{key: 'status', label: 'Status'}},
           {{key: 'user_rating', label: 'Your rating'}},
+          {{key: 'bilibili_score', label: 'Bilibili'}},
           {{key: 'imdb_score', label: 'IMDb'}},
           {{key: 'links', label: 'Links'}},
         ],
@@ -3317,11 +4350,17 @@ def build_html(payload: dict[str, Any]) -> str:
           genres: (row.genre_labels || []).length ? row.genre_labels.join(' / ') : '—',
           providers: `<div class="inline-links">${{(row.provider_links || []).map(link => `<a href="${{link.url}}" target="_blank" rel="noopener noreferrer">${{link.provider}}</a>`).join('<br>')}}</div>`,
           letterboxd_rating: row.letterboxd_rating === null || row.letterboxd_rating === undefined ? '未匹配' : formatRating(row.letterboxd_rating),
+          douban_rating: row.douban_rating === null || row.douban_rating === undefined ? '—' : formatOneDecimal(row.douban_rating),
           letterboxd_rating_count: row.letterboxd_rating_count ? formatCount(row.letterboxd_rating_count) : '—',
+          douban_rating_count: row.douban_rating_count ? formatCount(row.douban_rating_count) : '—',
           status: row.watched ? (row.exclusive ? '已看 · 独占' : '已看') : (row.exclusive ? '未看 · 独占' : '未看'),
           user_rating: row.user_rating === null || row.user_rating === undefined ? '—' : formatRating(row.user_rating),
+          bilibili_score: row.bilibili_score === null || row.bilibili_score === undefined ? '—' : formatOneDecimal(row.bilibili_score),
           imdb_score: row.imdb_score === null || row.imdb_score === undefined ? '—' : Number(row.imdb_score).toFixed(1),
-          links: `<div class="inline-links">${{row.letterboxd_url ? `<a href="${{row.letterboxd_url}}" target="_blank" rel="noopener noreferrer">Letterboxd</a>` : '—'}}</div>`,
+          links: `<div class="inline-links">${{[
+            row.letterboxd_url ? `<a href="${{row.letterboxd_url}}" target="_blank" rel="noopener noreferrer">Letterboxd</a>` : '',
+            row.douban_url ? `<a href="${{row.douban_url}}" target="_blank" rel="noopener noreferrer">Douban</a>` : ''
+          ].filter(Boolean).join('<br>') || '—'}}</div>`,
         }}))
       );
     }}
@@ -3401,13 +4440,13 @@ def build_html(payload: dict[str, Any]) -> str:
     function renderRecommendations() {{
       const source = getFilteredRecommendations();
       document.getElementById('recommendation-results-summary').textContent =
-        `当前筛选结果 ${{formatCount(source.length)}} 部候选。总池子里有 ${{formatCount(data.recommendations.stats.candidate_count)}} 部，其中 ${{formatCount(data.recommendations.stats.discovery_titles)}} 部是完全跳出你 watchlist 和 lists 的外部新发现。`;
+        `当前筛选结果 ${{formatCount(source.length)}} 部候选；总池子 ${{formatCount(data.recommendations.stats.candidate_count)}} 部，其中 ${{formatCount(data.recommendations.stats.discovery_titles)}} 部属于 watchlist 和自建 lists 之外的外部发现。`;
 
-      const topRows = source.slice(0, 15);
+      const topRows = source.slice(0, 10);
       Plotly.newPlot('recommendation-priority-chart', [{{
         type: 'bar',
         orientation: 'h',
-        y: topRows.map(row => `${{row.name}} (${{row.year ?? '—'}})`).reverse(),
+        y: topRows.map(row => wrapLabel(`${{shortenLabel(row.name, 44)}} (${{row.year ?? '—'}})`, 26)).reverse(),
         x: topRows.map(row => row.priority_score).reverse(),
         marker: {{
           color: topRows.map(row => {{
@@ -3417,14 +4456,17 @@ def build_html(payload: dict[str, Any]) -> str:
             return '#17233b';
           }}).reverse()
         }},
-        text: topRows.map(row => {{
+        customdata: topRows.map(row => {{
           const providers = (row.providers || []).slice(0, 2).join(', ');
-          return `pred ${{formatRating(row.predicted_rating)}} · site ${{formatRating(row.site_average_rating)}}${{providers ? ` · ${{providers}}` : ''}}`;
+          return [formatRating(row.predicted_rating), formatRating(row.site_average_rating), providers];
         }}).reverse(),
-        textposition: 'outside'
+        hovertemplate: 'Priority: %{{x:.1f}}<br>Predicted rating: %{{customdata[0]}}<br>Letterboxd: %{{customdata[1]}}<br>Platforms: %{{customdata[2]}}<extra></extra>',
       }}], {{
         ...plotLayout,
-        title: '当前筛选下的推荐优先级',
+        title: 'Filtered recommendation priority',
+        xaxis: {{automargin: true}},
+        yaxis: {{automargin: true}},
+        height: barChartHeight(topRows.length, 160, 34, 620),
       }}, plotConfig);
 
       makeTable(
@@ -3446,7 +4488,7 @@ def build_html(payload: dict[str, Any]) -> str:
           name: row.name,
           year: row.year ?? '—',
           genres: (row.genres || []).join(' / ') || '—',
-          priority_score: row.priority_score.toFixed ? row.priority_score.toFixed(2) : row.priority_score,
+          priority_score: row.priority_score.toFixed ? row.priority_score.toFixed(1) : row.priority_score,
           predicted_rating: row.predicted_rating.toFixed ? row.predicted_rating.toFixed(2) : row.predicted_rating,
           site_average_rating: row.site_average_rating ? formatRating(row.site_average_rating) : '—',
           availability: row.currently_streaming ? ((row.providers || []).join(', ') || 'Yes') : '—',
@@ -3588,6 +4630,9 @@ def main() -> None:
 
     ratings_df = attach_metadata(ratings_df)
     watchlist_df = attach_metadata(watchlist_df)
+    for frame in (ratings_df, watchlist_df):
+        if "countries" in frame.columns:
+            frame["countries"] = frame["countries"].apply(relabel_origin_list)
     diary_lookup = ratings_df[
         [
             "film_key",
@@ -3604,9 +4649,14 @@ def main() -> None:
     ].drop_duplicates(subset=["film_key"])
     diary_df = diary_df.merge(diary_lookup, how="left", on="film_key")
     reviews_df = reviews_df.merge(diary_lookup, how="left", on="film_key")
+    for frame in (diary_df, reviews_df):
+        if "countries" in frame.columns:
+            frame["countries"] = frame["countries"].apply(relabel_origin_list)
 
     if not list_entries_df.empty:
         list_entries_df = attach_metadata(list_entries_df)
+        if "countries" in list_entries_df.columns:
+            list_entries_df["countries"] = list_entries_df["countries"].apply(relabel_origin_list)
         watched_keys = set(ratings_df["film_key"])
         list_entries_df["watched"] = list_entries_df["film_key"].isin(watched_keys)
         list_entries_df = list_entries_df.merge(
@@ -3636,6 +4686,12 @@ def main() -> None:
     candidate_pool = build_recommendation_pool(ratings_df, watchlist_df, list_entries_df, streaming_section)
     recommendations = score_recommendations(ratings_df, candidate_pool, global_mean, site_mean)
     recommendation_payload = build_recommendation_payload(recommendations)
+    daily_signal_section = build_daily_signal_section(
+        ratings_df,
+        recommendations,
+        streaming_section,
+        output_dir=output_dir,
+    )
 
     metrics = {
         "unique_rated_films": int(len(ratings_df)),
@@ -3647,7 +4703,7 @@ def main() -> None:
     }
 
     payload = {
-        "generated_at": pd.Timestamp.utcnow().isoformat(),
+        "generated_at": pd.Timestamp.now("UTC").isoformat(),
         "profile": {
             "username": normalize_cell(profile_df.iloc[0]["Username"]) if len(profile_df) else "",
         },
@@ -3658,6 +4714,7 @@ def main() -> None:
         "lists": list_section,
         "streaming": streaming_section,
         "recommendations": recommendation_payload,
+        "daily_signal": daily_signal_section,
     }
     payload["custom_insights"] = build_custom_insights(
         genre_country,
