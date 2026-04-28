@@ -324,8 +324,20 @@ THEME_KEYWORDS = {
 DEVICE_PRIORITY = ["projector", "tv", "monitor", "ipad", "phone"]
 VENUE_MAP = {
     "thearter": "Theater",
+    "theater": "Theater",
     "friendsplace": "Friend's place",
     "onplane": "On plane",
+}
+PLATFORM_LABEL_OVERRIDES = {
+    "amazonprime": "Amazon Prime",
+    "aiyifan": "Aiyifan",
+    "bilibili": "Bilibili",
+    "criterion": "Criterion",
+    "downloaded": "Downloaded",
+    "hollywood suite": "Hollywood Suite",
+    "netflix": "Netflix",
+    "youtube": "YouTube",
+    "youku": "Youku",
 }
 PLATFORM_TAGS = [
     "downloaded",
@@ -355,10 +367,12 @@ LETTERBOXD_IMPERSONATE = "chrome136"
 DOUBAN_API_BASE_URL = "https://m.douban.com/rexxar/api/v2"
 DOUBAN_SUGGEST_URL = "https://movie.douban.com/j/subject_suggest"
 DOUBAN_SUBJECT_SEARCH_URL = "https://movie.douban.com/subject_search"
+DOUBAN_PUBLIC_DATASET_URL = "https://raw.githubusercontent.com/jlshix/movielens-douban-dataset/master/spider.json"
 WIKIDATA_SPARQL_URL = "https://query.wikidata.org/sparql"
 RATING_BUCKET_VALUES = [0.5 + 0.5 * index for index in range(10)]
 STREAMING_CACHE_VERSION = 2
 DOUBAN_CACHE_VERSION = 4
+WATCHED_DOUBAN_CACHE_VERSION = 5
 LIST_CATEGORY_LABELS = {
     "watch_plan": "待看计划",
     "preference": "偏好声明",
@@ -493,6 +507,12 @@ def parse_args() -> argparse.Namespace:
         type=int,
         default=40,
         help="Max number of uncached streaming titles to match against Douban in this run",
+    )
+    parser.add_argument(
+        "--watched-douban-lookups",
+        type=int,
+        default=700,
+        help="Max number of watched films to enrich with Douban ratings in this run",
     )
     parser.add_argument(
         "--streaming-catalog-timeout",
@@ -1397,11 +1417,151 @@ def fetch_wikidata_douban_id(imdb_id: str) -> str | None:
     return None
 
 
+def fetch_wikidata_douban_id_map(imdb_ids: list[str], chunk_size: int = 50) -> dict[str, str]:
+    normalized = [
+        imdb
+        for imdb in unique_preserve_order([normalize_cell(value) for value in imdb_ids])
+        if re.fullmatch(r"tt\d+", imdb)
+    ]
+    mapping: dict[str, str] = {}
+    for start in range(0, len(normalized), chunk_size):
+        chunk = normalized[start : start + chunk_size]
+        values = " ".join(f'"{imdb}"' for imdb in chunk)
+        query = (
+            "SELECT ?imdb ?douban WHERE { "
+            f"VALUES ?imdb {{ {values} }} "
+            "?item wdt:P345 ?imdb; wdt:P4529 ?douban. "
+            "}"
+        )
+        request = Request(
+            f"{WIKIDATA_SPARQL_URL}?{urlencode({'query': query, 'format': 'json'})}",
+            headers={
+                "Accept": "application/sparql-results+json",
+                "User-Agent": "Letterboxd_Data_Update/1.0 (https://github.com/GavinLegend/Letterboxd_Data_Update)",
+            },
+        )
+        payload: dict[str, Any] = {}
+        last_error: Exception | None = None
+        for attempt in range(3):
+            try:
+                with urlopen(request, timeout=25) as response:
+                    payload = json.loads(response.read().decode("utf-8", errors="replace"))
+                break
+            except (HTTPError, URLError, TimeoutError, OSError, json.JSONDecodeError) as exc:
+                last_error = exc
+                time.sleep(1.5 * (attempt + 1))
+        if not payload:
+            print(f"Warning: Wikidata Douban ID batch skipped: {last_error}", file=sys.stderr)
+            continue
+        for binding in ensure_list(payload.get("results", {}).get("bindings")):
+            imdb = binding.get("imdb") if isinstance(binding, dict) else None
+            douban = binding.get("douban") if isinstance(binding, dict) else None
+            imdb_value = normalize_cell(imdb.get("value")) if isinstance(imdb, dict) else ""
+            douban_value = normalize_cell(douban.get("value")) if isinstance(douban, dict) else ""
+            if imdb_value and douban_value:
+                mapping[imdb_value] = douban_value
+    return mapping
+
+
 def coerce_douban_rating(value: Any) -> float | None:
     rating = pd.to_numeric(value, errors="coerce")
     if pd.isna(rating) or float(rating) <= 0:
         return None
     return float(rating)
+
+
+def normalize_douban_dataset_item(item: dict[str, Any]) -> dict[str, Any] | None:
+    subject_id = normalize_cell(item.get("_id") or item.get("id"))
+    rating = item.get("rating") if isinstance(item.get("rating"), dict) else {}
+    rating_value = coerce_douban_rating(rating.get("average") or rating.get("value"))
+    if not subject_id or rating_value is None:
+        return None
+    rating_count = pd.to_numeric(rating.get("rating_people") or rating.get("count"), errors="coerce")
+    title = normalize_cell(item.get("title"))
+    year = normalize_cell(item.get("year"))
+    return {
+        "douban_id": subject_id,
+        "douban_title": title,
+        "douban_url": f"https://movie.douban.com/subject/{subject_id}/",
+        "douban_rating": rating_value,
+        "douban_rating_count": int(rating_count) if pd.notna(rating_count) else None,
+        "douban_year": year,
+        "imdb_id": normalize_cell(item.get("imdb")),
+        "source": "public_dataset",
+    }
+
+
+def load_public_douban_dataset_index(output_dir: Path) -> dict[str, dict[str, dict[str, Any]]]:
+    cache_path = output_dir / "douban_public_dataset_index.json"
+    cached = load_json_cache(cache_path)
+    if cached.get("cache_version") == 1 and isinstance(cached.get("by_imdb"), dict) and isinstance(cached.get("by_douban_id"), dict):
+        return {
+            "by_imdb": cached.get("by_imdb", {}),
+            "by_douban_id": cached.get("by_douban_id", {}),
+        }
+
+    by_imdb: dict[str, dict[str, Any]] = {}
+    by_douban_id: dict[str, dict[str, Any]] = {}
+    request = Request(
+        DOUBAN_PUBLIC_DATASET_URL,
+        headers={
+            "User-Agent": "Letterboxd_Data_Update/1.0 (https://github.com/GavinLegend/Letterboxd_Data_Update)",
+            "Accept": "text/plain, application/json",
+        },
+    )
+    with urlopen(request, timeout=90) as response:
+        for raw_line in response:
+            line = raw_line.decode("utf-8", errors="replace").strip()
+            if not line:
+                continue
+            try:
+                item = json.loads(line)
+            except json.JSONDecodeError:
+                continue
+            if not isinstance(item, dict):
+                continue
+            entry = normalize_douban_dataset_item(item)
+            if not entry:
+                continue
+            by_douban_id[entry["douban_id"]] = entry
+            imdb_id = normalize_cell(entry.get("imdb_id"))
+            if re.fullmatch(r"tt\d+", imdb_id):
+                by_imdb[imdb_id] = entry
+
+    write_json_cache(
+        cache_path,
+        {
+            "cache_version": 1,
+            "source_url": DOUBAN_PUBLIC_DATASET_URL,
+            "indexed_at": pd.Timestamp.now("UTC").isoformat(),
+            "by_imdb": by_imdb,
+            "by_douban_id": by_douban_id,
+        },
+    )
+    return {"by_imdb": by_imdb, "by_douban_id": by_douban_id}
+
+
+def build_douban_result_from_public_entry(
+    existing: dict[str, Any],
+    film_key_value: str,
+    entry: dict[str, Any],
+    match_key: str,
+) -> dict[str, Any]:
+    return {
+        **existing,
+        "film_key": film_key_value,
+        "douban_status": "matched",
+        "douban_cache_version": WATCHED_DOUBAN_CACHE_VERSION,
+        "douban_id": normalize_cell(entry.get("douban_id")),
+        "douban_title": normalize_cell(entry.get("douban_title")),
+        "douban_url": normalize_source_uri(entry.get("douban_url")),
+        "douban_rating": coerce_douban_rating(entry.get("douban_rating")),
+        "douban_rating_count": entry.get("douban_rating_count"),
+        "douban_year": normalize_cell(entry.get("douban_year")),
+        "douban_match_key": match_key,
+        "douban_source": normalize_cell(entry.get("source")) or "public_dataset",
+        "douban_updated_at": pd.Timestamp.now("UTC").isoformat(),
+    }
 
 
 def fetch_douban_streaming_entry(
@@ -1750,6 +1910,371 @@ def update_streaming_douban_cache(
     return cache
 
 
+def has_watched_douban_entry(entry: Any) -> bool:
+    if not isinstance(entry, dict):
+        return False
+    status = normalize_cell(entry.get("douban_status"))
+    rating = pd.to_numeric(entry.get("douban_rating"), errors="coerce")
+    if status == "matched":
+        return pd.notna(rating) and float(rating) > 0
+    version = pd.to_numeric(entry.get("douban_cache_version"), errors="coerce")
+    if pd.isna(version) or int(version) < WATCHED_DOUBAN_CACHE_VERSION:
+        return False
+    return status in {"not_found", "missing_imdb", "error"}
+
+
+def fetch_watched_imdb_entry(row: dict[str, Any], cached_entry: dict[str, Any] | None = None) -> dict[str, Any]:
+    existing = dict(cached_entry) if isinstance(cached_entry, dict) else {}
+    imdb_id = normalize_cell(existing.get("imdb_id"))
+    if imdb_id:
+        return {**existing, "film_key": row["film_key"], "imdb_status": "matched"}
+
+    source_uri = normalize_source_uri(row.get("canonical_url")) or normalize_source_uri(row.get("letterboxd_uri"))
+    if not source_uri:
+        return {
+            **existing,
+            "film_key": row["film_key"],
+            "imdb_status": "missing_uri",
+            "updated_at": pd.Timestamp.now("UTC").isoformat(),
+        }
+    try:
+        page_html = fetch_letterboxd_text(source_uri)
+    except Exception as exc:  # noqa: BLE001
+        return {
+            **existing,
+            "film_key": row["film_key"],
+            "imdb_status": "error",
+            "imdb_error": normalize_cell(exc),
+            "updated_at": pd.Timestamp.now("UTC").isoformat(),
+        }
+    imdb_match = re.search(r"imdb\.com/title/(tt\d+)", page_html)
+    if not imdb_match:
+        return {
+            **existing,
+            "film_key": row["film_key"],
+            "imdb_status": "not_found",
+            "updated_at": pd.Timestamp.now("UTC").isoformat(),
+        }
+    return {
+        **existing,
+        "film_key": row["film_key"],
+        "imdb_status": "matched",
+        "imdb_id": imdb_match.group(1),
+        "updated_at": pd.Timestamp.now("UTC").isoformat(),
+    }
+
+
+def watched_row_for_douban_search(row: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "film_key": row["film_key"],
+        "name": normalize_cell(row.get("Name")),
+        "year": row.get("Year"),
+        "letterboxd_url": normalize_source_uri(row.get("canonical_url")) or normalize_source_uri(row.get("letterboxd_uri")),
+    }
+
+
+def watched_existing_for_douban_search(row: dict[str, Any], existing: dict[str, Any]) -> dict[str, Any]:
+    return {
+        **existing,
+        "film_key": row["film_key"],
+        "metadata_title": normalize_cell(row.get("Name")),
+        "match_name": normalize_cell(row.get("Name")),
+        "match_year": row.get("Year"),
+        "letterboxd_url": normalize_source_uri(row.get("canonical_url")) or normalize_source_uri(row.get("letterboxd_uri")),
+        "imdb_id": normalize_cell(existing.get("imdb_id")),
+    }
+
+
+def build_douban_result_from_detail(
+    existing: dict[str, Any],
+    film_key_value: str,
+    douban_id: str,
+    match_key: str,
+) -> dict[str, Any]:
+    detail = fetch_douban_detail(douban_id)
+    rating = detail.get("rating") if isinstance(detail.get("rating"), dict) else {}
+    rating_value = coerce_douban_rating(rating.get("value"))
+    rating_count = pd.to_numeric(rating.get("count"), errors="coerce")
+    return {
+        **existing,
+        "film_key": film_key_value,
+        "douban_status": "matched",
+        "douban_cache_version": WATCHED_DOUBAN_CACHE_VERSION,
+        "douban_id": douban_id,
+        "douban_title": normalize_cell(detail.get("title")),
+        "douban_url": f"https://movie.douban.com/subject/{douban_id}/",
+        "douban_rating": rating_value,
+        "douban_rating_count": int(rating_count) if rating_value is not None and pd.notna(rating_count) else None,
+        "douban_year": normalize_cell(detail.get("year")),
+        "douban_match_key": match_key,
+        "douban_updated_at": pd.Timestamp.now("UTC").isoformat(),
+    }
+
+
+def build_watched_douban_section(
+    ratings_df: pd.DataFrame,
+    output_dir: Path,
+    max_new_lookups: int,
+    workers: int,
+    refresh_cache: bool,
+) -> tuple[dict[str, Any], pd.DataFrame]:
+    cache_path = output_dir / "watched_douban_cache.json"
+    cache = load_json_cache(cache_path)
+    try:
+        public_douban_index = load_public_douban_dataset_index(output_dir)
+    except Exception as exc:  # noqa: BLE001
+        print(f"Warning: public Douban dataset fallback unavailable: {exc}", file=sys.stderr)
+        public_douban_index = {"by_imdb": {}, "by_douban_id": {}}
+    public_douban_by_imdb = public_douban_index.get("by_imdb", {})
+    public_douban_by_id = public_douban_index.get("by_douban_id", {})
+    targets = ratings_df[
+        [
+            "film_key",
+            "Name",
+            "Year",
+            "user_rating",
+            "Letterboxd URI",
+            "canonical_url",
+            "site_average_rating",
+            "site_rating_count",
+        ]
+    ].copy()
+    targets = targets.rename(columns={"Letterboxd URI": "letterboxd_uri"})
+    lookup_frame = targets.copy()
+    if not refresh_cache:
+        lookup_frame = lookup_frame[
+            lookup_frame["film_key"].apply(lambda key: not has_watched_douban_entry(cache.get(key)))
+        ]
+    if max_new_lookups >= 0:
+        lookup_frame = lookup_frame.head(max_new_lookups)
+
+    if not lookup_frame.empty:
+        max_workers = max(1, workers)
+        imdb_targets = [
+            row
+            for row in lookup_frame.to_dict(orient="records")
+            if not normalize_cell(cache.get(row["film_key"], {}).get("imdb_id"))
+        ]
+        with ThreadPoolExecutor(max_workers=max_workers) as pool:
+            futures = {
+                pool.submit(fetch_watched_imdb_entry, row, cache.get(row["film_key"])): row["film_key"]
+                for row in imdb_targets
+            }
+            for index, future in enumerate(as_completed(futures), start=1):
+                result = future.result()
+                cache[result["film_key"]] = result
+                if index % 50 == 0 or index == len(futures):
+                    write_json_cache(cache_path, cache)
+
+        imdb_ids = [
+            normalize_cell(cache.get(row["film_key"], {}).get("imdb_id"))
+            for row in lookup_frame.to_dict(orient="records")
+        ]
+        imdb_to_douban = fetch_wikidata_douban_id_map(imdb_ids)
+        for row in lookup_frame.to_dict(orient="records"):
+            film_key_value = row["film_key"]
+            existing = cache.get(film_key_value) if isinstance(cache.get(film_key_value), dict) else {}
+            if has_watched_douban_entry(existing):
+                continue
+            imdb_id = normalize_cell(existing.get("imdb_id"))
+            if not imdb_id:
+                cache[film_key_value] = {
+                    **existing,
+                    "film_key": film_key_value,
+                    "douban_status": "missing_imdb",
+                    "douban_cache_version": WATCHED_DOUBAN_CACHE_VERSION,
+                    "douban_updated_at": pd.Timestamp.now("UTC").isoformat(),
+                }
+                continue
+            douban_id = imdb_to_douban.get(imdb_id)
+            if not douban_id:
+                public_entry = public_douban_by_imdb.get(imdb_id)
+                if public_entry:
+                    cache[film_key_value] = build_douban_result_from_public_entry(
+                        existing,
+                        film_key_value,
+                        public_entry,
+                        f"{imdb_id}:public_dataset",
+                    )
+                    continue
+                cache[film_key_value] = {
+                    **existing,
+                    "film_key": film_key_value,
+                    "douban_status": "not_found",
+                    "douban_cache_version": WATCHED_DOUBAN_CACHE_VERSION,
+                    "douban_error": "No Douban ID found in Wikidata for IMDb ID",
+                    "douban_updated_at": pd.Timestamp.now("UTC").isoformat(),
+                }
+                continue
+            public_entry = public_douban_by_id.get(douban_id) or public_douban_by_imdb.get(imdb_id)
+            if public_entry:
+                cache[film_key_value] = build_douban_result_from_public_entry(
+                    {
+                        **existing,
+                        "imdb_id": imdb_id,
+                    },
+                    film_key_value,
+                    public_entry,
+                    f"{imdb_id}:wikidata:public_dataset",
+                )
+                continue
+            cache[film_key_value] = {
+                **existing,
+                "film_key": film_key_value,
+                "imdb_id": imdb_id,
+                "douban_id": douban_id,
+                "douban_status": "pending_detail",
+                "douban_cache_version": WATCHED_DOUBAN_CACHE_VERSION,
+            }
+        write_json_cache(cache_path, cache)
+
+        detail_targets = [
+            key
+            for key, entry in cache.items()
+            if isinstance(entry, dict)
+            and normalize_cell(entry.get("douban_id"))
+            and not has_watched_douban_entry(entry)
+            and normalize_cell(entry.get("douban_status")) == "pending_detail"
+            and key in set(lookup_frame["film_key"])
+        ]
+        with ThreadPoolExecutor(max_workers=max(1, min(workers, 4))) as pool:
+            futures = {
+                pool.submit(
+                    build_douban_result_from_detail,
+                    cache[key],
+                    key,
+                    normalize_cell(cache[key].get("douban_id")),
+                    f"{normalize_cell(cache[key].get('imdb_id'))}:wikidata",
+                ): key
+                for key in detail_targets
+            }
+            for index, future in enumerate(as_completed(futures), start=1):
+                film_key_value = futures[future]
+                try:
+                    result = future.result()
+                except Exception as exc:  # noqa: BLE001
+                    existing = cache.get(film_key_value) if isinstance(cache.get(film_key_value), dict) else {}
+                    result = {
+                        **existing,
+                        "film_key": film_key_value,
+                        "douban_status": "error",
+                        "douban_cache_version": WATCHED_DOUBAN_CACHE_VERSION,
+                        "douban_error": normalize_cell(exc),
+                        "douban_updated_at": pd.Timestamp.now("UTC").isoformat(),
+                    }
+                cache[film_key_value] = result
+                if index % 50 == 0 or index == len(futures):
+                    write_json_cache(cache_path, cache)
+
+        fallback_targets = []
+        lookup_keys = set(lookup_frame["film_key"])
+        row_by_key = {row["film_key"]: row for row in lookup_frame.to_dict(orient="records")}
+        for film_key_value in lookup_keys:
+            entry = cache.get(film_key_value) if isinstance(cache.get(film_key_value), dict) else {}
+            status = normalize_cell(entry.get("douban_status"))
+            if has_watched_douban_entry(entry):
+                continue
+            if status in {"pending_detail"}:
+                continue
+            if film_key_value in row_by_key:
+                fallback_targets.append(row_by_key[film_key_value])
+        if public_douban_by_imdb or public_douban_by_id:
+            fallback_targets = []
+        else:
+            fallback_targets = fallback_targets[:30]
+
+        # Douban's search endpoint is more fragile than Wikidata/detail lookups, so keep this conservative.
+        with ThreadPoolExecutor(max_workers=max(1, min(workers, 2))) as pool:
+            futures = {
+                pool.submit(
+                    fetch_douban_streaming_entry,
+                    watched_row_for_douban_search(row),
+                    watched_existing_for_douban_search(
+                        row,
+                        cache.get(row["film_key"]) if isinstance(cache.get(row["film_key"]), dict) else {},
+                    ),
+                ): row["film_key"]
+                for row in fallback_targets
+            }
+            for index, future in enumerate(as_completed(futures), start=1):
+                film_key_value = futures[future]
+                try:
+                    result = future.result()
+                except Exception as exc:  # noqa: BLE001
+                    existing = cache.get(film_key_value) if isinstance(cache.get(film_key_value), dict) else {}
+                    result = {
+                        **existing,
+                        "film_key": film_key_value,
+                        "douban_status": "error",
+                        "douban_cache_version": WATCHED_DOUBAN_CACHE_VERSION,
+                        "douban_error": normalize_cell(exc),
+                        "douban_updated_at": pd.Timestamp.now("UTC").isoformat(),
+                    }
+                result["douban_cache_version"] = WATCHED_DOUBAN_CACHE_VERSION
+                cache[result["film_key"]] = result
+                if index % 25 == 0 or index == len(futures):
+                    write_json_cache(cache_path, cache)
+
+    write_json_cache(cache_path, cache)
+
+    enriched = ratings_df.copy()
+    enriched["douban_rating"] = enriched["film_key"].map(lambda key: cache.get(key, {}).get("douban_rating"))
+    enriched["douban_url"] = enriched["film_key"].map(lambda key: cache.get(key, {}).get("douban_url"))
+    enriched["douban_title"] = enriched["film_key"].map(lambda key: cache.get(key, {}).get("douban_title"))
+    enriched["douban_status"] = enriched["film_key"].map(lambda key: cache.get(key, {}).get("douban_status"))
+    enriched["imdb_id"] = enriched["film_key"].map(lambda key: cache.get(key, {}).get("imdb_id"))
+
+    rated = enriched[enriched["douban_rating"].notna()].copy()
+    rated["douban_gap"] = rated["douban_rating"] / 2 - rated["user_rating"]
+    rows = enriched[
+        [
+            "film_key",
+            "Name",
+            "Year",
+            "user_rating",
+            "site_average_rating",
+            "douban_rating",
+            "douban_url",
+            "douban_title",
+            "douban_status",
+            "genres",
+            "countries",
+            "directors",
+        ]
+    ].rename(columns={"Name": "name", "Year": "year"})
+    top_gaps = (
+        rated.assign(douban_gap_abs=rated["douban_gap"].abs())
+        .sort_values(["douban_gap_abs", "douban_rating"], ascending=[False, False])
+        [
+            [
+                "Name",
+                "Year",
+                "user_rating",
+                "site_average_rating",
+                "douban_rating",
+                "douban_url",
+                "douban_gap",
+            ]
+        ]
+        .rename(columns={"Name": "name", "Year": "year"})
+        .head(25)
+    )
+    return (
+        {
+            "stats": {
+                "watched_titles": int(len(enriched)),
+                "douban_rated_titles": int(enriched["douban_rating"].notna().sum()),
+                "coverage": float(enriched["douban_rating"].notna().mean()) if len(enriched) else 0.0,
+                "missing_titles": int(enriched["douban_rating"].isna().sum()),
+                "new_lookups_requested": int(min(max_new_lookups, len(lookup_frame))) if max_new_lookups >= 0 else int(len(lookup_frame)),
+            },
+            "rows": serialize_frame(rows.sort_values(["douban_rating", "user_rating"], ascending=[False, False])),
+            "top_gaps": serialize_frame(top_gaps),
+        },
+        enriched,
+    )
+
+
 def load_list_exports(list_dir: Path) -> pd.DataFrame:
     rows: list[dict[str, Any]] = []
     for path in sorted(list_dir.glob("*.csv")):
@@ -1833,52 +2358,77 @@ def build_runtime_bucket(series: pd.Series) -> pd.Series:
 def derive_tag_columns(frame: pd.DataFrame, tags_col: str = "tags_list") -> pd.DataFrame:
     derived = frame.copy()
 
+    def lower_tags(tags: list[str]) -> list[str]:
+        return [normalize_cell(tag).lower() for tag in ensure_list(tags) if normalize_cell(tag)]
+
     def social_bucket(tags: list[str]) -> str:
-        if "watchparty" in tags:
+        tag_set = set(lower_tags(tags))
+        if "watchparty" in tag_set:
             return "Watchparty"
-        if any(tag.startswith("with") and tag not in {"withppl"} for tag in tags):
+        if any(tag.startswith("with") and tag not in {"withppl"} for tag in tag_set):
             return "With specific person"
-        if "withppl" in tags:
+        if "withppl" in tag_set:
             return "With people"
-        if "myself" in tags:
+        if "myself" in tag_set:
             return "Solo"
         return "Unspecified"
 
     def companion_label(tags: list[str]) -> str | None:
         names = [
-            tag[4:].capitalize()
-            for tag in tags
-            if tag.startswith("with") and tag not in {"withppl"}
+            normalize_cell(tag)[4:].capitalize()
+            for tag in ensure_list(tags)
+            if normalize_cell(tag).lower().startswith("with")
+            and normalize_cell(tag).lower() not in {"withppl"}
         ]
         if names:
             return ", ".join(names)
-        if "withppl" in tags:
+        tag_set = set(lower_tags(tags))
+        if "withppl" in tag_set:
             return "People"
-        if "watchparty" in tags:
+        if "watchparty" in tag_set:
             return "Watchparty"
         return None
 
     def venue_label(tags: list[str]) -> str:
+        tag_set = set(lower_tags(tags))
         for key, label in VENUE_MAP.items():
-            if key in tags:
+            if key in tag_set:
                 return label
         return "Home / unspecified"
 
+    def location_label(tags: list[str]) -> str | None:
+        tag_set = set(lower_tags(tags))
+        for key, label in VENUE_MAP.items():
+            if key in tag_set:
+                return label
+        if any(tag in tag_set for tag in DEVICE_PRIORITY + PLATFORM_TAGS):
+            return "Home / personal setup"
+        return None
+
     def device_label(tags: list[str]) -> str:
+        tag_set = set(lower_tags(tags))
+        if "thearter" in tag_set or "theater" in tag_set:
+            return "Theater"
         for device in DEVICE_PRIORITY:
-            if device in tags:
+            if device in tag_set:
+                if device == "ipad":
+                    return "iPad"
+                if device == "tv":
+                    return "TV"
                 return device.capitalize()
         return "Unknown"
 
     def platform_label(tags: list[str]) -> str:
+        tag_set = set(lower_tags(tags))
         for platform in PLATFORM_TAGS:
-            if platform in tags:
-                return platform.title()
+            if platform in tag_set:
+                return PLATFORM_LABEL_OVERRIDES.get(platform, platform.title())
         return "Unknown"
 
     derived["social_context"] = derived[tags_col].apply(social_bucket)
     derived["companion"] = derived[tags_col].apply(companion_label)
     derived["venue_context"] = derived[tags_col].apply(venue_label)
+    derived["location_context"] = derived[tags_col].apply(location_label)
     derived["device_context"] = derived[tags_col].apply(device_label)
     derived["platform_context"] = derived[tags_col].apply(platform_label)
     derived["is_social"] = derived["social_context"].isin({"Watchparty", "With specific person", "With people"})
@@ -2525,6 +3075,53 @@ def build_genre_country_section(ratings_df: pd.DataFrame) -> dict[str, Any]:
 
 def build_tag_section(diary_df: pd.DataFrame) -> dict[str, Any]:
     rated_events = diary_df[diary_df["user_rating"].notna()].copy()
+    tagged_events = diary_df[diary_df["tags_list"].apply(len).gt(0)].copy()
+
+    def pie_rows(frame: pd.DataFrame, column: str, excluded: set[str] | None = None, limit: int | None = None) -> list[dict[str, Any]]:
+        excluded = excluded or set()
+        source = frame[frame[column].notna()].copy()
+        source = source[~source[column].isin(excluded)]
+        if source.empty:
+            return []
+        grouped = (
+            source.groupby(column)
+            .agg(
+                watches=("film_key", "size"),
+                rated_watches=("user_rating", lambda s: int(s.notna().sum())),
+                avg_rating=("user_rating", "mean"),
+                distinct_films=("film_key", "nunique"),
+            )
+            .reset_index()
+            .rename(columns={column: "label"})
+            .sort_values(["watches", "avg_rating"], ascending=[False, False])
+        )
+        total = grouped["watches"].sum()
+        grouped["share"] = grouped["watches"] / total if total else 0
+        if limit is not None:
+            grouped = grouped.head(limit)
+        return serialize_frame(grouped)
+
+    raw_tag_rows: list[dict[str, Any]] = []
+    if not tagged_events.empty:
+        exploded_tags = tagged_events.explode("tags_list").copy()
+        exploded_tags["tag_label"] = exploded_tags["tags_list"].apply(normalize_cell)
+        exploded_tags = exploded_tags[exploded_tags["tag_label"] != ""]
+        if not exploded_tags.empty:
+            grouped_tags = (
+                exploded_tags.groupby("tag_label")
+                .agg(
+                    watches=("film_key", "size"),
+                    avg_rating=("user_rating", "mean"),
+                    distinct_films=("film_key", "nunique"),
+                )
+                .reset_index()
+                .rename(columns={"tag_label": "label"})
+                .sort_values(["watches", "avg_rating"], ascending=[False, False])
+                .head(16)
+            )
+            total_tags = grouped_tags["watches"].sum()
+            grouped_tags["share"] = grouped_tags["watches"] / total_tags if total_tags else 0
+            raw_tag_rows = serialize_frame(grouped_tags)
 
     social_stats = serialize_frame(
         rated_events.groupby("social_context").agg(
@@ -2611,6 +3208,14 @@ def build_tag_section(diary_df: pd.DataFrame) -> dict[str, Any]:
         "venue_stats": venue_stats,
         "companion_stats": companion_stats,
         "social_genre_delta": social_genre_delta,
+        "tag_pies": {
+            "device_context": pie_rows(tagged_events, "device_context", {"Unknown"}),
+            "social_context": pie_rows(tagged_events, "social_context", {"Unspecified"}),
+            "companion": pie_rows(tagged_events, "companion"),
+            "location_context": pie_rows(tagged_events, "location_context"),
+            "platform_context": pie_rows(tagged_events, "platform_context", {"Unknown"}),
+            "raw_tags": raw_tag_rows,
+        },
     }
 
 
@@ -3563,6 +4168,9 @@ def build_html(payload: dict[str, Any]) -> str:
     )
     daily_signal_html = render_daily_signal_items(payload.get("daily_signal") or {})
     daily_signal_facts = (payload.get("daily_signal") or {}).get("fun_facts", [])
+    watched_douban = payload.get("watched_douban") or {}
+    watched_douban_stats = watched_douban.get("stats") or {}
+    watched_douban_coverage = f"{float(watched_douban_stats.get('coverage') or 0) * 100:.1f}%"
     daily_signal_fact_html = (
         "".join(
             "<article class='insight-card'>"
@@ -3685,6 +4293,17 @@ def build_html(payload: dict[str, Any]) -> str:
       font-weight: 700;
       margin-top: 6px;
     }}
+    .section .metric {{
+      background: #fffaf2;
+      border-color: var(--line);
+      backdrop-filter: none;
+    }}
+    .section .metric .label {{
+      color: var(--muted);
+    }}
+    .section .metric .value {{
+      color: var(--ink);
+    }}
     .section {{
       margin-top: 26px;
       background: var(--paper);
@@ -3806,6 +4425,7 @@ def build_html(payload: dict[str, Any]) -> str:
       font-size: 0.92rem;
     }}
     #streaming-table,
+    #watched-douban-table,
     #recommendation-table {{
       min-width: 1180px;
     }}
@@ -4019,6 +4639,7 @@ def build_html(payload: dict[str, Any]) -> str:
         <div class="metric"><div class="label">Written reviews</div><div class="value">{payload['reviews']['stats']['review_count']}</div></div>
         <div class="metric"><div class="label">Exported lists</div><div class="value">{payload['metrics']['custom_lists']}</div></div>
         <div class="metric"><div class="label">Unseen candidates</div><div class="value">{payload['metrics']['candidate_pool_size']}</div></div>
+        <div class="metric"><div class="label">Douban matched</div><div class="value">{payload['metrics']['douban_rated_titles']}</div></div>
         <div class="metric"><div class="label">Streaming indexed</div><div class="value">{payload['metrics']['streaming_indexed_titles']}</div></div>
       </div>
     </section>
@@ -4038,6 +4659,23 @@ def build_html(payload: dict[str, Any]) -> str:
           <p class="lead">这些条目来自你的评分、tags、lists 和当前可看目录，会随每日同步更新。</p>
           <div class="brief-grid">{daily_signal_fact_html}</div>
         </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Watched Films: Douban Coverage</h2>
+      <p class="lead">本区为已评分影片补齐豆瓣评分，并将你的评分、Letterboxd 均分与豆瓣 10 分制评分放在同一张表内对照。匹配优先使用 IMDb / Douban subject ID，并以公开豆瓣电影数据索引补齐历史评分；live Douban API 只作为可用时的增量来源。</p>
+      <div class="metrics">
+        <div class="metric"><div class="label">Matched watched films</div><div class="value">{watched_douban_stats.get('douban_rated_titles', 0)}</div></div>
+        <div class="metric"><div class="label">Coverage</div><div class="value">{watched_douban_coverage}</div></div>
+        <div class="metric"><div class="label">Missing after lookup</div><div class="value">{watched_douban_stats.get('missing_titles', 0)}</div></div>
+      </div>
+      <div class="grid-2" style="margin-top:18px;">
+        <div id="watched-douban-scatter" class="plot"></div>
+        <div id="watched-douban-gap-chart" class="plot"></div>
+      </div>
+      <div class="table-wrap" style="margin-top:18px;">
+        <table id="watched-douban-table"></table>
       </div>
     </section>
 
@@ -4153,7 +4791,17 @@ def build_html(payload: dict[str, Any]) -> str:
 
     <section class="section">
       <h2>Viewing Context Tags</h2>
-      <p class="lead">本区将 tags 视为观影语境元数据，拆分为社交关系、设备、平台和场所四类进行对照。</p>
+      <p class="lead">本区将 tags 视为观影语境元数据，拆分为社交关系、同伴、观看设备、地点与来源。未标记条目不进入占比图。</p>
+      <h3>Tag Composition</h3>
+      <div class="grid-3">
+        <div id="tag-device-pie" class="plot"></div>
+        <div id="tag-social-pie" class="plot"></div>
+        <div id="tag-companion-pie" class="plot"></div>
+        <div id="tag-location-pie" class="plot"></div>
+        <div id="tag-platform-pie" class="plot"></div>
+        <div id="tag-raw-pie" class="plot"></div>
+      </div>
+      <h3 style="margin-top:18px;">Rating Context</h3>
       <div class="grid-3">
         <div id="social-context-chart" class="plot"></div>
         <div id="device-context-chart" class="plot"></div>
@@ -4242,6 +4890,13 @@ def build_html(payload: dict[str, Any]) -> str:
       return Number.isFinite(number) ? number.toFixed(2) : '—';
     }}
 
+    function formatSignedRating(value) {{
+      if (value === null || value === undefined || value === '') return '—';
+      const number = Number(value);
+      if (!Number.isFinite(number)) return '—';
+      return `${{number >= 0 ? '+' : ''}}${{number.toFixed(2)}}`;
+    }}
+
     function formatOneDecimal(value) {{
       if (value === null || value === undefined || value === '') return '—';
       const number = Number(value);
@@ -4317,6 +4972,120 @@ def build_html(payload: dict[str, Any]) -> str:
           onChange();
         }});
       }});
+    }}
+
+    function renderWatchedDoubanCharts() {{
+      const watched = data.watched_douban || {{}};
+      const matched = (watched.rows || []).filter(row => row.douban_rating !== null && row.douban_rating !== undefined);
+      const scatterRows = matched.filter(row => row.user_rating !== null && row.user_rating !== undefined);
+      Plotly.newPlot('watched-douban-scatter', [{{
+        type: 'scatter',
+        mode: 'markers',
+        x: scatterRows.map(row => row.user_rating),
+        y: scatterRows.map(row => Number(row.douban_rating) / 2),
+        text: scatterRows.map(row => `${{row.name}} (${{row.year ?? '—'}})`),
+        customdata: scatterRows.map(row => [formatOneDecimal(row.douban_rating), formatRating(row.site_average_rating)]),
+        marker: {{
+          color: scatterRows.map(row => Number(row.douban_rating) / 2 - Number(row.user_rating)),
+          colorscale: 'RdBu',
+          reversescale: true,
+          showscale: true,
+          colorbar: {{title: 'Douban gap'}},
+          size: 8,
+          opacity: 0.76,
+        }},
+        hovertemplate: '%{{text}}<br>Your rating: %{{x:.2f}}<br>Douban / 2: %{{y:.2f}}<br>Douban: %{{customdata[0]}}<br>Letterboxd: %{{customdata[1]}}<extra></extra>',
+      }}], {{
+        ...plotLayout,
+        title: 'Your rating vs Douban rating',
+        xaxis: {{title: 'Your rating', range: [0, 5.15], automargin: true}},
+        yaxis: {{title: 'Douban rating / 2', range: [0, 5.15], automargin: true}},
+        height: 420,
+      }}, plotConfig);
+
+      const gapRows = (watched.top_gaps || [])
+        .filter(row => row.douban_gap !== null && row.douban_gap !== undefined)
+        .slice(0, 14)
+        .reverse();
+      Plotly.newPlot('watched-douban-gap-chart', [{{
+        type: 'bar',
+        orientation: 'h',
+        y: gapRows.map(row => wrapLabel(`${{shortenLabel(row.name, 42)}} (${{row.year ?? '—'}})`, 24)),
+        x: gapRows.map(row => row.douban_gap),
+        marker: {{color: gapRows.map(row => row.douban_gap >= 0 ? '#2d6f8e' : '#b75b49')}},
+        customdata: gapRows.map(row => [formatRating(row.user_rating), formatOneDecimal(row.douban_rating)]),
+        hovertemplate: 'Gap: %{{x:.2f}}<br>Your rating: %{{customdata[0]}}<br>Douban: %{{customdata[1]}}<extra></extra>',
+      }}], {{
+        ...plotLayout,
+        title: 'Largest Douban / personal-rating gaps',
+        xaxis: {{title: 'Douban / 2 minus your rating', zeroline: true, automargin: true}},
+        yaxis: {{automargin: true}},
+        height: barChartHeight(gapRows.length, 150, 32, 640),
+      }}, plotConfig);
+
+      const tableRows = [...matched].sort((left, right) => {{
+        if ((right.douban_rating ?? -1) !== (left.douban_rating ?? -1)) return (right.douban_rating ?? -1) - (left.douban_rating ?? -1);
+        return (right.user_rating ?? -1) - (left.user_rating ?? -1);
+      }}).slice(0, 120);
+      makeTable(
+        document.getElementById('watched-douban-table'),
+        [
+          {{key: 'name', label: 'Film'}},
+          {{key: 'year', label: 'Year'}},
+          {{key: 'user_rating', label: 'Your rating'}},
+          {{key: 'letterboxd', label: 'Letterboxd'}},
+          {{key: 'douban', label: 'Douban'}},
+          {{key: 'gap', label: 'Douban gap'}},
+          {{key: 'genres', label: 'Genres'}},
+          {{key: 'links', label: 'Links'}},
+        ],
+        tableRows.map(row => {{
+          const gap = row.user_rating === null || row.user_rating === undefined
+            ? null
+            : Number(row.douban_rating) / 2 - Number(row.user_rating);
+          return {{
+            name: row.name,
+            year: row.year ?? '—',
+            user_rating: formatRating(row.user_rating),
+            letterboxd: formatRating(row.site_average_rating),
+            douban: formatOneDecimal(row.douban_rating),
+            gap: formatSignedRating(gap),
+            genres: (row.genres || []).join(' / ') || '—',
+            links: row.douban_url ? `<div class="inline-links"><a href="${{row.douban_url}}" target="_blank" rel="noopener noreferrer">Douban</a></div>` : '—',
+          }};
+        }})
+      );
+    }}
+
+    function drawTagPie(containerId, rows, title) {{
+      const el = document.getElementById(containerId);
+      if (!rows || rows.length === 0) {{
+        el.innerHTML = '<p class="muted">No tagged data in this category.</p>';
+        return;
+      }}
+      Plotly.newPlot(containerId, [{{
+        type: 'pie',
+        labels: rows.map(row => wrapLabel(row.label, 18)),
+        values: rows.map(row => row.watches),
+        hole: 0.38,
+        texttemplate: '%{{label}}<br>%{{percent}}',
+        hovertemplate: '%{{label}}<br>Watches: %{{value}}<br>Share: %{{percent}}<extra></extra>',
+      }}], {{
+        ...plotLayout,
+        title,
+        margin: {{t: 54, r: 16, b: 18, l: 16}},
+        height: 360,
+      }}, plotConfig);
+    }}
+
+    function renderTagPieCharts() {{
+      const pies = data.tags.tag_pies || {{}};
+      drawTagPie('tag-device-pie', pies.device_context || [], 'Viewing device / display');
+      drawTagPie('tag-social-pie', pies.social_context || [], 'Social context');
+      drawTagPie('tag-companion-pie', pies.companion || [], 'Companion');
+      drawTagPie('tag-location-pie', pies.location_context || [], 'Location');
+      drawTagPie('tag-platform-pie', pies.platform_context || [], 'Platform / source tag');
+      drawTagPie('tag-raw-pie', pies.raw_tags || [], 'Most used raw tags');
     }}
 
     function renderGenreSelect() {{
@@ -4869,6 +5638,8 @@ def build_html(payload: dict[str, Any]) -> str:
     renderGenreSelect();
     renderGenreCountry(document.getElementById('genre-select').value);
     renderHeatmaps();
+    renderWatchedDoubanCharts();
+    renderTagPieCharts();
     renderTagCharts();
     renderReviewCharts();
     renderListCharts();
@@ -4997,6 +5768,13 @@ def main() -> None:
     for frame in (ratings_df, watchlist_df):
         if "countries" in frame.columns:
             frame["countries"] = frame["countries"].apply(relabel_origin_list)
+    watched_douban_section, ratings_df = build_watched_douban_section(
+        ratings_df,
+        output_dir=output_dir,
+        max_new_lookups=max(0, args.watched_douban_lookups),
+        workers=max(1, args.workers),
+        refresh_cache=args.refresh_cache,
+    )
     diary_lookup = ratings_df[
         [
             "film_key",
@@ -5066,6 +5844,7 @@ def main() -> None:
         "custom_lists": int(list_entries_df["list_title"].nunique()),
         "candidate_pool_size": int(len(recommendations)),
         "streaming_indexed_titles": int(streaming_section["stats"]["scored_titles"]),
+        "douban_rated_titles": int(watched_douban_section["stats"]["douban_rated_titles"]),
     }
 
     payload = {
@@ -5078,6 +5857,7 @@ def main() -> None:
         "tags": tags_section,
         "reviews": review_section,
         "lists": list_section,
+        "watched_douban": watched_douban_section,
         "streaming": streaming_section,
         "recommendations": recommendation_payload,
         "daily_signal": daily_signal_section,

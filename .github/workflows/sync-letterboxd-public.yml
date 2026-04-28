@@ -83,6 +83,7 @@ jobs:
             --streaming-lookups 200 \
             --streaming-workers 3 \
             --douban-lookups 40 \
+            --watched-douban-lookups 700 \
             --streaming-catalog-timeout 120
 
       - name: Update published root files

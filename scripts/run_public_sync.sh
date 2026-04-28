@@ -27,6 +27,7 @@ PYTHONPATH="$VENDOR_DIR${PYTHONPATH:+:$PYTHONPATH}" \
   --streaming-lookups 200 \
   --streaming-workers 3 \
   --douban-lookups 40 \
+  --watched-douban-lookups 700 \
   --streaming-catalog-timeout 120
 
 cp "$OUTPUT_REPORT_DIR/share-site/index.html" "$ROOT_DIR/index.html"
