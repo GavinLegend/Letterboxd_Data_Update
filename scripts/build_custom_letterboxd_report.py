@@ -20,7 +20,7 @@ from pathlib import Path
 from statistics import mean
 from typing import Any
 from urllib.error import HTTPError, URLError
-from urllib.parse import quote_plus
+from urllib.parse import quote_plus, urlencode
 from urllib.request import Request, urlopen
 from xml.etree import ElementTree as ET
 
@@ -355,9 +355,10 @@ LETTERBOXD_IMPERSONATE = "chrome136"
 DOUBAN_API_BASE_URL = "https://m.douban.com/rexxar/api/v2"
 DOUBAN_SUGGEST_URL = "https://movie.douban.com/j/subject_suggest"
 DOUBAN_SUBJECT_SEARCH_URL = "https://movie.douban.com/subject_search"
+WIKIDATA_SPARQL_URL = "https://query.wikidata.org/sparql"
 RATING_BUCKET_VALUES = [0.5 + 0.5 * index for index in range(10)]
 STREAMING_CACHE_VERSION = 2
-DOUBAN_CACHE_VERSION = 2
+DOUBAN_CACHE_VERSION = 4
 LIST_CATEGORY_LABELS = {
     "watch_plan": "待看计划",
     "preference": "偏好声明",
@@ -1025,6 +1026,53 @@ def sanitize_cached_streaming_section(streaming: dict[str, Any]) -> dict[str, An
     return sanitized
 
 
+def refresh_cached_streaming_douban_section(
+    streaming: dict[str, Any],
+    output_dir: Path,
+    max_douban_lookups: int,
+    workers: int,
+    refresh_cache: bool,
+) -> dict[str, Any]:
+    sanitized = sanitize_cached_streaming_section(streaming)
+    rows = [row for row in ensure_list(sanitized.get("rows")) if isinstance(row, dict)]
+    if not rows or max_douban_lookups == 0:
+        return sanitized
+
+    targets = pd.DataFrame(
+        [
+            {
+                "film_key": row.get("film_key"),
+                "name": row.get("name"),
+                "year": row.get("year"),
+                "runtime_minutes": row.get("runtime_minutes"),
+            }
+            for row in rows
+            if normalize_cell(row.get("film_key")) and normalize_cell(row.get("name"))
+        ]
+    )
+    if targets.empty:
+        return sanitized
+
+    cache = update_streaming_douban_cache(
+        targets,
+        cache_path=output_dir / "streaming_letterboxd_cache.json",
+        max_new_lookups=max_douban_lookups,
+        workers=max(1, workers),
+        refresh_cache=refresh_cache,
+    )
+    refreshed = json.loads(json.dumps(sanitized))
+    for row in refreshed.get("rows", []):
+        entry = cache.get(row.get("film_key"), {}) if isinstance(cache, dict) else {}
+        if not isinstance(entry, dict):
+            continue
+        row["douban_rating"] = entry.get("douban_rating")
+        row["douban_url"] = entry.get("douban_url")
+    refreshed = sanitize_cached_streaming_section(refreshed)
+    refreshed.setdefault("stats", {})["douban_fallback_enriched"] = True
+    refreshed.setdefault("stats", {})["douban_lookups_requested"] = int(max_douban_lookups)
+    return refreshed
+
+
 def load_cached_streaming_section(output_dir: Path) -> dict[str, Any] | None:
     candidate_paths = [
         output_dir / "custom-report-data.json",
@@ -1178,10 +1226,14 @@ def is_valid_streaming_cache_entry(entry: Any) -> bool:
 def has_streaming_douban_entry(entry: Any) -> bool:
     if not isinstance(entry, dict):
         return False
+    status = normalize_cell(entry.get("douban_status"))
+    rating = pd.to_numeric(entry.get("douban_rating"), errors="coerce")
+    if status == "matched":
+        return pd.notna(rating) and float(rating) > 0
     version = pd.to_numeric(entry.get("douban_cache_version"), errors="coerce")
     if pd.isna(version) or int(version) < DOUBAN_CACHE_VERSION:
         return False
-    return normalize_cell(entry.get("douban_status")) in {"matched", "not_found"}
+    return status in {"matched", "not_found"}
 
 
 def fetch_douban_suggestions(query: str) -> list[dict[str, Any]]:
@@ -1213,10 +1265,20 @@ def fetch_douban_subject_search(query: str) -> list[dict[str, Any]]:
     )
     with urlopen(request, timeout=10) as response:
         html_text = response.read().decode("utf-8", errors="replace")
+    if (
+        "sec.douban.com" in html_text
+        or "访问太频繁" in html_text
+        or "异常请求" in html_text
+        or "检测到有异常" in html_text
+    ):
+        raise RuntimeError("Douban search appears rate-limited")
     match = re.search(r"window\.__DATA__\s*=\s*(\{.*?\});", html_text, flags=re.S)
     if not match:
-        return []
+        raise RuntimeError("Douban search did not return structured data")
     payload = json.loads(match.group(1))
+    error_info = normalize_cell(payload.get("error_info")) if isinstance(payload, dict) else ""
+    if error_info:
+        raise RuntimeError(f"Douban search error: {error_info}")
     return ensure_list(payload.get("items"))
 
 
@@ -1308,11 +1370,47 @@ def fetch_douban_detail(subject_id: str) -> dict[str, Any]:
     return payload
 
 
+def fetch_wikidata_douban_id(imdb_id: str) -> str | None:
+    imdb = normalize_cell(imdb_id)
+    if not re.fullmatch(r"tt\d+", imdb):
+        return None
+    query = (
+        "SELECT ?douban WHERE { "
+        f'?item wdt:P345 "{imdb}". '
+        "OPTIONAL { ?item wdt:P4529 ?douban. } "
+        "} LIMIT 1"
+    )
+    request = Request(
+        f"{WIKIDATA_SPARQL_URL}?{urlencode({'query': query, 'format': 'json'})}",
+        headers={
+            "Accept": "application/sparql-results+json",
+            "User-Agent": "Letterboxd_Data_Update/1.0 (https://github.com/GavinLegend/Letterboxd_Data_Update)",
+        },
+    )
+    with urlopen(request, timeout=12) as response:
+        payload = json.loads(response.read().decode("utf-8", errors="replace"))
+    for binding in ensure_list(payload.get("results", {}).get("bindings")):
+        douban = binding.get("douban") if isinstance(binding, dict) else None
+        value = normalize_cell(douban.get("value")) if isinstance(douban, dict) else ""
+        if value:
+            return value
+    return None
+
+
+def coerce_douban_rating(value: Any) -> float | None:
+    rating = pd.to_numeric(value, errors="coerce")
+    if pd.isna(rating) or float(rating) <= 0:
+        return None
+    return float(rating)
+
+
 def fetch_douban_streaming_entry(
     row: dict[str, Any],
     cached_entry: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     existing = dict(cached_entry) if isinstance(cached_entry, dict) else {}
+    search_had_response = False
+    search_errors: list[str] = []
     title_candidates = unique_preserve_order(
         [
             normalize_cell(existing.get("metadata_title")),
@@ -1335,11 +1433,51 @@ def fetch_douban_streaming_entry(
 
     if imdb_id:
         try:
+            wikidata_douban_id = fetch_wikidata_douban_id(imdb_id)
+            search_had_response = True
+        except Exception as exc:  # noqa: BLE001
+            search_errors.append(normalize_cell(exc))
+            wikidata_douban_id = None
+        if wikidata_douban_id:
+            try:
+                detail = fetch_douban_detail(wikidata_douban_id)
+            except Exception as exc:  # noqa: BLE001
+                return {
+                    **existing,
+                    "film_key": row["film_key"],
+                    "douban_status": "error",
+                    "douban_cache_version": DOUBAN_CACHE_VERSION,
+                    "douban_id": wikidata_douban_id,
+                    "douban_error": normalize_cell(exc),
+                    "douban_updated_at": pd.Timestamp.now("UTC").isoformat(),
+                }
+            rating = detail.get("rating") if isinstance(detail.get("rating"), dict) else {}
+            rating_value = coerce_douban_rating(rating.get("value"))
+            rating_count = pd.to_numeric(rating.get("count"), errors="coerce")
+            return {
+                **existing,
+                "film_key": row["film_key"],
+                "douban_status": "matched",
+                "douban_cache_version": DOUBAN_CACHE_VERSION,
+                "douban_id": wikidata_douban_id,
+                "douban_title": normalize_cell(detail.get("title")),
+                "douban_url": f"https://movie.douban.com/subject/{wikidata_douban_id}/",
+                "douban_rating": rating_value,
+                "douban_rating_count": int(rating_count) if rating_value is not None and pd.notna(rating_count) else None,
+                "douban_year": normalize_cell(detail.get("year")),
+                "douban_match_key": f"{imdb_id}:wikidata",
+                "douban_updated_at": pd.Timestamp.now("UTC").isoformat(),
+            }
+
+        try:
+            raw_imdb_candidates = fetch_douban_subject_search(imdb_id)
+            search_had_response = True
             imdb_candidates = [
                 normalize_douban_search_item(item)
-                for item in fetch_douban_subject_search(imdb_id)
+                for item in raw_imdb_candidates
             ]
-        except Exception:
+        except Exception as exc:  # noqa: BLE001
+            search_errors.append(normalize_cell(exc))
             imdb_candidates = []
         if imdb_candidates:
             match = choose_douban_match(imdb_candidates, title_candidates, year) or imdb_candidates[0]
@@ -1356,6 +1494,7 @@ def fetch_douban_streaming_entry(
                 rating_value = pd.to_numeric(rating.get("value"), errors="coerce")
                 if pd.isna(rating_value):
                     rating_value = pd.to_numeric(match.get("rating_value"), errors="coerce")
+                rating_value = coerce_douban_rating(rating_value)
                 rating_count = pd.to_numeric(rating.get("count"), errors="coerce")
                 if pd.isna(rating_count):
                     rating_count = pd.to_numeric(match.get("rating_count"), errors="coerce")
@@ -1367,8 +1506,8 @@ def fetch_douban_streaming_entry(
                     "douban_id": subject_id,
                     "douban_title": normalize_cell(detail.get("title")) or normalize_cell(match.get("title")),
                     "douban_url": normalize_source_uri(match.get("url")) or normalize_source_uri(f"https://movie.douban.com/subject/{subject_id}/"),
-                    "douban_rating": float(rating_value) if pd.notna(rating_value) else None,
-                    "douban_rating_count": int(rating_count) if pd.notna(rating_count) else None,
+                    "douban_rating": rating_value,
+                    "douban_rating_count": int(rating_count) if rating_value is not None and pd.notna(rating_count) else None,
                     "douban_year": normalize_cell(detail.get("year")) or normalize_cell(match.get("year")),
                     "douban_match_key": imdb_id,
                     "douban_updated_at": pd.Timestamp.now("UTC").isoformat(),
@@ -1377,18 +1516,22 @@ def fetch_douban_streaming_entry(
     for query in title_candidates:
         search_candidates: list[dict[str, Any]] = []
         try:
+            raw_search_candidates = fetch_douban_subject_search(
+                f"{query} {int(year)}" if pd.notna(pd.to_numeric(year, errors="coerce")) else query
+            )
+            search_had_response = True
             search_candidates.extend(
                 normalize_douban_search_item(item)
-                for item in fetch_douban_subject_search(
-                    f"{query} {int(year)}" if pd.notna(pd.to_numeric(year, errors="coerce")) else query
-                )
+                for item in raw_search_candidates
             )
-        except Exception:
-            pass
+        except Exception as exc:  # noqa: BLE001
+            search_errors.append(normalize_cell(exc))
         try:
-            search_candidates.extend(fetch_douban_suggestions(query))
-        except Exception:
-            pass
+            suggestion_candidates = fetch_douban_suggestions(query)
+            search_had_response = True
+            search_candidates.extend(suggestion_candidates)
+        except Exception as exc:  # noqa: BLE001
+            search_errors.append(normalize_cell(exc))
         match = choose_douban_match(search_candidates, title_candidates, year)
         if match is None:
             continue
@@ -1404,6 +1547,7 @@ def fetch_douban_streaming_entry(
         rating_value = pd.to_numeric(rating.get("value"), errors="coerce")
         if pd.isna(rating_value):
             rating_value = pd.to_numeric(match.get("rating_value"), errors="coerce")
+        rating_value = coerce_douban_rating(rating_value)
         rating_count = pd.to_numeric(rating.get("count"), errors="coerce")
         if pd.isna(rating_count):
             rating_count = pd.to_numeric(match.get("rating_count"), errors="coerce")
@@ -1415,9 +1559,19 @@ def fetch_douban_streaming_entry(
             "douban_id": subject_id,
             "douban_title": normalize_cell(detail.get("title")) or normalize_cell(match.get("title")),
             "douban_url": normalize_source_uri(match.get("url")) or normalize_source_uri(f"https://movie.douban.com/subject/{subject_id}/"),
-            "douban_rating": float(rating_value) if pd.notna(rating_value) else None,
-            "douban_rating_count": int(rating_count) if pd.notna(rating_count) else None,
+            "douban_rating": rating_value,
+            "douban_rating_count": int(rating_count) if rating_value is not None and pd.notna(rating_count) else None,
             "douban_year": normalize_cell(detail.get("year")) or normalize_cell(match.get("year")),
+            "douban_updated_at": pd.Timestamp.now("UTC").isoformat(),
+        }
+
+    if not search_had_response:
+        return {
+            **existing,
+            "film_key": row["film_key"],
+            "douban_status": "error",
+            "douban_cache_version": DOUBAN_CACHE_VERSION,
+            "douban_error": "; ".join(unique_preserve_order(search_errors))[:500],
             "douban_updated_at": pd.Timestamp.now("UTC").isoformat(),
         }
 
@@ -2635,6 +2789,13 @@ def build_streaming_section(
         if should_fallback_to_cached_streaming(exc):
             cached_section = load_cached_streaming_section(output_dir)
             if cached_section is not None:
+                cached_section = refresh_cached_streaming_douban_section(
+                    cached_section,
+                    output_dir=output_dir,
+                    max_douban_lookups=max_douban_lookups,
+                    workers=max(1, workers // 2),
+                    refresh_cache=refresh_cache,
+                )
                 cached_stats = cached_section.setdefault("stats", {})
                 cached_stats["fallback_used"] = True
                 cached_stats["fallback_reason"] = normalize_cell(exc)
