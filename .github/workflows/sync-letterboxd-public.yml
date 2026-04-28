@@ -79,7 +79,11 @@ jobs:
         run: |
           python scripts/build_custom_letterboxd_report.py \
             --input-dir data/public-sync/input \
-            --output-dir outputs/public-sync-report
+            --output-dir outputs/public-sync-report \
+            --streaming-lookups 650 \
+            --streaming-workers 4 \
+            --douban-lookups 140 \
+            --streaming-catalog-timeout 180
 
       - name: Update published root files
         run: |
