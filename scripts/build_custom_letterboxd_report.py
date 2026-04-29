@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import argparse
 import csv
+import hashlib
 import html
 import json
 import math
@@ -16,12 +17,13 @@ from collections import Counter
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from difflib import SequenceMatcher
 from email.utils import parsedate_to_datetime
+from http.cookiejar import CookieJar
 from pathlib import Path
 from statistics import mean
 from typing import Any
 from urllib.error import HTTPError, URLError
-from urllib.parse import quote_plus, urlencode
-from urllib.request import Request, urlopen
+from urllib.parse import quote_plus, urlencode, urljoin
+from urllib.request import HTTPCookieProcessor, Request, build_opener, urlopen
 from xml.etree import ElementTree as ET
 
 import numpy as np
@@ -372,7 +374,7 @@ WIKIDATA_SPARQL_URL = "https://query.wikidata.org/sparql"
 RATING_BUCKET_VALUES = [0.5 + 0.5 * index for index in range(10)]
 STREAMING_CACHE_VERSION = 2
 DOUBAN_CACHE_VERSION = 4
-WATCHED_DOUBAN_CACHE_VERSION = 5
+WATCHED_DOUBAN_CACHE_VERSION = 6
 LIST_CATEGORY_LABELS = {
     "watch_plan": "待看计划",
     "preference": "偏好声明",
@@ -483,6 +485,7 @@ STREAMING_PROVIDERS = [
     },
 ]
 _LETTERBOXD_THREAD_LOCAL = threading.local()
+_DOUBAN_THREAD_LOCAL = threading.local()
 
 
 def parse_args() -> argparse.Namespace:
@@ -1093,6 +1096,49 @@ def refresh_cached_streaming_douban_section(
     return refreshed
 
 
+def refresh_cached_streaming_watch_state(
+    streaming: dict[str, Any],
+    ratings_df: pd.DataFrame,
+    output_dir: Path,
+) -> dict[str, Any]:
+    sanitized = sanitize_cached_streaming_section(streaming)
+    rows = [row for row in ensure_list(sanitized.get("rows")) if isinstance(row, dict)]
+    if not rows or ratings_df.empty:
+        return sanitized
+
+    watched_keys = set(ratings_df["film_key"])
+    user_rating_lookup = (
+        ratings_df[["film_key", "user_rating"]]
+        .drop_duplicates(subset=["film_key"])
+        .set_index("film_key")["user_rating"]
+        .to_dict()
+    )
+    lookup_cache = load_json_cache(output_dir / "streaming_letterboxd_cache.json")
+
+    refreshed = json.loads(json.dumps(sanitized))
+    for row in refreshed.get("rows", []):
+        original_key = normalize_cell(row.get("film_key"))
+        cache_entry = lookup_cache.get(original_key, {}) if isinstance(lookup_cache, dict) else {}
+        cached_match_name = normalize_cell(cache_entry.get("match_name")) if isinstance(cache_entry, dict) else ""
+        match_name = normalize_cell(row.get("match_name")) or cached_match_name
+        match_year = row.get("match_year")
+        if (pd.isna(pd.to_numeric(match_year, errors="coerce")) and isinstance(cache_entry, dict)):
+            match_year = cache_entry.get("match_year")
+        matched_key = normalize_cell(row.get("matched_film_key"))
+        if not matched_key and match_name:
+            matched_key = film_key(match_name, match_year if pd.notna(pd.to_numeric(match_year, errors="coerce")) else row.get("year"))
+
+        watched_key = original_key if original_key in watched_keys else None
+        if watched_key is None and matched_key in watched_keys:
+            watched_key = matched_key
+        row["matched_film_key"] = matched_key or original_key
+        row["watched_film_key"] = watched_key
+        row["watched"] = watched_key is not None
+        row["user_rating"] = user_rating_lookup.get(watched_key) if watched_key else None
+
+    return sanitize_cached_streaming_section(refreshed)
+
+
 def load_cached_streaming_section(output_dir: Path) -> dict[str, Any] | None:
     candidate_paths = [
         output_dir / "custom-report-data.json",
@@ -1388,6 +1434,135 @@ def fetch_douban_detail(subject_id: str) -> dict[str, Any]:
     if not isinstance(payload, dict):
         raise RuntimeError(f"Unexpected Douban payload for {subject_id}")
     return payload
+
+
+def douban_web_headers(referer: str = "https://movie.douban.com/") -> dict[str, str]:
+    return {
+        "User-Agent": (
+            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+        ),
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Language": "en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7",
+        "Referer": referer,
+    }
+
+
+def get_douban_opener() -> Any:
+    opener = getattr(_DOUBAN_THREAD_LOCAL, "opener", None)
+    if opener is None:
+        opener = build_opener(HTTPCookieProcessor(CookieJar()))
+        _DOUBAN_THREAD_LOCAL.opener = opener
+    return opener
+
+
+def extract_html_input_value(html_text: str, name: str) -> str:
+    input_match = re.search(
+        rf"<input\b[^>]*(?:name|id)=[\"']{re.escape(name)}[\"'][^>]*>",
+        html_text,
+        flags=re.IGNORECASE,
+    )
+    if not input_match:
+        input_match = re.search(
+            rf"<input\b[^>]*value=[\"'][^\"']*[\"'][^>]*(?:name|id)=[\"']{re.escape(name)}[\"'][^>]*>",
+            html_text,
+            flags=re.IGNORECASE,
+        )
+    if not input_match:
+        return ""
+    value_match = re.search(r"value=[\"']([^\"']*)[\"']", input_match.group(0), flags=re.IGNORECASE)
+    return html.unescape(value_match.group(1)) if value_match else ""
+
+
+def solve_douban_challenge(html_text: str) -> dict[str, str]:
+    token = extract_html_input_value(html_text, "tok")
+    challenge = extract_html_input_value(html_text, "cha")
+    redirect = extract_html_input_value(html_text, "red")
+    if not token or not challenge or not redirect:
+        raise RuntimeError("Douban challenge page did not include expected fields")
+
+    difficulty_match = re.search(r"process\(\s*cha\s*,\s*(\d+)\s*\)", html_text)
+    difficulty = int(difficulty_match.group(1)) if difficulty_match else 4
+    prefix = "0" * difficulty
+    nonce = 0
+    while nonce < 2_000_000:
+        nonce += 1
+        digest = hashlib.sha512(f"{challenge}{nonce}".encode("utf-8")).hexdigest()
+        if digest.startswith(prefix):
+            return {"tok": token, "cha": challenge, "sol": str(nonce), "red": redirect}
+    raise RuntimeError("Douban challenge solver exceeded nonce limit")
+
+
+def fetch_douban_subject_html(subject_id: str) -> str:
+    opener = get_douban_opener()
+    subject_url = f"https://movie.douban.com/subject/{subject_id}/"
+    last_error: Exception | None = None
+    for attempt in range(3):
+        try:
+            request = Request(subject_url, headers=douban_web_headers())
+            with opener.open(request, timeout=20) as response:
+                html_text = response.read().decode("utf-8", errors="replace")
+                response_url = normalize_cell(response.geturl())
+            if "sec.douban.com" in response_url or "id=\"sec\"" in html_text or "name=\"cha\"" in html_text:
+                challenge_payload = solve_douban_challenge(html_text)
+                challenge_request = Request(
+                    urljoin(response_url or "https://sec.douban.com/", "/c"),
+                    data=urlencode(challenge_payload).encode("utf-8"),
+                    headers={
+                        **douban_web_headers(response_url or subject_url),
+                        "Content-Type": "application/x-www-form-urlencoded",
+                    },
+                    method="POST",
+                )
+                with opener.open(challenge_request, timeout=25) as challenge_response:
+                    html_text = challenge_response.read().decode("utf-8", errors="replace")
+            if "rating_num" in html_text or "v:average" in html_text:
+                return html_text
+            last_error = RuntimeError("Douban subject page did not expose rating markup")
+        except Exception as exc:  # noqa: BLE001
+            last_error = exc
+        time.sleep(0.7 * (attempt + 1))
+    raise RuntimeError(f"Douban web detail unavailable for {subject_id}: {last_error}")
+
+
+def fetch_douban_web_detail(subject_id: str) -> dict[str, Any]:
+    html_text = fetch_douban_subject_html(subject_id)
+    title_match = (
+        re.search(r"<span[^>]+property=[\"']v:itemreviewed[\"'][^>]*>(.*?)</span>", html_text, re.DOTALL)
+        or re.search(r"<meta[^>]+property=[\"']og:title[\"'][^>]+content=[\"']([^\"']+)[\"']", html_text, re.DOTALL)
+    )
+    year_match = re.search(r"<span[^>]+class=[\"']year[\"'][^>]*>\((\d{4})\)</span>", html_text)
+    average_match = (
+        re.search(r"property=[\"']v:average[\"'][^>]*>\s*([0-9.]+)\s*<", html_text)
+        or re.search(r"class=[\"'][^\"']*rating_num[^\"']*[\"'][^>]*>\s*([0-9.]+)\s*<", html_text)
+    )
+    votes_match = (
+        re.search(r"property=[\"']v:votes[\"'][^>]*>\s*([0-9,]+)\s*<", html_text)
+        or re.search(r"([0-9,]+)\s*人评价", html_text)
+    )
+    rating_value = coerce_douban_rating(average_match.group(1) if average_match else None)
+    if rating_value is None:
+        raise RuntimeError(f"Douban web page did not expose a numeric rating for {subject_id}")
+    rating_count = pd.to_numeric(votes_match.group(1).replace(",", ""), errors="coerce") if votes_match else None
+    title = clean_html_excerpt(title_match.group(1)) if title_match else ""
+    return {
+        "title": title,
+        "year": year_match.group(1) if year_match else "",
+        "rating": {
+            "value": rating_value,
+            "count": int(rating_count) if rating_count is not None and pd.notna(rating_count) else None,
+        },
+        "_source": "douban_web",
+    }
+
+
+def fetch_douban_detail_resilient(subject_id: str) -> dict[str, Any]:
+    try:
+        detail = fetch_douban_detail(subject_id)
+        detail["_source"] = "douban_api"
+        return detail
+    except Exception:
+        return fetch_douban_web_detail(subject_id)
 
 
 def fetch_wikidata_douban_id(imdb_id: str) -> str | None:
@@ -1991,10 +2166,12 @@ def build_douban_result_from_detail(
     douban_id: str,
     match_key: str,
 ) -> dict[str, Any]:
-    detail = fetch_douban_detail(douban_id)
+    detail = fetch_douban_detail_resilient(douban_id)
     rating = detail.get("rating") if isinstance(detail.get("rating"), dict) else {}
     rating_value = coerce_douban_rating(rating.get("value"))
     rating_count = pd.to_numeric(rating.get("count"), errors="coerce")
+    if rating_value is None:
+        raise RuntimeError(f"Douban detail for {douban_id} did not include a numeric rating")
     return {
         **existing,
         "film_key": film_key_value,
@@ -2007,6 +2184,7 @@ def build_douban_result_from_detail(
         "douban_rating_count": int(rating_count) if rating_value is not None and pd.notna(rating_count) else None,
         "douban_year": normalize_cell(detail.get("year")),
         "douban_match_key": match_key,
+        "douban_source": normalize_cell(detail.get("_source")) or "douban_detail",
         "douban_updated_at": pd.Timestamp.now("UTC").isoformat(),
     }
 
@@ -2137,7 +2315,7 @@ def build_watched_douban_section(
             and normalize_cell(entry.get("douban_status")) == "pending_detail"
             and key in set(lookup_frame["film_key"])
         ]
-        with ThreadPoolExecutor(max_workers=max(1, min(workers, 4))) as pool:
+        with ThreadPoolExecutor(max_workers=max(1, min(workers, 2))) as pool:
             futures = {
                 pool.submit(
                     build_douban_result_from_detail,
@@ -2361,12 +2539,33 @@ def derive_tag_columns(frame: pd.DataFrame, tags_col: str = "tags_list") -> pd.D
     def lower_tags(tags: list[str]) -> list[str]:
         return [normalize_cell(tag).lower() for tag in ensure_list(tags) if normalize_cell(tag)]
 
-    def social_bucket(tags: list[str]) -> str:
+    def companion_names(tags: list[str]) -> list[str]:
+        names: list[str] = []
+        for tag in ensure_list(tags):
+            raw = normalize_cell(tag)
+            lowered = raw.lower()
+            if not lowered.startswith("with") or lowered == "withppl":
+                continue
+            name = raw[4:].strip()
+            if name:
+                names.append(name[:1].upper() + name[1:])
+        return unique_preserve_order(names)
+
+    def social_scope(tags: list[str]) -> str:
         tag_set = set(lower_tags(tags))
+        if "watchparty" in tag_set or "withppl" in tag_set or companion_names(tags):
+            return "Social viewing"
+        if "myself" in tag_set:
+            return "Solo"
+        return "Unspecified"
+
+    def social_detail(tags: list[str]) -> str:
+        tag_set = set(lower_tags(tags))
+        names = companion_names(tags)
         if "watchparty" in tag_set:
-            return "Watchparty"
-        if any(tag.startswith("with") and tag not in {"withppl"} for tag in tag_set):
-            return "With specific person"
+            return "Watchparty (3+)"
+        if names:
+            return "Named companion"
         if "withppl" in tag_set:
             return "With people"
         if "myself" in tag_set:
@@ -2374,20 +2573,8 @@ def derive_tag_columns(frame: pd.DataFrame, tags_col: str = "tags_list") -> pd.D
         return "Unspecified"
 
     def companion_label(tags: list[str]) -> str | None:
-        names = [
-            normalize_cell(tag)[4:].capitalize()
-            for tag in ensure_list(tags)
-            if normalize_cell(tag).lower().startswith("with")
-            and normalize_cell(tag).lower() not in {"withppl"}
-        ]
-        if names:
-            return ", ".join(names)
-        tag_set = set(lower_tags(tags))
-        if "withppl" in tag_set:
-            return "People"
-        if "watchparty" in tag_set:
-            return "Watchparty"
-        return None
+        names = companion_names(tags)
+        return ", ".join(names) if names else None
 
     def venue_label(tags: list[str]) -> str:
         tag_set = set(lower_tags(tags))
@@ -2425,13 +2612,15 @@ def derive_tag_columns(frame: pd.DataFrame, tags_col: str = "tags_list") -> pd.D
                 return PLATFORM_LABEL_OVERRIDES.get(platform, platform.title())
         return "Unknown"
 
-    derived["social_context"] = derived[tags_col].apply(social_bucket)
+    derived["companion_names"] = derived[tags_col].apply(companion_names)
+    derived["social_scope"] = derived[tags_col].apply(social_scope)
+    derived["social_context"] = derived[tags_col].apply(social_detail)
     derived["companion"] = derived[tags_col].apply(companion_label)
     derived["venue_context"] = derived[tags_col].apply(venue_label)
     derived["location_context"] = derived[tags_col].apply(location_label)
     derived["device_context"] = derived[tags_col].apply(device_label)
     derived["platform_context"] = derived[tags_col].apply(platform_label)
-    derived["is_social"] = derived["social_context"].isin({"Watchparty", "With specific person", "With people"})
+    derived["is_social"] = derived["social_scope"] == "Social viewing"
     return derived
 
 
@@ -3169,17 +3358,24 @@ def build_tag_section(diary_df: pd.DataFrame) -> dict[str, Any]:
         .sort_values(["avg_rating", "watches"], ascending=[False, False])
     )
 
+    named_companion_events = rated_events.explode("companion_names").copy()
+    named_companion_events["companion_name"] = named_companion_events["companion_names"].apply(normalize_cell)
+    named_companion_events = named_companion_events[named_companion_events["companion_name"] != ""]
     companion_stats = serialize_frame(
-        rated_events[rated_events["companion"].notna()]
-        .groupby("companion")
+        named_companion_events
+        .groupby("companion_name")
         .agg(
             watches=("film_key", "size"),
             avg_rating=("user_rating", "mean"),
         )
         .reset_index()
+        .rename(columns={"companion_name": "companion"})
         .sort_values(["watches", "avg_rating"], ascending=[False, False])
         .head(12)
     )
+    named_companion_tagged = tagged_events.explode("companion_names").copy()
+    named_companion_tagged["companion_name"] = named_companion_tagged["companion_names"].apply(normalize_cell)
+    named_companion_tagged = named_companion_tagged[named_companion_tagged["companion_name"] != ""]
 
     genre_rows: list[dict[str, Any]] = []
     exploded = rated_events.explode("genres")
@@ -3210,8 +3406,9 @@ def build_tag_section(diary_df: pd.DataFrame) -> dict[str, Any]:
         "social_genre_delta": social_genre_delta,
         "tag_pies": {
             "device_context": pie_rows(tagged_events, "device_context", {"Unknown"}),
+            "social_scope": pie_rows(tagged_events, "social_scope", {"Unspecified"}),
             "social_context": pie_rows(tagged_events, "social_context", {"Unspecified"}),
-            "companion": pie_rows(tagged_events, "companion"),
+            "companion": pie_rows(named_companion_tagged, "companion_name"),
             "location_context": pie_rows(tagged_events, "location_context"),
             "platform_context": pie_rows(tagged_events, "platform_context", {"Unknown"}),
             "raw_tags": raw_tag_rows,
@@ -3401,6 +3598,11 @@ def build_streaming_section(
                     workers=max(1, workers // 2),
                     refresh_cache=refresh_cache,
                 )
+                cached_section = refresh_cached_streaming_watch_state(
+                    cached_section,
+                    ratings_df=ratings_df,
+                    output_dir=output_dir,
+                )
                 cached_stats = cached_section.setdefault("stats", {})
                 cached_stats["fallback_used"] = True
                 cached_stats["fallback_reason"] = normalize_cell(exc)
@@ -3422,6 +3624,35 @@ def build_streaming_section(
         empty_section = empty_streaming_section()
         empty_section["provider_warnings"] = provider_warnings
         return empty_section
+
+    fresh_title_count = int(streaming_catalog["film_key"].nunique()) if "film_key" in streaming_catalog.columns else 0
+    cached_for_guard = load_cached_streaming_section(output_dir)
+    cached_title_count = int(((cached_for_guard or {}).get("stats") or {}).get("provider_titles") or 0)
+    if cached_for_guard and cached_title_count >= 1000 and fresh_title_count < cached_title_count * 0.5:
+        cached_section = refresh_cached_streaming_douban_section(
+            cached_for_guard,
+            output_dir=output_dir,
+            max_douban_lookups=max_douban_lookups,
+            workers=max(1, workers // 2),
+            refresh_cache=refresh_cache,
+        )
+        cached_section = refresh_cached_streaming_watch_state(
+            cached_section,
+            ratings_df=ratings_df,
+            output_dir=output_dir,
+        )
+        cached_stats = cached_section.setdefault("stats", {})
+        cached_stats["fallback_used"] = True
+        cached_stats["fallback_reason"] = (
+            f"Fresh streaming catalog had {fresh_title_count} titles; "
+            f"cached catalog has {cached_title_count} titles"
+        )
+        print(
+            "Streaming catalog looked incomplete; falling back to cached streaming data: "
+            f"{fresh_title_count} fresh titles vs {cached_title_count} cached titles.",
+            file=sys.stderr,
+        )
+        return cached_section
 
     watched_keys = set(ratings_df["film_key"])
     user_rating_lookup = (
@@ -3603,6 +3834,27 @@ def build_streaming_section(
         lambda values: [normalize_cell(item.get("code")) for item in ensure_list(values) if isinstance(item, dict)]
     )
 
+    def matched_streaming_film_key(row: pd.Series) -> str:
+        match_name = normalize_cell(row.get("match_name")) or normalize_cell(row.get("metadata_title")) or normalize_cell(row.get("name"))
+        match_year = row.get("match_year")
+        if pd.isna(pd.to_numeric(match_year, errors="coerce")):
+            match_year = row.get("year")
+        return film_key(match_name, match_year)
+
+    def watched_streaming_film_key(row: pd.Series) -> str | None:
+        original_key = normalize_cell(row.get("film_key"))
+        matched_key = normalize_cell(row.get("matched_film_key"))
+        if original_key in watched_keys:
+            return original_key
+        if matched_key in watched_keys:
+            return matched_key
+        return None
+
+    streaming_df["matched_film_key"] = streaming_df.apply(matched_streaming_film_key, axis=1)
+    streaming_df["watched_film_key"] = streaming_df.apply(watched_streaming_film_key, axis=1)
+    streaming_df["watched"] = streaming_df["watched_film_key"].notna()
+    streaming_df["user_rating"] = streaming_df["watched_film_key"].map(lambda key: user_rating_lookup.get(key))
+
     scored_df = streaming_df[streaming_df["letterboxd_rating"].notna()].copy()
     scored_df = scored_df.sort_values(
         ["letterboxd_rating", "letterboxd_rating_count", "imdb_score"],
@@ -3667,6 +3919,8 @@ def build_streaming_section(
         [
             "rank",
             "film_key",
+            "matched_film_key",
+            "watched_film_key",
             "name",
             "year",
             "genres",
@@ -4040,9 +4294,14 @@ def build_custom_insights(
     social_delta = tags["social_genre_delta"]
     if social_delta:
         top_delta = max(social_delta, key=lambda row: row["diff"])
-        insights.append(
-            f"社交观影抬升最明显的类型是 {top_delta['genre']}，比 solo 观影高 {top_delta['diff']:.1f} 分。"
-        )
+        if top_delta["diff"] > 0:
+            insights.append(
+                f"社交观影抬升最明显的类型是 {top_delta['genre']}，比 solo 观影高 {top_delta['diff']:.1f} 分。"
+            )
+        else:
+            insights.append(
+                f"当前样本里社交观影未显示稳定加分；最接近持平的类型是 {top_delta['genre']}，与 solo 观影差值 {top_delta['diff']:.1f} 分。"
+            )
 
     if reviews["positive_terms"]:
         pos = reviews["positive_terms"][0]["term"]
@@ -4140,11 +4399,16 @@ def render_daily_signal_items(signal: dict[str, Any]) -> str:
             for tag in ensure_list(item.get("matched_signals"))[:4]
         )
         published = normalize_cell(item.get("published_at"))[:10] if normalize_cell(item.get("published_at")) else "最近"
+        headline = normalize_cell(item.get("headline")) or normalize_cell(item.get("title")) or "Untitled"
+        summary = normalize_cell(item.get("summary"))
+        if summary.startswith(headline):
+            summary = summary[len(headline):].lstrip("。.:： ")
         cards.append(
             "<article class='signal-card'>"
             f"<div class='signal-meta'>{html.escape(item.get('category', '今日线索'))} · {html.escape(item.get('source', ''))} · {html.escape(published)}</div>"
-            f"<p>{html.escape(item.get('summary', ''))}</p>"
-            f"<a class='signal-source' href=\"{html.escape(item.get('url', '#'))}\" target=\"_blank\" rel=\"noopener noreferrer\">来源</a>"
+            f"<h3><a href=\"{html.escape(item.get('url', '#'))}\" target=\"_blank\" rel=\"noopener noreferrer\">{html.escape(headline)}</a></h3>"
+            f"<p>{html.escape(summary or '可作为今天的电影行业观察。')}</p>"
+            f"<a class='signal-source' href=\"{html.escape(item.get('url', '#'))}\" target=\"_blank\" rel=\"noopener noreferrer\">Source</a>"
             f"<div class='signal-tags'>{tags}</div>"
             "</article>"
         )
@@ -4168,6 +4432,10 @@ def build_html(payload: dict[str, Any]) -> str:
     )
     daily_signal_html = render_daily_signal_items(payload.get("daily_signal") or {})
     daily_signal_facts = (payload.get("daily_signal") or {}).get("fun_facts", [])
+    daily_signal = payload.get("daily_signal") or {}
+    daily_signal_updated = normalize_cell(daily_signal.get("generated_at"))[:10] or "—"
+    daily_signal_item_count = len(ensure_list(daily_signal.get("items")))
+    daily_signal_fact_count = len(ensure_list(daily_signal.get("fun_facts")))
     watched_douban = payload.get("watched_douban") or {}
     watched_douban_stats = watched_douban.get("stats") or {}
     watched_douban_coverage = f"{float(watched_douban_stats.get('coverage') or 0) * 100:.1f}%"
@@ -4246,9 +4514,9 @@ def build_html(payload: dict[str, Any]) -> str:
       margin: 20px auto 48px;
     }}
     h1, h2, h3, p, li, td, th, label, .metric .label, .metric .value {{
-      overflow-wrap: anywhere;
-      word-break: break-word;
-      hyphens: auto;
+      overflow-wrap: normal;
+      word-break: normal;
+      hyphens: none;
     }}
     .hero {{
       background: linear-gradient(130deg, #15223b 0%, #1d3357 70%, #25486d 100%);
@@ -4339,6 +4607,13 @@ def build_html(payload: dict[str, Any]) -> str:
       flex-wrap: wrap;
       margin: 6px 0 16px;
     }}
+    .controls label,
+    .filter-group-label,
+    .pill-group button,
+    .metric .label,
+    .metric .value {{
+      white-space: nowrap;
+    }}
     .controls select, .controls button {{
       border-radius: 999px;
       border: 1px solid var(--line);
@@ -4423,6 +4698,7 @@ def build_html(payload: dict[str, Any]) -> str:
       width: 100%;
       border-collapse: collapse;
       font-size: 0.92rem;
+      table-layout: auto;
     }}
     #streaming-table,
     #watched-douban-table,
@@ -4438,7 +4714,8 @@ def build_html(payload: dict[str, Any]) -> str:
       text-align: left;
       vertical-align: top;
       word-break: normal;
-      overflow-wrap: anywhere;
+      overflow-wrap: normal;
+      white-space: nowrap;
     }}
     #streaming-table th:nth-child(1),
     #streaming-table td:nth-child(1),
@@ -4471,6 +4748,7 @@ def build_html(payload: dict[str, Any]) -> str:
       background: var(--accent-soft);
       position: sticky;
       top: 0;
+      white-space: nowrap;
     }}
     .table-wrap {{
       overflow: auto;
@@ -4499,7 +4777,7 @@ def build_html(payload: dict[str, Any]) -> str:
       border: 1px solid var(--line);
       border-radius: 14px;
       padding: 14px;
-      min-height: 116px;
+      min-height: 0;
     }}
     .insight-card .kicker {{
       color: var(--muted);
@@ -4545,6 +4823,31 @@ def build_html(payload: dict[str, Any]) -> str:
     .signal-card {{
       padding: 14px 0;
       border-bottom: 1px solid rgba(23,35,59,0.08);
+    }}
+    .daily-meta-grid {{
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      margin: 8px 0 10px;
+    }}
+    .daily-meta-grid div {{
+      border: 1px solid rgba(23,35,59,0.08);
+      border-radius: 12px;
+      background: #fffaf2;
+      padding: 8px 10px;
+      min-width: 0;
+    }}
+    .daily-meta-grid strong {{
+      display: block;
+      color: var(--ink);
+      font-size: 1rem;
+      white-space: nowrap;
+    }}
+    .daily-meta-grid span {{
+      display: block;
+      color: var(--muted);
+      font-size: 0.78rem;
+      white-space: nowrap;
     }}
     .signal-card:last-child {{
       border-bottom: 0;
@@ -4597,6 +4900,35 @@ def build_html(payload: dict[str, Any]) -> str:
       color: var(--teal);
       text-decoration: none;
       font-weight: 500;
+      white-space: nowrap;
+    }}
+    .language-toggle {{
+      position: fixed;
+      top: 14px;
+      right: 14px;
+      z-index: 30;
+      display: inline-flex;
+      gap: 4px;
+      padding: 5px;
+      border: 1px solid rgba(255,255,255,0.35);
+      border-radius: 999px;
+      background: rgba(23,35,59,0.86);
+      box-shadow: 0 12px 30px rgba(23,35,59,0.18);
+      backdrop-filter: blur(12px);
+    }}
+    .language-toggle button {{
+      border: 0;
+      border-radius: 999px;
+      padding: 7px 10px;
+      background: transparent;
+      color: rgba(255,255,255,0.78);
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+    }}
+    .language-toggle button.active {{
+      background: #fffaf2;
+      color: var(--ink);
     }}
     .footer {{
       margin-top: 20px;
@@ -4616,10 +4948,16 @@ def build_html(payload: dict[str, Any]) -> str:
         gap: 10px;
       }}
       .controls label {{
-        width: 100%;
+        width: auto;
       }}
       .controls select {{
-        width: 100%;
+        width: auto;
+      }}
+      .language-toggle {{
+        position: sticky;
+        top: 8px;
+        float: right;
+        margin: 8px 8px -4px 0;
       }}
       .table-wrap {{
         max-height: 360px;
@@ -4628,47 +4966,56 @@ def build_html(payload: dict[str, Any]) -> str:
   </style>
 </head>
 <body>
+  <div class="language-toggle" role="group" aria-label="Language">
+    <button type="button" data-language-choice="zh" class="active">中文</button>
+    <button type="button" data-language-choice="en">EN</button>
+  </div>
   <div class="page">
     <section class="hero">
       <h1>Letterboxd<br>Custom Research Desk</h1>
-      <p>这个页面汇总的是 Letterboxd 原生会员页之外更适合横向比较的观察维度，包括国家 / 地区 × 类型结构、加拿大流媒体可看范围、观影语境标签、review 用词、lists 意图，以及不限于 watchlist 的候选推荐。</p>
+      <p data-i18n="heroLead">这个页面汇总的是 Letterboxd 原生会员页之外更适合横向比较的观察维度，包括国家 / 地区 × 类型结构、加拿大流媒体可看范围、观影语境标签、review 用词、lists 意图，以及不限于 watchlist 的候选推荐。</p>
       <div class="metrics">
-        <div class="metric"><div class="label">Rated films</div><div class="value">{payload['metrics']['unique_rated_films']}</div></div>
-        <div class="metric"><div class="label">Watch events</div><div class="value">{payload['metrics']['watch_events']}</div></div>
-        <div class="metric"><div class="label">Tagged watches</div><div class="value">{payload['metrics']['tagged_watch_events']}</div></div>
-        <div class="metric"><div class="label">Written reviews</div><div class="value">{payload['reviews']['stats']['review_count']}</div></div>
-        <div class="metric"><div class="label">Exported lists</div><div class="value">{payload['metrics']['custom_lists']}</div></div>
-        <div class="metric"><div class="label">Unseen candidates</div><div class="value">{payload['metrics']['candidate_pool_size']}</div></div>
-        <div class="metric"><div class="label">Douban matched</div><div class="value">{payload['metrics']['douban_rated_titles']}</div></div>
-        <div class="metric"><div class="label">Streaming indexed</div><div class="value">{payload['metrics']['streaming_indexed_titles']}</div></div>
+        <div class="metric"><div class="label" data-i18n="ratedFilms">Rated films</div><div class="value">{payload['metrics']['unique_rated_films']}</div></div>
+        <div class="metric"><div class="label" data-i18n="watchEvents">Watch events</div><div class="value">{payload['metrics']['watch_events']}</div></div>
+        <div class="metric"><div class="label" data-i18n="taggedWatches">Tagged watches</div><div class="value">{payload['metrics']['tagged_watch_events']}</div></div>
+        <div class="metric"><div class="label" data-i18n="writtenReviews">Written reviews</div><div class="value">{payload['reviews']['stats']['review_count']}</div></div>
+        <div class="metric"><div class="label" data-i18n="exportedLists">Exported lists</div><div class="value">{payload['metrics']['custom_lists']}</div></div>
+        <div class="metric"><div class="label" data-i18n="unseenCandidates">Unseen candidates</div><div class="value">{payload['metrics']['candidate_pool_size']}</div></div>
+        <div class="metric"><div class="label" data-i18n="doubanMatched">Douban matched</div><div class="value">{payload['metrics']['douban_rated_titles']}</div></div>
+        <div class="metric"><div class="label" data-i18n="streamingIndexed">Streaming indexed</div><div class="value">{payload['metrics']['streaming_indexed_titles']}</div></div>
       </div>
     </section>
 
     <section class="section">
-      <h2>Today's Taste Brief</h2>
-      <p class="lead">本区把最新 Letterboxd 数据、可看片单和电影行业信号压缩成可快速阅读的判断线索。</p>
+      <h2 data-i18n="tasteBriefTitle">Today's Taste Brief</h2>
+      <p class="lead" data-i18n="tasteBriefLead">本区把最新 Letterboxd 数据、可看片单和电影行业信号压缩成可快速阅读的判断线索。</p>
       <div class="brief-grid">{insights_html}</div>
       <div class="grid-2" style="margin-top:18px;">
         <div class="mini-card">
-          <h3>Daily Film Radar</h3>
-          <p class="lead">每天从电影新闻源中提取作品、导演、奖项和产业动态，只保留能提供补片或理解行业的短句。</p>
+          <h3 data-i18n="dailyRadarTitle">Daily Film Radar</h3>
+          <p class="lead" data-i18n="dailyRadarLead">每天从电影新闻源中提取作品、导演、奖项和产业动态，只保留能提供补片或理解行业的短句。</p>
+          <div class="daily-meta-grid">
+            <div><strong>{html.escape(daily_signal_updated)}</strong><span>updated</span></div>
+            <div><strong>{daily_signal_item_count}</strong><span>signals</span></div>
+            <div><strong>{daily_signal_fact_count}</strong><span>facts</span></div>
+          </div>
           {daily_signal_html}
         </div>
         <div class="mini-card">
-          <h3>Film Facts</h3>
-          <p class="lead">这些条目来自你的评分、tags、lists 和当前可看目录，会随每日同步更新。</p>
+          <h3 data-i18n="filmFactsTitle">Film Facts</h3>
+          <p class="lead" data-i18n="filmFactsLead">这些条目来自你的评分、tags、lists 和当前可看目录，会随每日同步更新。</p>
           <div class="brief-grid">{daily_signal_fact_html}</div>
         </div>
       </div>
     </section>
 
     <section class="section">
-      <h2>Watched Films: Douban Coverage</h2>
-      <p class="lead">本区为已评分影片补齐豆瓣评分，并将你的评分、Letterboxd 均分与豆瓣 10 分制评分放在同一张表内对照。匹配优先使用 IMDb / Douban subject ID，并以公开豆瓣电影数据索引补齐历史评分；live Douban API 只作为可用时的增量来源。</p>
+      <h2 data-i18n="doubanCoverageTitle">Watched Films: Douban Coverage</h2>
+      <p class="lead" data-i18n="doubanCoverageLead">本区为已评分影片补齐豆瓣评分，并将你的评分、Letterboxd 均分与豆瓣 10 分制评分放在同一张表内对照。匹配优先使用 IMDb / Douban subject ID，并以公开豆瓣电影数据索引补齐历史评分；live Douban API 只作为可用时的增量来源。</p>
       <div class="metrics">
-        <div class="metric"><div class="label">Matched watched films</div><div class="value">{watched_douban_stats.get('douban_rated_titles', 0)}</div></div>
-        <div class="metric"><div class="label">Coverage</div><div class="value">{watched_douban_coverage}</div></div>
-        <div class="metric"><div class="label">Missing after lookup</div><div class="value">{watched_douban_stats.get('missing_titles', 0)}</div></div>
+        <div class="metric"><div class="label" data-i18n="matchedWatchedFilms">Matched watched films</div><div class="value">{watched_douban_stats.get('douban_rated_titles', 0)}</div></div>
+        <div class="metric"><div class="label" data-i18n="coverage">Coverage</div><div class="value">{watched_douban_coverage}</div></div>
+        <div class="metric"><div class="label" data-i18n="missingAfterLookup">Missing after lookup</div><div class="value">{watched_douban_stats.get('missing_titles', 0)}</div></div>
       </div>
       <div class="grid-2" style="margin-top:18px;">
         <div id="watched-douban-scatter" class="plot"></div>
@@ -4680,35 +5027,35 @@ def build_html(payload: dict[str, Any]) -> str:
     </section>
 
     <section class="section">
-      <h2>Canada Streaming Availability</h2>
-      <p class="lead">本区只保留能够稳定匹配到英文电影词条的加拿大流媒体目录。榜单优先展示已匹配 Letterboxd 评分的影片，并同步显示可用的豆瓣评分。</p>
+      <h2 data-i18n="streamingTitle">Canada Streaming Availability</h2>
+      <p class="lead" data-i18n="streamingLead">本区只保留能够稳定匹配到英文电影词条的加拿大流媒体目录。榜单优先展示已匹配 Letterboxd 评分的影片，并同步显示可用的豆瓣评分。</p>
       <div class="controls">
-        <label for="streaming-provider-filter">平台：</label>
+        <label for="streaming-provider-filter" data-i18n="providerLabel">平台：</label>
         <select id="streaming-provider-filter"></select>
-        <label for="streaming-watch-filter">观看状态：</label>
+        <label for="streaming-watch-filter" data-i18n="watchStateLabel">观看状态：</label>
         <select id="streaming-watch-filter">
-          <option value="unwatched">没看过</option>
-          <option value="watched">我看过的</option>
-          <option value="all">全部</option>
+          <option value="unwatched" data-i18n="unwatchedOption">没看过</option>
+          <option value="watched" data-i18n="watchedOption">我看过的</option>
+          <option value="all" data-i18n="allOption">全部</option>
         </select>
-        <label for="streaming-exclusive-filter">平台独占：</label>
+        <label for="streaming-exclusive-filter" data-i18n="exclusiveLabel">平台独占：</label>
         <select id="streaming-exclusive-filter">
-          <option value="all">全部</option>
-          <option value="exclusive">只看独占</option>
-          <option value="multi">只看多平台</option>
+          <option value="all" data-i18n="allOption">全部</option>
+          <option value="exclusive" data-i18n="exclusiveOnlyOption">只看独占</option>
+          <option value="multi" data-i18n="multiPlatformOption">只看多平台</option>
         </select>
-        <label for="streaming-score-filter">评分匹配：</label>
+        <label for="streaming-score-filter" data-i18n="scoreMatchLabel">评分匹配：</label>
         <select id="streaming-score-filter">
-          <option value="scored">只看已匹配 Letterboxd 评分</option>
-          <option value="all">全部标题</option>
+          <option value="scored" data-i18n="scoredOnlyOption">只看已匹配 Letterboxd 评分</option>
+          <option value="all" data-i18n="allTitlesOption">全部标题</option>
         </select>
       </div>
       <div class="filter-group">
-        <div class="filter-group-label">只看类型：可多选；不选表示不过滤</div>
+        <div class="filter-group-label" data-i18n="includeGenresLabel">只看类型：可多选；不选表示不过滤</div>
         <div id="streaming-genre-include-pills" class="pill-group"></div>
       </div>
       <div class="filter-group">
-        <div class="filter-group-label">排除类型：可多选；不选表示不排除</div>
+        <div class="filter-group-label" data-i18n="excludeGenresLabel">排除类型：可多选；不选表示不排除</div>
         <div id="streaming-genre-exclude-pills" class="pill-group"></div>
       </div>
       <p id="streaming-results-summary" class="results-summary"></p>
@@ -4724,42 +5071,42 @@ def build_html(payload: dict[str, Any]) -> str:
     </section>
 
     <section class="section">
-      <h2>Recommendations Beyond Watchlist</h2>
-      <p class="lead">推荐池同时包含 watchlist、导出 lists 与当前流媒体目录里的外部发现条目；筛选器可分别限定 watchlist、lists、平台可看状态与类型范围。</p>
+      <h2 data-i18n="recommendationsTitle">Recommendations Beyond Watchlist</h2>
+      <p class="lead" data-i18n="recommendationsLead">推荐池同时包含 watchlist、导出 lists 与当前流媒体目录里的外部发现条目；筛选器可分别限定 watchlist、lists、平台可看状态与类型范围。</p>
       <div class="controls">
-        <label for="recommendation-watchlist-filter">Watchlist：</label>
+        <label for="recommendation-watchlist-filter" data-i18n="watchlistLabel">Watchlist：</label>
         <select id="recommendation-watchlist-filter">
-          <option value="all">全部</option>
-          <option value="in">只看在 watchlist 里</option>
-          <option value="out">排除 watchlist</option>
+          <option value="all" data-i18n="allOption">全部</option>
+          <option value="in" data-i18n="watchlistInOption">只看在 watchlist 里</option>
+          <option value="out" data-i18n="watchlistOutOption">排除 watchlist</option>
         </select>
-        <label for="recommendation-list-filter">我的 lists：</label>
+        <label for="recommendation-list-filter" data-i18n="myListsLabel">我的 lists：</label>
         <select id="recommendation-list-filter">
-          <option value="all">全部</option>
-          <option value="in">只看在我的 lists 里</option>
-          <option value="out">排除我的 lists</option>
+          <option value="all" data-i18n="allOption">全部</option>
+          <option value="in" data-i18n="listsInOption">只看在我的 lists 里</option>
+          <option value="out" data-i18n="listsOutOption">排除我的 lists</option>
         </select>
-        <label for="recommendation-streaming-filter">平台可看：</label>
+        <label for="recommendation-streaming-filter" data-i18n="streamingAvailableLabel">平台可看：</label>
         <select id="recommendation-streaming-filter">
-          <option value="all">全部</option>
-          <option value="in">只看当前可看</option>
-          <option value="out">排除当前可看</option>
+          <option value="all" data-i18n="allOption">全部</option>
+          <option value="in" data-i18n="availableInOption">只看当前可看</option>
+          <option value="out" data-i18n="availableOutOption">排除当前可看</option>
         </select>
-        <label for="recommendation-provider-filter">平台：</label>
+        <label for="recommendation-provider-filter" data-i18n="providerLabel">平台：</label>
         <select id="recommendation-provider-filter"></select>
-        <label for="recommendation-sort-filter">排序：</label>
+        <label for="recommendation-sort-filter" data-i18n="sortLabel">排序：</label>
         <select id="recommendation-sort-filter">
-          <option value="priority">按综合优先级</option>
-          <option value="predicted">按预测喜欢程度</option>
-          <option value="site">按站内口碑</option>
+          <option value="priority" data-i18n="sortPriorityOption">按综合优先级</option>
+          <option value="predicted" data-i18n="sortPredictedOption">按预测喜欢程度</option>
+          <option value="site" data-i18n="sortSiteOption">按站内口碑</option>
         </select>
       </div>
       <div class="filter-group">
-        <div class="filter-group-label">只看类型：可多选；不选表示不过滤</div>
+        <div class="filter-group-label" data-i18n="includeGenresLabel">只看类型：可多选；不选表示不过滤</div>
         <div id="recommendation-genre-include-pills" class="pill-group"></div>
       </div>
       <div class="filter-group">
-        <div class="filter-group-label">排除类型：可多选；不选表示不排除</div>
+        <div class="filter-group-label" data-i18n="excludeGenresLabel">排除类型：可多选；不选表示不排除</div>
         <div id="recommendation-genre-exclude-pills" class="pill-group"></div>
       </div>
       <p id="recommendation-results-summary" class="results-summary"></p>
@@ -4770,10 +5117,10 @@ def build_html(payload: dict[str, Any]) -> str:
     </section>
 
     <section class="section">
-      <h2>Genre × Country / Region</h2>
-      <p class="lead">选择一个类型后，可比较该类型在不同国家 / 地区之间的占比与平均分；展示层对香港、台湾、澳门统一按地区处理。</p>
+      <h2 data-i18n="genreCountryTitle">Genre × Country / Region</h2>
+      <p class="lead" data-i18n="genreCountryLead">选择一个类型后，可比较该类型在不同国家 / 地区之间的占比与平均分；展示层对香港、台湾、澳门统一按地区处理。</p>
       <div class="controls">
-        <label for="genre-select">类型：</label>
+        <label for="genre-select" data-i18n="genreLabel">类型：</label>
         <select id="genre-select"></select>
       </div>
       <div class="grid-2">
@@ -4790,9 +5137,9 @@ def build_html(payload: dict[str, Any]) -> str:
     </section>
 
     <section class="section">
-      <h2>Viewing Context Tags</h2>
-      <p class="lead">本区将 tags 视为观影语境元数据，拆分为社交关系、同伴、观看设备、地点与来源。未标记条目不进入占比图。</p>
-      <h3>Tag Composition</h3>
+      <h2 data-i18n="tagsTitle">Viewing Context Tags</h2>
+      <p class="lead" data-i18n="tagsLead">本区将 tags 视为观影语境元数据，拆分为社交关系、同伴、观看设备、地点与来源。未标记条目不进入占比图。</p>
+      <h3 data-i18n="tagCompositionTitle">Tag Composition</h3>
       <div class="grid-3">
         <div id="tag-device-pie" class="plot"></div>
         <div id="tag-social-pie" class="plot"></div>
@@ -4801,7 +5148,7 @@ def build_html(payload: dict[str, Any]) -> str:
         <div id="tag-platform-pie" class="plot"></div>
         <div id="tag-raw-pie" class="plot"></div>
       </div>
-      <h3 style="margin-top:18px;">Rating Context</h3>
+      <h3 style="margin-top:18px;" data-i18n="ratingContextTitle">Rating Context</h3>
       <div class="grid-3">
         <div id="social-context-chart" class="plot"></div>
         <div id="device-context-chart" class="plot"></div>
@@ -4810,41 +5157,41 @@ def build_html(payload: dict[str, Any]) -> str:
       <div class="grid-2" style="margin-top:18px;">
         <div id="social-genre-delta-chart" class="plot"></div>
         <div class="mini-card">
-          <h3>Companion Snapshot</h3>
+          <h3 data-i18n="companionSnapshotTitle">Companion Snapshot</h3>
           <div class="table-wrap">{render_table(payload['tags']['companion_stats'], [('companion','Companion'), ('watches','Watches'), ('avg_rating','Avg rating')])}</div>
         </div>
       </div>
     </section>
 
     <section class="section">
-      <h2>Review Language Patterns</h2>
-      <p class="lead">本区从评论长度、主题与词汇分布三个角度整理 review 文本特征。</p>
+      <h2 data-i18n="reviewsTitle">Review Language Patterns</h2>
+      <p class="lead" data-i18n="reviewsLead">本区从评论长度、主题与词汇分布三个角度整理 review 文本特征。</p>
       <div class="grid-2">
         <div id="review-length-chart" class="plot"></div>
         <div id="review-theme-chart" class="plot"></div>
       </div>
       <div class="grid-2" style="margin-top:18px;">
         <div class="mini-card">
-          <h3>High-rating vocabulary</h3>
+          <h3 data-i18n="highRatingVocabularyTitle">High-rating vocabulary</h3>
           <div class="table-wrap">{render_table(payload['reviews']['positive_terms'], [('term','Term'), ('positive_count','High-count'), ('score','Score')])}</div>
         </div>
         <div class="mini-card">
-          <h3>Low-rating vocabulary</h3>
+          <h3 data-i18n="lowRatingVocabularyTitle">Low-rating vocabulary</h3>
           <div class="table-wrap">{render_table(payload['reviews']['negative_terms'], [('term','Term'), ('negative_count','Low-count'), ('score','Score')])}</div>
         </div>
       </div>
     </section>
 
     <section class="section">
-      <h2>List Signals</h2>
-      <p class="lead">本区按待看计划、偏好声明和主题整理三类意图汇总 lists，并重点展示更能代表个人口味的条目。</p>
+      <h2 data-i18n="listsTitle">List Signals</h2>
+      <p class="lead" data-i18n="listsLead">本区按待看计划、偏好声明和主题整理三类意图汇总 lists，并重点展示更能代表个人口味的条目。</p>
       <div class="grid-2">
         <div class="mini-card">
-          <h3>List Inventory</h3>
+          <h3 data-i18n="listInventoryTitle">List Inventory</h3>
           <div class="table-wrap">{list_summary_html}</div>
         </div>
         <div class="mini-card">
-          <h3>Repeated picks across preference lists</h3>
+          <h3 data-i18n="repeatedPicksTitle">Repeated picks across preference lists</h3>
           <div class="table-wrap">{preference_overlap_html}</div>
         </div>
       </div>
@@ -4854,7 +5201,7 @@ def build_html(payload: dict[str, Any]) -> str:
       </div>
     </section>
 
-    <div class="footer">页面生成时间：{html.escape(payload['generated_at'])}。交互图表所需数据已内嵌在当前文件中。</div>
+    <div class="footer"><span data-i18n="generatedAtLabel">页面生成时间：</span>{html.escape(payload['generated_at'])}<span data-i18n="embeddedDataLabel">。交互图表所需数据已内嵌在当前文件中。</span></div>
   </div>
 
   <script>
@@ -4867,6 +5214,216 @@ def build_html(payload: dict[str, Any]) -> str:
       font: {{family: 'IBM Plex Sans, sans-serif', color: '#17233b'}},
       hoverlabel: {{font: {{family: 'IBM Plex Sans, sans-serif'}}}},
     }};
+    const I18N = {{
+      zh: {{
+        heroLead: '这个页面汇总的是 Letterboxd 原生会员页之外更适合横向比较的观察维度，包括国家 / 地区 × 类型结构、加拿大流媒体可看范围、观影语境标签、review 用词、lists 意图，以及不限于 watchlist 的候选推荐。',
+        ratedFilms: '已评分影片',
+        watchEvents: '观影记录',
+        taggedWatches: '带标签观影',
+        writtenReviews: '文字评论',
+        exportedLists: '导出片单',
+        unseenCandidates: '未看候选',
+        doubanMatched: '豆瓣已匹配',
+        streamingIndexed: '流媒体已索引',
+        tasteBriefTitle: 'Today\\'s Taste Brief',
+        tasteBriefLead: '本区把最新 Letterboxd 数据、可看片单和电影行业信号压缩成可快速阅读的判断线索。',
+        dailyRadarTitle: 'Daily Film Radar',
+        dailyRadarLead: '每天从电影新闻源中提取作品、导演、奖项和产业动态，只保留能提供补片或理解行业的短句。',
+        filmFactsTitle: 'Film Facts',
+        filmFactsLead: '这些条目来自你的评分、tags、lists 和当前可看目录，会随每日同步更新。',
+        doubanCoverageTitle: 'Watched Films: Douban Coverage',
+        doubanCoverageLead: '本区为已评分影片补齐豆瓣评分，并将你的评分、Letterboxd 均分与豆瓣 10 分制评分放在同一张表内对照。匹配优先使用 IMDb / Douban subject ID，并以公开豆瓣电影数据索引补齐历史评分；live Douban API 只作为可用时的增量来源。',
+        matchedWatchedFilms: '已匹配已看影片',
+        coverage: '覆盖率',
+        missingAfterLookup: '仍缺失',
+        streamingTitle: 'Canada Streaming Availability',
+        streamingLead: '本区只保留能够稳定匹配到英文电影词条的加拿大流媒体目录。榜单优先展示已匹配 Letterboxd 评分的影片，并同步显示可用的豆瓣评分。',
+        recommendationsTitle: 'Recommendations Beyond Watchlist',
+        recommendationsLead: '推荐池同时包含 watchlist、导出 lists 与当前流媒体目录里的外部发现条目；筛选器可分别限定 watchlist、lists、平台可看状态与类型范围。',
+        genreCountryTitle: 'Genre × Country / Region',
+        genreCountryLead: '选择一个类型后，可比较该类型在不同国家 / 地区之间的占比与平均分；展示层对 Hong Kong、Taiwan、Macau 统一按地区处理。',
+        tagsTitle: 'Viewing Context Tags',
+        tagsLead: '本区将 tags 视为观影语境元数据，拆分为社交关系、同伴、观看设备、地点与来源。未标记条目不进入占比图。',
+        tagCompositionTitle: 'Tag Composition',
+        ratingContextTitle: 'Rating Context',
+        companionSnapshotTitle: 'Companion Snapshot',
+        reviewsTitle: 'Review Language Patterns',
+        reviewsLead: '本区从评论长度、主题与词汇分布三个角度整理 review 文本特征。',
+        highRatingVocabularyTitle: 'High-rating vocabulary',
+        lowRatingVocabularyTitle: 'Low-rating vocabulary',
+        listsTitle: 'List Signals',
+        listsLead: '本区按待看计划、偏好声明和主题整理三类意图汇总 lists，并重点展示更能代表个人口味的条目。',
+        listInventoryTitle: 'List Inventory',
+        repeatedPicksTitle: 'Repeated picks across preference lists',
+        generatedAtLabel: '页面生成时间：',
+        embeddedDataLabel: '。交互图表所需数据已内嵌在当前文件中。',
+        providerLabel: '平台：',
+        watchStateLabel: '观看状态：',
+        exclusiveLabel: '平台独占：',
+        scoreMatchLabel: '评分匹配：',
+        watchlistLabel: 'Watchlist：',
+        myListsLabel: '我的 lists：',
+        streamingAvailableLabel: '平台可看：',
+        sortLabel: '排序：',
+        genreLabel: '类型：',
+        allOption: '全部',
+        unwatchedOption: '没看过',
+        watchedOption: '我看过的',
+        exclusiveOnlyOption: '只看独占',
+        multiPlatformOption: '只看多平台',
+        scoredOnlyOption: '只看已匹配 Letterboxd 评分',
+        allTitlesOption: '全部标题',
+        watchlistInOption: '只看在 watchlist 里',
+        watchlistOutOption: '排除 watchlist',
+        listsInOption: '只看在我的 lists 里',
+        listsOutOption: '排除我的 lists',
+        availableInOption: '只看当前可看',
+        availableOutOption: '排除当前可看',
+        sortPriorityOption: '按综合优先级',
+        sortPredictedOption: '按预测喜欢程度',
+        sortSiteOption: '按站内口碑',
+        includeGenresLabel: '只看类型：可多选；不选表示不过滤',
+        excludeGenresLabel: '排除类型：可多选；不选表示不排除',
+        allPlatforms: '全部平台',
+        allGenres: '全部类型',
+        noExclusions: '不排除',
+        film: 'Film',
+        year: 'Year',
+        genres: 'Genres',
+        platforms: 'Platforms',
+        status: 'Status',
+        links: 'Links',
+        yourRating: 'Your rating',
+        letterboxd: 'Letterboxd',
+        douban: 'Douban',
+        lbRating: 'LB rating',
+        lbRatings: 'LB ratings',
+        priority: 'Priority',
+        predicted: 'Predicted',
+        available: 'Available',
+        inYourData: 'In your data',
+        reason: 'Reason',
+        countryRegion: 'Country / Region',
+        films: 'Films',
+        avgRating: 'Avg rating',
+        shareInGenre: 'Share in genre',
+        stableScore: 'Stable score',
+      }},
+      en: {{
+        heroLead: 'A shareable research page for the questions Letterboxd Stats does not answer directly: genre × region patterns, Canadian streaming options, viewing-context tags, review language, list intent, and recommendations beyond the official watchlist.',
+        ratedFilms: 'Rated films',
+        watchEvents: 'Watch events',
+        taggedWatches: 'Tagged watches',
+        writtenReviews: 'Written reviews',
+        exportedLists: 'Exported lists',
+        unseenCandidates: 'Unseen candidates',
+        doubanMatched: 'Douban matched',
+        streamingIndexed: 'Streaming indexed',
+        tasteBriefTitle: 'Today\\'s Taste Brief',
+        tasteBriefLead: 'A compact briefing that combines the newest Letterboxd data, watch availability, and film-industry signals into quickly readable clues.',
+        dailyRadarTitle: 'Daily Film Radar',
+        dailyRadarLead: 'Updated from film-news feeds with short notes about noteworthy works, directors, awards, releases, box office, and industry movement.',
+        filmFactsTitle: 'Film Facts',
+        filmFactsLead: 'Daily facts drawn from your ratings, tags, lists, and current streaming availability.',
+        doubanCoverageTitle: 'Watched Films: Douban Coverage',
+        doubanCoverageLead: 'Adds Douban ratings for watched films and compares them with your rating and Letterboxd averages. Matching prioritizes IMDb / Douban subject IDs, public Douban indexes, and live Douban detail pages when available.',
+        matchedWatchedFilms: 'Matched watched films',
+        coverage: 'Coverage',
+        missingAfterLookup: 'Missing after lookup',
+        streamingTitle: 'Canada Streaming Availability',
+        streamingLead: 'Canadian streaming catalogues matched to stable English film records. Rankings prioritize titles with Letterboxd scores and include Douban ratings when matched.',
+        recommendationsTitle: 'Recommendations Beyond Watchlist',
+        recommendationsLead: 'The recommendation pool includes watchlist items, exported lists, and outside discoveries from current streaming catalogues. Filters can include or exclude each source.',
+        genreCountryTitle: 'Genre × Country / Region',
+        genreCountryLead: 'Choose a genre to compare its country / region mix and average ratings. Hong Kong, Taiwan, and Macau are presented as regions.',
+        tagsTitle: 'Viewing Context Tags',
+        tagsLead: 'Tags are treated as viewing-context metadata: social setting, named companions, device, place, and source. Untagged watches are excluded from share charts.',
+        tagCompositionTitle: 'Tag Composition',
+        ratingContextTitle: 'Rating Context',
+        companionSnapshotTitle: 'Companion Snapshot',
+        reviewsTitle: 'Review Language Patterns',
+        reviewsLead: 'Review text summarized through length, theme, and vocabulary patterns.',
+        highRatingVocabularyTitle: 'High-rating vocabulary',
+        lowRatingVocabularyTitle: 'Low-rating vocabulary',
+        listsTitle: 'List Signals',
+        listsLead: 'Lists are grouped by watch plans, preference statements, and thematic collections, with emphasis on signals that reveal taste.',
+        listInventoryTitle: 'List Inventory',
+        repeatedPicksTitle: 'Repeated picks across preference lists',
+        generatedAtLabel: 'Generated at: ',
+        embeddedDataLabel: '. Interactive chart data is embedded in this page.',
+        providerLabel: 'Provider:',
+        watchStateLabel: 'Watch status:',
+        exclusiveLabel: 'Exclusivity:',
+        scoreMatchLabel: 'Score match:',
+        watchlistLabel: 'Watchlist:',
+        myListsLabel: 'My lists:',
+        streamingAvailableLabel: 'Streaming:',
+        sortLabel: 'Sort:',
+        genreLabel: 'Genre:',
+        allOption: 'All',
+        unwatchedOption: 'Unwatched',
+        watchedOption: 'Watched',
+        exclusiveOnlyOption: 'Exclusive only',
+        multiPlatformOption: 'Multi-platform only',
+        scoredOnlyOption: 'Matched Letterboxd scores only',
+        allTitlesOption: 'All titles',
+        watchlistInOption: 'Only in watchlist',
+        watchlistOutOption: 'Exclude watchlist',
+        listsInOption: 'Only in my lists',
+        listsOutOption: 'Exclude my lists',
+        availableInOption: 'Currently available only',
+        availableOutOption: 'Exclude current availability',
+        sortPriorityOption: 'Overall priority',
+        sortPredictedOption: 'Predicted taste fit',
+        sortSiteOption: 'Letterboxd reputation',
+        includeGenresLabel: 'Include genres: multi-select; empty means no include filter',
+        excludeGenresLabel: 'Exclude genres: multi-select; empty means no exclusions',
+        allPlatforms: 'All platforms',
+        allGenres: 'All genres',
+        noExclusions: 'No exclusions',
+        film: 'Film',
+        year: 'Year',
+        genres: 'Genres',
+        platforms: 'Platforms',
+        status: 'Status',
+        links: 'Links',
+        yourRating: 'Your rating',
+        letterboxd: 'Letterboxd',
+        douban: 'Douban',
+        lbRating: 'LB rating',
+        lbRatings: 'LB ratings',
+        priority: 'Priority',
+        predicted: 'Predicted',
+        available: 'Available',
+        inYourData: 'In your data',
+        reason: 'Reason',
+        countryRegion: 'Country / Region',
+        films: 'Films',
+        avgRating: 'Avg rating',
+        shareInGenre: 'Share in genre',
+        stableScore: 'Stable score',
+      }}
+    }};
+    let currentLanguage = localStorage.getItem('letterboxd-report-language') || 'zh';
+
+    function t(key) {{
+      return (I18N[currentLanguage] && I18N[currentLanguage][key]) || I18N.zh[key] || key;
+    }}
+
+    function applyLanguage(language, refresh = false) {{
+      currentLanguage = language === 'en' ? 'en' : 'zh';
+      localStorage.setItem('letterboxd-report-language', currentLanguage);
+      document.documentElement.lang = currentLanguage === 'en' ? 'en' : 'zh-CN';
+      document.querySelectorAll('[data-i18n]').forEach(element => {{
+        element.textContent = t(element.dataset.i18n);
+      }});
+      document.querySelectorAll('[data-language-choice]').forEach(button => {{
+        button.classList.toggle('active', button.dataset.languageChoice === currentLanguage);
+      }});
+      if (refresh && typeof refreshTranslatedViews === 'function') {{
+        refreshTranslatedViews();
+      }}
+    }}
 
     function formatPct(value) {{
       if (value === null || value === undefined || value === '') return '—';
@@ -4878,7 +5435,7 @@ def build_html(payload: dict[str, Any]) -> str:
       if (value === null || value === undefined || value === '') return '—';
       const number = Number(value);
       if (!Number.isFinite(number)) return '—';
-      return new Intl.NumberFormat('en-US', {{
+      return new Intl.NumberFormat(currentLanguage === 'zh' ? 'zh-CN' : 'en-US', {{
         notation: Math.abs(number) >= 10000 ? 'compact' : 'standard',
         maximumFractionDigits: Math.abs(number) >= 10000 ? 1 : 0,
       }}).format(number);
@@ -4930,6 +5487,59 @@ def build_html(payload: dict[str, Any]) -> str:
 
     function barChartHeight(count, base = 180, step = 28, max = 620) {{
       return Math.min(max, Math.max(280, base + count * step));
+    }}
+
+    function numericValues(rows, key) {{
+      return rows
+        .map(row => Number(row[key]))
+        .filter(value => Number.isFinite(value));
+    }}
+
+    function focusedRange(rows, key = 'avg_rating', floor = 0, ceiling = 5) {{
+      const values = numericValues(rows, key);
+      if (!values.length) return [floor, ceiling];
+      let min = Math.min(...values);
+      let max = Math.max(...values);
+      if (max - min < 0.55) {{
+        const center = (min + max) / 2;
+        min = center - 0.32;
+        max = center + 0.32;
+      }}
+      return [Math.max(floor, min - 0.18), Math.min(ceiling, max + 0.18)];
+    }}
+
+    function renderRatingDotPlot(containerId, rows, labelKey, title, color = '#2d6f8e') {{
+      const el = document.getElementById(containerId);
+      const source = (rows || []).filter(row => Number.isFinite(Number(row.avg_rating)));
+      if (!source.length) {{
+        el.innerHTML = `<p class="muted">${{currentLanguage === 'zh' ? '这个类别暂无评分样本。' : 'No rated data in this category.'}}</p>`;
+        return;
+      }}
+      const ordered = [...source].sort((left, right) => Number(left.avg_rating) - Number(right.avg_rating));
+      Plotly.newPlot(containerId, [{{
+        type: 'scatter',
+        mode: 'markers+text',
+        x: ordered.map(row => Number(row.avg_rating)),
+        y: ordered.map(row => wrapLabel(row[labelKey], 22)),
+        text: ordered.map(row => formatRating(row.avg_rating)),
+        textposition: 'middle right',
+        cliponaxis: false,
+        marker: {{
+          color,
+          size: ordered.map(row => Math.min(28, Math.max(11, 8 + Math.sqrt(Number(row.watches || row.films || row.distinct_films || 1)) * 3))),
+          opacity: 0.82,
+          line: {{color: '#fffaf2', width: 1.5}},
+        }},
+        customdata: ordered.map(row => [formatCount(row.watches || row.films || row.distinct_films), formatPct(row.five_star_share)]),
+        hovertemplate: 'Average rating: %{{x:.2f}}<br>Count: %{{customdata[0]}}<extra></extra>',
+      }}], {{
+        ...plotLayout,
+        title,
+        margin: {{t: 52, r: 76, b: 46, l: 124}},
+        xaxis: {{range: focusedRange(source), automargin: true, title: 'Average rating'}},
+        yaxis: {{automargin: true}},
+        height: barChartHeight(ordered.length, 150, 34, 560),
+      }}, plotConfig);
     }}
 
     const streamingGenreIncludeSelection = new Set();
@@ -5030,14 +5640,14 @@ def build_html(payload: dict[str, Any]) -> str:
       makeTable(
         document.getElementById('watched-douban-table'),
         [
-          {{key: 'name', label: 'Film'}},
-          {{key: 'year', label: 'Year'}},
-          {{key: 'user_rating', label: 'Your rating'}},
-          {{key: 'letterboxd', label: 'Letterboxd'}},
-          {{key: 'douban', label: 'Douban'}},
-          {{key: 'gap', label: 'Douban gap'}},
-          {{key: 'genres', label: 'Genres'}},
-          {{key: 'links', label: 'Links'}},
+          {{key: 'name', label: t('film')}},
+          {{key: 'year', label: t('year')}},
+          {{key: 'user_rating', label: t('yourRating')}},
+          {{key: 'letterboxd', label: t('letterboxd')}},
+          {{key: 'douban', label: t('douban')}},
+          {{key: 'gap', label: currentLanguage === 'zh' ? '豆瓣差值' : 'Douban gap'}},
+          {{key: 'genres', label: t('genres')}},
+          {{key: 'links', label: t('links')}},
         ],
         tableRows.map(row => {{
           const gap = row.user_rating === null || row.user_rating === undefined
@@ -5060,7 +5670,7 @@ def build_html(payload: dict[str, Any]) -> str:
     function drawTagPie(containerId, rows, title) {{
       const el = document.getElementById(containerId);
       if (!rows || rows.length === 0) {{
-        el.innerHTML = '<p class="muted">No tagged data in this category.</p>';
+        el.innerHTML = `<p class="muted">${{currentLanguage === 'zh' ? '这个类别暂无已标记数据。' : 'No tagged data in this category.'}}</p>`;
         return;
       }}
       Plotly.newPlot(containerId, [{{
@@ -5081,8 +5691,8 @@ def build_html(payload: dict[str, Any]) -> str:
     function renderTagPieCharts() {{
       const pies = data.tags.tag_pies || {{}};
       drawTagPie('tag-device-pie', pies.device_context || [], 'Viewing device / display');
-      drawTagPie('tag-social-pie', pies.social_context || [], 'Social context');
-      drawTagPie('tag-companion-pie', pies.companion || [], 'Companion');
+      drawTagPie('tag-social-pie', pies.social_scope || [], 'Solo vs social viewing');
+      drawTagPie('tag-companion-pie', pies.companion || [], 'Named companion');
       drawTagPie('tag-location-pie', pies.location_context || [], 'Location');
       drawTagPie('tag-platform-pie', pies.platform_context || [], 'Platform / source tag');
       drawTagPie('tag-raw-pie', pies.raw_tags || [], 'Most used raw tags');
@@ -5114,31 +5724,23 @@ def build_html(payload: dict[str, Any]) -> str:
         height: 360,
       }}, plotConfig);
 
-      const ratingRows = rows.filter(row => row.films >= 2).slice(0, 10).reverse();
-      Plotly.newPlot('genre-country-ratings', [{{
-        type: 'bar',
-        orientation: 'h',
-        y: ratingRows.map(row => wrapLabel(row.country, 18)),
-        x: ratingRows.map(row => row.avg_rating),
-        marker: {{color: '#2d6f8e'}},
-        customdata: ratingRows.map(row => row.films),
-        hovertemplate: 'Average rating: %{{x:.2f}}<br>Films: %{{customdata}}<extra></extra>',
-      }}], {{
-        ...plotLayout,
-        title: `${{genre}} average rating by country / region`,
-        xaxis: {{range: [0, 5], automargin: true}},
-        yaxis: {{automargin: true}},
-        height: barChartHeight(ratingRows.length, 140, 30, 520),
-      }}, plotConfig);
+      const ratingRows = rows.filter(row => row.films >= 2).slice(0, 10);
+      renderRatingDotPlot(
+        'genre-country-ratings',
+        ratingRows,
+        'country',
+        `${{genre}} average rating by country / region`,
+        '#2d6f8e'
+      );
 
       makeTable(
         document.getElementById('genre-country-table'),
         [
-          {{key: 'country', label: 'Country / Region'}},
-          {{key: 'films', label: 'Films'}},
-          {{key: 'avg_rating', label: 'Avg rating'}},
-          {{key: 'share_in_genre', label: 'Share in genre'}},
-          {{key: 'weighted_score', label: 'Stable score'}},
+          {{key: 'country', label: t('countryRegion')}},
+          {{key: 'films', label: t('films')}},
+          {{key: 'avg_rating', label: t('avgRating')}},
+          {{key: 'share_in_genre', label: t('shareInGenre')}},
+          {{key: 'weighted_score', label: t('stableScore')}},
         ],
         rows.map(row => ({{
           ...row,
@@ -5181,55 +5783,11 @@ def build_html(payload: dict[str, Any]) -> str:
 
     function renderTagCharts() {{
       const social = data.tags.social_stats;
-      Plotly.newPlot('social-context-chart', [{{
-        type: 'bar',
-        orientation: 'h',
-        y: social.map(row => wrapLabel(row.social_context, 18)).reverse(),
-        x: social.map(row => row.avg_rating).reverse(),
-        marker: {{color: '#c48a3a'}},
-        customdata: social.map(row => row.watches).reverse(),
-        hovertemplate: 'Average rating: %{{x:.2f}}<br>Watches: %{{customdata}}<extra></extra>',
-      }}], {{
-        ...plotLayout,
-        title: 'Average rating by social context',
-        xaxis: {{range: [0, 5], automargin: true}},
-        yaxis: {{automargin: true}},
-        height: barChartHeight(social.length, 140, 28, 520),
-      }}, plotConfig);
-
+      renderRatingDotPlot('social-context-chart', social, 'social_context', 'Average rating by social context', '#c48a3a');
       const device = data.tags.device_stats;
-      Plotly.newPlot('device-context-chart', [{{
-        type: 'bar',
-        orientation: 'h',
-        y: device.map(row => wrapLabel(row.device_context, 18)).reverse(),
-        x: device.map(row => row.avg_rating).reverse(),
-        marker: {{color: '#2d6f8e'}},
-        customdata: device.map(row => row.watches).reverse(),
-        hovertemplate: 'Average rating: %{{x:.2f}}<br>Watches: %{{customdata}}<extra></extra>',
-      }}], {{
-        ...plotLayout,
-        title: 'Average rating by device',
-        xaxis: {{range: [0, 5], automargin: true}},
-        yaxis: {{automargin: true}},
-        height: barChartHeight(device.length, 140, 28, 520),
-      }}, plotConfig);
-
+      renderRatingDotPlot('device-context-chart', device, 'device_context', 'Average rating by device', '#2d6f8e');
       const platform = data.tags.platform_stats.slice(0, 10);
-      Plotly.newPlot('platform-context-chart', [{{
-        type: 'bar',
-        orientation: 'h',
-        y: platform.map(row => wrapLabel(row.platform_context, 18)).reverse(),
-        x: platform.map(row => row.avg_rating).reverse(),
-        marker: {{color: '#b75b49'}},
-        customdata: platform.map(row => row.watches).reverse(),
-        hovertemplate: 'Average rating: %{{x:.2f}}<br>Watches: %{{customdata}}<extra></extra>',
-      }}], {{
-        ...plotLayout,
-        title: 'Average rating by platform / source tag',
-        xaxis: {{range: [0, 5], automargin: true}},
-        yaxis: {{automargin: true}},
-        height: barChartHeight(platform.length, 140, 28, 520),
-      }}, plotConfig);
+      renderRatingDotPlot('platform-context-chart', platform, 'platform_context', 'Average rating by platform / source tag', '#b75b49');
 
       const delta = data.tags.social_genre_delta.slice(0, 12).reverse();
       Plotly.newPlot('social-genre-delta-chart', [{{
@@ -5318,23 +5876,24 @@ def build_html(payload: dict[str, Any]) -> str:
 
     function initStreamingControls() {{
       const providerSelect = document.getElementById('streaming-provider-filter');
-      providerSelect.innerHTML = '<option value="all">全部平台</option>' + data.streaming.summary
+      const selectedProvider = providerSelect.value || 'all';
+      providerSelect.innerHTML = `<option value="all">${{t('allPlatforms')}}</option>` + data.streaming.summary
         .map(row => `<option value="${{row.provider}}">${{row.provider}}</option>`)
         .join('');
-      providerSelect.value = 'all';
+      providerSelect.value = [...providerSelect.options].some(option => option.value === selectedProvider) ? selectedProvider : 'all';
 
       renderPillGroup(
         'streaming-genre-include-pills',
         data.streaming.genre_options || [],
         streamingGenreIncludeSelection,
-        '全部类型',
+        t('allGenres'),
         renderStreamingSection
       );
       renderPillGroup(
         'streaming-genre-exclude-pills',
         data.streaming.genre_options || [],
         streamingGenreExcludeSelection,
-        '不排除',
+        t('noExclusions'),
         renderStreamingSection
       );
 
@@ -5344,7 +5903,13 @@ def build_html(payload: dict[str, Any]) -> str:
         'streaming-exclusive-filter',
         'streaming-score-filter',
       ]
-        .forEach(id => document.getElementById(id).addEventListener('change', renderStreamingSection));
+        .forEach(id => {{
+          const element = document.getElementById(id);
+          if (!element.dataset.bound) {{
+            element.addEventListener('change', renderStreamingSection);
+            element.dataset.bound = 'true';
+          }}
+        }});
     }}
 
     function getFilteredStreamingRows() {{
@@ -5386,12 +5951,12 @@ def build_html(payload: dict[str, Any]) -> str:
           <h3>${{row.provider}}</h3>
           <div class="muted">${{row.scope_label || ''}}</div>
           <div class="provider-card-stat">
-            <div><strong>${{formatCount(row.available_titles)}}</strong><span class="muted">当前可看电影</span></div>
-            <div><strong>${{formatCount(row.exclusive_titles)}}</strong><span class="muted">平台独占</span></div>
-            <div><strong>${{formatCount(row.watched_titles)}}</strong><span class="muted">你已看过</span></div>
-            <div><strong>${{formatRating(row.avg_letterboxd_rating)}}</strong><span class="muted">已索引片均分</span></div>
-            <div><strong>${{formatOneDecimal(row.avg_douban_rating)}}</strong><span class="muted">豆瓣均分</span></div>
-            <div><strong>${{formatRating(row.avg_user_rating)}}</strong><span class="muted">已看样本均分</span></div>
+            <div><strong>${{formatCount(row.available_titles)}}</strong><span class="muted">${{currentLanguage === 'zh' ? '当前可看电影' : 'Available films'}}</span></div>
+            <div><strong>${{formatCount(row.exclusive_titles)}}</strong><span class="muted">${{currentLanguage === 'zh' ? '平台独占' : 'Exclusive titles'}}</span></div>
+            <div><strong>${{formatCount(row.watched_titles)}}</strong><span class="muted">${{currentLanguage === 'zh' ? '你已看过' : 'Watched by you'}}</span></div>
+            <div><strong>${{formatRating(row.avg_letterboxd_rating)}}</strong><span class="muted">${{currentLanguage === 'zh' ? '已索引片均分' : 'Indexed LB avg'}}</span></div>
+            <div><strong>${{formatOneDecimal(row.avg_douban_rating)}}</strong><span class="muted">${{currentLanguage === 'zh' ? '豆瓣均分' : 'Douban avg'}}</span></div>
+            <div><strong>${{formatRating(row.avg_user_rating)}}</strong><span class="muted">${{currentLanguage === 'zh' ? '已看样本均分' : 'Your watched avg'}}</span></div>
           </div>
           ${{row.catalog_note ? `<div class="provider-note">${{row.catalog_note}}</div>` : ''}}
         </div>
@@ -5435,29 +6000,39 @@ def build_html(payload: dict[str, Any]) -> str:
       const rows = getFilteredStreamingRows();
       const scoredRows = rows.filter(row => row.letterboxd_rating !== null && row.letterboxd_rating !== undefined);
       document.getElementById('streaming-results-summary').textContent =
-        `当前筛选结果 ${{formatCount(rows.length)}} 部；其中 ${{formatCount(scoredRows.length)}} 部已匹配 Letterboxd 评分。当前缓存已覆盖 ${{formatCount(data.streaming.stats.indexed_titles)}} / ${{formatCount(data.streaming.stats.provider_titles)}} 部平台片单。`;
+        currentLanguage === 'zh'
+          ? `当前筛选结果 ${{formatCount(rows.length)}} 部；其中 ${{formatCount(scoredRows.length)}} 部已匹配 Letterboxd 评分。当前缓存已覆盖 ${{formatCount(data.streaming.stats.indexed_titles)}} / ${{formatCount(data.streaming.stats.provider_titles)}} 部平台片单。`
+          : `${{formatCount(rows.length)}} titles match the current filters; ${{formatCount(scoredRows.length)}} have Letterboxd scores. The cache covers ${{formatCount(data.streaming.stats.indexed_titles)}} / ${{formatCount(data.streaming.stats.provider_titles)}} catalogue titles.`;
       document.getElementById('streaming-data-note').textContent =
         (data.streaming.provider_warnings || []).map(row => `${{row.provider}}: ${{row.note}}`).join('  ');
 
       const topRows = scoredRows.slice(0, 10);
+      const topPlotRows = [...topRows].reverse();
       Plotly.newPlot('streaming-ranking-chart', [{{
-        type: 'bar',
-        orientation: 'h',
-        y: topRows.map(row => wrapLabel(`${{shortenLabel(row.name, 44)}} (${{row.year ?? '—'}})`, 26)).reverse(),
-        x: topRows.map(row => row.letterboxd_rating).reverse(),
+        type: 'scatter',
+        mode: 'markers+text',
+        y: topPlotRows.map(row => wrapLabel(`${{shortenLabel(row.name, 44)}} (${{row.year ?? '—'}})`, 28)),
+        x: topPlotRows.map(row => row.letterboxd_rating),
+        text: topPlotRows.map(row => formatRating(row.letterboxd_rating)),
+        textposition: 'middle right',
+        cliponaxis: false,
         marker: {{
-          color: topRows.map(row => row.watched ? '#b75b49' : row.exclusive ? '#c48a3a' : '#2d6f8e').reverse()
+          color: topPlotRows.map(row => row.watched ? '#b75b49' : row.exclusive ? '#c48a3a' : '#2d6f8e'),
+          size: topPlotRows.map(row => Math.min(30, Math.max(12, 8 + Math.log10(Number(row.letterboxd_rating_count || 1) + 1) * 4))),
+          opacity: 0.84,
+          line: {{color: '#fffaf2', width: 1.5}},
         }},
-        customdata: topRows.map(row => [
+        customdata: topPlotRows.map(row => [
           formatCount(row.letterboxd_rating_count),
           formatOneDecimal(row.douban_rating),
           (row.providers || []).join(', ')
-        ]).reverse(),
+        ]),
         hovertemplate: 'Letterboxd: %{{x:.2f}} (%{{customdata[0]}} ratings)<br>Douban: %{{customdata[1]}}<br>Platforms: %{{customdata[2]}}<extra></extra>',
       }}], {{
         ...plotLayout,
         title: 'Top filtered titles by Letterboxd score',
-        xaxis: {{range: [0, 5], automargin: true}},
+        margin: {{t: 52, r: 76, b: 46, l: 164}},
+        xaxis: {{range: focusedRange(topRows, 'letterboxd_rating'), automargin: true, title: 'Letterboxd rating'}},
         yaxis: {{automargin: true}},
         height: barChartHeight(topRows.length, 160, 34, 620),
       }}, plotConfig);
@@ -5466,17 +6041,17 @@ def build_html(payload: dict[str, Any]) -> str:
         document.getElementById('streaming-table'),
         [
           {{key: 'rank', label: '#'}},
-          {{key: 'name', label: 'Film'}},
-          {{key: 'year', label: 'Year'}},
-          {{key: 'genres', label: 'Genres'}},
-          {{key: 'providers', label: 'Platforms'}},
-          {{key: 'letterboxd_rating', label: 'LB rating'}},
-          {{key: 'douban_rating', label: 'Douban'}},
-          {{key: 'letterboxd_rating_count', label: 'LB ratings'}},
-          {{key: 'status', label: 'Status'}},
-          {{key: 'user_rating', label: 'Your rating'}},
+          {{key: 'name', label: t('film')}},
+          {{key: 'year', label: t('year')}},
+          {{key: 'genres', label: t('genres')}},
+          {{key: 'providers', label: t('platforms')}},
+          {{key: 'letterboxd_rating', label: t('lbRating')}},
+          {{key: 'douban_rating', label: t('douban')}},
+          {{key: 'letterboxd_rating_count', label: t('lbRatings')}},
+          {{key: 'status', label: t('status')}},
+          {{key: 'user_rating', label: t('yourRating')}},
           {{key: 'imdb_score', label: 'IMDb'}},
-          {{key: 'links', label: 'Links'}},
+          {{key: 'links', label: t('links')}},
         ],
         rows.slice(0, 80).map(row => ({{
           rank: row.rank ?? '—',
@@ -5484,10 +6059,12 @@ def build_html(payload: dict[str, Any]) -> str:
           year: row.year ?? '—',
           genres: (row.genre_labels || []).length ? row.genre_labels.join(' / ') : '—',
           providers: `<div class="inline-links">${{(row.provider_links || []).map(link => `<a href="${{link.url}}" target="_blank" rel="noopener noreferrer">${{link.provider}}</a>`).join('<br>')}}</div>`,
-          letterboxd_rating: row.letterboxd_rating === null || row.letterboxd_rating === undefined ? '未匹配' : formatRating(row.letterboxd_rating),
+          letterboxd_rating: row.letterboxd_rating === null || row.letterboxd_rating === undefined ? (currentLanguage === 'zh' ? '未匹配' : 'Unmatched') : formatRating(row.letterboxd_rating),
           douban_rating: row.douban_rating === null || row.douban_rating === undefined ? '—' : formatOneDecimal(row.douban_rating),
           letterboxd_rating_count: row.letterboxd_rating_count ? formatCount(row.letterboxd_rating_count) : '—',
-          status: row.watched ? (row.exclusive ? '已看 · 独占' : '已看') : (row.exclusive ? '未看 · 独占' : '未看'),
+          status: row.watched
+            ? (row.exclusive ? (currentLanguage === 'zh' ? '已看 · 独占' : 'Watched · Exclusive') : (currentLanguage === 'zh' ? '已看' : 'Watched'))
+            : (row.exclusive ? (currentLanguage === 'zh' ? '未看 · 独占' : 'Unwatched · Exclusive') : (currentLanguage === 'zh' ? '未看' : 'Unwatched')),
           user_rating: row.user_rating === null || row.user_rating === undefined ? '—' : formatRating(row.user_rating),
           imdb_score: row.imdb_score === null || row.imdb_score === undefined ? '—' : Number(row.imdb_score).toFixed(1),
           links: `<div class="inline-links">${{[
@@ -5500,23 +6077,24 @@ def build_html(payload: dict[str, Any]) -> str:
 
     function initRecommendationControls() {{
       const providerSelect = document.getElementById('recommendation-provider-filter');
-      providerSelect.innerHTML = '<option value="all">全部平台</option>' + (data.recommendations.platform_options || [])
+      const selectedProvider = providerSelect.value || 'all';
+      providerSelect.innerHTML = `<option value="all">${{t('allPlatforms')}}</option>` + (data.recommendations.platform_options || [])
         .map(row => `<option value="${{row.label}}">${{row.label}}</option>`)
         .join('');
-      providerSelect.value = 'all';
+      providerSelect.value = [...providerSelect.options].some(option => option.value === selectedProvider) ? selectedProvider : 'all';
 
       renderPillGroup(
         'recommendation-genre-include-pills',
         data.recommendations.genre_options || [],
         recommendationGenreIncludeSelection,
-        '全部类型',
+        t('allGenres'),
         renderRecommendations
       );
       renderPillGroup(
         'recommendation-genre-exclude-pills',
         data.recommendations.genre_options || [],
         recommendationGenreExcludeSelection,
-        '不排除',
+        t('noExclusions'),
         renderRecommendations
       );
 
@@ -5526,7 +6104,13 @@ def build_html(payload: dict[str, Any]) -> str:
         'recommendation-streaming-filter',
         'recommendation-provider-filter',
         'recommendation-sort-filter',
-      ].forEach(id => document.getElementById(id).addEventListener('change', renderRecommendations));
+      ].forEach(id => {{
+        const element = document.getElementById(id);
+        if (!element.dataset.bound) {{
+          element.addEventListener('change', renderRecommendations);
+          element.dataset.bound = 'true';
+        }}
+      }});
     }}
 
     function getFilteredRecommendations() {{
@@ -5573,31 +6157,45 @@ def build_html(payload: dict[str, Any]) -> str:
     function renderRecommendations() {{
       const source = getFilteredRecommendations();
       document.getElementById('recommendation-results-summary').textContent =
-        `当前筛选结果 ${{formatCount(source.length)}} 部候选；总池子 ${{formatCount(data.recommendations.stats.candidate_count)}} 部，其中 ${{formatCount(data.recommendations.stats.discovery_titles)}} 部属于 watchlist 和自建 lists 之外的外部发现。`;
+        currentLanguage === 'zh'
+          ? `当前筛选结果 ${{formatCount(source.length)}} 部候选；总池子 ${{formatCount(data.recommendations.stats.candidate_count)}} 部，其中 ${{formatCount(data.recommendations.stats.discovery_titles)}} 部属于 watchlist 和自建 lists 之外的外部发现。`
+          : `${{formatCount(source.length)}} candidates match the current filters. The full pool has ${{formatCount(data.recommendations.stats.candidate_count)}} titles, including ${{formatCount(data.recommendations.stats.discovery_titles)}} outside watchlist and exported lists.`;
 
       const topRows = source.slice(0, 10);
+      const topPlotRows = [...topRows].reverse();
+      const priorityValues = numericValues(topRows, 'priority_score');
+      const priorityRange = priorityValues.length
+        ? [Math.max(0, Math.min(...priorityValues) - 1), Math.max(...priorityValues) + 1]
+        : [0, 1];
       Plotly.newPlot('recommendation-priority-chart', [{{
-        type: 'bar',
-        orientation: 'h',
-        y: topRows.map(row => wrapLabel(`${{shortenLabel(row.name, 44)}} (${{row.year ?? '—'}})`, 26)).reverse(),
-        x: topRows.map(row => row.priority_score).reverse(),
+        type: 'scatter',
+        mode: 'markers+text',
+        y: topPlotRows.map(row => wrapLabel(`${{shortenLabel(row.name, 44)}} (${{row.year ?? '—'}})`, 28)),
+        x: topPlotRows.map(row => row.priority_score),
+        text: topPlotRows.map(row => Number(row.priority_score).toFixed(1)),
+        textposition: 'middle right',
+        cliponaxis: false,
         marker: {{
-          color: topRows.map(row => {{
+          color: topPlotRows.map(row => {{
             if (row.discovery_only) return '#2d6f8e';
             if (row.currently_streaming) return '#c48a3a';
             if (row.in_watchlist) return '#b75b49';
             return '#17233b';
-          }}).reverse()
+          }}),
+          size: topPlotRows.map(row => Math.min(30, Math.max(12, 9 + Number(row.confidence || 0.5) * 14))),
+          opacity: 0.84,
+          line: {{color: '#fffaf2', width: 1.5}},
         }},
-        customdata: topRows.map(row => {{
+        customdata: topPlotRows.map(row => {{
           const providers = (row.providers || []).slice(0, 2).join(', ');
           return [formatRating(row.predicted_rating), formatRating(row.site_average_rating), providers];
-        }}).reverse(),
+        }}),
         hovertemplate: 'Priority: %{{x:.1f}}<br>Predicted rating: %{{customdata[0]}}<br>Letterboxd: %{{customdata[1]}}<br>Platforms: %{{customdata[2]}}<extra></extra>',
       }}], {{
         ...plotLayout,
         title: 'Filtered recommendation priority',
-        xaxis: {{automargin: true}},
+        margin: {{t: 52, r: 76, b: 46, l: 164}},
+        xaxis: {{range: priorityRange, automargin: true, title: 'Priority score'}},
         yaxis: {{automargin: true}},
         height: barChartHeight(topRows.length, 160, 34, 620),
       }}, plotConfig);
@@ -5606,15 +6204,15 @@ def build_html(payload: dict[str, Any]) -> str:
         document.getElementById('recommendation-table'),
         [
           {{key: 'rank', label: '#'}},
-          {{key: 'name', label: 'Film'}},
-          {{key: 'year', label: 'Year'}},
-          {{key: 'genres', label: 'Genres'}},
-          {{key: 'priority_score', label: 'Priority'}},
-          {{key: 'predicted_rating', label: 'Predicted'}},
+          {{key: 'name', label: t('film')}},
+          {{key: 'year', label: t('year')}},
+          {{key: 'genres', label: t('genres')}},
+          {{key: 'priority_score', label: t('priority')}},
+          {{key: 'predicted_rating', label: t('predicted')}},
           {{key: 'site_average_rating', label: 'LB'}},
-          {{key: 'availability', label: 'Available'}},
-          {{key: 'membership', label: 'In your data'}},
-          {{key: 'reason', label: 'Reason'}},
+          {{key: 'availability', label: t('available')}},
+          {{key: 'membership', label: t('inYourData')}},
+          {{key: 'reason', label: t('reason')}},
         ],
         source.slice(0, 40).map(row => ({{
           rank: row.filtered_rank,
@@ -5628,13 +6226,33 @@ def build_html(payload: dict[str, Any]) -> str:
           membership: [
             row.in_watchlist ? 'Watchlist' : null,
             row.in_user_lists ? 'My lists' : null,
-            row.discovery_only ? 'External discovery' : null,
+            row.discovery_only ? (currentLanguage === 'zh' ? '外部发现' : 'External discovery') : null,
           ].filter(Boolean).join(' / ') || '—',
           reason: row.reason,
         }}))
       );
     }}
 
+    function refreshTranslatedViews() {{
+      renderWatchedDoubanCharts();
+      renderGenreCountry(document.getElementById('genre-select').value);
+      renderHeatmaps();
+      renderTagPieCharts();
+      renderTagCharts();
+      renderReviewCharts();
+      renderListCharts();
+      initStreamingControls();
+      renderStreamingProviderCards();
+      renderStreamingProviderSummaryChart();
+      renderStreamingSection();
+      initRecommendationControls();
+      renderRecommendations();
+    }}
+
+    document.querySelectorAll('[data-language-choice]').forEach(button => {{
+      button.addEventListener('click', () => applyLanguage(button.dataset.languageChoice, true));
+    }});
+    applyLanguage(currentLanguage, false);
     renderGenreSelect();
     renderGenreCountry(document.getElementById('genre-select').value);
     renderHeatmaps();

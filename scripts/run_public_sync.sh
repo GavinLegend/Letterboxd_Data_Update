@@ -2,7 +2,7 @@
 set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
-USERNAME="${1:-goorison}"
+LETTERBOXD_USER="${1:-goorison}"
 OUTPUT_INPUT_DIR="${2:-$ROOT_DIR/data/public-sync/input}"
 OUTPUT_CACHE_DIR="${3:-$ROOT_DIR/data/public-sync/cache}"
 OUTPUT_REPORT_DIR="${4:-$ROOT_DIR/outputs/public-sync-report}"
@@ -14,7 +14,7 @@ python3 -m pip install --quiet --target "$VENDOR_DIR" pandas numpy lxml curl_cff
 
 PYTHONPATH="$VENDOR_DIR${PYTHONPATH:+:$PYTHONPATH}" \
   python3 "$ROOT_DIR/scripts/sync_letterboxd_public.py" \
-  --username "$USERNAME" \
+  --username "$LETTERBOXD_USER" \
   --output-dir "$OUTPUT_INPUT_DIR" \
   --cache-dir "$OUTPUT_CACHE_DIR" \
   --workers 6 \
