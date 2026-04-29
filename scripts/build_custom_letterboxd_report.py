@@ -1739,6 +1739,50 @@ def build_douban_result_from_public_entry(
     }
 
 
+def seed_watched_douban_cache_from_published_report(
+    output_dir: Path,
+    cache: dict[str, Any],
+) -> dict[str, Any]:
+    candidate_paths = [
+        output_dir / "custom-report-data.json",
+        output_dir / "share-site" / "custom-report-data.json",
+        Path.cwd() / "custom-report-data.json",
+    ]
+    seeded = dict(cache)
+    for candidate in candidate_paths:
+        if not candidate.exists():
+            continue
+        try:
+            payload = json.loads(candidate.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            continue
+        rows = ensure_list((payload.get("watched_douban") or {}).get("rows"))
+        for row in rows:
+            if not isinstance(row, dict):
+                continue
+            film_key_value = normalize_cell(row.get("film_key"))
+            rating_value = coerce_douban_rating(row.get("douban_rating"))
+            if not film_key_value or rating_value is None:
+                continue
+            existing = seeded.get(film_key_value) if isinstance(seeded.get(film_key_value), dict) else {}
+            if has_watched_douban_entry(existing):
+                continue
+            seeded[film_key_value] = {
+                **existing,
+                "film_key": film_key_value,
+                "douban_status": "matched",
+                "douban_cache_version": WATCHED_DOUBAN_CACHE_VERSION,
+                "douban_title": normalize_cell(row.get("douban_title")),
+                "douban_url": normalize_source_uri(row.get("douban_url")),
+                "douban_rating": rating_value,
+                "douban_year": normalize_cell(row.get("year")),
+                "douban_match_key": "published_report_seed",
+                "douban_source": "published_report_seed",
+                "douban_updated_at": pd.Timestamp.now("UTC").isoformat(),
+            }
+    return seeded
+
+
 def fetch_douban_streaming_entry(
     row: dict[str, Any],
     cached_entry: dict[str, Any] | None = None,
@@ -2198,6 +2242,8 @@ def build_watched_douban_section(
 ) -> tuple[dict[str, Any], pd.DataFrame]:
     cache_path = output_dir / "watched_douban_cache.json"
     cache = load_json_cache(cache_path)
+    if not refresh_cache:
+        cache = seed_watched_douban_cache_from_published_report(output_dir, cache)
     try:
         public_douban_index = load_public_douban_dataset_index(output_dir)
     except Exception as exc:  # noqa: BLE001
