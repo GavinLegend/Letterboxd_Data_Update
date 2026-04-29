@@ -1709,9 +1709,44 @@ def fetch_douban_detail_resilient(subject_id: str) -> dict[str, Any]:
     try:
         detail = fetch_douban_detail(subject_id)
         detail["_source"] = "douban_api"
-        return detail
+        rating = detail.get("rating") if isinstance(detail.get("rating"), dict) else {}
+        if coerce_douban_rating(rating.get("value")) is not None:
+            return detail
+        web_detail = fetch_douban_web_detail(subject_id)
+        web_detail["_source"] = "douban_web"
+        return web_detail
     except Exception:
         return fetch_douban_web_detail(subject_id)
+
+
+def build_douban_result_from_detail_payload(
+    existing: dict[str, Any],
+    film_key_value: str,
+    douban_id: str,
+    detail: dict[str, Any],
+    match_key: str,
+    cache_version: int,
+) -> dict[str, Any]:
+    rating = detail.get("rating") if isinstance(detail.get("rating"), dict) else {}
+    rating_value = coerce_douban_rating(rating.get("value"))
+    rating_count = pd.to_numeric(rating.get("count"), errors="coerce")
+    if rating_value is None:
+        raise RuntimeError(f"Douban detail for {douban_id} did not include a numeric rating")
+    return {
+        **existing,
+        "film_key": film_key_value,
+        "douban_status": "matched",
+        "douban_cache_version": cache_version,
+        "douban_id": douban_id,
+        "douban_title": normalize_cell(detail.get("title")),
+        "douban_url": f"https://movie.douban.com/subject/{douban_id}/",
+        "douban_rating": rating_value,
+        "douban_rating_count": int(rating_count) if rating_value is not None and pd.notna(rating_count) else None,
+        "douban_year": normalize_cell(detail.get("year")),
+        "douban_match_key": match_key,
+        "douban_source": normalize_cell(detail.get("_source")) or "douban_detail",
+        "douban_updated_at": pd.Timestamp.now("UTC").isoformat(),
+    }
 
 
 def fetch_wikidata_douban_id(imdb_id: str) -> str | None:
@@ -1971,6 +2006,18 @@ def build_douban_result_from_ptgen_entry(
     if foreign_title and foreign_title != title:
         title = f"{title} {foreign_title}".strip()
     if rating_value is None:
+        try:
+            web_detail = fetch_douban_web_detail(subject_id)
+            return build_douban_result_from_detail_payload(
+                existing,
+                film_key_value,
+                subject_id,
+                web_detail,
+                match_key,
+                WATCHED_DOUBAN_CACHE_VERSION,
+            )
+        except Exception as exc:  # noqa: BLE001
+            web_error = normalize_cell(exc)
         return {
             **existing,
             "film_key": film_key_value,
@@ -1984,7 +2031,7 @@ def build_douban_result_from_ptgen_entry(
             "douban_year": normalize_cell(detail.get("year")) or normalize_cell(entry.get("douban_year")),
             "douban_match_key": match_key,
             "douban_source": "ptgen_static",
-            "douban_error": "PtGen/Douban detail exists but has no current numeric rating",
+            "douban_error": f"PtGen detail has no numeric rating; Douban web fallback failed: {web_error}",
             "douban_updated_at": pd.Timestamp.now("UTC").isoformat(),
         }
     return {
@@ -2122,6 +2169,20 @@ def fetch_douban_streaming_entry(
         except Exception:
             pass
 
+    existing_douban_id = normalize_cell(existing.get("douban_id"))
+    if existing_douban_id:
+        try:
+            return build_douban_result_from_detail_payload(
+                existing,
+                row["film_key"],
+                existing_douban_id,
+                fetch_douban_detail_resilient(existing_douban_id),
+                normalize_cell(existing.get("douban_match_key")) or f"{existing_douban_id}:cached_subject",
+                DOUBAN_CACHE_VERSION,
+            )
+        except Exception as exc:  # noqa: BLE001
+            search_errors.append(f"Cached Douban ID {existing_douban_id} detail failed: {normalize_cell(exc)}")
+
     if imdb_id:
         try:
             wikidata_douban_id = fetch_wikidata_douban_id(imdb_id)
@@ -2131,7 +2192,7 @@ def fetch_douban_streaming_entry(
             wikidata_douban_id = None
         if wikidata_douban_id:
             try:
-                detail = fetch_douban_detail(wikidata_douban_id)
+                detail = fetch_douban_detail_resilient(wikidata_douban_id)
             except Exception as exc:  # noqa: BLE001
                 search_errors.append(f"Wikidata Douban ID {wikidata_douban_id} detail failed: {normalize_cell(exc)}")
             else:
@@ -2173,7 +2234,7 @@ def fetch_douban_streaming_entry(
                 subject_id = normalize_cell(match.get("id"))
                 detail: dict[str, Any] = {}
                 try:
-                    detail = fetch_douban_detail(subject_id)
+                    detail = fetch_douban_detail_resilient(subject_id)
                 except Exception:
                     detail = {}
                 rating = detail.get("rating") if isinstance(detail.get("rating"), dict) else {}
@@ -2227,7 +2288,7 @@ def fetch_douban_streaming_entry(
             continue
         detail: dict[str, Any] = {}
         try:
-            detail = fetch_douban_detail(subject_id)
+            detail = fetch_douban_detail_resilient(subject_id)
         except Exception:
             detail = {}
         rating = detail.get("rating") if isinstance(detail.get("rating"), dict) else {}
@@ -2520,27 +2581,14 @@ def build_douban_result_from_detail(
     douban_id: str,
     match_key: str,
 ) -> dict[str, Any]:
-    detail = fetch_douban_detail_resilient(douban_id)
-    rating = detail.get("rating") if isinstance(detail.get("rating"), dict) else {}
-    rating_value = coerce_douban_rating(rating.get("value"))
-    rating_count = pd.to_numeric(rating.get("count"), errors="coerce")
-    if rating_value is None:
-        raise RuntimeError(f"Douban detail for {douban_id} did not include a numeric rating")
-    return {
-        **existing,
-        "film_key": film_key_value,
-        "douban_status": "matched",
-        "douban_cache_version": WATCHED_DOUBAN_CACHE_VERSION,
-        "douban_id": douban_id,
-        "douban_title": normalize_cell(detail.get("title")),
-        "douban_url": f"https://movie.douban.com/subject/{douban_id}/",
-        "douban_rating": rating_value,
-        "douban_rating_count": int(rating_count) if rating_value is not None and pd.notna(rating_count) else None,
-        "douban_year": normalize_cell(detail.get("year")),
-        "douban_match_key": match_key,
-        "douban_source": normalize_cell(detail.get("_source")) or "douban_detail",
-        "douban_updated_at": pd.Timestamp.now("UTC").isoformat(),
-    }
+    return build_douban_result_from_detail_payload(
+        existing,
+        film_key_value,
+        douban_id,
+        fetch_douban_detail_resilient(douban_id),
+        match_key,
+        WATCHED_DOUBAN_CACHE_VERSION,
+    )
 
 
 def build_watched_douban_section(
@@ -2658,8 +2706,6 @@ def build_watched_douban_section(
             film_key_value = row["film_key"]
             existing = cache.get(film_key_value) if isinstance(cache.get(film_key_value), dict) else {}
             if has_watched_douban_entry(existing):
-                continue
-            if normalize_cell(existing.get("douban_status")) == "no_rating":
                 continue
             imdb_id = normalize_cell(existing.get("imdb_id"))
             if not imdb_id:
@@ -2785,7 +2831,7 @@ def build_watched_douban_section(
             status = normalize_cell(entry.get("douban_status"))
             if has_watched_douban_entry(entry):
                 continue
-            if status in {"pending_detail", "no_rating"}:
+            if status == "pending_detail":
                 continue
             if film_key_value in row_by_key:
                 fallback_targets.append(row_by_key[film_key_value])
@@ -4657,10 +4703,23 @@ def build_daily_signal_section(
 
         news_rows: list[dict[str, Any]] = []
         seen_urls: set[str] = set()
+        recent_cutoff = pd.Timestamp.now("UTC") - pd.Timedelta(days=45)
         for feed in NEWS_FEEDS:
             for entry in fetch_rss_feed_entries(feed):
                 if entry["url"] in seen_urls:
                     continue
+                published_at = normalize_cell(entry.get("published_at"))
+                if published_at:
+                    try:
+                        published_timestamp = pd.Timestamp(published_at)
+                        if published_timestamp.tzinfo is None:
+                            published_timestamp = published_timestamp.tz_localize("UTC")
+                        else:
+                            published_timestamp = published_timestamp.tz_convert("UTC")
+                        if published_timestamp < recent_cutoff:
+                            continue
+                    except (TypeError, ValueError):
+                        pass
                 seen_urls.add(entry["url"])
                 news_rows.append(entry)
 
@@ -5800,6 +5859,7 @@ def build_html(payload: dict[str, Any]) -> str:
         includeGenresLabel: '只看类型：可多选；不选表示不过滤',
         excludeGenresLabel: '排除类型：可多选；不选表示不排除',
         allPlatforms: '全部平台',
+        notAvailablePlatform: '未在追踪平台发现',
         allGenres: '全部类型',
         noExclusions: '不排除',
         film: 'Film',
@@ -5894,6 +5954,7 @@ def build_html(payload: dict[str, Any]) -> str:
         includeGenresLabel: 'Include genres: multi-select; empty means no include filter',
         excludeGenresLabel: 'Exclude genres: multi-select; empty means no exclusions',
         allPlatforms: 'All platforms',
+        notAvailablePlatform: 'Not available on tracked platforms',
         allGenres: 'All genres',
         noExclusions: 'No exclusions',
         film: 'Film',
@@ -6405,7 +6466,7 @@ def build_html(payload: dict[str, Any]) -> str:
     function initStreamingControls() {{
       const providerSelect = document.getElementById('streaming-provider-filter');
       const selectedProvider = providerSelect.value || 'all';
-      providerSelect.innerHTML = `<option value="all">${{t('allPlatforms')}}</option>` + data.streaming.summary
+      providerSelect.innerHTML = `<option value="all">${{t('allPlatforms')}}</option><option value="__not_available__">${{t('notAvailablePlatform')}}</option>` + data.streaming.summary
         .map(row => `<option value="${{row.provider}}">${{row.provider}}</option>`)
         .join('');
       providerSelect.value = [...providerSelect.options].some(option => option.value === selectedProvider) ? selectedProvider : 'all';
@@ -6451,7 +6512,8 @@ def build_html(payload: dict[str, Any]) -> str:
       return data.streaming.rows
         .filter(row => {{
           const genreCodes = row.genre_codes || [];
-          if (provider !== 'all' && !(row.providers || []).includes(provider)) return false;
+          if (provider === '__not_available__' && row.available_on_tracked_platforms) return false;
+          if (provider !== 'all' && provider !== '__not_available__' && !(row.providers || []).includes(provider)) return false;
           if (watchState === 'watched' && !row.watched) return false;
           if (watchState === 'unwatched' && row.watched) return false;
           if (exclusivity === 'exclusive' && !row.exclusive) return false;
