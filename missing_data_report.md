@@ -104,6 +104,3694 @@ These rows stayed blank after deterministic IMDb-ID, title/year, public Douban d
 - Castration Movie Anthology i. Traps (2024.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
 - Emicida: AmarElo - Ao Vivo (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
 - Ya no estoy aquí (2020.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- My Little Pony: Equestria Girls – Rainbow Rocks (2014.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Bāhubali: The Epic (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Fighting Spirit - Mashiba vs. Kimura (2003.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Elton John Live: Farewell from Dodger Stadium (2022.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Bill Hicks: Relentless (1992.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- We Stand Alone Together: The Men of Easy Company (2001.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Resurrection (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- My Mom Jayne (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- In Vanda's Room (2001.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Jacqueline Novak: Get on Your Knees (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Frances Ha (2013.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- First Reformed (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Panayotis Pascot: Almost (2022.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Hot Potato: The Story of The Wiggles (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Not a Pretty Picture (1976.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Momentum Generation (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Billy Crystal: 700 Sundays (2014.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- PSY Summer Swag 2022 (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Mahanati (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Sarpatta Parambarai (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Love Meetings (1965.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Chris Fleming: Live at The Palace (2026.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Near Orouët (1973.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Bill Hicks: Revelations (1993.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Chain (2004.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- But I'm a Cheerleader (2000.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Jane B. by Agnès V. (1988.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- George Carlin’s American Dream (2022.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Stroll (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Compensation (1999.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Omar and Cedric: If This Ever Gets Weird (2024.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Oprah Winfrey Presents: When They See Us Now (2019.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- 18x2 Beyond Youthful Days (2024.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Winter on Fire: Ukraine's Fight for Freedom (2015.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Empire of Dreams: The Story of the Star Wars Trilogy (2004.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Alex Edelman: Just for Us (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Imagine Dragons Live in Vegas (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Anniyan (2005.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Dìdi (弟弟) (2024.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- 100 METERS (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Out of the Blue (1981.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Son of a Thousand Men (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Selena y Los Dinos: A Family's Legacy (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Mike Birbiglia: My Girlfriend's Boyfriend (2013.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Goodbye Horses: The Many Lives of Q Lazzarus (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- 96 (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Jigarthanda DoubleX (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Mur Murs (1982.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Talking About Trees (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Chris Gethard: Career Suicide (2017.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Kaithi (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Kaili Blues (2016.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Sally (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Gang of Four (1989.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Exotica (1994.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- John Candy: I Like Me (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Asuran (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Crystal Calls - Making The Dark Crystal: Age of Resistance (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Nate: A One Man Show (2020.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Elena (2013.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Man on the Run (2026.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- A Hero's Journey: The Making of Percy Jackson and the Olympians (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Joan the Maid II: The Prisons (1994.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Katrina Babies (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Come See Me in the Good Light (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Viduthalai: Part I (2023.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Depeche Mode: M (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Panic (1947.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Stranger (1991.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Papanasam (2015.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- RRR: Behind & Beyond (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Always for Pleasure (1978.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Bushman (1971.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Gary Gulman: The Great Depresh (2019.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Fall of Otrar (1991.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- City of Joy (2016.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Betty Blue (1986.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Letter from Siberia (1957.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Todd McFarlane's Spawn (1997.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Lilies (1997.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Paradise Lost 3: Purgatory (2012.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Billy & Molly: An Otter Love Story (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Deiva Thirumagal (2011.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- You Are Not Alone: Fighting the Wolf Pack (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Chris Rock: Bigger & Blacker (1999.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Russian Five (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Whitmer Thomas: The Golden One (2020.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Bill Hicks: Sane Man (1989.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Life Is Sweet (1991.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Pickpocket (1997.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Naked Childhood (1969.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Norm Macdonald: Nothing Special (2022.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Perfumed Nightmare (1979.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Mike Birbiglia: The Old Man and the Pool (2023.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Mountain Queen: The Summits of Lhakpa Sherpa (2024.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Brand Upon the Brain! (2007.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Cane Toads: An Unnatural History (1988.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- It's All Over: The Kiss That Changed Spanish Football (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Left-Handed Girl (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Avicii: I'm Tim (2024.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Jim Henson Idea Man (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Shane Gillis: Beautiful Dogs (2023.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Nanpakal Nerathu Mayakkam (2023.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- To Kill a Tiger (2023.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Carts of Darkness (2008.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Territory (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Minbo, or The Gentle Art of Japanese Extortion (1992.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Blood Simple (1985.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Ballad of Wallis Island (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Superboys of Malegaon (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Sapta Sagaradaache Ello – Side A (2023.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- A Tale of Autumn (1998.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Bill Burr: I'm Sorry You Feel That Way (2014.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Mike Birbiglia: The New One (2019.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Guardian of the Monarchs (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Beep, Beep (1952.0): missing `douban_rating`; status `watched_library`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- An Egyptian Story (1982.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Eddie Izzard: Glorious (1997.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Doug Stanhope: No Refunds (2007.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Frank Zappa & The Mothers: Roxy: The Movie (2015.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Placido (1962.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Daytrippers (1997.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Chico Bento e a Goiabeira Maraviosa (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Tony Hawk: Until the Wheels Fall Off (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Hasan Minhaj: The King's Jester (2022.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Rewind (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Turumba (1981.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Bastille ReOrchestrated (2021.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Problemista (2024.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Even If This Love Disappears Tonight (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- John Mulaney: Baby J (2023.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Paid in Full (2002.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Four Nights of a Dreamer (1972.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Kandukondain Kandukondain (2000.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Alexandria… Why? (1979.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Stay on Board: The Leo Baker Story (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Thanos and Despina (1967.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- King in the Wilderness (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Love & Mercy (2015.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- A Nos Amours (1983.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Sudani from Nigeria (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Miracle: The Boys of '80 (2026.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Neal Brennan: 3 Mics (2017.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Chris Rock: Never Scared (2004.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Between the World and Me (2020.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Dying (1976.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Bugonia (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Harry Potter 20th Anniversary: Return to Hogwarts (2022.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Aavesham (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Caleb Hearon: Model Comedian (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- DEVO (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- My Favorite Shapes by Julio Torres (2019.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Day of the Outlaw (1959.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Sambizanga (1973.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Carrie Fisher: Wishful Drinking (2010.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Sheng Wang: Sweet and Juicy (2022.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Coconut Head Generation (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Cunk on Life (2024.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Prince of Broadway (2010.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- SLY LIVES! (aka The Burden of Black Genius) (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Black Art: In the Absence of Light (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Bāhubali 2: The Conclusion (2017.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- David Lynch: The Art Life (2017.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Belén (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Chinese Roulette (1977.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Connection (1962.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Operation: Rabbit (1952.0): missing `douban_rating`; status `watched_library`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Maine-Ocean Express (1986.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Tickling Giants (2017.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Age of the Medici (1972.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Atomic People (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Frankenstein (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- How to Train Your Dragon (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- His Three Daughters (2024.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Hard Truths (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Dogtown and Z-Boys (2002.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Joy Division (2009.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- What We Left Behind: Looking Back at Star Trek: Deep Space Nine (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Downpour (1972.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Jason Isbell: Running With Our Eyes Closed (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Joan the Maid I: The Battles (1994.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Return to Reason: Four Films by Man Ray (2024.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Milford Graves Full Mantis (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Oprah + Viola: A Netflix Special Event (2022.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Dark Waters (1956.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Take Out (2008.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Finding Vivian Maier (2014.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- One Child Nation (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Taylor Tomlinson: Look at You (2022.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Ayyappanum Koshiyum (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- #Home (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Ride Away (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- A Man Named Scott (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Norm Macdonald: Hitler's Dog, Gossip & Trickery (2017.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Mike Birbiglia: Thank God for Jokes (2017.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Le pont du Nord (1982.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Missing (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Festival (1967.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Judah Friedlander: America Is the Greatest Country in the United States (2017.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Truck Turner (1974.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Fresh Prince of Bel-Air Reunion (2020.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Jim Jefferies: Bare (2014.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Stamped from the Beginning (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Daniel (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Playing with Sharks (2021.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Bison Kaalamaadan (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Missing Home (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Joji (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Trial of Joan of Arc (1963.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Kelce (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Miley Cyrus: Something Beautiful (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Unknown Pleasures (2002.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Wildcat (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Home and the World (1985.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- A Thousand Suns (2013.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Better Man (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- A Brother and 7 Siblings (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Nate Bargatze: The Tennessee Kid (2019.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- James Acaster: Hecklers Welcome (2024.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Nuts in May (1976.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Marc Maron: Panicked (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Nightshift (1981.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Every Body (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Love+War (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Three Daughters (1961.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- White Rock (1977.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Say Amen, Somebody (1983.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- John Williams in Tokyo (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Maria Bamford: Weakness Is the Brand (2020.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Gentlemen (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Totally F***ed Up (1994.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- 71 Fragments of a Chronology of Chance (1995.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Rise of the Red Hot Chili Peppers: Our Brother, Hillel (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Wildhood (2022.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Battered Bastards of Baseball (2014.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Patton Oswalt: Annihilation (2017.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Neal Brennan: Blocks (2022.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Grown-Ups (1980.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- A Choice of Weapons: Inspired by Gordon Parks (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Eight Deadly Shots (1972.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Matter of Time (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Gurrumul (2018.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Deepest Breath (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Monica and Friends: Lessons (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Jaws @ 50: The Definitive Inside Story (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Adam Sandler: 100% Fresh (2018.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- 24 Frames (2018.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Great Photo, Lovely Life (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Let There Be Light (1946.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Rita Moreno: Just a Girl Who Decided to Go for It (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- In the Same Breath (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- 32 Sounds (2023.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Ballad of Gregorio Cortez (1983.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- In the Year of the Pig (1969.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Naked Acts (1998.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Indigo Girls: It's Only Life After All (2024.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Doug Stanhope: Beer Hall Putsch (2013.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Any Other Way: The Jackie Shane Story (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Fruits Basket -prelude- (2022.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Predator: Killer of Killers (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- How to Blow Up a Pipeline (2023.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Great Muppet Caper (1981.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Gut Nuiuseu (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Pavane (2026.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Sapta Sagaradaache Ello: Side B (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Andragogy (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Amar Singh Chamkila (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Bill Burr: Paper Tiger (2019.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Monk and the Gun (2024.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Away from Her (2007.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Pamfir (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Vettaiyaadu Vilaiyaadu (2006.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- All Light, Everywhere (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- 27 Steps of May (2019.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Of Mice and Men (1939.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Judy Blume Forever (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Ejen Ali the Movie (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Rory Scovel Tries Stand-Up for the First Time (2017.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Nine Lives of Ozzy Osbourne (2020.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Red Head (1932.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Track (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- 16 Days of Glory (1985.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Celluloid Man (2012.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Swathi Kiranam (1992.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Alexander Babu: Alex in Wonderland (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Haq (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Zero for Conduct (1933.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- On My Skin (2018.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Anthony Jeselnik: Thoughts and Prayers (2015.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Great Buster: A Celebration (2018.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Mathu Vadalara (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Trailer Park Boys Xmas Special (2004.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Listening to Kenny G (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Tom Segura: Completely Normal (2014.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Eyimofe (This Is My Desire) (2021.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Road Diary: Bruce Springsteen and The E Street Band (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Timeless Heroes: Indiana Jones and Harrison Ford (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Sebastian Maniscalco: Aren't You Embarrassed? (2014.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Rachel Bloom: Death, Let Me Do My Special (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Michelle Wolf: Nice Lady (2017.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Gaz Bar Blues (2003.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Guelwaar (1993.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- A Nonsense Christmas with Sabrina Carpenter (2024.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- 14 Peaks: Nothing Is Impossible (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Sita Ramam (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Modern Romance (1981.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- KONOSUBA – God's blessing on this wonderful world! Legend of Crimson (2019.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- GomBurZa (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Ullozhukku (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Trevor Noah: Son of Patricia (2018.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Behind the Curtain: Stranger Things: The First Shadow (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Lucy and Desi (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Reel Injun (2010.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Blazing Sun (1954.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Atsuko Okatsuka: The Intruder (2022.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Jim Gaffigan: Beyond the Pale (2006.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- On the Bowery (1957.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Surviving Ohio State (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- L.627 (1992.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Simple Plan: The Kids in the Crowd (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Rory Scovel: Religion, Sex and a Few Things In Between (2024.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Life Dances On (1937.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Jim Jefferies: I Swear to God (2009.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Natural History of the Chicken (2000.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Running Fence (1977.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Pignorant (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Aachar & Co (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Blue Ruin (2014.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Dave Chappelle: Sticks & Stones (2019.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Thiruchitrambalam (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Taylor Tomlinson: Have It All (2024.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Les reines du drame (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Howard (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Disneyland Handcrafted (2026.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- My Brother's Wedding (1983.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Atanarjuat: The Fast Runner (2002.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Good Night, and Good Luck (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Mike Birbiglia: What I Should Have Said Was Nothing (2008.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Town Bloody Hall (1979.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Dixie Chicks: Shut Up and Sing (2006.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Kshana Kshanam (1991.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Justin Willman: Magic Lover (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Oliver Sacks: His Own Life (2020.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Ramy Youssef: In Love (2026.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Black and the Green (1983.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Rick Steves' European Christmas (2005.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Automorphosis (2007.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Hotel Mumbai (2019.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- American Boy (2026.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- La Pointe Courte (1956.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Miraculous World: London, At the Edge of Time (2024.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Lingua Franca (2020.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Spermworld (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Seth Meyers: Lobby Baby (2019.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Hester Street (1975.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Tom Segura: Mostly Stories (2016.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Ramy Youssef: More Feelings (2024.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Watchmaker of St. Paul (1974.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Untold: Breaking Point (2021.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Ramy Youssef: Feelings (2019.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Scott Walker: 30 Century Man (2007.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Jerrod Carmichael: 8 (2017.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Poison (1951.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- High☆Speed!: Free! Starting Days (2015.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Trapped 13: How We Survived The Thai Cave (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Tig Notaro: Drawn (2021.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Elisa, My Life (1977.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Lumumba: Death of a Prophet (1991.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- I Am Evidence (2017.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- FireAid Benefit Concert (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- A Nice Indian Boy (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Love Untangled (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Dragged Across Concrete (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Ante... Sundaraniki! (2022.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Taylor Tomlinson: Quarter-Life Crisis (2020.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Humanité (1999.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Nayattu (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Gunda (2021.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Bittersweet Rain (2023.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Japón (2003.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Taylor Tomlinson: Prodigal Daughter (2026.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Zach Galifianakis: Live at the Purple Onion (2007.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Elizabeth Taylor: The Lost Tapes (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Demetri Martin: Live (At The Time) (2015.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Going! Going! Gosh! (1952.0): missing `douban_rating`; status `watched_library`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Tig Notaro: Boyish Girl Interrupted (2015.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Lou Reed's Berlin (2007.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Monty Python: Live at Aspen (1998.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Dosti (1964.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Perfect Neighbor (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Magellan (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Obsession (1944.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Encounters of the Spooky Kind (1980.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- We Grown Now (2024.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Titli (2015.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Kaakha Kaakha (2003.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Gaza Mon Amour (2021.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Union (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Sky Ladder: The Art of Cai Guo-Qiang (2017.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Gilbert (2017.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Rocket from Calabuch (1956.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Hollywood Dreams & Nightmares: The Robert Englund Story (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Saint of Second Chances (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Chris Rock: Kill the Messenger (2008.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Going Varsity in Mariachi (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- A Carpool Karaoke Christmas (2024.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Escape from Kabul (2021.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Vir Das: For India (2020.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- No Ordinary Man (2021.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- All I Can Say (2022.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Koshien: Japan's Field of Dreams (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Eddie Izzard: Circle (2002.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Tally Brown, New York (1979.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Ricky Gervais: Humanity (2018.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Hi Nanna (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Home Sweet Loan (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Caught by the Tides (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Adam Sandler: Love You (2024.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Clean, Shaven (1995.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Truth vs. Alex Jones (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Tai-Chi Master (1993.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Frownland (2008.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- I'm Your Venus (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Never Surrender: A Galaxy Quest Documentary (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Police, Adjective (2010.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- ONE SHOT with Ed Sheeran (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Resurrection of Jake The Snake (2015.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Carnival of Sinners (1943.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Powwow Highway (1989.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Ornette: Made in America (1986.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Cane Toads: The Conquest (2010.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- In Heaven There Is No Beer? (1984.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Bad Press (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Roy Wood Jr.: Lonely Flowers (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Jacinta (2021.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Utsab (2000.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Call Me Human (2020.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- How Did We Get Here? (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Save the Children (1973.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Doug Stanhope: No Place Like Home (2016.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Marcello Mastroianni: I Remember (1997.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Totally Bill Hicks (1998.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Life of Chuck (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Best Mother in the World (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Malik (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Priest (1995.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- One Piece Episode of East Blue (2017.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Man Push Cart (2006.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Young Soul Rebels (1991.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Saga of Tanya the Evil: The Movie (2019.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Jim Gaffigan: Mr. Universe (2012.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Ejen Ali the Movie 2 (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- General Idi Amin Dada (1974.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- A Wedding Suit (1976.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Miracle Maker (2000.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Jimmy Carter: Rock & Roll President (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Bergman Island (2006.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Maestro: King of the Cowboy Artists (1995.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Ben Stokes: Phoenix from the Ashes (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Larry Kramer In Love & Anger (2015.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Ground Beneath Our Feet (2026.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Friends: The Reunion (2021.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Clockwatchers (1997.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Glee: The Concert Movie (2011.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Jerry Before Seinfeld (2017.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Orlando, My Political Biography (2023.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Mobile Suit Gundam Hathaway (2021.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Return of the King: The Fall and Rise of Elvis Presley (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Sillu Karuppatti (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Jim Jefferies: Freedumb (2016.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Blink (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Legend of the Swordsman (1992.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Mike Birbiglia: The Good Life (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Household Saints (1993.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Boys: The Sherman Brothers' Story (2009.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Enigma (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Stevie Van Zandt: Disciple (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Burning an Illusion (1981.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Unishe April (1994.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Fanmade: ENHYPEN (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Sea Lions of the Galapagos (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Into the Okavango (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Come Back, Africa (1959.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Gulîstan, Land of Roses (2016.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Muhammad Ali, the Greatest (1974.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Biffy Clyro: Cultural Sons of Scotland (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Viananda (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- What Maisie Knew (2013.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Rurouni Kenshin: The Beginning (2021.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Indian (1996.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Fresh Kill (1996.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Get on the Bus (1996.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Anthony Jeselnik: Bones and All (2024.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Gladbeck: The Hostage Crisis (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Girl on the Broomstick (1972.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Marc Maron: Too Real (2017.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Sound! Euphonium the Movie – Our Promise: A Brand New Day (2019.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Secret Path (1999.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Bruce Springsteen's Letter to You (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Alexandria Again and Forever (1989.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Echoes from a Sombre Empire (1990.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The White House Effect (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Sealed Soil (1977.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Sunshine for the Poor (2001.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- In Waves and War (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- American Thunder: NASCAR to Le Mans (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- It's All Gonna Break (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Gary Gulman: In This Economy? (2012.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Edie & Thea: A Very Long Engagement (2009.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Notes from the Field (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Zero Se Restart (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Wild Wheels (1992.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Ugly Stepsister (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- May (2003.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Welcome to the Dollhouse (1996.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Fantasia 2000 (2000.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Pangku (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Queen of Chess (2026.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- One Man Up (2012.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- 31 Minutes: One Hot Christmas (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Untold: Crime & Penalties (2021.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Ghost Elephants (2026.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Being Mary Tyler Moore (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Russell Howard: Recalibrate (2017.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Adrienne (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Dope Sick Love (2005.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Say Hey, Willie Mays! (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- ONEFOUR: Against All Odds (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Mr. Dynamite: The Rise of James Brown (2014.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Dear Ms.: A Revolution in Print (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Dear Rider: The Jake Burton Story (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Say Her Name: The Life and Death of Sandra Bland (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Breslin and Hamill: Deadline Artists (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Eddie Izzard: Unrepeatable (1994.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Nine Lives of Tomas Katz (2000.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Taste of Mango (2024.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Audition (2005.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- WILL (2023.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Green Room (2016.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Mahaan (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Laila Majnu (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- A Brother’s Love (2019.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Bert Kreischer: The Machine (2016.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Jim Jefferies: This Is Me Now (2018.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Bono: Stories of Surrender (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Experience (1973.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Tiger Bay (1959.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Tom Petty, Somewhere You Feel Free (2021.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Ladybug Ladybug (1963.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Pete Holmes: Faces and Sounds (2016.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Kingdom of Us (2017.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Fiddler: A Miracle of Miracles (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Barbra: The Music ... The Mem'ries ... The Magic! (2017.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Titli (2002.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Cheetahs Up Close with Bertie Gregory (2026.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Undercover. Inside the Bunker (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Space Race (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Frederick Douglass: In Five Speeches (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Disco’s Revenge (2024.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Christo in Paris (1990.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Colette and Justin (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Bronson (2009.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Hard Eight (1997.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Monsieur Aznavour (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- In the Realm of the Senses (1976.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Rurouni Kenshin: The Final (2021.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Boss: Anatomy of a Crime (2014.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Bill Burr: Live at Red Rocks (2022.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Oh My Kadavule (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Chandramukhi (2005.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Remembering Gene Wilder (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- BS High (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Easy Riders, Raging Bulls: How the Sex 'n' Drugs 'n' Rock 'n' Roll Generation Saved Hollywood (2003.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- We Still Kill the Old Way (1967.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Becoming Cousteau (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Late August, Early September (1999.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Michelle Wolf: Joke Show (2019.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Prisoners of the Land (1939.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Elephant Queen (2019.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Lion King at the Hollywood Bowl (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Jordan Jensen: Take Me with You (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Secret of Santa Vittoria (1970.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Michelle Buteau: Welcome to Buteaupia (2020.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- SAQUON (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Apollo: Missions to the Moon (2020.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Dan Soder: Son of a Gary (2019.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Diane von Furstenberg: Woman in Charge (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Yvonne Orji: Momma, I Made It! (2020.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Matteo Lane: Hair Plugs & Heartache (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Lewis Black: Black on Broadway (2004.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Red, White & Brass (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- This Place Rules (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The X-Files (1998.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Mencuri Raden Saleh (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Aziz Ansari: Right Now (2019.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Reefer Madness: The Movie Musical (2006.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Bill Burr: Walk Your Way Out (2017.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Nate Bargatze: The Greatest Average American (2021.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Encanto at the Hollywood Bowl (2022.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Jerrod Carmichael: Don't Be Gay (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Angela (1996.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Wodaabe: Herdsmen of the Sun (1989.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Untold: The Race of the Century (2022.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Destiny (1997.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Barbara Walters: Tell Me Everything (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Vazhakku Enn 18/9 (2012.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Hari Kondabolu: Warn Your Relatives (2018.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Home Sweet Home (1982.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Miss Sharon Jones! (2015.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Monty Python: The Meaning of Live (2014.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Todd Barry: The Crowd Work Tour (2014.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Foster (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- My Home Is Copacabana (1965.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Betrayal – Nerakhoon (2008.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Eddie Pepitone: In Ruins (2014.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- With Love (2026.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Jim Gaffigan: King Baby (2009.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Ma mère, Dieu et Sylvie Vartan (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Untold: Malice at the Palace (2021.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Green Bones (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Concierge (2023.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- This Is the Tom Green Documentary (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Italian Connection (1972.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Da Kath & Kim Code (2005.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Wheel of Time (2003.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Trailer Park Boys: Say Goodnight to the Bad Guys (2008.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Love, Lizzo (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Moodar Koodam (2013.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Joshua: Teenager vs. Superpower (2017.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Jeremy (1973.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Don't Play Us Cheap (1973.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Vir Das: Landing (2022.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Unguarded (2011.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Donyale Luna: Supermodel (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Ayotzinapa: The Turtle's Pace (2018.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Forever Prisoner (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Four Murders Are Enough, Darling (1971.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- 65 Revisited (2007.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Lionheart (2024.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Farewell to Dream (1956.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- M*A*S*H: The Comedy That Changed Television (2024.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Wiggles: Wiggly Safari (2002.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Finding Oscar (2016.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Le dernier repas (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Nick Kroll: Little Big Boy (2022.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Kevin Smith: Silent but Deadly (2018.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Interview with the Vampire (1994.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- My Hero Academia: Heroes Rising (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- I Like Movies (2023.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Kjærlighet (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Tabloid (2011.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Ali Wong: Hard Knock Wife (2018.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Albert Brooks: Defending My Life (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Mehta Boys (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Anthony Jeselnik: Fire in the Maternity Ward (2019.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Tig Notaro: Happy to Be Here (2018.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Cruel Gun Story (1964.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Andrew Schulz: LIFE (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Socrates (1971.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Hurricane (1937.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Director by Night (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Soni (2019.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Welcome II the Terrordome (1995.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- That Night of Varennes (1982.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Whisperers (1967.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Poto and Cabengo (1980.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Incitement (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Giving Voice (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Drive Back Home (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Sue Bird: In the Clutch (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Southwest of Salem: The Story of the San Antonio Four (2016.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Master of Light (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Dave Stevens: Drawn to Perfection (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- 13 Days in France (1968.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Eddie Izzard: Stripped (2009.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Tortured for Christ (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- George Lopez: Why You Crying? (2005.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- 10 Dance (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- La Pampa (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Dead Presidents (1995.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Secret Mall Apartment (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Closet Monster (2016.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Maaveeran (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Coven (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Between the Lines (1977.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Maidaan (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Heaven Adores You (2014.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Lilies Not for Me (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Bill Burr: Drop Dead Years (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Garden of Sinners: Murder Speculation Part A (2007.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Natchathiram Nagargiradhu (2022.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Indian Horse (2018.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Dillinger (1973.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Goodachari (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Evaru (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- ReMastered: The Two Killings of Sam Cooke (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Bye Bye Barry (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Greg Davies: You Magnificent Beast (2018.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Other One: The Long, Strange Trip of Bob Weir (2014.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Mundasupatti (2014.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Wanda Sykes: Not Normal (2019.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- ReMastered: Massacre at the Stadium (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Jim Gaffigan: Obsessed (2014.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Double Happiness (1994.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Miracles of Thursday (1957.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Khadgam (2002.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Ryan Hamilton: Happy Face (2017.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Shame (1988.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Bread & Roses (2024.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Brian Eno 1971–1977: The Man Who Fell To Earth (2011.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Biswa Kalyan Rath: Biswa Mast Aadmi (2017.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Point of Order! (1964.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Becoming Nobody (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Lewis Black: Red, White & Screwed (2006.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Drew Michael: Red Blue Green (2021.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Joonam (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- 9/11: Phone Calls from the Towers (2009.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Among Grey Stones (1983.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The White Angel (1955.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Little Soldiers (1996.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- RiffTrax Live: House on Haunted Hill (2010.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Ecstasy of Wilko Johnson (2015.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Tom at the Farm (2014.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Code 3 (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Fancy Dance (2024.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Thallumaala (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- I Love You, Now Die: The Commonwealth Vs. Michelle Carter (2019.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Roja (1992.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Tom Segura: Ball Hog (2020.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Apollo 13: Survival (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Sarah Silverman: A Speck of Dust (2017.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Unknown: Cosmic Time Machine (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Stiller & Meara: Nothing Is Lost (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Demetri Martin: The Overthinker (2018.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Pandji Pragiwaksono: Mens Rea (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Bruiser (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- A Miracle (2024.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Let Joy Reign Supreme (1975.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- HiGH&LOW The Movie 2: End of Sky (2017.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Sangre Del Toro (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- BAKA's Identity (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- National Heritage (1981.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Recovery Boys (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Rat (1998.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Rebellion (1993.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Imagine the Sound (1981.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Zakir Khan: Haq Se Single (2017.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Kaksha Gyaarvi (2018.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- 40 Years a Prisoner (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- A Tree of Life: The Pittsburgh Synagogue Shooting (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Wait for Your Laugh (2017.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- A Revolution on Canvas (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Tourettes: I Swear I Can't Help It (2009.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- 1000% Me: Growing Up Mixed (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Really Happy Someday (2026.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Mully (2015.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Charm City (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Triumph: Rock & Roll Machine (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Thunderbolts* (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Dhurandhar (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Even the Rain (2011.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Iratta (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Third World Romance (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Bobi Wine: The People's President (2023.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Unda (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Balagam (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Baadasssss! (2004.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Lucky Luke: The Ballad of the Daltons (1978.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Pretty Red Dress (2023.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Gabriel "Fluffy" Iglesias: One Show Fits All (2019.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Odd Obsession (1959.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Boris Karloff: The Man Behind the Monster (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Kaala Patthar (1979.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Jen Kirkman: Just Keep Livin'? (2017.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Pete Holmes: Dirty Clean (2018.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Coffee and Cigarettes (2004.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Flintoff (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Sixth Day (1986.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Safe Conduct (2002.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- There Are No Fakes (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Christmas with The Chosen: Holy Night (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Once in a Lifetime: The Extraordinary Story of the New York Cosmos (2006.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Then Barbara Met Alan (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Samurai Saga (1959.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Between a Frock and a Hard Place (2015.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Kalpana (1948.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Abortion: Stories Women Tell (2016.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Rebel Dread (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- King Leopold's Ghost (2006.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Gloria mundi (1976.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- La Vocera (2021.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Love Crimes Of Kabul (2011.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Guy Ritchie's The Covenant (2023.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- EVANGELION: DEATH (TRUE)² (1998.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Little Hearts (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- PSYCHO-PASS: The Movie (2015.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Follow That Bird (1985.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Jathi Ratnalu (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Gang Leader (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The New Yorker at 100 (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- I Am Chris Farley (2015.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Last Stop Larrimah (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Rhymes for Young Ghouls (2013.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Bert Kreischer: Secret Time (2018.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Gabriel Iglesias: I'm Sorry for What I Said When I Was Hungry (2016.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Agneepath (1990.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Fortune Feimster: Sweet & Salty (2020.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Short Game (2013.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Super Duper Alice Cooper (2014.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- TLC Forever (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Godfathers of Hardcore (2018.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Sergio (2009.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Aithe (2003.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- We Were Children (2012.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Sivaranjiniyum Innum Sila Pengalum (2021.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Colin Quinn: The New York Story (2016.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Zakir Khan: Delulu Express (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Chris Hemsworth: A Road Trip to Remember (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Langston Kerman: Bad Poetry (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Underground (1976.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Nat Turner: A Troublesome Property (2003.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Alternate Endings: Six New Ways to Die in America (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Last Ice (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Eddie Griffin: You Can Tell 'Em I Said It (2011.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Manithan (2016.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Fear of a Black Hat (1994.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Hellraiser (1987.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Bāhubali: The Beginning (2015.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Lewis Capaldi: How I'm Feeling Now (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Juice WRLD: Into the Abyss (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Nishaanchi 2 (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Meet the Patels (2014.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Fukushima: A Nuclear Nightmare (2026.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Simon Amstell: Set Free (2019.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Apollo (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Floyd Norman: An Animated Life (2016.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Mo Amer: The Vagabond (2018.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Yours Sincerely, Kanan Gill (2020.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Mo Gilligan: Momentum (2019.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- All In This Tea (2007.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Black Lizard (1962.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Making of Jay Kelly (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Rather (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Immediate Family (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Beckoning Silence (2007.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Eddie Izzard: Force Majeure Live (2013.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Anveshana (1985.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Rush to Judgment (1967.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Koran by Heart (2011.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- A Good Job: Stories of the FDNY (2014.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Qallunaat! (2007.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Chris Porter: Ugly and Angry (2014.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- BARDO, False Chronicle of a Handful of Truths (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Sabotage (1937.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Man Who Feels No Pain (2019.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Two Women (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Once Were Brothers: Robbie Robertson & The Band (2020.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Katherine Ryan: Glitter Room (2019.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Darkness within La Luz del Mundo (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Commandant's Shadow (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Ready (2008.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Future Shock! The Story of 2000AD (2014.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Dr. Jack (1922.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Reversi (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Gali Guleiyan (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Abhimaan (1973.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Trumbo (2007.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Carmín Tropical (2014.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Octobre (1994.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Free!: Timeless Medley - The Promise (2017.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Anita (2013.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Dosar (2006.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Women of Troy (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- 12th & Delaware (2010.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Ellen DeGeneres: Here and Now (2003.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Book of Manning (2013.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Celluloid Underground (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Gasland Part II (2013.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Painters Painting (1973.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Moonlight Sonata: Deafness in Three Movements (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Our Loved Ones (2015.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Brother Outsider: The Life of Bayard Rustin (2003.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Running for Good: The Fiona Oakes Documentary (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Twist (1992.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Bodied (2018.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Afro Samurai: Resurrection (2009.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Kushi (2000.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Who Killed Teddy Bear? (1965.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Jane by Charlotte (2022.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Fan-Fan the Tulip (1952.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Gabriel Iglesias: Stadium Fluffy (2022.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Comic Book Confidential (1989.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- María Soledad: El fin del silencio (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- None Too Pleased (2026.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Leave No Trace (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- A Week's Vacation (1980.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Dance Dreams: Hot Chocolate Nutcracker (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Nixon by Nixon: In His Own Words (2014.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Amrapali (1966.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- David Cross: The Pride Is Back (1999.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Eternal Return (1943.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Pedro (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Maxine's Baby: The Tyler Perry Story (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Missing from Fire Trail Road (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- JFK Jr. and Carolyn's Wedding: The Lost Tapes (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Kathleen Madigan: Madigan Again (2013.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Aziz Ansari: Buried Alive (2013.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Bernie (2012.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Frailty (2002.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Lucifer (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Miraculous World: Paris, Tales of Shadybug and Claw Noir (2023.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Fata Morgana (1972.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Tom Segura: Sledgehammer (2023.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- I Want to Talk (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Jagged (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Charm City Kings (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Ronny Chieng: Asian Comedian Destroys America! (2019.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Firefly (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Marc Maron: End Times Fun (2020.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Varuthapadatha Valibar Sangam (2013.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Gundam Wing: The Endless Waltz (1998.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Exiles (1961.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Spy in Black (1939.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Seth Meyers: Dad Man Walking (2024.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Overlord: The Undead King (2017.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Sunshine Makers (2015.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Tomorrow Is Forever (1946.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Reggie (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Overlord: The Dark Hero (2017.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- P'tang, Yang, Kipperbang (1982.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Tramp and the Dictator (2002.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Rocking Horse Winner (1949.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- What the F* Is Going On? (2019.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Nobody's Children (1951.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- My Mother (2004.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Atomic Homefront (2017.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Kathleen Madigan: Bothering Jesus (2016.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Salesman (2011.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Resynator (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Passion of Remembrance (1986.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Janis Ian: Breaking Silence (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Strange Darling (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Kantara (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Court: State vs. A Nobody (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Your Friend, Nate Bargatze (2024.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Tokyo Pop (1988.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Videoheaven (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Waiting Women (1952.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Kumail Nanjiani: Night Thoughts (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Michael Che Matters (2016.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Patton Oswalt: Talking for Clapping (2016.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Woman of Tokyo (1933.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Mr. Vampire III (1987.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Dinosaur 13 (2014.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Path to War (2003.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- An Accidental Studio (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Badak (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Vir Das: Losing It (2018.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Woh Kaun Thi? (1964.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Contemporary Color (2016.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Carlos Ballarta: Falso Profeta (2021.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Regrouping (1976.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The One That Got Away (1957.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Fanny: The Right to Rock (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- February 15, 1839 (2001.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Brave Father Online - Our Story of Final Fantasy XIV (2019.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Life After The Navigator (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Night Zoo (1987.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Lucas Lauriente: Todo lo que sería (2018.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Island President (2012.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Chhota Bheem & Krishna: The Rise of Kirmada (2012.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- This Is Sparklehorse (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Counting (2015.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Douce (1943.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Suited (2016.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Sindhooram (1997.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Joe List: Small Ball (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Lang Lang Plays Disney (2023.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Waiting for Lightning (2012.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Harry & Snowman (2015.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Maradona, the Golden Kid (2006.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Legend of the Underground (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Matt Braunger: Big Dumb Animal (2015.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Penguin Lessons (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Plan B (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Pinball: The Man Who Saved the Game (2023.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Face to Face (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Bert Kreischer: Razzle Dazzle (2023.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Devil's Climb (2024.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Psycho-Pass: Providence (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Ye Maaya Chesave (2010.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Atsuko Okatsuka: Father (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Chafed Elbows (1966.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Dioses de México (2023.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Nandha (2001.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Nocturnes (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Umberto Eco: A Library of the World (2023.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Vir Das: Fool Volume (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Tom Papa: You're Doing Great! (2020.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Becoming Mike Nichols (2016.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Aum! (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Matt McCusker: A Humble Offering (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Baby Sharks (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Curveball (2021.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- He Dreams of Giants (2021.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Lady Bird Diaries (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Daddy Nostalgia (1990.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Captain Abu Raed (2008.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Right Here, Right Now (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- My Next Guest with David Letterman and Adam Sandler (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- It All Begins with a Song: The Story of the Nashville Songwriter (2019.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Alone With Her Dreams (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- It's a Hard Truth Ain't It (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Terry Kath Experience (2016.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- 10 Billion: What's On Your Plate (2015.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- My Gift: A Christmas Special From Carrie Underwood (2020.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- I Used to Be Funny (2024.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Joe (2014.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Skyscraper Live (2026.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Kaiju No. 8: Mission Recon (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Blood on the Moon (1948.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Boss (1973.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Goddess of the Fireflies (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Magamuni (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Exporting Raymond (2011.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Betrayed (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Love Unto Wastes (1986.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- All Good (2018.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Fake Tattoos (2018.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Death by Metal (2016.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Kaaviya Thalaivan (2014.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Last Laugh (2016.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Ice Guardians (2016.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Ailey (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Valentine Road (2013.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Mlle Bottine (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- My Darling Vivian (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Grand Manoeuvre (1955.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Most Magical Story on Earth: 50 Years of Walt Disney World (2021.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Eugene Mirman: Vegan on His Way to the Complain Store (2015.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Mariah Carey: Merry Christmas to All! (2022.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Nail in the Coffin: The Fall and Rise of Vampiro (2020.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Simple as Water (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Little Dorrit (1987.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- City Hunter Special: Goodbye My Sweetheart (1997.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Chhota Bheem Master of Shaolin (2021.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Dominican Dream (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Ellen DeGeneres: The Beginning (2000.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Poetry in Motion (1982.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Yuri Marçal: Honest Mistake (2022.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Dolphins Up Close with Bertie Gregory (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Believe: The Eddie Izzard Story (2009.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Rahul Subramanian: Kal Main Udega (2018.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Pez Outlaw (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Reach for the Sky (1990.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Gospel of John (2014.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Saint Maud (2020.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Dave Chappelle: The Closer (2021.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Peter Hujar's Day (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Rocketry: The Nambi Effect (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Raja Rani (2013.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Hells (2008.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Steve Martin and Martin Short: An Evening You Will Forget for the Rest of Your Life (2018.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- El Pepe: A Supreme Life (2019.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Bert Kreischer: Hey Big Boy (2020.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- High & Low The Worst X (2022.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- John Leguizamo's Latin History for Morons (2018.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Who by Fire (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Sebastian Maniscalco: Stay Hungry (2019.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Kavaludaari (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- My Little Pony: The Princess Promenade (2006.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Sarah Silverman: We Are Miracles (2013.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Being Evel (2015.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Dirty Daddy: The Bob Saget Tribute (2022.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Fortune Feimster: Good Fortune (2022.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Here to be Heard: The Story of The Slits (2018.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Rebuilding Paradise (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Pets (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- D. Wade: Life Unexpected (2020.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Bach and Broccoli (1986.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Tough Guy (2018.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- A Spark Story (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Jesus Music (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Sailor (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Pink Ribbons, Inc. (2011.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Wartorn: 1861-2010 (2010.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Paul Anka: His Way (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Challenger Disaster: Lost Tapes (2016.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Music Box: Counting Crows: Have You Seen Me Lately? (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Wicked Little Letters (2024.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Déjà Vu (2006.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Kantara - A Legend: Chapter 1 (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Baazigar (1993.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Fearless Hyena (1979.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Scouts Honor: The Secret Files of the Boy Scouts of America (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Jack Whitehall: At Large (2017.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Faceless (2024.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Hannibal Buress: Comedy Camisado (2016.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Man vs. Snake (2015.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- HiGH&LOW The Movie 3: Final Mission (2017.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Spelling the Dream (2020.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Jo Koy: Live from Seattle (2017.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Story of Bean (1997.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Scheme (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Wild Wild Space (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Revival69: The Concert That Rocked the World (2023.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Ghost of the Mountains (2017.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Mo Amer: Wild World (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Colin Quinn: Unconstitutional (2015.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Conqueror: Hollywood Fallout (2024.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Ricky Velez: Here's Everything (2021.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Mashaal (1984.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Living With Lincoln (2015.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Dons of Disco (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Gospel of Mark (2015.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Vendhu Thanindhathu Kaadu (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Day the Earth Blew Up: A Looney Tunes Movie (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Lynch/Oz (2023.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Rocko's Modern Life: Static Cling (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Small Engine Repair (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- 1991 (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Aziz Ansari: Live at Madison Square Garden (2015.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Phenomenon (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- ZEF - The Story of Die Antwoord (2024.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- 537 Votes (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Vile & Miserable (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Depths (1963.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Red Dog (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- AKA Jane Roe (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Virgin Machine (1989.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Class Divide (2016.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- E-Team (2014.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Do Paise Ki Dhoop, Chaar Aane Ki Baarish (2016.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Spoiled Children (1977.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Rosebud Baker: The Mother Lode (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- No Accident (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Suppressed (2023.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Anaganaga Oka Roju (1997.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Wonderful Losers: A Different World (2017.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Circus Angel (1965.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Dragon (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Ponniyin Selvan: Part Two (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Tell Them You Love Me (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Call Me Dad (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Winnie the Pooh: A Very Merry Pooh Year (2002.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Plumber (1979.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Michael Bolton's Big, Sexy Valentine's Day Special (2017.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Crazy, Not Insane (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Machine That Kills Bad People (1952.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Super Bob Einstein Movie (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Scarlet Pimpernel (1934.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Only We Know (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Jimmy Carr: The Best of Ultimate Gold Greatest Hits (2019.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Jim Gaffigan: Cinco (2017.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- 11M: Terror in Madrid (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Ray Romano: Right Here, Around the Corner (2019.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Babah (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Franco Escamilla: Bienvenido al Mundo (2019.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Seduction: The Cruel Woman (1986.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Vir Das: Abroad Understanding (2017.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Jim Norton: Mouthful of Shame (2017.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Card (1952.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Cristela Alonzo: Lower Classy (2017.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Guillermo Vilas: Settling the Score (2020.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Pulang (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Hey Viktor! (2024.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Return from the Ashes (1965.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- One Way Ticket to Love (1960.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Chhota Bheem aur Krishna: Pataliputra - City of the Dead (2009.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Ronin-gai (1990.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Out Standing (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- After the Promise (1987.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Choice (1987.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- When Frank Met Carlitos (2023.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Muthukku Muthaaga (2011.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Stuntwomen: The Untold Hollywood Story (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Meaning of Monty Python (2013.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Wake N Bake by Rohan Joshi (2020.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Oscar Peterson: Black + White (2021.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Unsolved Mysteries: Behind the Legacy (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Charged: The Eduardo Garcia Story (2017.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Happiest Story on Earth: 70 Years of Disneyland (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- One of Them Days (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Fat Girl (2001.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Soul Food (1997.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Wolf's Hole (1987.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Q & A (1990.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- He Walked by Night (1949.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Jim Jefferies: Intolerant (2020.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- American Grindhouse (2011.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Slut in a Good Way (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Family First (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Uma Maheswara Ugra Roopasya (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Firelight (1998.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- State of Play: Trophy Kids (2013.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Year of the Scab (2017.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Nussa: The Movie (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Octonauts and the Ring of Fire (2021.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Octonauts and the Great Barrier Reef (2020.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Chhota Bheem Aur Krishna (2008.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- 33 Photos from the Ghetto (2026.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Michelle Wolf: The Well (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Bad Seeds (2016.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Thalaikoothal (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Evergreen (1934.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Soul of America (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Go Now (1995.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Jerry Lewis: The Man Behind the Clown (2016.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Saturn V Story (2014.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Vendetta Song (2005.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- I Love You Phillip Morris (2010.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Sólo con tu pareja (1992.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Outlaws (2021.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Four Hours at the Capitol (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Blue Angels (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Saamy (2003.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Trailer Park Boys: Don't Legalize It (2014.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Ruby Bridges (1998.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Call Me Kate (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Jen Kirkman: I'm Gonna Die Alone (And I Feel Fine) (2015.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Mike Tyson: Undisputed Truth (2013.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Asperger's Are Us (2016.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Perfect Weapon (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Adieu Bonaparte (1985.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Expedition Amelia (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Growing Up Wild (2016.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Full Moon (1960.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- A No-Hit No-Run Summer (2008.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Ali & Cavett: The Tale of the Tapes (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Freeway: Crack in the System (2014.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Burning Times (1990.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Trashed (2012.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Surviving the Mount St. Helens Disaster (2020.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Caroline Flack: Her Life and Death (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Pride From Above (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- It Follows (2015.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Is This Thing On? (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- New Rose Hotel (1999.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Ricky Gervais: SuperNature (2022.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Rifle Club (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Viduthalai Part 2 (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Much Ado About Nothing (2013.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Life in a Metro (2007.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The First Great Train Robbery (1978.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Sherina's Adventure 2 (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- One Piece "3D2Y": Overcome Ace's Death! Luffy's Vow to his Friends (2014.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Tin Men (1987.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Familia (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Le plongeur (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Berlin Express (1948.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Ishq (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Elway (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Dhandoraa (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Yuva (2004.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- ReMastered: Who Shot the Sheriff (2018.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Stringer: The Man Who Took the Photo (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Derren Brown: Sacrifice (2018.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- ReMastered: The Miami Showband Massacre (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Matteo Lane: The Al Dente Special (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Phas Gaye Re Obama (2010.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Wig (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Missing (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Tiny Tim: King for a Day (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Hobby: Tales from the Tabletop (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Can't Stand Losing You: Surviving The Police (2012.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Wings of Life (2011.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Fittest on Earth: The Story of the 2015 Reebok CrossFit Games (2016.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- What About Dick? (2012.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Common Ground (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Cristela Alonzo: Middle Classy (2022.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Deon Cole: Charleen's Boy (2022.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Tormento (1950.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Star Wars Kid: The Rise of the Digital Shadows (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- 8:17pm, Darling Street (2003.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Three Musketeers: D'Artagnan (2023.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Caught Stealing (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Scooby-Doo! in Where's My Mummy? (2005.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Twister: Caught in the Storm (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Another You (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Greater (2016.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Chris Rock: Tamborine (2018.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Strangers in the Park (2026.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- One Piece: Episode of Chopper Plus: Bloom in the Winter, Miracle Cherry Blossom (2008.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- A Wonderful World (2006.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Atharintiki Daaredi (2013.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Jimmy Carr: Funny Business (2016.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Joan Baez: I Am a Noise (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- ReMastered: Tricky Dick & The Man in Black (2018.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Middle Class Melodies (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- American Dharma (2019.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Stopping the Steal (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Sarah Silverman: PostMortem (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Kabhi Kabhie (1976.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Fårö Document 1979 (1979.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Jo Koy: Comin' in Hot (2019.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- It Couldn't Happen Here (1988.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Corner Gas: The Movie (2014.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Into the Grand Canyon (2019.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Inherit the Wind (1999.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Idina Menzel: Which Way to the Stage? (2022.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- aka Mr. Chow (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Refugiado (2014.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Dolly Parton: A MusiCares Tribute (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Patria (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Sticky Fingers (2009.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Morgan Murphy: Irish Goodbye (2014.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- In Search of Greatness (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Sushi by Biswa Kalyan Rath (2019.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Zarna Garg: Practical People Win. (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Dave Attell: Captain Miserable (2007.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- City Hunter Special: The Death of Vicious Criminal Saeba Ryo (1999.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- L'affaire Dumont (2012.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Jim Norton: Please Be Offended (2012.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Little Traitor (2009.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Mandela (1996.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Saudi Women's Driving School (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Bully (2001.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Best Exotic Marigold Hotel (2012.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Ghidorah, the Three-Headed Monster (1964.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Woodstock 99: Peace, Love, and Rage (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Sage-homme (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Shark Whisperer (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Law of the Border (1966.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Animalympics (1980.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Vikrithi (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Living Desert (1953.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Iliza Shlesinger: Hot Forever (2022.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Upin & Ipin: The Lone Gibbon Kris (2019.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Arinthum Ariyamalum (2005.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Jo Koy: Live from the Los Angeles Forum (2022.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Nala Damayanthi (2003.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Boys of St. Vincent (1994.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Dans une galaxie près de chez vous 2 (2008.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Taking Sides (2002.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Franco Escamilla: Voyerista Auditivo (2022.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Slow Hustle (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Pattiyal (2006.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Tom Papa: What a Day! (2022.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Talk to Me (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Corbo (2015.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Notfilm (2015.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Out of Mind, Out of Sight (2014.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Southern Rites (2015.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Todd and the Book of Pure Evil: The End of the End (2017.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- A Year in Burgundy (2013.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Heir To An Execution (2004.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Puppetoon Movie (1987.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Daag (1973.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Kabaneri of the Iron Fortress: Life That Burns (2017.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Alone Across the Arctic (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Bill Maher: The Decider (2007.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Sher Shivraj (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Attention Please (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Marry My Dead Body (2023.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- I ♥ Huckabees (2004.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Doctor (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Dum Laga Ke Haisha (2015.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Golden Kamuy (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Babes in Toyland (1934.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Nutcracker (1993.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The World's Greatest Sinner (1962.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Jim Jefferies: High n' Dry (2023.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Second Civil War (1997.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- In Case They Don't Arrive (2016.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Burning Bed (1984.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Walk Cheerfully (1930.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- A Family Thing (1996.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Will Ferrell: You're Welcome America - A Final Night with George W. Bush (2009.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- She Taught Love (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Cousin cousine (1975.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Maktub (2017.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- I See a Dark Stranger (1946.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Leanne Morgan: I'm Every Woman (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Buona Sera, Mrs. Campbell (1968.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Cypher (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Craig Ferguson: I'm Here to Help (2013.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Kim Dotcom: Caught in the Web (2017.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Under the Grapefruit Tree: The CC Sabathia Story (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Manson: Music from an Unsound Mind (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- 2 Minutes Late (1952.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Wrong Side Raju (2016.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Beach Boys: An American Band (1985.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Spilt Gravy on Rice (2022.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Sweet Hours (1982.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Iliza Shlesinger: Elder Millennial (2018.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Munich – The Edge of War (2021.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- My Hero Academia: World Heroes' Mission (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Boku no Hîrô Akademia za Mûbî Yuâ Nekusuto (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Babo: The Haftbefehl Story (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Who Killed Santa? A Murderville Murder Mystery (2022.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- HIT: The First Case (2020.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Grand Seduction (2014.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Nitham Oru Vaanam (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Swedish Connection (2026.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Untold: The Rise and Fall of AND1 (2022.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Melvin Goes to Dinner (2003.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Barbary Coast (1935.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- 15 Minutes of Shame (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Grace Jones: Bloodlight and Bami (2017.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Whindersson Nunes: My Own Show! (2022.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Jerrod Carmichael: Love at the Store (2014.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Descendants/Zombies Worlds Collide: Concert Special (2026.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Silicon Cowboys (2016.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Shaan (1980.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- 137 Shots (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Brian Regan: On the Rocks (2021.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Def Comedy Jam 25 (2017.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Second Best (1994.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Blood Into Wine (2010.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Adventure Thru the Walt Disney Archives (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Fine Lines (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Gallant Hours (1960.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Lost Sons (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Disney's Broadway Hits at London's Royal Albert Hall (2016.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- In Pursuit of Honor (1995.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Student Athlete (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- It Takes a Lunatic (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Plastic Island (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Long Life, Happiness and Prosperity (2002.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Paris to Pittsburgh (2020.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Harry Styles: Are you Curious? (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Late Night with the Devil (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Eddington (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- My Son, My Son, What Have Ye Done (2010.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Trance (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Color of Friendship (2000.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Irugapatru (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- 2nd Miracle in Cell No. 7 (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Heartbreak Motel (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Trevor Noah: I Wish You Would (2022.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Silsila (1981.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Pee Wee 3D: The Winter That Changed My Life (2012.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Freakscene: The Story of Dinosaur Jr. (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Portrait (2017.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Accidental Twins (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Disney 100: A Century of Dreams – A Special Edition of 20/20 (2023.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Heroin: Cape Cod, USA (2015.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Deon Cole: Cole Hearted (2019.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- For Madmen Only: The Stories of Del Close (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Hamilton: History Has Its Eyes On You (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The First of the Few (1942.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Man Who Could Work Miracles (1936.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Mysterious Miss C. (2002.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Dusty Slay: Wet Heat (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Warning: This Drug May Kill You (2017.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Jhimma (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Ragamuffin (2014.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Shark Beach with Anthony Mackie (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Carlos Ghosn - The Last Flight (2021.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- West Is West (1987.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Fantastic 4: First Steps (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Roald Dahl's Matilda the Musical (2022.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Veera Dheera Sooran: Part 2 (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Dance of the Forty One (2020.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- That Darn Cat! (1965.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Nikki Glaser: Someday You'll Die (2024.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Riphagen the Untouchable (2016.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Maara (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Ganjil Genap (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- June Again (2021.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- DMX: Don't Try to Understand (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Rangamarthanda (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Little White Lie (2014.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Coyote (2017.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Godday Godday Chaa (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Trap Jazz (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Titanic's Final Mystery (2012.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Return of the War Room (2008.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Goodnight Mommy (2015.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Bikeriders (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- You're Next (2013.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Caramelo (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Suite Française (2015.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Kim Possible Movie: So the Drama (2005.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Couple Friendly (2026.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Darby O'Gill and the Little People (1959.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Mad (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Fort Apache, the Bronx (1981.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- My Daughter's Killer (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Satanás - Profile of a Killer (2007.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Bully. Coward. Victim: The Story of Roy Cohn (2020.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Michael McIntyre: Showman (2020.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Love Mocktail (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Day the Series Stopped (2014.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Bheed (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Tiny: The Life of Erin Blackwell (2016.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- When Pigs Fly (1993.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Hate by Dani Rovira (2021.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Arsenault and Fils (2022.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Mehandi Circus (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Isekai Quartet the Movie: Another World (2022.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Chal Mera Putt (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Eva (1948.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- If I Were You (2013.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Mr. Bharath (1986.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Molokai: The Story of Father Damien (1999.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- This Time Tomorrow (2016.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Judgment (1990.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Rock and a Hard Place (2017.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Expedition Amazon (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Vessel (2015.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Chhota Bheem: Bheem vs Aliens (2010.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Agak Laen (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- De slag om de Schelde (2021.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Ali & Ratu Ratu Queens (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Anweshippin Kandethum (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Mahavatar Narsimha (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Untold: Johnny Football (2023.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- A Biltmore Christmas (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Los dos hemisferios de Lucca (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Men Who Tread on the Tiger's Tail (1952.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- C U Soon (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- A Vítima Invisível: O Caso Eliza Samudio (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Montana Story (2022.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Faye (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- One Piece: Episode of Skypiea (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Unknown: Cave of Bones (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Who Killed the Montreal Expos? (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Supremes at Earl's All-You-Can-Eat (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Jim Gaffigan: Comedy Monster (2021.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Michael Che: Shame the Devil (2021.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Titanic: The Digital Resurrection (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- David Cross: Making America Great Again (2016.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Louis Cyr: The Strongest Man in the World (2013.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Mafia Inc (2020.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Jim Gaffigan: The Skinny (2024.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Hola Frida! (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Aelay (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Daylight (2013.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Christmas with Walt Disney (2009.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Chhota Bheem aur Krishna: Mayanagari (2011.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Thottappan (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Fountainhead (1956.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Chosen One: Alexandre Daigle (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- El especial de Alex Fernández, el Especial (2017.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Kathal (2023.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Jim Breuer: And Laughter for All (2013.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Night House (2021.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Pontypool (2009.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Machine Girl (2008.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Possessive (2017.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Where the Red Fern Grows (1974.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Blackbeard's Ghost (1968.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Yeast (2008.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Thoughts & Prayers (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Iliza Shlesinger: Confirmed Kills (2016.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Gentleman (2016.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Mobile Suit Gundam 00 The Movie: -A Wakening of the Trailblazer- (2010.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Good, The Bad, The Hungry (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Mo Amer: Mohammed in Texas (2021.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Kevin Hart: The Kennedy Center Mark Twain Prize for American Humor (2024.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Eye of the Beholder: The Art of Dungeons & Dragons (2018.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Feet First (1930.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Ghosts of Abu Ghraib (2007.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Last Take: Rust and the Story of Halyna (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Urzila Carlson: Overqualified Loser (2020.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Leanne Morgan: Unspeakable Things (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Karma (1986.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Secrets of Life (1956.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Humble Politician Nograj (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Dana Carvey: Squatting Monkeys Tell No Lies (2008.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- 2,215 (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Chhota Bheem: Journey to Petra (2011.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Bill Maher: Victory Begins at Home (2003.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Rude (1995.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Thalaivar Thambi Thalaimaiyil (2026.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Ari Shaffir: America's Sweetheart (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Black Phone (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Class Action Park (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Love Is Colder Than Death (1970.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Comic-Con Episode IV: A Fan's Hope (2011.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Sharmaji Namkeen (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- An American Bombing: The Road to April 19th (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Aachi & Ssipak (2006.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- That Peter Crouch Film (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Whindersson Nunes: Isso Não é um Culto (2023.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Dos estaciones (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- La balance (1982.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Peace by Chocolate (2022.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Ballad of Suzanne Césaire (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Adventures on the New Frontier (1961.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Unpaused (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Lucy Grizzli Sophie (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Rise of Catherine the Great (1934.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Frank Capra: Mr. America (2023.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Last of the Blonde Bombshells (2000.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Revolution Rent (2021.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Barefoot at Dawn (2017.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Something Wicked This Way Comes (1983.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Divided Brain (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Kidnapped: Elizabeth Smart (2026.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Saripodhaa Sanivaaram (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Godzilla vs. Mothra (1992.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Fan Girl (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Pachuvum Athbhuthavilakkum (2023.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Mrs. Chatterjee Vs Norway (2023.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Untold: Operation Flagrant Foul (2022.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Demonte Colony (2015.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Thankam (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Pope: Answers (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Unknown: The Lost Pyramid (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- A Private Function (1984.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Winnie the Pooh: A Valentine for You (1999.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Katherine Ryan: In Trouble (2017.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Sign of Zorro (1958.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Ilana Glazer: Human Magic (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Lost in Yonkers (1993.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Vellai Pookal (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Jack of the Red Hearts (2016.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Tiny Shoulders: Rethinking Barbie (2018.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Death Is a Caress (1949.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Devil's Disciple (1959.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Icahn: The Restless Billionaire (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Mujhse Fraaandship Karoge (2011.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- I'm Brent Morin (2015.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Maré Branca: A Surreal História de Rabo de Peixe (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Ron White: If You Quit Listening, I'll Shut Up (2018.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Lydia (1941.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Explorer: The Deepest Cave (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Signed, Sealed, Delivered (2013.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Terry Fox Story (1983.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Tokyo 2020 Olympic Opening Ceremony: United by Emotion (2021.0): missing `douban_rating`; status `watched_library`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Somme (2005.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- My Own Man (2014.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Chhota Bheem: Dholakpur to Kathmandu (2012.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Once Upon a Sesame Street Christmas (2016.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Chernobyl's Café (2016.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Within the Whirlwind (2009.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Bittersweet Memories (2004.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Martin Matte: La vie, la mort... eh la la..! (2019.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Love and Magnets (2004.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Macross Delta: Passionate Walküre (2018.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Guardians of the Galaxy Holiday Special (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- One Piece Film Red (2022.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- House Party (1990.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Love Bug (1968.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Dave Chappelle: The Dreamer (2023.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- 3BHK (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Being Eddie (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Kaala (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Incredible Journey (1963.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Victim/Suspect (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Love to Love You, Donna Summer (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Brett Goldstein: The Second Best Night of Your Life (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Chennai 600028 II: Second Innings (2016.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Iliza Shlesinger: Unveiled (2019.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Perri (1957.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- La Bolduc (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Sebastian Maniscalco: It Ain't Right (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- A Kid for Two Farthings (1955.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Somm III (2018.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Jesse Stone: Lost in Paradise (2015.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- So B. It (2016.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Gad Gone Wild (2017.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Miracle Landing on the Hudson (2014.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Machine Gun Molly (2004.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Silas Marner (1985.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Childhood 2.0 (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- PAGTATAG! The Documentary (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Alive Day Memories: Home from Iraq (2007.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Goon (2012.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Scooby-Doo! and the Legend of the Vampire (2003.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Pushpa: The Rise (2021.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Miraculous World: Shanghai - The Legend of Ladydragon (2021.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Life During Wartime (2010.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Mathu Vadalara 2 (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Upcoming Summer (2021.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- A Fish in the Bathtub (1999.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Chris Claremont's X-Men (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Narappa (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Kasada Thapara (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Russell Peters: Almost Famous (2016.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Craig Ferguson: Tickle Fight (2017.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Manamantha (2016.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Manhunt: The Inside Story of the Hunt for Bin Laden (2013.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Rafa Márquez: El capitán (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Tom Papa: Live in New York City (2011.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Miss Virginia (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Excellent Cadavers (1999.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Gerry (2011.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Golden Eyes (1968.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- A Is for Acid (2002.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- D.L. Hughley: Contrarian (2018.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- We Live Here: The Midwest (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Sinatra in Palm Springs (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Last Tunnel (2004.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Ballerina (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- STRAW (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Goodbye June (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Knox Goes Away (2024.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Kite (1998.0): missing `douban_rating`; status `watched_library`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- She Walks in Darkness (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Beach Boys (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Joe Rogan: Strange Times (2018.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Miraculous World: Tokyo, Stellar Force (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Mysteries of the Terracotta Warriors (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Prodigieuses (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Ambili (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Walkout (2006.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Ghosts of Christmas Always (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Greyfriars Bobby (1961.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Tim Dillon: This Is Your Country (2024.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Gumnaam (1965.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Vanishing Prairie (1954.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Agni (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Raat (1992.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Brian Regan: Nunchucks and Flamethrowers (2017.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- My Mother's Men (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Miso Hungry (2015.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Bal Ganesh (2007.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- David (1988.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Our Towns (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Friends of God: A Road Trip with Alexandra Pelosi (2007.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Tempest (1980.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Love Today (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- 40 Acres (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Mala Noche (1987.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Smaller and Smaller Circles (2017.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Goké, Body Snatcher from Hell (1968.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Jersey (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Romance of Ida (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Two Friends (1986.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Race to the Summit (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Chris D'Elia: Man on Fire (2017.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Cliche (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Keys to the Heart (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Maria Chapdelaine (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Sunset Strip (2012.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Walt & El Grupo (2008.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Maz Jobrani: Immigrant (2017.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Yellowstone Cubs (1963.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Sisu: Road to Revenge (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Quiet Son (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Quebec-Montreal (2002.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Hum (1991.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- 800 (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Sam Jay: 3 in the Morning (2020.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- ODDTAXI in the Woods (2022.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Jesse Stone: Benefit of the Doubt (2012.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Dongeng Sang Kancil (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Blood & Myth (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Secret Life of the Cruise (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Gender Revolution: A Journey with Katie Couric (2017.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Plucking the Daisy (1956.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Everyday People (2004.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Children of God: Lost and Found (2007.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Just One Kiss (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Larry the Cable Guy: Remain Seated (2020.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Penguin Bloom (2021.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Tom Papa: Home Free (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Star Wars: The Force Awakens (2015.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Insidious (2011.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Lost Bus (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Child Star (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- kid 90 (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Kooman (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Stavros Halkias: Fat Rascal (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Joe Rogan: Triggered (2016.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Face to Face with ETA: Conversations with a Terrorist (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Vadh 2 (2026.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Mr Vampire Saga 4 (1988.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Khiladi (1992.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Jesse Stone: Sea Change (2007.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Swamp (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Nocturnal Uproar (1979.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Conquer: Lahad Datu (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The African Lion (1955.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Two Girls on the Street (1939.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- November Christmas (2011.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- For Love (2023.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Curious Caterer: Forbidden Fruit (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Louis Theroux: Inside the Manosphere (2026.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Millions (2005.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Scooby-Doo! Frankencreepy (2014.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Super Size Me 2: Holy Chicken! (2019.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Mai (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Vengeance in the Dreary Night (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Gone in 60 Seconds (1974.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Vash Level 2 (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- A Real Young Girl (1976.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Seven Years (2016.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Jack Whitehall: I'm Only Joking (2020.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Love (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Buya Hamka (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Miguel Wants to Fight (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Notebook (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Mishan Impossible (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Andrew Santino: White Noise (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- ReMastered: Who Killed Jam Master Jay? (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- William Shatner: You Can Call Me Bill (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Daughter of Dawn (1920.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Dodging the Clock (2005.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- One Summer (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Prince and the Pauper (1962.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Adrienne Iapalucci: The Dark Queen (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Laughing Buddha (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Risky Drinking (2016.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Curious Caterer: Foiled Plans (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Lulu Is a Rhinoceros (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Chhota Bheem: Krishna vs Zimbara (2013.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- George W. Bush: The 9/11 Interview (2011.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Big Business (1988.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- 27 Nights (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- To Me, the One Who Loved You (2022.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Kevin Hart: Irresponsible (2019.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Alhamour H.A. (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Maine Pyar Kiya (1989.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Shootout at Lokhandwala (2007.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Iliza Shlesinger: Freezing Hot (2015.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Big City Greens the Movie: Spacecation (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- 'Twas the Fight Before Christmas (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Cruising Bar (1989.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Scrubbers (1982.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Wildflower (1991.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Program (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Trailer Park Boys: Drunk, High and Unemployed (2015.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Jeff Dunham: All Over the Map (2014.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Dying for Everest (2007.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Drain The Ocean: WWII (2016.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Final Destination Bloodlines (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Naruto Shippuden the Movie (2007.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Il falsario (2026.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Murder in Monaco (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Sui Dhaaga - Made in India (2018.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Natalie Wood: What Remains Behind (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Sivappu Manjal Pachai (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Whitney Cummings: Can I Touch It? (2019.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Father and Guns 2 (2017.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Dane Cook: Vicious Circle (2006.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Beyond the Law (1968.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Fathom (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The New Age (1994.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Jeff Dunham: Minding the Monsters (2012.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Sins of the Parents: The Crumbley Trials (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Hamka & Siti Raham Vol. 2 (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Garage Sale Mysteries: The Pandora's Box Murders (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- North to Home (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Haunted Harmony Mysteries: Buried at C (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Cyrano (2022.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Don't Tell Mom the Babysitter's Dead (1991.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Narvik (2022.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Britney vs. Spears (2021.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Maamannan (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- MoviePass, MovieCrash (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Till We Meet Again (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Lighthouse of the Orcas (2016.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Doll House (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Plastic Detox (2026.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Seventh Veil (1945.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- American Skin (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Padavettu (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Viraata Parvam (2022.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Broke (2012.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Jewel Thief (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Raatchasi (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- RUSSELL BRAND: RE:BIRTH (2018.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Mr. Saturday Night (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Jesse Stone: Innocents Lost (2011.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Jessica Kirson: I'm the Man (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- GIMS: On the Record (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Sherdil (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Aurora Teagarden Mysteries: Haunted By Murder (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Branching Out (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Haunted Harmony Mysteries: Murder in G Major (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Daddio (2024.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Madgaon Express (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- HIT: The 2nd Case (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Humint (2026.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Absent-Minded Professor (1961.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Jimmy Carr: His Dark Material (2021.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Eloá the Hostage: Live on TV (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Jo & Jo (2022.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Fanatical: The Catfishing of Tegan and Sara (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Bonnard, Pierre and Marthe (2024.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Mere Dad Ki Maruti (2013.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Aurora Teagarden Mysteries: A Game of Cat and Mouse (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Séraphin: Heart of Stone (2002.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Sofía Niño de Rivera: Natural Selection (2018.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Blow Up of 'Blow-Up' (2016.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Semi-Soet (2012.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Creepy Line (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Garage Sale Mystery: The Novel Murders (2016.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Mon cirque à moi (2021.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- To Barcelona, Forever (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Truth and Lies: The Last Gangster (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Woman of the Hour (2024.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Trainwreck: The Astroworld Tragedy (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Ricky Gervais: Armageddon (2023.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Oklahoma City Bombing: American Terror (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Jerry Seinfeld: 23 Hours to Kill (2020.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Kuruthi (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Kaka Boss (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Her Difference (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- North of Normal (2023.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Trailer Park Boys: Live at the North Pole (2014.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Unconditional (2012.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Aaron Carter: The Little Prince of Pop (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Blue Collar Comedy Tour Rides Again (2004.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Aurora Teagarden Mysteries: Til Death Do Us Part (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Ralph Barbosa: Planet Bosa (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Ten Nights in a Barroom (1926.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- A Revision (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Kousalya Supraja Rama (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Upstarts (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- People We Meet on Vacation (2026.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Meet, Greet & Bye (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Arjun Reddy (2017.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Naruto Shippuden the Movie: The Will of Fire (2009.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Reluctant Dragon (1941.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Malayankunju (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Piaffe (2023.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Rude Boy (1980.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Cadence (1990.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Jim Jefferies: Two Limb Policy (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Kaatrin Mozhi (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- La Parisienne (1957.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Jeff Dunham: Controlled Chaos (2011.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Uriyadi 2 (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Rafinha Bastos: Ultimatum (2018.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- In Viaggio: The Travels of Pope Francis (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Aurora Teagarden Mysteries: Reunited and It Feels So Deadly (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Chris Distefano: It's Just Unfortunate (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- All of My Heart: The Wedding (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Garage Sale Mystery: All That Glitters (2014.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Lesser Blessed (2012.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- So Much Tenderness (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Swedenhielms (1935.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Professor (1962.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Lover, Stalker, Killer (2024.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Thangalaan (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- A Long Way to Come Home (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Raat Akeli Hai: The Bansal Murders (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Sword Art Online the Movie – Progressive – Scherzo of Deep Night (2022.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Masthishka Maranam (A Frankenbiting of Simon's Memories) (2026.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Murder by the Coast (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- 120 Bahadur (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Jeune Juliette (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Love Goddesses (1965.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- A Certain Magical Index: The Miracle of Endymion (2013.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Yatra (2019.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Julius House: An Aurora Teagarden Mystery (2016.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Creative Nonfiction (2009.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Balloonist (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Dostana (1980.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Aurora Teagarden Mysteries: How to Con a Con (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Curious Caterer: Grilling Season (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Spookiz: The Movie (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Garage Sale Mysteries: The Mask Murder (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Die Like a Man (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Chappaquiddick (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Ezra (2024.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Sorgavaasal (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Sleepwalk (1986.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Sealed with a List (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Take Me Back for Christmas (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- All of My Heart (2015.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Star Wars: Galaxy's Edge - Adventure Awaits (2019.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Magic of Lemon Drops (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Groundswell (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Christmas Jars (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Crossword Mysteries: Riddle Me Dead (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Diabolical - The Epstein Files (2026.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Garage Sale Mystery: A Case Of Murder (2017.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Darrow & Darrow (2017.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Ricardo Quevedo: Los Amargados Somos Mas (2019.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Operation Mincemeat (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Judgment Night (1993.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- RDX: Robert Dony Xavier (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Brink! (1998.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Down and Out in Beverly Hills (1986.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Insomnia Club (2018.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Ugly Dachshund (1966.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Cheshire Murders (2013.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Guitar Mongoloid (2004.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Compulsive Liar (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Thittam Irandu (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Santa Summit (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Rekha (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Ek Mini Katha (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Godspeed (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Thimmarusu: Assignment Vali (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Aurora Teagarden Mysteries: Heist and Seek (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Tanvi: The Great (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Memes & Nightmares (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Garage Sale Mystery: The Beach Murder (2017.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Christmas with Tucker (2013.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Garage Sale Mysteries: Picture a Murder (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Captain Miller (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Ricky Gervais: Mortality (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Beanie Mania (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Mission (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Late Shift (1996.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Boxer (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Davy Crockett and the River Pirates (1956.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Hurricane Season (2010.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Blackout (1954.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Emil and the Detectives (1964.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Intimate Relations (1996.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Garage Sale Mystery: The Deadly Room (2015.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Bullshot (1983.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Riddled with Deceit: A Martha's Vineyard Mystery (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Garage Sale Mystery: The Wedding Dress (2015.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Fakin' Da Funk (1997.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Garage Sale Mystery: Murder Most Medieval (2017.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Aurora Teagarden Mysteries: Death at the Diner (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Deadly Deed: A Fixer Upper Mystery (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Never Too Late to Celebrate (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Tinder Swindler (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Permanent Vacation (1981.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Escape to Witch Mountain (1975.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Miss. Shetty Mr. Polishetty (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Cooked (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Woman in the Line (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Hello Ghost (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Paloni Show! Halloween Special! (2022.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Moon-Spinners (1964.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Harley & Katya (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Pompeii: Secrets of the Dead (2019.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Santa Class (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Can You See Us? (2023.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Rip in Time (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Abused by Mum: The Ruby Franke Scandal (2024.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Kevin Costner Presents: The First Christmas (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Love Takes Flight (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Outlander (2005.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Rip (2026.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- One Last Adventure: The Making of Stranger Things 5 (2026.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Swiped (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Dhoom Dhaam (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Kang Solah from Kang Mak x Nenek Gayung (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Garudan (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Three Wise Men and a Baby (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Guilty Bystander (1950.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Cyberbunker: The Criminal Underworld (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Meth Storm (2017.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Trees and Other Entanglements (2023.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Winter Love Story (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Shastry Viruddh Shastry (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Aurora Teagarden Mysteries: Honeymoon, Honeymurder (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Privates on Parade (1983.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- A Zest For Death: A Hannah Swensen Mystery (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- A Sprinkle of Deceit: A Hannah Swensen Mystery (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Chronicle Mysteries: The Wrong Man (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Shaadi Mubarak (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Virgilio. (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Darrow & Darrow: In The Key Of Murder (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Canelo Álvarez vs. Terence Crawford (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- We're All Going to the World's Fair (2022.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Untold: Hall of Shame (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Hello Guru Prema Kosame (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Real Murders: An Aurora Teagarden Mystery (2015.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Aurora Teagarden Mysteries: The Disappearing Game (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- 99 Songs (2021.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Junebug (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Angel Tree (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Real West (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Chronicle Mysteries: Recovered (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Garage Sale Mystery: Guilty Until Proven Innocent (2016.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Chronicle Mysteries: Vines that Bind (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Concrete Evidence: A Fixer Upper Mystery (2017.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Don't Go Breaking My Heart (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Aurora Teagarden Mysteries: A Very Foul Play (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Spinal Tap II: The End Continues (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Aśoka (2001.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Outside Providence (1999.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Goodbye (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Shipwrecked (1990.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Jeff Dunham's Very Special Christmas Special (2008.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Jeff Dunham: Beside Himself (2019.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Meppadiyan (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Light It Up (1999.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Savoring Paris (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Last Scene Alive: An Aurora Teagarden Mystery (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Bulldog Drummond Escapes (1937.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Sweeter Than Chocolate (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Sweet Carolina (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Chasse-Galerie (2016.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Sugar & Vice: A Hannah Swensen Mystery (2026.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- D.L. Hughley: Reset (2012.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Titan: The OceanGate Submersible Disaster (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Chatha Pacha (2026.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Naruto Shippuden the Movie: Bonds (2008.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Apple Dumpling Gang (1975.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- God Forbid: The Sex Scandal That Brought Down a Dynasty (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- ManSuang (2023.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- An Innocent Man (1989.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Chabuca (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Spin (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Bhaagamathie (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Money Electric: The Bitcoin Mystery (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Marlon Wayans: Woke-ish (2018.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Garage Sale Mystery (2013.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Brij Mohan Amar Rahe! (2017.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Love in the Limelight (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The 3 L'il Pigs 2 (2016.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Secrets of Bella Vista (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- A Deadly American Marriage (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Frankenstein Conquers the World (1965.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Hate to Love: Nickelback (2024.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- KSI: In Real Life (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- One Piece: Adventure of Nebulandia (2015.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Putham Pudhu Kaalai (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Cinderella (1965.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Happiest Millionaire (1967.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Sugarplummed (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Fugitive: The Curious Case of Carlos Ghosn (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- World's Best (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Dead Over Heels: An Aurora Teagarden Mystery (2017.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Aurora Teagarden Mysteries: An Inheritance to Die For (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Almost Angels (1962.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Crossword Mysteries: Proposing Murder (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Reap What You Sew: An Aurora Teagarden Mystery (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Señoritas (2013.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Christmas in My Heart (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Buried Truth of the Maya (2020.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Whispers: An Elephant's Tale (2000.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- A Chuck E. Cheese Christmas (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- MatchMaker Mysteries: A Killer Engagement (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Reality Bites: A Hannah Swensen Mystery (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Housewife & the Shah Shocker (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Flower Shop Mystery: Dearly Depotted (2016.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Tillu Square (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Dasara (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Perfect Harmony (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- How Stella Got Her Groove Back (1998.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- U-Turn (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Story of Robin Hood and His Merrie Men (1952.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Blood of Jesus (1941.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Untold: Caitlyn Jenner (2022.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Jeff Dunham: Arguing with Myself (2006.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Unknown: Killer Robots (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Mirage (2015.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Paging Mr. Darcy (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Other (1999.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- A Beautiful Place to Die: A Martha's Vineyard Mystery (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Framed for Murder: A Fixer Upper Mystery (2017.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- First (2012.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- What Happened in Vegas (2017.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Don't Look Under the Bed (1999.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Alkhallat+ (2023.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- FIR (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Freaknik: The Wildest Party Never Told (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Rx 100 (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Holiday Road (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Honsla Rakh (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Hocus Pocus 25th Anniversary Halloween Bash (2018.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Aurangzeb (2013.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Christmas Pen Pals (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- A Tale of Two Critters (1977.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Bears and I (1974.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- All of My Heart: Inn Love (2017.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Cold Dog Soup (1990.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Prescription Thugs (2016.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Boy Kills World (2024.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Muppets Haunted Mansion (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Chris Rock: Selective Outrage (2023.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Proud Family Movie (2005.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Dilan 1983: Wo Ai Ni (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Fé para o Impossível (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Don Juan or If Don Juan Were a Woman (1973.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Notes for My Son (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Tears at the Edge of a Prayer Rug (2023.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Island at the Top of the World (1974.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Quick and the Dead (1987.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Oru Thekkan Thallu Case (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- A Bundle of Trouble: An Aurora Teagarden Mystery (2017.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Hidden Gems (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Trinity Seven: Eternity Library & Alchemic Girl (2017.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Brothers After War (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Adire (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Anniversary (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Diplomat (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- 8 Vasantalu (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Adventures of Bullwhip Griffin (1967.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- A Bone to Pick: An Aurora Teagarden Mystery (2015.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Three Bedrooms, One Corpse: An Aurora Teagarden Mystery (2016.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Mickey's Tale of Two Witches (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Curious Caterer: Dying for Chocolate (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Sweetest Heart (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Anything for Love (2016.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Break Every Chain (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Pizza Movie (2026.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Kaizen (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Bitconned (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Kiss Me Goodbye (1982.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- 'Twas the Night Before Christmas (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Checking Out (1988.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Maidstone (1971.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Murder, She Baked: Just Desserts (2017.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- A Paris Proposal (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Raising the Bar: The Alma Richards Story (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- V.C. Andrews' Pearl in the Mist (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Pie To Die For: A Hannah Swensen Mystery (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Wish Swap (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Garage Sale Mysteries: Searched & Seized (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- BeBe Winans’ We Three Kings (2024.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Lilo & Stitch (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Here (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Horizon: An American Saga - Chapter 1 (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Scoop (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Slumberland (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- War (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Kang Mak from Pee Mak (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Super Frugal Family (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Camp Nowhere (1994.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Kita kita (2017.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- A Girl Like Her (2015.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Gotta Kick It Up! (2002.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Dasvi (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Man on Fire (1987.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Chopsticks (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Skin (2009.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Jaadugar (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Snowball Express (1972.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Dana Carvey: Straight White Male, 60 (2016.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Separate Lies (2005.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Swiss Family Robinson (1940.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Plough and the Stars (1936.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Squanto: A Warrior's Tale (1994.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Death Kappa (2010.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Blind Date Book Club (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Murder, She Baked: A Deadly Recipe (2016.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Time for You to Come Home for Christmas (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Max Steel Team Turbo: Fusion Tek (2016.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Harmony From The Heart (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Carry-On (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Abigail (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Whitney Houston: I Wanna Dance with Somebody (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Mike & Nick & Nick & Alice (2026.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Irreplaceable You (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Haseen Dillruba (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Raymond & Ray (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- All Together Now (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Tini: The New Life of Violetta (2016.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Shaggy Dog (1959.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Deceived (1991.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- A Simple Twist of Fate (1994.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Gabriel Iglesias: Legend of Fluffy (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Mending the Line (2023.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Men with Brooms (2002.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Jeff Dunham: Relative Disaster (2017.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Treasure of Matecumbe (1976.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Hearts of Christmas (2016.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Salmon Fishing in the Yemen (2012.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Dictator (2012.0): missing `douban_rating`; status `watched_library`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Hills Have Eyes (2006.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Shrouds (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Cloud 9 (2014.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Life-Size (2000.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Aftermath (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Ebirah, Horror of the Deep (1966.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Jailbreak: Love on the Run (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Capturing the Killer Nurse (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Magician's Elephant (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Motocrossed! (2001.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Blue Miracle (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Taking Care of Business (1990.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Mission Raniganj: The Great Bharat Rescue (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Butta Bomma (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Murder, She Baked: A Peach Cobbler Mystery (2016.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Two Tickets to Paradise (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Christmas Chronicles (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Being the Ricardos (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Encino Man (1992.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- In Your Dreams (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Beyond the Universe (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Doctor G (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Joy (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Kumari (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Lefter: The Story of the Ordinarius (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Sebastian Maniscalco: Is it Me? (2022.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- When Calls the Heart (2013.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- A Big Fat Family Christmas (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Lease on Love (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Ayo Balikan (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Bryan Callen: Complicated Apes (2019.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The First Film (2015.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Thank God: Christmas at Keller Ranch (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Thursday Murder Club (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Waterboy (1998.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Bubble Boy (2001.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Next Gen (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- My Cousin Rachel (2017.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Homeward Bound II: Lost in San Francisco (1996.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Metro... In Dino (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- LEGO Star Wars Terrifying Tales (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Brave Little Toaster to the Rescue (1997.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Vakeel Saab (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Matt Rife: Unwrapped: A Christmas Crowd Work Special (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Flicka: Country Pride (2012.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Ujda Chaman (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Last Wife (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Moriah's Lighthouse (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Calamity of a Zombie Girl (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Venom (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Spies in Disguise (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Fingernails (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Leroy & Stitch (2006.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Herbie Goes to Monte Carlo (1977.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Chandigarh Kare Aashiqui (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Mili (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Ishaqzaade (2012.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Dogora (1964.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- 'Twas the Date Before Christmas (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Ek Chatur Naar (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Mickey and Minnie Wish Upon a Christmas (2021.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Taking a Shot at Love (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Founding of an Army (2017.0): missing `douban_rating`; status `watched_library`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Fifi Martingale (2001.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Zenon: Girl of the 21st Century (1999.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- 13 Bom di Jakarta (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Benji (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Tu Yaa Main (2026.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Forensic (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Chalte Chalte (2003.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Sattar (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Space Amoeba (1970.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Homeless: The Motel Kids of Orange County (2010.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- A Season for Family (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Unwrapping Christmas: Lily's Destiny (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Delta (1997.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Doctor Strange in the Multiverse of Madness (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Girl Next Door (2004.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Geek Charming (2011.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Flamin' Hot (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Then Came You (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Herbie Rides Again (1974.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Ultimate Gift (2007.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Atragon (1963.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Mrithyunjay (2026.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Lego Disney Princess: The Castle Quest (2023.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Marvel Rising: Secret Warriors (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- 21 Days (1940.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Wonderful World of Disney: Holiday Spectacular (2024.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Black Widow (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- It Chapter Two (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Bird Box (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Adam Project (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Mufasa: The Lion King (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Cherry (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Vivo (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Even Stevens Movie (2003.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- There's Something Wrong with Aunt Diane (2011.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Chor Nikal Ke Bhaga (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Babes in Toyland (1961.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Life with Mikey (1993.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Seven Deadly Sins: Cursed by Light (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- School of Life (2005.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- 18 Pages (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Man on the Run (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- 3 Bed, 2 Bath, 1 Ghost (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Open by Christmas (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Falling in Love in Niagara (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Ranveer vs Wild with Bear Grylls (2022.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Red Sparrow (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Beverly Hills Cop: Axel F (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Cem Yilmaz: Diamond Elite Platinum Plus (2021.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Beats (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Malang (2020.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Cobalt Blue (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Computer Wore Tennis Shoes (1969.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Awakening of Motti Wolkenbruch (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Cheetah (1989.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Christmas Star (1986.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Much Ado About Christmas (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- A Lagos Love Story (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Boy Who Talked to Badgers (1975.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Blue Collar Comedy Tour: The Movie (2003.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Pretty Lethal (2026.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Five Star Christmas (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Luther: The Fallen Sun (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Fever Pitch (2005.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Damien - Omen II (1978.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Red Sea Diving Resort (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Godzilla vs. Megalon (1973.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Big Hit (1998.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Tall Tale: The Unbelievable Adventure (1995.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Apple Dumpling Gang Rides Again (1979.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Chamatkar (1992.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Ciao! Manhattan (1973.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Fabric of Christmas (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Waiting... (2005.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Mark Twain and Me (1991.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Solo: A Star Wars Story (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Indiana Jones and the Dial of Destiny (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Army of Thieves (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- D3: The Mighty Ducks (1996.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Ernest Scared Stupid (1991.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Cedar Rapids (2011.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Wizards Return: Alex vs. Alex (2013.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Seven Deadly Sins: Prisoners of the Sky (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- CMXXIV (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Banger Sisters (2002.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Andhra King Taluka (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Brave Little Toaster Goes to Mars (1998.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Gumraah (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Henchmen (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Lion King (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Napoleon (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- If (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Descendants 3 (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- A Boy Called Christmas (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Beanie Bubble (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Shaggy D.A. (1976.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Love, Classified (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Robin Hood (1991.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- My Father's Violin (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- A Master Builder (2014.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Young Black Stallion (2003.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Jingle Bell Run (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- We Met in December (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Three Ways (2023.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Due West: Our Sex Journey (2012.0): missing `douban_rating`; status `watched_library`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Bob the Builder: The Golden Hammer (2010.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Amateur (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- King Arthur: Legend of the Sword (2017.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Brother Bear 2 (2006.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Halloweentown II: Kalabar's Revenge (2001.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- A Christmas Story Christmas (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- HIT: The Third Case (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Vettaiyan (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Trollhunters: Rise of the Titans (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Storied Life of A.J. Fikry (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- A Place to Fight For (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Money for Nothing (1993.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Miami Rhapsody (1995.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Going to the Mat (2004.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Chasing Papi (2003.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Operation Nutcracker (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- 009-1: The End of the Beginning (2013.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Jumanji: The Next Level (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Kid Who Would Be King (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Jingle Jangle: A Christmas Journey (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Back to the Outback (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Johnny Tsunami (1999.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Eddie's Million Dollar Cook Off (2003.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Killer Nun (1979.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Out of the Clear Blue Sky (2019.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Catch Me If You Claus (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Time for Us to Come Home for Christmas (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Coming Home for Christmas (2017.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Easter Under Wraps (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Turn in the Wound (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Star Wars: The Last Jedi (2017.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Smile (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Echo Valley (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Son (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Aladdin and the King of Thieves (1996.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Hope Floats (1998.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Con Mum (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Baramulla (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Sye Raa Narasimha Reddy (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- One Magic Christmas (1985.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Crossword Mysteries: A Puzzle to Die For (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Lights, Camera, Christmas! (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Family History Mysteries: Buried Past (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Sensitive: The Untold Story (2015.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Pain Hustlers (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Youth (2026.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- 3 Men and a Little Lady (1990.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Search for Santa Paws (2010.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Rewind (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Jolly LLB 3 (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Clearing (2004.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Strongest Man in the World (1975.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- White Fang 2: Myth of the White Wolf (1994.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Beginning of the Great Revival (2011.0): missing `douban_rating`; status `watched_library`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Wild 90 (1968.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Robotech II: The Sentinels (1988.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Rain Town (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Leave the World Behind (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Santa Clause 2 (2002.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Spirited (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Mighty Joe Young (1998.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Chhaava (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Out to Sea (1997.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Mardaani 3 (2026.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Alligator People (1959.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Sunset Strip (2000.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Randall Scandal: Love, Loathing, and Vanderpump (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- A Dash of Christmas (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Who the F**k is Arthur Fogel? (2013.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Abducted Off the Street: The Carlesha Gaither Story (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Chronicle Mysteries: The Deep End (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The King's Man (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Moxie (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Jack (1996.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Minutemen (2008.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Idli Kadai (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Trapped in Paradise (1994.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Deva (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Equinox (1970.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Gatta Kusthi (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Return from Witch Mountain (1978.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Bagheera (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Goodbye Lover (1999.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Lady Death (2004.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- A Little Christmas Charm (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Ghosts of Buxley Hall (1980.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Ant-Man and the Wasp (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Eurovision Song Contest: The Story of Fire Saga (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Not Okay (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Underwater (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Twitches Too (2007.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Ernest Saves Christmas (1988.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Goyo (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Phantom of the Megaplex (2000.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Luka Chuppi (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Chang Can Dunk (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Flicka 2 (2010.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Gray Man (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Lady and the Tramp (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Get a Clue (2002.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Marked for Death (1990.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- My Future You (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Genocide (1968.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Murder, She Baked: A Chocolate Chip Cookie Mystery (2015.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Instigators (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Retro (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Summer of 69 (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Dragon Ball Z: Broly - Second Coming (1994.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Goon: Last of the Enforcers (2017.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Khel Khel Mein (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Raid 2 (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Iyi Adamin 10 Günü (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Maharshi (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Fake Famous (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Scream Team (2002.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Bad Company (1995.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Buffy the Vampire Slayer (1992.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Halloweentown High (2004.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- 101 Dalmatians II: Patch's London Adventure (2003.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Ringer (2005.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Kissing Jessica Stein (2002.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Anna Nicole Smith: You Don't Know Me (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Squad: Home Run (2023.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Moana 2 (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- First Daughter (2004.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Home on the Range (2004.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Mountain Between Us (2017.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Lady and the Tramp II: Scamp's Adventure (2001.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Smart House (1999.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- My Little Pony: A New Generation (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Bogus (1996.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Longest Third Date (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Santa Tell Me (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Holiday Hotline (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- American Girl: Corinne Tan (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Pirates of the Caribbean: Dead Men Tell No Tales (2017.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Peter Rabbit (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Strange World (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Noelle (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Queenpins (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Vacation Friends (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- I'll Be Home for Christmas (1998.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Colors of Evil: Red (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Go Figure (2005.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Soul on Fire (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Gus (1976.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Bill Maher: Live from D.C. (2014.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Nightbitch (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Highest 2 Lowest (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Club Dread (2004.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Mom's Got a Date with a Vampire (2000.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Thirteenth Year (1999.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Another Stakeout (1993.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- You Wish! (2003.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Veeran (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Million Dollar Duck (1971.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Jingle Bell Princess (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Angel De Mi Vida (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Lightyear (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Unknown Number: The High School Catfish (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Darkest Minds (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Max Keeble's Big Move (2001.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Metro (1997.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Bushwhacked (1995.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Right on Track (2003.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Death to 2020 (2020.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Tomorrow War (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Metal Lords (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Mowgli: Legend of the Jungle (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Eenie Meanie (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Buy Now! The Shopping Conspiracy (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- A Beautiful Life (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Amelia (2009.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Yes, No, or Maybe? (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Alley Cats Strike (2000.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Rip Girls (2000.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Pita Hall (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Murder, She Baked: A Plum Pudding Mystery (2015.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- My So-Called High School Rank (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Sebastián Marcelo Wainraich (2018.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Hillbilly Elegy (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Stuck in the Suburbs (2004.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Stereo (Tile 3B of a CAEE Educational Mosaic) (1969.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Cocoon: The Return (1988.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Consenting Adults (1992.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Do Deewane Seher Mein (2026.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- They Call Me Bruce? (1982.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Don (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Ikkat (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Girl vs. Monster (2012.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Hello, Love, Again (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Dhamaka (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Miracle in Lane 2 (2000.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Horse Sense (1999.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Marrying Man (1991.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Never Kiss a Man in a Christmas Sweater (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Deal (2005.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- C4 Cinta (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Jungle Cruise (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Hocus Pocus 2 (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Angel Has Fallen (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Thing About Harry (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Bad Girls (1994.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Viswasam (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Ultimate Christmas Present (2000.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Walk. Ride. Rodeo. (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Buffalo Dreams (2005.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Z-O-M-B-I-E-S (2018.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Life or Something Like It (2002.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Sky Is Everywhere (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Doug's 1st Movie (1999.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Full-Court Miracle (2003.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Eternals (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Giver (2014.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Luck (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- A Very Jonas Christmas Movie (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Cadet Kelly (2002.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Peppermint (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Hold Your Breath (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Nutcrackers (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Super Troopers 2 (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Pyali (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- White Men Can't Jump (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Snitch (2013.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Son of Godzilla (1967.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Loving Adults (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Big Green (1995.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Zenon: The Zequel (2001.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Border 2 (2026.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- An American in Austen (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Another World (2014.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Fantastic Beasts: The Crimes of Grindelwald (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Pitch Perfect 3 (2017.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Boogeyman (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Stuber (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Godzilla Raids Again (1955.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Cow Belles (2006.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Diary of a Wimpy Kid Christmas: Cabin Fever (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Air Up There (1994.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- A Royal Runaway Romance (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Breaking Up (1997.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Skyrunners (2009.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Condor (1986.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Justin Morgan Had a Horse (1972.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Antlers (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Teen Beach 2 (2015.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- BRATS (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Clock (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- In the Blink of an Eye (2026.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Our Holiday Story (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Haunted Mansion (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Read It and Weep (2006.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Appendage (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Herbie Goes Bananas (1980.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- I Was a Teenage Zombie (1987.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Kite Liberator (2008.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Midnight Sun (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Table 19 (2017.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Bob the Butler (2005.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- War Machine (2026.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Fox and the Hound 2 (2006.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Made in America (1993.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Slumber Party (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Alien Resurrection (1997.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Family Plan (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Mirrors (2008.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Avalon High (2011.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Pixel Perfect (2004.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Mission Majnu (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Finding Michael (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Double Take (2001.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Confetti (2006.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Jolly Good Christmas (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Checkin' It Twice (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- A Christmas in Tennessee (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Tarzan II (2005.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Bringing Down the House (2003.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Godmothered (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Beverly Hillbillies (1993.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Mudborn (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Varan (1958.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- TRON: Ares (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Dumbo (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Shaitaan (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Jumping Ship (2001.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Ready to Run (2000.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Amsterdam (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Hand That Rocks the Cradle (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Celtic Pride (1996.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Nutcracker and the Four Realms (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Mr. Crocket (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Luck of the Irish (2001.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Prom Dates (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Final Conflict (1981.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Holiday in Handcuffs (2007.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Marvel Super Hero Adventures: Frost Fight! (2015.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- 3-D Sex and Zen: Extreme Ecstasy (2011.0): missing `douban_rating`; status `watched_library`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Maniac Cop 3: Badge of Silence (1992.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Operation Dumbo Drop (1995.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Our Family Wedding (2010.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Every Christmas Has a Story (2016.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Diary of a Wimpy Kid: The Last Straw (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- First Kid (1996.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Genius (1999.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- What a Man (2011.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Firestorm (1998.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Team Hot Wheels: The Skills to Thrill (2015.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Z-O-M-B-I-E-S 4: Dawn of the Vampires (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Honey, We Shrunk Ourselves (1997.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- 'Twas the Night (2001.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Little Mermaid Live! (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- A Christmas Blessing (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Books of Blood (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Binge (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Monster Inside: America's Most Extreme Haunted House (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- I Think I Love My Wife (2007.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Carpool (1996.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Jungle Book 2 (2003.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Double Teamed! (2002.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Tempest (2010.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Simply Irresistible (1999.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Revenge of the Nerds II: Nerds in Paradise (1987.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- A Heidelberg Holiday (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Three Stooges (2012.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Rebound (2005.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Meenakshi Sundareshwar (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Hip-Hop and the White House (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- A Harvest Homecoming (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- O'Dessa (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Splice (2010.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Ewoks: The Battle for Endor (1985.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Naughty Nine (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Christmas Island (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Right Kind of Wrong (2013.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Dashing Through the Snow (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Thandel (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Zenon: Z3 (2004.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Outside In (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Atlantis: Milo's Return (2003.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- A Kid in King Arthur's Court (1995.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Etharkkum Thunindhavan (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Christmas in Rome (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Marvels (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Ella McCay (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Invisible Sister (2015.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Man of the House (1995.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Christmas for a Dollar (2013.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Omen (2006.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Return to Halloweentown (2006.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Shadow Conspiracy (1997.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- All for One (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Cold Creek Manor (2003.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Pathfinder (2007.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Tarzan & Jane (2002.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Jungle 2 Jungle (1997.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Hounded (2001.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Deck the Halls (2006.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Zombies 2 (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Blank Check (1994.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Captain America: Brave New World (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Suite Life Movie (2011.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Ewok Adventure (1984.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- 9 Songs (2004.0): missing `douban_rating`; status `watched_library`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- No Sleep 'Til Christmas (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Little Italy (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Life Is Ruff (2005.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Christmas at the Chalet (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Santa Clause 3: The Escape Clause (2006.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Under Wraps (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Vacation Friends 2 (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Family Plan 2 (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Thor: Love and Thunder (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Hatching Pete (2009.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Holy Man (1998.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Upside-Down Magic (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Star Wars: The Rise of Skywalker (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Mulan (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Sneakerella (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Alexander and the Terrible, Horrible, No Good, Very Bad Road Trip (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- A Wish for Christmas (2016.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Same Time, Next Christmas (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Disenchanted (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Night at the Museum: Kahmunrah Rises Again (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Wish (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Quasi (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Island of Giant Insects (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Argylle (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Fountain of Youth (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Old Dogs (2009.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Z-O-M-B-I-E-S 3 (2022.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Hills Have Eyes 2 (2007.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Diary of a Wimpy Kid: Rodrick Rules (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Christmas...Again?! (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Wild (2006.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Secret Society of Second-Born Royals (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- A Cinderella Christmas Ball (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Sandlot: Heading Home (2007.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Hacksaw (1971.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Ghosted (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Tiger Cruise (2004.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Bad Hair Day (2015.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Ant-Man and the Wasp: Quantumania (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Sex Appeal (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The New Mutants (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- All Monsters Attack (1969.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Predator (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Dark Phoenix (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Outcome (2026.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Diary of a Wimpy Kid (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Transformers: The Last Knight (2017.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Mummy (2017.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Pinocchio (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Morbius (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Years We Have Been Nowhere (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Jaimen Hudson: From Sky to Sea (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Don't Turn Your Back on Friday Night (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Last Days (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Road Forward (2017.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Andrea Bocelli: A Bocelli Family Christmas (2022.0): missing `douban_rating`; status `not_found`; reason: Douban enrichment status `not_found`
+- Twenty Pearls: The Story of Alpha Kappa Alpha Sorority (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Light Up (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- COD Cash on Delivery 2021 (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Diana Krall - Live in Paris (2002.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- SLAY (2023.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Never Be Done: The Richard Glen Lett Story (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Pathala Bhairavi (1951.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Rubaru Roshni (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- One More Shot (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- 1660 Vine (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Queen: Rock Montreal (2024.0): missing `douban_rating`; status `not_found`; reason: no stable IMDb ID was available for the Douban ID map
+- For Love & Life: No Ordinary Campaign (2023.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Funmilayo Ransome-Kuti (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Untold Story of Mary Poppins: A Special Edition of 20/20 (2024.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- New Year's Special (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Cliff Cash: The Long Road (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Gajaar: Journey of the Soul (2011.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Gabe (2017.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Island Songs (2017.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Driven: The Tony Pearson Story (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Meet Beau Dick (2017.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Along Recovery (2012.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Super Bowl XL Champions: Pittsburgh Steelers (2006.0): missing `douban_rating`; status `not_found`; reason: no stable IMDb ID was available for the Douban ID map
+- High Wire (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Laapataa Ladies (2024.0): missing `douban_rating`; status `not_found`; reason: no stable IMDb ID was available for the Douban ID map
+- Bangalore Days (2014.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Aakali Rajyam (1981.0): missing `douban_rating`; status `not_found`; reason: Douban enrichment status `not_found`
+- Tim Minchin and the Heritage Orchestra (2011.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- True Justice: Bryan Stevenson's Fight for Equality (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Sea in Between (2013.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Ella (2016.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Children of the Light (2014.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Sawaal (1982.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Tanzania: The Royal Tour (2022.0): missing `douban_rating`; status `not_found`; reason: Douban enrichment status `not_found`
+- Ingoma (2015.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Morgan's Mask (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Cuba and the Cameraman (2017.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Jayanti (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Saturday Night Live: The Best of Chris Farley (2003.0): missing `douban_rating`; status `not_found`; reason: no stable IMDb ID was available for the Douban ID map
+- Beautiful Evening, Beautiful Day (2026.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Black Sunshine Baby (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- George Fest: A Night to Celebrate the Music of George Harrison (2016.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Chhota Bheem Neeli Pahaadi (2021.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Run Nixon (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Blossoms - Back To Stockport (2020.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Butch Bradley: From Las Vegas (2021.0): missing `douban_rating`; status `not_found`; reason: no stable IMDb ID was available for the Douban ID map
+- That Never Happened: Canada's First National Internment Operations (2018.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Andre Rieu : Home For Christmas (2012.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Mister Gates (2026.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Cobby: The Other Side of Cute (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Mustang Saviors (2021.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Karsh Is History (2010.0): missing `douban_rating`; status `not_found`; reason: no stable IMDb ID was available for the Douban ID map
+- Aattam (2024.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Super Bowl XLII Champions - New York Giants (2008.0): missing `douban_rating`; status `not_found`; reason: no stable IMDb ID was available for the Douban ID map
+- When It Was a Game 3 (2000.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Mambo Man (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Magnitude of All Things (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Nilgiris: A Shared Wilderness (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Paramanandayya Sishyula Katha (1966.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Rapid Response (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Atlantic (2016.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Cortez (2017.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Echoes (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Distant Drumming: A North of 60 Mystery (2005.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Bam Bam: The Sister Nancy Story (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Hole Story (2011.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Kímmapiiyipitssini: The Meaning of Empathy (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Tri Am the Movie (2023.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Quincy Avery Effect (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Waler: Australia's Great War Horse (2015.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Fate Alchemy (2023.0): missing `douban_rating`; status `not_found`; reason: Douban enrichment status `not_found`
+- Za Fâsuto Suramu Danku (2022.0): missing `douban_rating`; status `not_found`; reason: Douban enrichment status `not_found`
+- At the Heart of Gold: Inside the USA Gymnastics Scandal (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Living Proof (2017.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Lost for Words (1999.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Girl Like You (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Born In Chicago (2013.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- First Man on the Moon (2012.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Chhota Bheem the Crown of Valhalla (2021.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Zulu Summer (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Is the Crown at war with us? (2003.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Gift of Grace (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Robin Harris: Live from the Comedy Act Theater (2006.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Adventures of Pericles (2016.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Front Row (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Singhs in the Ring (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Saturday Night Live: The Best of Will Ferrell (2002.0): missing `douban_rating`; status `not_found`; reason: no stable IMDb ID was available for the Douban ID map
+- Lasseter's Bones (2012.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Mama's Boy (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Creating Freedom: The Lottery of Birth (2013.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Picasso (2021.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Miss You Can Do It (2013.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Hesburgh (2019.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Hikaru Utada: Laughter in the Dark Tour 2018 (2018.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Buffy Sainte-Marie: Carry It On (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- King Lear (2015.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Chhota Bheem and the ShiNobi Secret (2021.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Kujus Again (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Boston2Philly (2018.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- This Hits Home (2023.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Wrenched (2014.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Melt Goes on Forever: The Art & Times of David Hammons (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- A Reflection  of Evil (2021.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Henri Dauman: Looking Up (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Bohemian Rhapsody (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Robert Irwin: A Desert of Pure Feeling (2023.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Magic Pills (2017.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Monty Python Live at the Hollywood Bowl (1982.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Zum goldenen Anker (1931.0): missing `douban_rating`; status `not_found`; reason: no stable IMDb ID was available for the Douban ID map
+- P!nk: All I Know So Far (2021.0): missing `douban_rating`; status `not_found`; reason: Douban enrichment status `not_found`
+- Tokyo Olympiad (1965.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Two in the Shadow (1967.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Live in Front of a Studio Audience: The Facts of Life and Diff'rent Strokes (2021.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Subhedar (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Nothing Left Unsaid: Gloria Vanderbilt & Anderson Cooper (2016.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Sharon & Ozzy Osbourne: Coming Home (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Brothers in War (2014.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- For Neda (2010.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Yintah (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Azeem Banatwalla: Problems (2019.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Any One of Us (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Sunday Best (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Eco-Pirate: The Story of Paul Watson (2011.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- First to the Moon (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Billy Gardell: Halftime (2011.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- TV in Black: The First Fifty Years (2004.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Aerosmith - Rock for the Rising Sun (2013.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Carlos Almaraz: Playing with Fire (2020.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Deity (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Surviving the Outback (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- 4K Fireplace (2015.0): missing `douban_rating`; status `not_found`; reason: Douban enrichment status `not_found`
+- Obara'M (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Fire Front (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Capturing Cricket: Steve Waugh in India (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Against the Spread (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Just to Get a Rep (2004.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Awkward Comedy Show (2010.0): missing `douban_rating`; status `not_found`; reason: Douban enrichment status `not_found`
+- Pete Correale: Let Me Tell Ya (2015.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- What Ravens Do (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Acts of Defiance (1992.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- About Dry Grasses (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Stutz (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Mankatha (2011.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Take Care of Maya (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Oceans (2010.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Eko (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Barkley Marathons: The Race That Eats Its Young (2014.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Yomei Ichinen to Senkoku Sareta Boku ga, Yomei Hantoshi no Kimi to Deatta Hanashi (2024.0): missing `douban_rating`; status `not_found`; reason: Douban enrichment status `not_found`
+- Oh, Hello on Broadway (2017.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Kano (2014.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Mann Pasand (2023.0): missing `douban_rating`; status `not_found`; reason: no stable IMDb ID was available for the Douban ID map
+- Super Bowl XLIX Champions: New England Patriots (2015.0): missing `douban_rating`; status `not_found`; reason: no stable IMDb ID was available for the Douban ID map
+- The Gospel of Matthew (2014.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- UnBroken (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Escape from a Nazi Death Camp (2014.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Richard Jeni: Platypus Man (1993.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Death in the Bunker: The True Story of Hitler's Downfall (2004.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Steve Treviño: 'Til Death (2019.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Tennessee Whiskey: The Dean Dillon Story (2017.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Gordon Ramsay: Shark Bait (2011.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Olympiacos: The Legend (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Valiant (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Tolkien & Lewis: Myth, Imagination & the Quest for Meaning (2017.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Mystery of Britannic (2017.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- American Badass: A Michael Madsen Retrospective (2022.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Drew: No Excuse, Just Produce (2016.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Improviser (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Taming of the Shrew (2016.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Trentatré - a Dream in the heart: Naples rises again (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- American Mirror: Intimations of Immortality (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Devil's Share (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- WINE and WAR (2022.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The ReWrite. (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Caterpillar (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Paraguay, Droga Y Banana (2016.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- My Life As Roger Moore (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Dick Van Dyke Show Remembered (1994.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Buddy Goes to Nollywood (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Visitor (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- 300 (2007.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Deadpool 2 (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Mission: Impossible - Dead Reckoning Part One (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Raid (2012.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Gifted (2017.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Sing Sing (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Music Box: Yacht Rock: A DOCKumentary (2024.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Daguerréotypes (1978.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Chiquita (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Akasamantha (2008.0): missing `douban_rating`; status `not_found`; reason: no stable IMDb ID was available for the Douban ID map
+- Dear Father (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Impact After the Crash (2013.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Art of the Game: Ukiyo-e Heroes (2017.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Guy Martin: Last Flight of the Vulcan Bomber (2015.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Every Act of Life (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Ave Kallu (1967.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Inside Hana's Suitcase (2009.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Chad Daniels: Dad Chaniels (2019.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Journey: A Music Special from Andrea Bocelli (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Triage: Dr. James Orbinski's Humanitarian Dilemma (2008.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- 730 (2015.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- I Win (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Imported (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Desert Seas (2011.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Memories of Angels (2008.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Last Movie Ever Made (2024.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Ava: A Twist in the Road (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Devil in Agbada (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Life Changes Everything (2017.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Being Caribou (2005.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- King Girl (1996.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Life, Blood and Rhythm of Randy Castillo (2014.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Reef Builders (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Alanis Morissette: Live at Montreux 2012 (2013.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Stratford Festival: King John (2015.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Marcus (2015.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Losing Our Religion (2017.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Rookie Season (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Ian Bagg: Conversations (2018.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Love's Labour's Lost (2017.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Al Purdy Was Here (2015.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Ice-Breaker: The '72 Summit Series (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Prodigal Dad (2017.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Howie Mandel: But, Enough About Me (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Born Wild: The Next Generation (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- First Stripes (2018.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Johnny (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Lolo (2012.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Eastern Western (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Merry Wives of Windsor (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Tempest (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Red Gold (2014.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- El Placer De Dar Placer (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Maurice Pialat, Love Exists (2007.0): missing `douban_rating`; status `not_found`; reason: Douban enrichment status `not_found`
+- Status Quo? The Unfinished Business of Feminism in Canada (2012.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- 83 (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Rurouni Kenshin Part III: The Legend Ends (2014.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Vaioretto evâgâden gaiden: Eien to jidô shuki ningyô (2019.0): missing `douban_rating`; status `not_found`; reason: Douban enrichment status `not_found`
+- Three of Us (2023.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Childish (2018.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Photograph (1987.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Life Ain't Like the Movies (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Eddie Izzard: Live at Madison Square Garden (2011.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Asees (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- War Dog: A Soldier's Best Friend (2017.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Freightened: The Real Price of Shipping (2016.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Billy Graham: An Extraordinary Journey (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Primo (2005.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- One Nation Under Dog (2012.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Barnum (1986.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Medicine of the Wolf (2015.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Thud Pilots (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Encanto Sing-Along (2022.0): missing `douban_rating`; status `not_found`; reason: Douban enrichment status `not_found`
+- Lord Montagu (2013.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- On the Line: The Richard Williams Story (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Toxic Hot Seat (2013.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Wild Horse Redemption (2007.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Wilde Girls (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- People of a Feather (2012.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Last Letters Home (2004.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Life·Love·Dogs (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Mistaken (2017.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Cup of Salvation (2024.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Finding the Way Home (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Castro's Spies (2023.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- True Appaloosa (2015.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Norman Lear: 100 Years of Music and Laughter (2022.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Connor McDavid: Whatever it Takes (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Habaddi (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- 27 September (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Hanna Ranch (2014.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Montauk77 (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Benjamin Bat (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- St. Vierja Academy (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Last Love Lost (2015.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Uyghurs: Prisoners of the Absurd (2014.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Pete Correale: The Things We Do For Love (2009.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Queen Mary: Greatest Ocean Liner (2016.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Bill Coors: The Will to Live (2017.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Wrestled Away: The Lee Kemp Story (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Secretariat's Jockey, Ron Turcotte (2013.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- One Hand Don't Clap (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Saving Atlantis (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Osoronga (2023.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Grey Gardens (1976.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Following (1999.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Kill (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Platform (2001.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Hand (2004.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Looking for Alexander (2004.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Tari Sathe (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Eddie Izzard: Live from Wembley (2009.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- No Place to Hide: The Rehtaeh Parsons Story (2015.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Camarón: The Film (2018.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Azorian: The Raising of the K-129 (2011.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Shouting Fire: Stories from the Edge of Free Speech (2009.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Be Like Others (2008.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- What Is Classic Rock? (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- No Greater Love (2017.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Bear-Like (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Precious Life (2011.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Josh Blue: Sticky Change (2012.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Real Full Monty (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Alice Cooper: The Strange Case of Alice Cooper (1979.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Confessions Of An Innocent Man (2007.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Cesar Millan: The Real Story (2012.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- At the Fork (2016.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Gary Owen: #DoinWhatIDo (2019.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Havana Motor Club (2015.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Music Box: Wizkid: Long Live Lagos (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Fire Ants 3D: The Invincible Army (2012.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Steps (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Outatime: Saving the DeLorean Time Machine (2016.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Warsaw: A City Divided (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- 2024 Rock & Roll Hall of Fame Induction Ceremony (2024.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Manifest Destiny: The Lewis & Clark Musical Adventure (2016.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Cruel and Unusual (2017.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Bad Company | The Official Authorized 40th Anniversary Documentary (2014.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Death by a Thousand Cuts (2016.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Firesign Theatre Presents 'Hot Shorts' (1985.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Disappearing Male (2008.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Invisible History: Middle Florida's Hidden Roots (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Guardians of the Galapagos (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Informant: Fear And Faith In The Heartland (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- 2025 Rock & Roll Hall of Fame Induction Ceremony (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Say a Little Prayer (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Trouble in the Garden (2019.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Pudhumai Penn (1984.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Siege of Mecca (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- If I Was Your Girl (2012.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- American Relapse (2019.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Marina Franklin: Single Black Female (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Love, Ted Bundy (2026.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Saved From a Shark (2023.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Dress Code (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Saints And Warriors (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Dude Perfect Trick Shots: Untold Stories (2019.0): missing `douban_rating`; status `not_found`; reason: Douban enrichment status `not_found`
+- Angels of the Sky (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Lagos to Oslo (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Show Stopper: The Theatrical Life of Garth Drabinsky (2012.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Murder Remembered - Norfolk County 1950. (1997.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- One Piece Film: Strong World (2009.0): missing `douban_rating`; status `not_found`; reason: no stable IMDb ID was available for the Douban ID map
+- 1987: Untracing The Conspiracy (2014.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Mud (2013.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Ke zai ni xin di de ming zi (2020.0): missing `douban_rating`; status `not_found`; reason: Douban enrichment status `not_found`
+- Majili (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Handsome Antonio (1960.0): missing `douban_rating`; status `not_found`; reason: no stable IMDb ID was available for the Douban ID map
+- An Enemy of the People (1990.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Attenborough and the Sea Dragon (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- In Search of Mozart (2006.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Regret to Inform (1999.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Mr Harvey Lights a Candle (2005.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Bona (1984.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Railway Children (2000.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Vengeance Is Mine (1984.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Tom Papa: Freaked Out (2013.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Ghar (1978.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Kursk: A Submarine in Troubled Waters (2004.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Rebellion of the Hanged (1954.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Because We Are Girls (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Aunt Mary (1979.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Pain Warriors (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Hard Times: Lost on Long Island (2012.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Requiem for the Dead: American Spring 2014 (2015.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Day the '60s Died (2015.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Dan Cummins: Get Outta Here; Devil! (2020.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Danny Bhoy: Subject to Change (2010.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- A Song For You: The Austin City Limits Story (2016.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Jim Breuer: Let's Clear the Air (2009.0): missing `douban_rating`; status `not_found`; reason: no stable IMDb ID was available for the Douban ID map
+- The End (2004.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Greasy Hands Preachers (2014.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- No Man's Land (2017.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Alonzo Bodden: Historically Incorrect (2016.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Poovarasam Peepee (2014.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Los Tigres del Norte: Historias que contar (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Preacher Lawson: Get to Know Me (2019.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- My Dearest Fu Bao (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Founders (2016.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Whatever It Takes: Inside the eBay Scandal (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- NCR: Not Criminally Responsible (2017.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Mr. Blue Sky (2007.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- L'Ouragan F.Y.T. (2025.0): missing `douban_rating`; status `not_found`; reason: no stable IMDb ID was available for the Douban ID map
+- Sheltered (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Rocks at Whiskey Trench (2000.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Wilfred Buck (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Animation Outlaws (2019.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Katie Price: Harvey and Me (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Trial By Fire: A North of 60 Mystery (2000.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Rudolf Nureyev: Dance to Freedom (2015.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Plot Against America (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Another Country: A North of 60 Mystery (2003.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Body of Water (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Conversion (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Freaks & Errors: A Rare Collection (2017.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Birdwatcher (2016.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Black Bridge (2006.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Quando sarò bambino (2018.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Links of Life (2020.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Becoming the Beatles (2012.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Finding Farley (2009.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- See Her Be Her (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Kandam (2016.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Elliott Morgan: Holy Shit (2019.0): missing `douban_rating`; status `not_found`; reason: no stable IMDb ID was available for the Douban ID map
+- Crazywater (2013.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Our Friend (2021.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Coherence (2014.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Silence (2017.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Beginners (2011.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- A Fortunate Man (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Origin (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- How to Succeed in Business Without Really Trying (1967.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Courageous Heart of Irena Sendler (2009.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Chop Shop (2008.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Jesse Stone: No Remorse (2010.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Driving Licence (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Stranger by the Shore (2020.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Effigy: Poison and the City (2020.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Gate of Flesh (1964.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Gekijôban Sôdo Âto Onrain Puroguresshibu Hoshi-naki Yoru no Aria (2021.0): missing `douban_rating`; status `not_found`; reason: Douban enrichment status `not_found`
+- Ordinary Men: The "Forgotten Holocaust" (2022.0): missing `douban_rating`; status `not_found`; reason: no stable IMDb ID was available for the Douban ID map
+- Narasimhapuram (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Is That Black Enough for You?!? (2022.0): missing `douban_rating`; status `not_found`; reason: Douban enrichment status `not_found`
+- Kingudamu 4: Daishôgun no kikan (2024.0): missing `douban_rating`; status `not_found`; reason: Douban enrichment status `not_found`
+- Fittest on Earth: A Decade of Fitness (2017.0): missing `douban_rating`; status `not_found`; reason: Douban enrichment status `not_found`
+- Chiriyakhana (1967.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Evelyn (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Bomb Girls: Facing the Enemy (2014.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Gospel of Luke (2015.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Friendly Fire (1980.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Ahare Mon (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Wodehouse In Exile (2013.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- A Party for Ten, Plus Three (1980.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Amit Tandon: Family Tandoncies (2020.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Marco Polo: The China Mystery Revealed (2022.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Open Heart (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Tom Papa: Human Mule (2016.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Day Zero (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- One By One (1975.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Alonzo Bodden: Who's Paying Attention (2011.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Resurgence (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Chris Porter: A Man From Kansas (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Chhota Bheem Aur Ganesh in The Amazing Odyssey (2012.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Adam Ferrara: Funny As Hell (2009.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Youngstown Boys (2013.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Gringo Trails (2014.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Dana Gould: I Know It's Wrong (2013.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Winter Flight (1984.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Forgive - Don't Forget (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Steve McQueen: Man on the Edge (1990.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Love You Right: An R&B Musical (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Pink Floyd: Whatever Happened to Pink Floyd? The Strange Case of Waters and Gilmour (2011.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- HipBeat (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Deaw Special: Super Soft Power (2024.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Roobha (2017.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Shockwave: Surviving North America's Biggest Disaster (2009.0): missing `douban_rating`; status `not_found`; reason: Douban enrichment status `not_found`
+- Born to Play (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Kims of Comedy (2005.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Finding Me (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Larry Dean: Fudnut (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Where Love Lives (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Dream Tower (1994.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Gumm (2019.0): missing `douban_rating`; status `not_found`; reason: Douban enrichment status `not_found`
+- Susters (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Gangster Vs State 2 (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- WWIs Secret Shame: Shell Shock (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Hard Times at Douglass High: A No Child Left Behind Report Card (2008.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- All of You (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Butterfly in a Blizzard (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Recipe for Murder (2011.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Kannadi (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Mexico: The Royal Tour (2011.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- A Season with Isabella Rossellini (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Dig (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Wild Rose (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Come As You Are (2020.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Handsome Serge (1959.0): missing `douban_rating`; status `not_found`; reason: no stable IMDb ID was available for the Douban ID map
+- A Family (2021.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Pressure Point (1962.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Jaanu (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Target List (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- I'm Beginning To See the Light (2024.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Cong jin yihou (2024.0): missing `douban_rating`; status `not_found`; reason: Douban enrichment status `not_found`
+- The Story of a Three-Day Pass (1968.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- That Trip We Took with Dad (2016.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Tower (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Dhunki (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Child of Another (1975.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Last Dance (2000.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Right America: Feeling Wronged (2009.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Yuniol (2007.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Making Coco: The Grant Fuhr Story (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Cliffy (2013.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Un Regalo Esencial (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Inside the Hunt for the Boston Bombers (2014.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- ScaredSacred (2004.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- It's Quieter in the Twilight (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- See No Evil (2014.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Netflix Slam (2024.0): missing `douban_rating`; status `not_found`; reason: Douban enrichment status `not_found`
+- Soundproof (2006.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Elon Gold: Chosen and Taken (2014.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Hempsters: Plant the Seed (2008.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Diary of Jack the Ripper: Beyond Reasonable Doubt? (1993.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Inside North Korea: Then & Now with Lisa Ling (2017.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Turn it Up! (2014.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The White Line (2020.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Holy Cross (2003.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- In Plainview (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Twenty Million People (2016.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- I Am Raquel Welch (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Cocksure Lads Movie (2014.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Eric Clapton: Standing at the Crossroads (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Africa Fusion (2015.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Operation Anaconda: The Battle of Roberts' Ridge (2004.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Pearl Harbor: Into the Arizona (2016.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Connecting Flights (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Broken Glass (1996.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Letters to Stephanie (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Armstrong Tapes (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Tegkang (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Secret Space UFOs: Fastwalkers (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Love and Love Only (2016.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Superfish: Bluefin Tuna (2012.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Harambe (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Steve Lemme & Kevin Heffernan: The Potential Farewell Tour (2018.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Mysteries of Easter Island (2002.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Lovecraft Country (2020.0): missing `douban_rating`; status `not_found`; reason: Douban enrichment status `not_found`
+- Sovereign Soil (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Healey's Hideaway (2015.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Dangerous Games: Roblox and the Metaverse Exposed (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- With Difficulty Comes Ease (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Alien: Romulus (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- It's the Heart That Dies Last (2017.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Demolition (2016.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Relay (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Trip (2011.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Mickey's Once Upon a Christmas (1999.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Meikyû monogatari (1992.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Burroughs: The Movie (1984.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Auction (2013.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Chris Rock Total Blackout: The Tamborine Extended Cut (2021.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Party (1990.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Annihilation of Fish (1999.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Once Upon a Star (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Jim Norton: Monster Rain (2007.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Pig's Law (2001.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Familia (2005.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Never Stop Dreaming: The Life and Legacy of Shimon Peres (2022.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Dwayne Perkins: Take Note (2016.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Superpower (2008.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Steve Byrne: The Byrne Identity (2010.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Racing Scene (1969.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Father (1990.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Grizzlie Truth (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- My Mom's Letter from Heaven (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Secrets of the Mona Lisa (2015.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Paddle to Seattle: Journey Through the Inside Passage (2009.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Nostalgic (2026.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- I Am Joe Frazier (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Greg Fitzsimmons: Life on Stage (2013.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Right Before Your Eyes (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- In Your Dreams (1997.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Pig at the Crossing (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Lavell Crawford: Home for the Holidays (2017.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- A Year in Port (2016.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Healing from Hate: Battle for the Soul of a Nation (2021.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Million to One (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Gordon Family Tree (2013.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Passport (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Redemption of the Heart (2015.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Fall to Grace (2006.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Algonquin (2014.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Peacekeepers (2005.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Gin Ke Dus (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Guy Martin: The World's Fastest Electric Car? (2021.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Dark Emu Story (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Cat Wars: Lion vs. Cheetah (2011.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Dream Storm: A North of 60 Mystery (2001.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Let Me Be Frank (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Charlie (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Children Who Kill with Susanna Reid (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Sam Tallent: Waiting for Death to Claim Us (2021.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Woman on Fire (2016.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Jon Reep: Ginger Beard Man (2017.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Totem: The Return of the G'psgolox Pole (2003.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Ali Siddiq: Don't Judge A Book by Its Cover (2023.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Romeo and Juliet (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- American War Generals (2014.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Little Alien (2009.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Milk (2015.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Farmer/Veteran (2016.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Blue (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Inside North Korea: Live from the Games (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Miniforce: Deeno the King of Dinosaurs (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Wine Thief (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Miracles on the Plains (2015.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Garage Sale Mysteries: Murder In D Minor (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Outpost (2020.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Lee (2024.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Kingdom: Ashin-jeon (2021.0): missing `douban_rating`; status `not_found`; reason: Douban enrichment status `not_found`
+- The Hound of the Baskervilles (1959.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Sweet Country (2018.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Ar-rajul alladi ba'a zahrahu (2021.0): missing `douban_rating`; status `not_found`; reason: no stable IMDb ID was available for the Douban ID map
+- Wildflower (2023.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Dalida (2017.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Lover (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Thoongaavanam (2015.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Without anyone knowing (1988.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- BLACKPINK: The Movie (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Big Steal (1990.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- George Reddy (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Shukra (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Chameleon Street (1991.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Documenteur (1982.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Hasan Minhaj: Off with His Head (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Bill Maher: But I'm Not Wrong (2010.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Dans une galaxie près de chez vous - Le film (2004.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Jatt Brothers (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Winning of Barbara Worth (1926.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- My Internship in Canada (2015.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Fortune Feimster: Crushing It (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- ReMastered: The Lion's Share (2019.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Curious Caterer: Fatal Vows (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Last of His Tribe (1992.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- O Pitta Katha (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Luv Ni Love Storys (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- 3rd Reich Mothers, in the Name of the Master Race (2012.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Monkey on My Back (1957.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- May I Cry Just Once (2024.0): missing `douban_rating`; status `not_found`; reason: no stable IMDb ID was available for the Douban ID map
+- Volcanoes of the Deep Sea (2003.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Creem: America's Only Rock 'n' Roll Magazine (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Chad Daniels: Empty Nester (2024.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Paying Guest (1957.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Horizon (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Hard to Get (2014.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Crash and Burn (2016.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Bryan Callen: Never Grow Up (2016.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Navy SEALs: Their Untold Story (2014.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Naked Ambition (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Trump: What's The Deal? (1991.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Dirty Driving: Thundercars Of Indiana (2008.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- 1 Message (2011.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- KIZUMONOGATARI -Koyomi Vamp- (2024.0): missing `douban_rating`; status `not_found`; reason: no stable IMDb ID was available for the Douban ID map
+- Aries Spears: Comedy Blueprint (2016.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Fight For Space (2016.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Chhota Bheem in the Incan Adventure (2013.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Soaring Highs and Brutal Lows: The Voices of Women in Metal (2015.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Section 60: Arlington National Cemetery (2008.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Arnez J: Racially Motivated (2013.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Loudon Wainwright III: Surviving Twin (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Bringing Back Christmas (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Abnormal Beauty Company (2026.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Mouth of the Wolf: Amanda Knox Returns to Italy (2026.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Islands (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Griefwalker (2008.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Fahim Anwar: There's No Business Like Show Business (2017.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Akamas (2006.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Nintama Rantarō: Invincible Master of the Dokutake Ninja (2024.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Arendelle Castle Yule Log (2019.0): missing `douban_rating`; status `not_found`; reason: Douban enrichment status `not_found`
+- Dinner Party (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- White Night (2017.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Nganù (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Greg Behrendt is That Guy from That Thing (2009.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Lego Friends: The Next Chapter: New Beginnings (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Love, Scott (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Mandela, My Dad and Me (2015.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Nick Griffin: Cheer Up (2019.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Hazing (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Our People Will Be Healed (2017.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Shakespeare: The Truth Behind the Name (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Carbuncle (2006.0): missing `douban_rating`; status `not_found`; reason: Douban enrichment status `not_found`
+- Tin City (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Locomotive (2013.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Royal Journey (1951.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Kindness Within: A Journey to Freedom (2024.0): missing `douban_rating`; status `not_found`; reason: Douban enrichment status `not_found`
+- Matt Besser: Pot Humor (2019.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- In the Moon's Shadow (2021.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Evadu Thakkuva Kadu (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Someone Like Me (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Cimes (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Takizawa Kabuki Zero 2020: The Movie (2020.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Maryam Pagi Ke Malam (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Enemy (2014.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Hit Man (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- 22 July (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- DuckTales: The Movie - Treasure of the Lost Lamp (1990.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Room Next Door (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Worth (2021.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Dhadak 2 (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Redeeming Love (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- HIT: The First Case (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Beast (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Danger Close: The Battle of Long Tan (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Asterix vs. Caesar (1985.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Vulture (2010.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Mississippi Masala (1991.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Davy Crockett, King of the Wild Frontier (1955.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Naruto Shippuden the Movie: The Lost Tower (2010.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Bai She 2: Qing She jie qi (2021.0): missing `douban_rating`; status `not_found`; reason: Douban enrichment status `not_found`
+- Working Girls (1987.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Kingudamu 3: Unmei no hono (2023.0): missing `douban_rating`; status `not_found`; reason: Douban enrichment status `not_found`
+- Britain and the Blitz (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Search for Freedom (2015.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Going to Mars: The Nikki Giovanni Project (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Parchís: the Documentary (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Sylvia and the Ghost (1946.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Rebel in Town (1956.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Prince (1969.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- D.L. Hughley: Unapologetic (2007.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- One Nation Under Stress (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Honorable Shyne (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Wildlands (2017.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- I Am Luke Perry (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Boyfriend Trap (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Josh Blue: Delete (2016.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Kambili: The Whole 30 Yards (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- A King Like Me (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- My Nightmare Stalker: The Eva LaRue Story (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Another One Opens (2013.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The $50 Million Art Swindle (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Rodman (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Defenders (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The People of the Kattawapiskak River (2012.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Search for the Truth: The Amanda Knox Story (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Grey (2012.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Gorge (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Devil's Rejects (2005.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Fear Street: 1978 (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Purple Hearts (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Penelope (2007.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Always Be My Maybe (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Empire of Light (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- A Dog's Way Home (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Long Game (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Survivor (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Climb (2020.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- I Am Woman (2020.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Trances (1982.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Homegrown: The Counter-Terror Dilemma (2016.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Tracey Ullman in the Trailer Tales (2003.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Rise Again: Tulsa and the Red Summer (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Mau Nieto: Viviendo sobrio... desde el bar (2018.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Langlois (1970.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- How To Smell A Rose: A Visit with Ricky Leacock at his Farm in Normandy (2014.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Love Is a Dog's Best Friend (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Gates of Heaven (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Showtime 1958 (2022.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- A Queen's Runway (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Station (1990.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Inside North Korea: The Cyber State (2021.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Pale Blue Eye (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Friendship (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Kill Boksoon (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Still Time (2023.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Ban Chao Buchayan (2023.0): missing `douban_rating`; status `not_found`; reason: Douban enrichment status `not_found`
+- The Edge of All We Know (2021.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Gekijô-ban Burû Rokku Episode Nagi (2024.0): missing `douban_rating`; status `not_found`; reason: Douban enrichment status `not_found`
+- Outsiders (1978.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- All Aboard! Rosie's Family Cruise (2006.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Stolen Daughters: Kidnapped By Boko Haram (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Rosie O'Donnell: A Heartfelt Stand Up (2015.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- David A. Arnold: It Ain't for the Weak (2022.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Kings of Coke (2022.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Liberty: Mother of Exiles (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Stockton on My Mind (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- It Will be Chaos (2018.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Unbreakable Tatiana Suarez (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Liar: The Fake Grooming Scandal (2024.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Subjects of Desire (2022.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Liss Pereira: Adulting (2022.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Byron Bowers: Spiritual N***a (2022.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Monkey on a Stick (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Married to El Chapo: Emma Coronel Speaks (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Halving the Bones (1996.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Bad Boys: Ride or Die (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Manifesto (2017.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Chuck (2017.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Monster (2021.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Paradise (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Aurora (2011.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Bolero (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Kidô Senshi Gandamu Shîdo Furîdamu (2024.0): missing `douban_rating`; status `not_found`; reason: Douban enrichment status `not_found`
+- The Wedding Dress (2001.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Ainsley McGregor Mysteries: A Case for the Yarn Maker (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Oscars (2026.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- La vie de ma mère (2024.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Manoranjan (1974.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Clean Machine (1992.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Toe Tag Parole: To Live and Die on Yard A (2015.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Nakhuda (1981.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Happiness of Others (2011.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Cedric the Entertainer: Taking You Higher (2006.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Salt Lake City 2002: Stories of Olympic Glory (2003.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Iwájú: A Day Ahead (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- A Boyfriend to Die For (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Resident Orca (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Hand in Hand (1989.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Gajen Nad: Professional Mixed Breed (2023.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- My Home Hero the Movie (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Chevalier (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Daybreakers (2010.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Friend (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Keishichô sôsaikka rûshî burakku man jiken (2023.0): missing `douban_rating`; status `not_found`; reason: Douban enrichment status `not_found`
+- Dirty War (2004.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Inside (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Doosara Aadmi (1977.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Délivrez-moi (2006.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Diary of an Old Man (2015.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Ahir Shah: Ends (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Who We Become (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Why Can't I Be Me? Around You (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Saturday Night Live: Thanksgiving (2013.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Thomas & Friends: Sodor Sings Together (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Good Fairy (1951.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- We Are the Others (2017.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Genoa Bridge Disaster (2019.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Closer You Get (2000.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Wolves (2015.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Billy The Kid: New Evidence (2015.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Bud Greenspan’s Torino 2006: Stories of Olympic Glory (2007.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Nazi Sunken Sub (2012.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Wedding Night (2001.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- He Who Is Without Sin... (1952.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Sacred Soil: The Piney Woods School Story (2024.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The Republic Of Love (2004.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Face Time (2010.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Charles: In His Own Words (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Sharkcano: Hawaii (2023.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Frankie Quiñones: Damn That's Crazy (2025.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Disney Parks Magical Christmas Day Parade (2025.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Sound of the Police (2023.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Preppers UK: Surviving Armageddon (2012.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Viking Warrior Women (2019.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Epic Holiday Showdown (2020.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Yalan Dünya (1972.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Jump In! (2007.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Out of the Shadows: The Man Behind the Steele Dossier (2021.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Foreign Land (1984.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- The Great American Tag Sale with Martha Stewart (2022.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Ningen shikkaku (2019.0): missing `douban_rating`; status `not_found`; reason: Douban enrichment status `not_found`
+- Macross FB 7: Ore no Uta o Kike! (2012.0): missing `douban_rating`; status `not_found`; reason: Douban enrichment status `not_found`
+- Barrios altos (1987.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Lovesick (2016.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Shinobi Girl: The Movie (2015.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Keeping Secrets Will Destroy You (2023.0): missing `douban_rating`; status `matched`; reason: no stable IMDb ID was available for the Douban ID map
+- Lemmings, Part 2: Injuries (1979.0): missing `douban_rating`; status `not_found`; reason: no stable IMDb ID was available for the Douban ID map
+- Monster Strike the Movie: Lucifer Dawn of Despair (2020.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Napoleon Director’s Cut (2024.0): missing `douban_rating`; status `not_found`; reason: no stable IMDb ID was available for the Douban ID map
+- Seven Second Love Affair (1965.0): missing `douban_rating`; status `matched`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- The 47 Ronin, Part 1 (1941.0): missing `douban_rating`; status `not_found`; reason: no stable IMDb ID was available for the Douban ID map
+- 2025年中央广播电视总台春节联欢晚会 (2025.0): missing `douban_rating`; status `watched_library`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Beijing 2022 Olympics Closing Ceremony (2022.0): missing `douban_rating`; status `watched_library`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- BILIBILI MACRO LINK 2021 (2021.0): missing `douban_rating`; status `watched_library`; reason: no stable IMDb ID was available for the Douban ID map
+- The Taste of Apple (2018.0): missing `douban_rating`; status `watched_library`; reason: no stable IMDb ID was available for the Douban ID map
+- Shuke and Beita (1989.0): missing `douban_rating`; status `watched_library`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- Old Master Q (1981.0): missing `douban_rating`; status `watched_library`; reason: no stable IMDb ID was available for the Douban ID map
+- Liu Hulan (1950.0): missing `douban_rating`; status `watched_library`; reason: no rated Douban match in the public dataset or cached PtGen detail map
+- bilibili晚会 2019最美的夜 (unknown year): missing `douban_rating`; status `watched_library`; reason: no stable IMDb ID was available for the Douban ID map
 
 ## Remaining Missing IMDb Ratings
 

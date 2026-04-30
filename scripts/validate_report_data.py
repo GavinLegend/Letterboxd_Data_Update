@@ -47,7 +47,7 @@ def count_missing(rows: list[dict[str, Any]], field: str) -> int:
     return sum(1 for row in rows if not valid(row.get(field)))
 
 
-def first_missing(rows: list[dict[str, Any]], field: str, limit: int = 80) -> list[str]:
+def first_missing(rows: list[dict[str, Any]], field: str, limit: int = 10_000) -> list[str]:
     output: list[str] = []
     for row in rows:
         if valid(row.get(field)):
