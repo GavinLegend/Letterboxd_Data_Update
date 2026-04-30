@@ -80,17 +80,28 @@ jobs:
           python scripts/build_custom_letterboxd_report.py \
             --input-dir data/public-sync/input \
             --output-dir outputs/public-sync-report \
-            --streaming-lookups 200 \
+            --streaming-lookups -1 \
             --streaming-workers 3 \
-            --douban-lookups 40 \
-            --watched-douban-lookups 700 \
-            --streaming-catalog-timeout 120
+            --douban-lookups 0 \
+            --watched-douban-lookups 0 \
+            --streaming-catalog-timeout 0
+
+      - name: Validate generated data
+        env:
+          PYTHONPATH: .vendor
+        run: |
+          python scripts/validate_report_data.py \
+            --input-dir data/public-sync/input \
+            --report-json outputs/public-sync-report/share-site/custom-report-data.json \
+            --index-html outputs/public-sync-report/share-site/index.html \
+            --output outputs/public-sync-report/share-site/missing_data_report.md
 
       - name: Update published root files
         run: |
           cp outputs/public-sync-report/share-site/index.html ./index.html
           cp outputs/public-sync-report/share-site/custom-report-data.json ./custom-report-data.json
           cp outputs/public-sync-report/share-site/.nojekyll ./.nojekyll
+          cp outputs/public-sync-report/share-site/missing_data_report.md ./missing_data_report.md
 
       - name: Save sync caches
         if: always()
@@ -104,13 +115,13 @@ jobs:
 
       - name: Commit and push if the site changed
         run: |
-          if git diff --quiet -- index.html custom-report-data.json .nojekyll; then
+          if git diff --quiet -- index.html custom-report-data.json missing_data_report.md .nojekyll; then
             echo "No published changes detected."
             exit 0
           fi
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add index.html custom-report-data.json .nojekyll
+          git add index.html custom-report-data.json missing_data_report.md .nojekyll
           git commit -m "Auto-sync Letterboxd public report"
           git push

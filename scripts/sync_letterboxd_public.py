@@ -295,6 +295,32 @@ def parse_ratings_pages(username: str) -> list[dict[str, str]]:
     return rows
 
 
+def parse_watched_pages(username: str) -> list[dict[str, str]]:
+    pages = iter_paginated_pages(f"https://letterboxd.com/{username}/films/")
+    rows: list[dict[str, str]] = []
+    seen: set[str] = set()
+    for _page_url, tree in pages:
+        for item in tree.xpath("//li[contains(@class,'griditem')]"):
+            poster = item.xpath(".//div[@data-component-class='LazyPoster'][1]")
+            if not poster:
+                continue
+            poster = poster[0]
+            film_uri = absolute_url(poster.get("data-item-link"))
+            if not film_uri or film_uri in seen:
+                continue
+            seen.add(film_uri)
+            name, year = parse_name_year(poster.get("data-item-name"))
+            rows.append(
+                {
+                    "Date": "",
+                    "Name": name,
+                    "Year": year,
+                    "Letterboxd URI": film_uri,
+                }
+            )
+    return rows
+
+
 def parse_watchlist_pages(username: str) -> list[dict[str, str]]:
     pages = iter_paginated_pages(f"https://letterboxd.com/{username}/watchlist/")
     rows: list[dict[str, str]] = []
@@ -587,6 +613,8 @@ def main() -> None:
     review_rows = parse_reviews_pages(username)
     print("Syncing public ratings...", file=sys.stderr)
     rating_rows = parse_ratings_pages(username)
+    print("Syncing public watched films...", file=sys.stderr)
+    watched_rows = parse_watched_pages(username)
     print("Syncing public watchlist...", file=sys.stderr)
     watchlist_rows = parse_watchlist_pages(username)
     print("Syncing public lists...", file=sys.stderr)
@@ -650,6 +678,11 @@ def main() -> None:
         rating_rows,
     )
     write_csv(
+        output_dir / "watched.csv",
+        ["Date", "Name", "Year", "Letterboxd URI"],
+        watched_rows,
+    )
+    write_csv(
         output_dir / "diary.csv",
         ["Date", "Name", "Year", "Letterboxd URI", "Rating", "Rewatch", "Tags", "Watched Date", "Entry URL"],
         diary_rows,
@@ -670,6 +703,7 @@ def main() -> None:
         "display_name": display_name,
         "counts": {
             "ratings": len(rating_rows),
+            "watched": len(watched_rows),
             "diary": len(diary_rows),
             "reviews": len(review_rows),
             "watchlist": len(watchlist_rows),

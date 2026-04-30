@@ -372,11 +372,24 @@ DOUBAN_SUBJECT_SEARCH_URL = "https://movie.douban.com/subject_search"
 DOUBAN_PUBLIC_DATASET_URL = "https://raw.githubusercontent.com/jlshix/movielens-douban-dataset/master/spider.json"
 PTGEN_DOUBAN_IMDB_MAP_URL = "https://ourbits.github.io/PtGen/internal_map/douban_imdb_map.json"
 PTGEN_DOUBAN_DETAIL_URL = "https://ourbits.github.io/PtGen/douban/{subject_id}.json"
+CINEMETA_META_URL = "https://v3-cinemeta.strem.io/meta/{kind}/{imdb_id}.json"
+IMDB_TITLE_BASICS_URL = "https://datasets.imdbws.com/title.basics.tsv.gz"
+IMDB_TITLE_RATINGS_URL = "https://datasets.imdbws.com/title.ratings.tsv.gz"
 WIKIDATA_SPARQL_URL = "https://query.wikidata.org/sparql"
 RATING_BUCKET_VALUES = [0.5 + 0.5 * index for index in range(10)]
 STREAMING_CACHE_VERSION = 2
 DOUBAN_CACHE_VERSION = 4
 WATCHED_DOUBAN_CACHE_VERSION = 9
+IMDB_RATING_CACHE_VERSION = 1
+IMDB_TITLE_INDEX_VERSION = 1
+IMDB_TITLE_TYPE_WEIGHTS = {
+    "movie": 60,
+    "tvMovie": 55,
+    "tvMiniSeries": 50,
+    "tvSeries": 45,
+    "tvEpisode": 35,
+    "video": 25,
+}
 WATCHED_DOUBAN_SUBJECT_OVERRIDES = {
     # Letterboxd exports some TV episodes as standalone film rows. Douban usually
     # keeps ratings on the season page, so these are intentionally parent matches.
@@ -424,9 +437,9 @@ WATCHED_DOUBAN_HISTORICAL_RATING_OVERRIDES = {
     },
 }
 LIST_CATEGORY_LABELS = {
-    "watch_plan": "待看计划",
-    "preference": "偏好声明",
-    "theme": "主题整理",
+    "watch_plan": "Watch plan",
+    "preference": "Taste signal",
+    "theme": "Theme collection",
 }
 LIST_CATEGORY_ORDER = {
     "watch_plan": 0,
@@ -479,7 +492,7 @@ STREAMING_PROVIDERS = [
         "provider_id": "netflix_ca",
         "label": "Netflix",
         "source": "justwatch",
-        "scope_label": "加拿大订阅目录",
+        "scope_label": "Canada subscription catalog",
         "package_code": "nfx",
         "provider_url": "https://www.justwatch.com/ca/provider/netflix/movies",
     },
@@ -487,7 +500,7 @@ STREAMING_PROVIDERS = [
         "provider_id": "crave_ca",
         "label": "Crave",
         "source": "justwatch",
-        "scope_label": "加拿大订阅目录",
+        "scope_label": "Canada subscription catalog",
         "package_code": "crv",
         "provider_url": "https://www.justwatch.com/ca/provider/crave/movies",
     },
@@ -495,7 +508,7 @@ STREAMING_PROVIDERS = [
         "provider_id": "prime_ca",
         "label": "Amazon Prime",
         "source": "justwatch",
-        "scope_label": "加拿大订阅目录",
+        "scope_label": "Canada subscription catalog",
         "package_code": "prv",
         "provider_url": "https://www.justwatch.com/ca/provider/amazon-prime-video/movies",
     },
@@ -503,7 +516,7 @@ STREAMING_PROVIDERS = [
         "provider_id": "criterion_ca",
         "label": "Criterion",
         "source": "justwatch",
-        "scope_label": "加拿大订阅目录",
+        "scope_label": "Canada subscription catalog",
         "package_code": "crc",
         "provider_url": "https://www.justwatch.com/ca/provider/criterion-channel/movies",
     },
@@ -511,7 +524,7 @@ STREAMING_PROVIDERS = [
         "provider_id": "apple_tv_ca",
         "label": "Apple TV+",
         "source": "justwatch",
-        "scope_label": "加拿大订阅目录",
+        "scope_label": "Canada subscription catalog",
         "package_code": "atp",
         "provider_url": "https://www.justwatch.com/ca/provider/apple-tv-plus/movies",
     },
@@ -519,7 +532,7 @@ STREAMING_PROVIDERS = [
         "provider_id": "disney_plus_ca",
         "label": "Disney+",
         "source": "justwatch",
-        "scope_label": "加拿大订阅目录",
+        "scope_label": "Canada subscription catalog",
         "package_code": "dnp",
         "provider_url": "https://www.justwatch.com/ca/provider/disney-plus/movies",
     },
@@ -527,7 +540,7 @@ STREAMING_PROVIDERS = [
         "provider_id": "crunchyroll_ca",
         "label": "Crunchyroll",
         "source": "justwatch",
-        "scope_label": "加拿大订阅目录",
+        "scope_label": "Canada subscription catalog",
         "package_code": "cru",
         "provider_url": "https://www.justwatch.com/ca/provider/crunchyroll/movies",
     },
@@ -569,7 +582,7 @@ def parse_args() -> argparse.Namespace:
         "--streaming-catalog-timeout",
         type=int,
         default=120,
-        help="Seconds to spend on live streaming catalog refresh before falling back to cached data",
+        help="Seconds to spend on live streaming catalog refresh before falling back; 0 uses the cached catalog only",
     )
     parser.add_argument("--refresh-cache", action="store_true")
     return parser.parse_args()
@@ -641,6 +654,74 @@ def normalize_loose_title(value: Any) -> str:
     text = re.sub(r"[^0-9a-z\u4e00-\u9fff]+", " ", text)
     text = re.sub(r"\s+", " ", text).strip()
     return text
+
+
+def normalize_year_text(value: Any) -> str:
+    numeric = pd.to_numeric(value, errors="coerce")
+    if pd.notna(numeric):
+        return str(int(numeric))
+    match = re.search(r"(19|20)\d{2}", normalize_cell(value))
+    return match.group(0) if match else ""
+
+
+def lookup_limit(value: int) -> int:
+    return int(value) if int(value) < 0 else max(0, int(value))
+
+
+def douban_title_aliases_from_item(item: dict[str, Any]) -> list[str]:
+    values: list[str] = []
+    raw_values: list[Any] = [item.get("title")]
+    raw_aka = item.get("aka")
+    if isinstance(raw_aka, list):
+        raw_values.extend(raw_aka)
+    for raw_value in raw_values:
+        text = normalize_cell(raw_value)
+        if not text:
+            continue
+        values.append(text)
+        values.extend(part.strip() for part in re.split(r"[/|·・]", text) if part.strip())
+    return unique_preserve_order(values)
+
+
+def douban_title_year_keys(title: Any, year: Any) -> list[str]:
+    year_text = normalize_year_text(year)
+    if not year_text:
+        return []
+    keys: list[str] = []
+    for normalized in (normalize_match_title(title), normalize_loose_title(title)):
+        if normalized:
+            keys.append(f"{normalized}::{year_text}")
+    return unique_preserve_order(keys)
+
+
+def douban_entry_sort_weight(entry: dict[str, Any]) -> int:
+    count = pd.to_numeric(entry.get("douban_rating_count"), errors="coerce")
+    return int(count) if pd.notna(count) else 0
+
+
+def index_douban_title_year_entry(
+    index: dict[str, dict[str, Any]],
+    entry: dict[str, Any],
+    aliases: list[str],
+) -> None:
+    for alias in aliases:
+        for key in douban_title_year_keys(alias, entry.get("douban_year")):
+            existing = index.get(key)
+            if not existing or douban_entry_sort_weight(entry) > douban_entry_sort_weight(existing):
+                index[key] = entry
+
+
+def find_douban_entry_by_title_year(
+    by_title_year: dict[str, dict[str, Any]],
+    title_candidates: list[Any],
+    year: Any,
+) -> dict[str, Any] | None:
+    for title in unique_preserve_order([normalize_cell(value) for value in title_candidates if normalize_cell(value)]):
+        for key in douban_title_year_keys(title, year):
+            entry = by_title_year.get(key)
+            if entry:
+                return entry
+    return None
 
 
 def normalize_source_uri(value: Any) -> str:
@@ -898,6 +979,234 @@ def fetch_json_resource(url: str, headers: dict[str, str] | None = None, timeout
         return json.loads(response.read().decode("utf-8", errors="ignore"))
 
 
+def fetch_cinemeta_imdb_rating(imdb_id: str) -> dict[str, Any]:
+    imdb = normalize_cell(imdb_id)
+    if not re.fullmatch(r"tt\d+", imdb):
+        raise RuntimeError(f"Invalid IMDb ID: {imdb}")
+    last_error: Exception | None = None
+    for kind in ("movie", "series"):
+        try:
+            payload = fetch_json_resource(
+                CINEMETA_META_URL.format(kind=kind, imdb_id=quote_plus(imdb)),
+                headers={"Accept": "application/json"},
+                timeout=6,
+            )
+            meta = payload.get("meta") if isinstance(payload.get("meta"), dict) else {}
+            rating = pd.to_numeric(meta.get("imdbRating"), errors="coerce")
+            if pd.notna(rating):
+                votes = pd.to_numeric(str(meta.get("imdbVotes") or "").replace(",", ""), errors="coerce")
+                return {
+                    "imdb_id": imdb,
+                    "imdb_score": float(rating),
+                    "imdb_votes": int(votes) if pd.notna(votes) else None,
+                    "imdb_rating_source": f"cinemeta_{kind}",
+                    "imdb_rating_cache_version": IMDB_RATING_CACHE_VERSION,
+                    "imdb_rating_updated_at": pd.Timestamp.now("UTC").isoformat(),
+                }
+            last_error = RuntimeError(f"Cinemeta {kind} metadata had no IMDb rating")
+        except Exception as exc:  # noqa: BLE001
+            last_error = exc
+    raise RuntimeError(f"IMDb rating unavailable for {imdb}: {normalize_cell(last_error)}")
+
+
+def enrich_imdb_rating_fields(existing: dict[str, Any], imdb_id: str) -> dict[str, Any]:
+    if not re.fullmatch(r"tt\d+", normalize_cell(imdb_id)):
+        return existing
+    rating = pd.to_numeric(existing.get("imdb_score"), errors="coerce")
+    version = pd.to_numeric(existing.get("imdb_rating_cache_version"), errors="coerce")
+    if pd.notna(rating) and pd.notna(version) and int(version) >= IMDB_RATING_CACHE_VERSION:
+        return existing
+    try:
+        rating_payload = fetch_cinemeta_imdb_rating(imdb_id)
+    except Exception as exc:  # noqa: BLE001
+        return {
+            **existing,
+            "imdb_id": normalize_cell(imdb_id),
+            "imdb_rating_status": "error",
+            "imdb_rating_error": normalize_cell(exc),
+            "imdb_rating_cache_version": IMDB_RATING_CACHE_VERSION,
+            "imdb_rating_updated_at": pd.Timestamp.now("UTC").isoformat(),
+        }
+    return {
+        **existing,
+        **rating_payload,
+        "imdb_rating_status": "matched",
+    }
+
+
+def download_binary_resource_if_missing(url: str, path: Path, timeout: int = 60) -> None:
+    if path.exists() and path.stat().st_size > 1024:
+        return
+    path.parent.mkdir(parents=True, exist_ok=True)
+    tmp_path = path.with_suffix(path.suffix + ".tmp")
+    request = Request(
+        url,
+        headers={
+            "User-Agent": "Letterboxd_Data_Update/1.0 (https://github.com/GavinLegend/Letterboxd_Data_Update)",
+            "Accept": "application/octet-stream",
+        },
+    )
+    with urlopen(request, timeout=timeout) as response, tmp_path.open("wb") as handle:
+        while True:
+            chunk = response.read(1024 * 1024)
+            if not chunk:
+                break
+            handle.write(chunk)
+    tmp_path.replace(path)
+
+
+def imdb_entry_sort_key(entry: dict[str, Any]) -> tuple[int, int, float]:
+    votes = pd.to_numeric(entry.get("imdb_votes"), errors="coerce")
+    rating = pd.to_numeric(entry.get("imdb_score"), errors="coerce")
+    return (
+        int(votes) if pd.notna(votes) else 0,
+        int(IMDB_TITLE_TYPE_WEIGHTS.get(normalize_cell(entry.get("title_type")), 0)),
+        float(rating) if pd.notna(rating) else 0.0,
+    )
+
+
+def imdb_title_target_keys(targets: pd.DataFrame) -> set[str]:
+    keys: set[str] = set()
+    title_columns = ["name", "Name", "metadata_title", "match_name"]
+    for row in targets.to_dict(orient="records"):
+        year = row.get("year")
+        if not normalize_year_text(year):
+            year = row.get("Year") or row.get("match_year")
+        for column in title_columns:
+            keys.update(douban_title_year_keys(row.get(column), year))
+    return keys
+
+
+def imdb_target_raw_titles(targets: pd.DataFrame) -> set[str]:
+    values: set[str] = set()
+    for row in targets.to_dict(orient="records"):
+        for column in ["name", "Name", "metadata_title", "match_name"]:
+            text = normalize_cell(row.get(column))
+            if text:
+                values.add(text.casefold())
+    return values
+
+
+def load_imdb_ratings_lookup(path: Path) -> dict[str, dict[str, Any]]:
+    lookup: dict[str, dict[str, Any]] = {}
+    for chunk in pd.read_csv(
+        path,
+        sep="\t",
+        compression="gzip",
+        dtype=str,
+        chunksize=500_000,
+        usecols=["tconst", "averageRating", "numVotes"],
+    ):
+        for row in chunk.itertuples(index=False):
+            rating = pd.to_numeric(row.averageRating, errors="coerce")
+            votes = pd.to_numeric(row.numVotes, errors="coerce")
+            lookup[normalize_cell(row.tconst)] = {
+                "imdb_score": float(rating) if pd.notna(rating) else None,
+                "imdb_votes": int(votes) if pd.notna(votes) else None,
+            }
+    return lookup
+
+
+def load_imdb_title_year_index(output_dir: Path, targets: pd.DataFrame) -> dict[str, dict[str, Any]]:
+    target_keys = imdb_title_target_keys(targets)
+    if not target_keys:
+        return {}
+    fingerprint = hashlib.sha256("\n".join(sorted(target_keys)).encode("utf-8")).hexdigest()
+    cache_path = output_dir / "imdb_title_year_index.json"
+    cached = load_json_cache(cache_path)
+    if (
+        cached.get("cache_version") == IMDB_TITLE_INDEX_VERSION
+        and cached.get("target_fingerprint") == fingerprint
+        and isinstance(cached.get("by_title_year"), dict)
+    ):
+        return cached["by_title_year"]
+    cached_target_keys = set(cached.get("target_keys") or [])
+    if (
+        cached.get("cache_version") == IMDB_TITLE_INDEX_VERSION
+        and target_keys.issubset(cached_target_keys)
+        and isinstance(cached.get("by_title_year"), dict)
+    ):
+        return cached["by_title_year"]
+
+    imdb_dir = output_dir / "imdb-datasets"
+    basics_path = imdb_dir / "title.basics.tsv.gz"
+    ratings_path = imdb_dir / "title.ratings.tsv.gz"
+    download_binary_resource_if_missing(IMDB_TITLE_BASICS_URL, basics_path, timeout=90)
+    download_binary_resource_if_missing(IMDB_TITLE_RATINGS_URL, ratings_path, timeout=45)
+
+    ratings_lookup = load_imdb_ratings_lookup(ratings_path)
+    target_years = {key.rsplit("::", 1)[1] for key in target_keys if "::" in key}
+    target_raw_titles = imdb_target_raw_titles(targets)
+    by_title_year: dict[str, dict[str, Any]] = {}
+    for chunk in pd.read_csv(
+        basics_path,
+        sep="\t",
+        compression="gzip",
+        dtype=str,
+        chunksize=250_000,
+        usecols=["tconst", "titleType", "primaryTitle", "originalTitle", "startYear"],
+        na_values=["\\N"],
+        keep_default_na=False,
+    ):
+        primary_lower = chunk["primaryTitle"].fillna("").str.casefold()
+        original_lower = chunk["originalTitle"].fillna("").str.casefold()
+        chunk = chunk[
+            chunk["startYear"].isin(target_years)
+            & chunk["titleType"].isin(set(IMDB_TITLE_TYPE_WEIGHTS))
+            & (primary_lower.isin(target_raw_titles) | original_lower.isin(target_raw_titles))
+        ]
+        if chunk.empty:
+            continue
+        for row in chunk.itertuples(index=False):
+            tconst = normalize_cell(row.tconst)
+            year = normalize_cell(row.startYear)
+            if not re.fullmatch(r"tt\d+", tconst) or not year:
+                continue
+            rating_payload = ratings_lookup.get(tconst, {})
+            entry = {
+                "imdb_id": tconst,
+                "imdb_title": normalize_cell(row.primaryTitle),
+                "imdb_original_title": normalize_cell(row.originalTitle),
+                "imdb_year": year,
+                "title_type": normalize_cell(row.titleType),
+                "imdb_score": rating_payload.get("imdb_score"),
+                "imdb_votes": rating_payload.get("imdb_votes"),
+                "imdb_match_source": "imdb_title_basics_title_year",
+            }
+            for title in unique_preserve_order([row.primaryTitle, row.originalTitle]):
+                for key in douban_title_year_keys(title, year):
+                    if key not in target_keys:
+                        continue
+                    existing = by_title_year.get(key)
+                    if not existing or imdb_entry_sort_key(entry) > imdb_entry_sort_key(existing):
+                        by_title_year[key] = entry
+
+    write_json_cache(
+        cache_path,
+        {
+            "cache_version": IMDB_TITLE_INDEX_VERSION,
+            "target_fingerprint": fingerprint,
+            "target_keys": sorted(target_keys),
+            "indexed_at": pd.Timestamp.now("UTC").isoformat(),
+            "by_title_year": by_title_year,
+        },
+    )
+    return by_title_year
+
+
+def find_imdb_entry_by_title_year(
+    by_title_year: dict[str, dict[str, Any]],
+    title_candidates: list[Any],
+    year: Any,
+) -> dict[str, Any] | None:
+    for title in unique_preserve_order([normalize_cell(value) for value in title_candidates if normalize_cell(value)]):
+        for key in douban_title_year_keys(title, year):
+            entry = by_title_year.get(key)
+            if entry:
+                return entry
+    return None
+
+
 def build_streaming_catalog(output_dir: Path) -> tuple[pd.DataFrame, list[dict[str, str]]]:
     provider_rows: list[dict[str, Any]] = []
     provider_warnings: list[dict[str, str]] = []
@@ -1119,7 +1428,7 @@ def refresh_cached_streaming_douban_section(
 ) -> dict[str, Any]:
     sanitized = sanitize_cached_streaming_section(streaming)
     rows = [row for row in ensure_list(sanitized.get("rows")) if isinstance(row, dict)]
-    if not rows or max_douban_lookups == 0:
+    if not rows:
         return sanitized
 
     targets = pd.DataFrame(
@@ -1155,6 +1464,111 @@ def refresh_cached_streaming_douban_section(
     refreshed.setdefault("stats", {})["douban_fallback_enriched"] = True
     refreshed.setdefault("stats", {})["douban_lookups_requested"] = int(max_douban_lookups)
     return refreshed
+
+
+def fetch_cached_streaming_imdb_entry(
+    row: dict[str, Any],
+    cached_entry: dict[str, Any] | None = None,
+    allow_letterboxd_lookup: bool = False,
+) -> dict[str, Any]:
+    existing = dict(cached_entry) if isinstance(cached_entry, dict) else {}
+    imdb_id = normalize_cell(existing.get("imdb_id")) or normalize_cell(row.get("imdb_id"))
+    if not imdb_id and allow_letterboxd_lookup:
+        letterboxd_url = normalize_source_uri(row.get("letterboxd_url")) or normalize_source_uri(row.get("source_uri"))
+        if letterboxd_url:
+            page_html = fetch_letterboxd_text(letterboxd_url)
+            imdb_match = re.search(r"imdb\.com/title/(tt\d+)", page_html)
+            if imdb_match:
+                imdb_id = imdb_match.group(1)
+    if not imdb_id:
+        return {
+            **existing,
+            "film_key": row["film_key"],
+            "imdb_rating_status": "missing_imdb_id",
+            "imdb_rating_cache_version": IMDB_RATING_CACHE_VERSION,
+            "imdb_rating_updated_at": pd.Timestamp.now("UTC").isoformat(),
+        }
+    return enrich_imdb_rating_fields(
+        {
+            **existing,
+            "film_key": row["film_key"],
+            "imdb_id": imdb_id,
+        },
+        imdb_id,
+    )
+
+
+def refresh_cached_streaming_imdb_section(
+    streaming: dict[str, Any],
+    output_dir: Path,
+    max_imdb_lookups: int,
+    workers: int,
+    refresh_cache: bool,
+) -> dict[str, Any]:
+    sanitized = sanitize_cached_streaming_section(streaming)
+    rows = [row for row in ensure_list(sanitized.get("rows")) if isinstance(row, dict)]
+    if not rows or max_imdb_lookups == 0:
+        return sanitized
+
+    cache_path = output_dir / "streaming_letterboxd_cache.json"
+    cache = load_json_cache(cache_path)
+    targets = [
+        row
+        for row in rows
+        if normalize_cell(row.get("film_key"))
+        and (refresh_cache or pd.isna(pd.to_numeric(row.get("imdb_score"), errors="coerce")))
+    ]
+    if not refresh_cache:
+        targets = [
+            row
+            for row in targets
+            if pd.isna(pd.to_numeric(cache.get(row["film_key"], {}).get("imdb_score"), errors="coerce"))
+        ]
+    targets = [
+        row
+        for row in targets
+        if normalize_cell(row.get("imdb_id"))
+        or normalize_cell(cache.get(row["film_key"], {}).get("imdb_id"))
+    ]
+    if max_imdb_lookups >= 0:
+        targets = targets[:max_imdb_lookups]
+    if targets:
+        with ThreadPoolExecutor(max_workers=max(1, workers)) as pool:
+            futures = {
+                pool.submit(fetch_cached_streaming_imdb_entry, row, cache.get(row["film_key"]), False): row["film_key"]
+                for row in targets
+            }
+            for index, future in enumerate(as_completed(futures), start=1):
+                film_key_value = futures[future]
+                try:
+                    result = future.result()
+                except Exception as exc:  # noqa: BLE001
+                    existing = cache.get(film_key_value) if isinstance(cache.get(film_key_value), dict) else {}
+                    result = {
+                        **existing,
+                        "film_key": film_key_value,
+                        "imdb_rating_status": "error",
+                        "imdb_rating_error": normalize_cell(exc),
+                        "imdb_rating_cache_version": IMDB_RATING_CACHE_VERSION,
+                        "imdb_rating_updated_at": pd.Timestamp.now("UTC").isoformat(),
+                    }
+                cache[film_key_value] = result
+                if index % 50 == 0 or index == len(futures):
+                    write_json_cache(cache_path, cache)
+
+    refreshed = json.loads(json.dumps(sanitized))
+    for row in refreshed.get("rows", []):
+        entry = cache.get(row.get("film_key"), {}) if isinstance(cache, dict) else {}
+        if not isinstance(entry, dict):
+            continue
+        if normalize_cell(entry.get("imdb_id")):
+            row["imdb_id"] = normalize_cell(entry.get("imdb_id"))
+        if pd.notna(pd.to_numeric(entry.get("imdb_score"), errors="coerce")):
+            row["imdb_score"] = entry.get("imdb_score")
+            row["imdb_votes"] = entry.get("imdb_votes")
+    refreshed.setdefault("stats", {})["imdb_fallback_enriched"] = True
+    refreshed.setdefault("stats", {})["imdb_lookups_requested"] = int(max_imdb_lookups)
+    return sanitize_cached_streaming_section(refreshed)
 
 
 def streaming_genre_objects_from_labels(values: Any) -> list[dict[str, str]]:
@@ -1201,8 +1615,9 @@ def build_watched_only_streaming_rows(
                 "exclusive": False,
                 "watched": True,
                 "user_rating": user_rating_lookup.get(watched_key),
-                "imdb_score": None,
-                "imdb_votes": None,
+                "imdb_id": normalize_cell(watched_row.get("imdb_id")),
+                "imdb_score": pd.to_numeric(watched_row.get("imdb_score"), errors="coerce"),
+                "imdb_votes": pd.to_numeric(watched_row.get("imdb_votes"), errors="coerce"),
                 "jw_score": None,
                 "tmdb_score": None,
                 "lookup_priority": 0,
@@ -1248,6 +1663,11 @@ def refresh_cached_streaming_watch_state(
         .set_index("film_key")["user_rating"]
         .to_dict()
     )
+    watched_detail_lookup = (
+        ratings_df.drop_duplicates(subset=["film_key"])
+        .set_index("film_key")
+        .to_dict(orient="index")
+    )
     lookup_cache = load_json_cache(output_dir / "streaming_letterboxd_cache.json")
 
     refreshed = json.loads(json.dumps(sanitized))
@@ -1270,6 +1690,22 @@ def refresh_cached_streaming_watch_state(
         row["watched_film_key"] = watched_key
         row["watched"] = watched_key is not None
         row["user_rating"] = user_rating_lookup.get(watched_key) if watched_key else None
+        watched_detail = watched_detail_lookup.get(watched_key, {}) if watched_key else {}
+        if watched_detail:
+            for numeric_field in (
+                "douban_rating",
+                "imdb_score",
+                "imdb_votes",
+                "site_average_rating",
+                "site_rating_count",
+            ):
+                value = pd.to_numeric(watched_detail.get(numeric_field), errors="coerce")
+                if pd.notna(value):
+                    row[numeric_field] = float(value)
+            for text_field in ("douban_url", "imdb_id"):
+                value = normalize_cell(watched_detail.get(text_field))
+                if value:
+                    row[text_field] = value
 
     represented_watched_keys = {
         normalize_cell(row.get("watched_film_key"))
@@ -1801,9 +2237,9 @@ def fetch_wikidata_douban_id_map(imdb_ids: list[str], chunk_size: int = 50) -> d
         )
         payload: dict[str, Any] = {}
         last_error: Exception | None = None
-        for attempt in range(3):
+        for attempt in range(2):
             try:
-                with urlopen(request, timeout=25) as response:
+                with urlopen(request, timeout=8) as response:
                     payload = json.loads(response.read().decode("utf-8", errors="replace"))
                 break
             except (HTTPError, URLError, TimeoutError, OSError, json.JSONDecodeError) as exc:
@@ -1829,6 +2265,12 @@ def coerce_douban_rating(value: Any) -> float | None:
     return float(rating)
 
 
+def has_positive_douban_rating(entry: Any) -> bool:
+    if not isinstance(entry, dict):
+        return False
+    return coerce_douban_rating(entry.get("douban_rating")) is not None
+
+
 def normalize_douban_dataset_item(item: dict[str, Any]) -> dict[str, Any] | None:
     subject_id = normalize_cell(item.get("_id") or item.get("id"))
     rating = item.get("rating") if isinstance(item.get("rating"), dict) else {}
@@ -1847,20 +2289,28 @@ def normalize_douban_dataset_item(item: dict[str, Any]) -> dict[str, Any] | None
         "douban_year": year,
         "imdb_id": normalize_cell(item.get("imdb")),
         "source": "public_dataset",
+        "aliases": douban_title_aliases_from_item(item),
     }
 
 
 def load_public_douban_dataset_index(output_dir: Path) -> dict[str, dict[str, dict[str, Any]]]:
     cache_path = output_dir / "douban_public_dataset_index.json"
     cached = load_json_cache(cache_path)
-    if cached.get("cache_version") == 1 and isinstance(cached.get("by_imdb"), dict) and isinstance(cached.get("by_douban_id"), dict):
+    if (
+        cached.get("cache_version") == 2
+        and isinstance(cached.get("by_imdb"), dict)
+        and isinstance(cached.get("by_douban_id"), dict)
+        and isinstance(cached.get("by_title_year"), dict)
+    ):
         return {
             "by_imdb": cached.get("by_imdb", {}),
             "by_douban_id": cached.get("by_douban_id", {}),
+            "by_title_year": cached.get("by_title_year", {}),
         }
 
     by_imdb: dict[str, dict[str, Any]] = {}
     by_douban_id: dict[str, dict[str, Any]] = {}
+    by_title_year: dict[str, dict[str, Any]] = {}
     request = Request(
         DOUBAN_PUBLIC_DATASET_URL,
         headers={
@@ -1883,6 +2333,7 @@ def load_public_douban_dataset_index(output_dir: Path) -> dict[str, dict[str, di
             if not entry:
                 continue
             by_douban_id[entry["douban_id"]] = entry
+            index_douban_title_year_entry(by_title_year, entry, ensure_list(entry.get("aliases")))
             imdb_id = normalize_cell(entry.get("imdb_id"))
             if re.fullmatch(r"tt\d+", imdb_id):
                 by_imdb[imdb_id] = entry
@@ -1890,14 +2341,15 @@ def load_public_douban_dataset_index(output_dir: Path) -> dict[str, dict[str, di
     write_json_cache(
         cache_path,
         {
-            "cache_version": 1,
+            "cache_version": 2,
             "source_url": DOUBAN_PUBLIC_DATASET_URL,
             "indexed_at": pd.Timestamp.now("UTC").isoformat(),
             "by_imdb": by_imdb,
             "by_douban_id": by_douban_id,
+            "by_title_year": by_title_year,
         },
     )
-    return {"by_imdb": by_imdb, "by_douban_id": by_douban_id}
+    return {"by_imdb": by_imdb, "by_douban_id": by_douban_id, "by_title_year": by_title_year}
 
 
 def normalize_ptgen_map_item(item: dict[str, Any]) -> dict[str, Any] | None:
@@ -1918,14 +2370,21 @@ def normalize_ptgen_map_item(item: dict[str, Any]) -> dict[str, Any] | None:
 def load_ptgen_douban_imdb_index(output_dir: Path) -> dict[str, dict[str, dict[str, Any]]]:
     cache_path = output_dir / "ptgen_douban_imdb_index.json"
     cached = load_json_cache(cache_path)
-    if cached.get("cache_version") == 1 and isinstance(cached.get("by_imdb"), dict) and isinstance(cached.get("by_douban_id"), dict):
+    if (
+        cached.get("cache_version") == 2
+        and isinstance(cached.get("by_imdb"), dict)
+        and isinstance(cached.get("by_douban_id"), dict)
+        and isinstance(cached.get("by_title_year"), dict)
+    ):
         return {
             "by_imdb": cached.get("by_imdb", {}),
             "by_douban_id": cached.get("by_douban_id", {}),
+            "by_title_year": cached.get("by_title_year", {}),
         }
 
     by_imdb: dict[str, dict[str, Any]] = {}
     by_douban_id: dict[str, dict[str, Any]] = {}
+    by_title_year: dict[str, dict[str, Any]] = {}
     payload = fetch_json_resource(
         PTGEN_DOUBAN_IMDB_MAP_URL,
         headers={
@@ -1941,28 +2400,32 @@ def load_ptgen_douban_imdb_index(output_dir: Path) -> dict[str, dict[str, dict[s
         if not entry:
             continue
         by_douban_id[entry["douban_id"]] = entry
+        index_douban_title_year_entry(by_title_year, entry, [entry["douban_title"]])
         if re.fullmatch(r"tt\d+", entry["imdb_id"]):
             by_imdb[entry["imdb_id"]] = entry
 
     write_json_cache(
         cache_path,
         {
-            "cache_version": 1,
+            "cache_version": 2,
             "source_url": PTGEN_DOUBAN_IMDB_MAP_URL,
             "indexed_at": pd.Timestamp.now("UTC").isoformat(),
             "by_imdb": by_imdb,
             "by_douban_id": by_douban_id,
+            "by_title_year": by_title_year,
         },
     )
-    return {"by_imdb": by_imdb, "by_douban_id": by_douban_id}
+    return {"by_imdb": by_imdb, "by_douban_id": by_douban_id, "by_title_year": by_title_year}
 
 
-def fetch_ptgen_douban_detail(output_dir: Path, subject_id: str) -> dict[str, Any]:
+def fetch_ptgen_douban_detail(output_dir: Path, subject_id: str, allow_download: bool = True) -> dict[str, Any]:
     detail_cache_path = output_dir / "ptgen_douban_detail_cache.json"
     detail_cache = load_json_cache(detail_cache_path)
     cached = detail_cache.get(subject_id) if isinstance(detail_cache.get(subject_id), dict) else None
     if cached and cached.get("cache_version") == 1:
         return cached.get("payload") if isinstance(cached.get("payload"), dict) else {}
+    if not allow_download:
+        return {}
 
     payload = fetch_json_resource(
         PTGEN_DOUBAN_DETAIL_URL.format(subject_id=quote_plus(subject_id)),
@@ -1970,7 +2433,7 @@ def fetch_ptgen_douban_detail(output_dir: Path, subject_id: str) -> dict[str, An
             "User-Agent": "Letterboxd_Data_Update/1.0 (https://github.com/GavinLegend/Letterboxd_Data_Update)",
             "Accept": "application/json",
         },
-        timeout=30,
+        timeout=6,
     )
     if not isinstance(payload, dict):
         payload = {}
@@ -1990,11 +2453,13 @@ def build_douban_result_from_ptgen_entry(
     entry: dict[str, Any],
     output_dir: Path,
     match_key: str,
+    allow_detail_fetch: bool = True,
+    allow_web_fallback: bool = False,
 ) -> dict[str, Any]:
     subject_id = normalize_cell(entry.get("douban_id"))
     if not subject_id:
         raise RuntimeError("PtGen entry did not include a Douban subject ID")
-    detail = fetch_ptgen_douban_detail(output_dir, subject_id)
+    detail = fetch_ptgen_douban_detail(output_dir, subject_id, allow_download=allow_detail_fetch)
     rating_value = coerce_douban_rating(detail.get("douban_rating_average"))
     rating_count = pd.to_numeric(detail.get("douban_votes"), errors="coerce")
     title = (
@@ -2005,7 +2470,7 @@ def build_douban_result_from_ptgen_entry(
     foreign_title = normalize_cell(detail.get("foreign_title"))
     if foreign_title and foreign_title != title:
         title = f"{title} {foreign_title}".strip()
-    if rating_value is None:
+    if rating_value is None and allow_web_fallback:
         try:
             web_detail = fetch_douban_web_detail(subject_id)
             return build_douban_result_from_detail_payload(
@@ -2018,6 +2483,9 @@ def build_douban_result_from_ptgen_entry(
             )
         except Exception as exc:  # noqa: BLE001
             web_error = normalize_cell(exc)
+    else:
+        web_error = "live Douban web fallback disabled for deterministic build"
+    if rating_value is None:
         return {
             **existing,
             "film_key": film_key_value,
@@ -2124,7 +2592,7 @@ def seed_watched_douban_cache_from_published_report(
             if not film_key_value or rating_value is None:
                 continue
             existing = seeded.get(film_key_value) if isinstance(seeded.get(film_key_value), dict) else {}
-            if has_watched_douban_entry(existing):
+            if has_positive_douban_rating(existing):
                 continue
             seeded[film_key_value] = {
                 **existing,
@@ -2388,7 +2856,7 @@ def fetch_letterboxd_streaming_entry(
         )
         letterboxd_rating, rating_count = parse_rating_histogram(histogram)
 
-    return {
+    result = {
         "film_key": row["film_key"],
         "status": "matched",
         "query": query,
@@ -2410,6 +2878,9 @@ def fetch_letterboxd_streaming_entry(
         "cache_version": STREAMING_CACHE_VERSION,
         "updated_at": pd.Timestamp.now("UTC").isoformat(),
     }
+    if normalize_cell(page_metadata.get("imdb_id")):
+        result = enrich_imdb_rating_fields(result, normalize_cell(page_metadata.get("imdb_id")))
+    return result
 
 
 def update_streaming_letterboxd_cache(
@@ -2463,6 +2934,131 @@ def update_streaming_douban_cache(
 ) -> dict[str, Any]:
     cache = load_json_cache(cache_path)
     lookup_frame = targets.copy()
+
+    try:
+        public_douban_index = load_public_douban_dataset_index(cache_path.parent)
+    except Exception as exc:  # noqa: BLE001
+        print(f"Warning: public Douban title/year fallback unavailable: {exc}", file=sys.stderr)
+        public_douban_index = {"by_title_year": {}}
+    public_by_title_year = public_douban_index.get("by_title_year", {})
+    public_by_imdb = public_douban_index.get("by_imdb", {})
+    for row in targets.to_dict(orient="records"):
+        film_key_value = row["film_key"]
+        existing = cache.get(film_key_value) if isinstance(cache.get(film_key_value), dict) else {}
+        if has_positive_douban_rating(existing):
+            continue
+        public_entry = find_douban_entry_by_title_year(
+            public_by_title_year,
+            [existing.get("metadata_title"), existing.get("match_name"), row.get("name")],
+            row.get("year") or existing.get("match_year"),
+        )
+        if public_entry:
+            cache[film_key_value] = build_douban_result_from_public_entry(
+                existing,
+                film_key_value,
+                public_entry,
+                "title_year:public_dataset",
+            )
+
+    try:
+        ptgen_douban_index = load_ptgen_douban_imdb_index(cache_path.parent)
+    except Exception as exc:  # noqa: BLE001
+        print(f"Warning: PtGen title/year fallback unavailable: {exc}", file=sys.stderr)
+        ptgen_douban_index = {"by_title_year": {}}
+    ptgen_by_title_year = ptgen_douban_index.get("by_title_year", {})
+    ptgen_by_imdb = ptgen_douban_index.get("by_imdb", {})
+    try:
+        imdb_by_title_year = load_imdb_title_year_index(cache_path.parent, targets)
+    except Exception as exc:  # noqa: BLE001
+        print(f"Warning: IMDb title/year fallback unavailable: {exc}", file=sys.stderr)
+        imdb_by_title_year = {}
+    for row in targets.to_dict(orient="records"):
+        film_key_value = row["film_key"]
+        existing = cache.get(film_key_value) if isinstance(cache.get(film_key_value), dict) else {}
+        if has_positive_douban_rating(existing):
+            continue
+        imdb_id = normalize_cell(existing.get("imdb_id"))
+        imdb_entry = None
+        if not imdb_id:
+            imdb_entry = find_imdb_entry_by_title_year(
+                imdb_by_title_year,
+                [existing.get("metadata_title"), existing.get("match_name"), row.get("name")],
+                row.get("year") or existing.get("match_year"),
+            )
+            imdb_id = normalize_cell((imdb_entry or {}).get("imdb_id"))
+        if not imdb_id:
+            continue
+        existing = {
+            **existing,
+            "film_key": film_key_value,
+            "imdb_id": imdb_id,
+            "imdb_score": (imdb_entry or {}).get("imdb_score", existing.get("imdb_score")),
+            "imdb_votes": (imdb_entry or {}).get("imdb_votes", existing.get("imdb_votes")),
+            "imdb_match_source": (imdb_entry or {}).get("imdb_match_source", existing.get("imdb_match_source")),
+        }
+        cache[film_key_value] = existing
+        public_entry = public_by_imdb.get(imdb_id)
+        if public_entry:
+            cache[film_key_value] = build_douban_result_from_public_entry(
+                existing,
+                film_key_value,
+                public_entry,
+                f"{imdb_id}:public_dataset",
+            )
+            continue
+        ptgen_entry = ptgen_by_imdb.get(imdb_id)
+        if not ptgen_entry:
+            continue
+        try:
+            cache[film_key_value] = build_douban_result_from_ptgen_entry(
+                existing,
+                film_key_value,
+                ptgen_entry,
+                cache_path.parent,
+                f"{imdb_id}:ptgen_imdb_map",
+                allow_detail_fetch=max_new_lookups != 0,
+            )
+        except Exception as exc:  # noqa: BLE001
+            cache[film_key_value] = {
+                **existing,
+                "film_key": film_key_value,
+                "douban_status": "error",
+                "douban_cache_version": DOUBAN_CACHE_VERSION,
+                "douban_error": normalize_cell(exc),
+                "douban_updated_at": pd.Timestamp.now("UTC").isoformat(),
+            }
+    for row in targets.to_dict(orient="records"):
+        film_key_value = row["film_key"]
+        existing = cache.get(film_key_value) if isinstance(cache.get(film_key_value), dict) else {}
+        if has_positive_douban_rating(existing):
+            continue
+        ptgen_entry = find_douban_entry_by_title_year(
+            ptgen_by_title_year,
+            [existing.get("metadata_title"), existing.get("match_name"), row.get("name")],
+            row.get("year") or existing.get("match_year"),
+        )
+        if not ptgen_entry:
+            continue
+        try:
+            cache[film_key_value] = build_douban_result_from_ptgen_entry(
+                existing,
+                film_key_value,
+                ptgen_entry,
+                cache_path.parent,
+                "title_year:ptgen_static",
+                allow_detail_fetch=max_new_lookups != 0,
+            )
+        except Exception as exc:  # noqa: BLE001
+            cache[film_key_value] = {
+                **existing,
+                "film_key": film_key_value,
+                "douban_status": "error",
+                "douban_cache_version": DOUBAN_CACHE_VERSION,
+                "douban_error": normalize_cell(exc),
+                "douban_updated_at": pd.Timestamp.now("UTC").isoformat(),
+            }
+    write_json_cache(cache_path, cache)
+
     if not refresh_cache:
         lookup_frame = lookup_frame[
             lookup_frame["film_key"].apply(lambda key: not has_streaming_douban_entry(cache.get(key)))
@@ -2517,7 +3113,10 @@ def fetch_watched_imdb_entry(row: dict[str, Any], cached_entry: dict[str, Any] |
     existing = dict(cached_entry) if isinstance(cached_entry, dict) else {}
     imdb_id = normalize_cell(existing.get("imdb_id"))
     if imdb_id:
-        return {**existing, "film_key": row["film_key"], "imdb_status": "matched"}
+        return enrich_imdb_rating_fields(
+            {**existing, "film_key": row["film_key"], "imdb_status": "matched"},
+            imdb_id,
+        )
 
     source_uri = normalize_source_uri(row.get("canonical_url")) or normalize_source_uri(row.get("letterboxd_uri"))
     if not source_uri:
@@ -2545,13 +3144,14 @@ def fetch_watched_imdb_entry(row: dict[str, Any], cached_entry: dict[str, Any] |
             "imdb_status": "not_found",
             "updated_at": pd.Timestamp.now("UTC").isoformat(),
         }
-    return {
+    result = {
         **existing,
         "film_key": row["film_key"],
         "imdb_status": "matched",
         "imdb_id": imdb_match.group(1),
         "updated_at": pd.Timestamp.now("UTC").isoformat(),
     }
+    return enrich_imdb_rating_fields(result, imdb_match.group(1))
 
 
 def watched_row_for_douban_search(row: dict[str, Any]) -> dict[str, Any]:
@@ -2609,6 +3209,7 @@ def build_watched_douban_section(
         public_douban_index = {"by_imdb": {}, "by_douban_id": {}}
     public_douban_by_imdb = public_douban_index.get("by_imdb", {})
     public_douban_by_id = public_douban_index.get("by_douban_id", {})
+    public_douban_by_title_year = public_douban_index.get("by_title_year", {})
     try:
         ptgen_douban_index = load_ptgen_douban_imdb_index(output_dir)
     except Exception as exc:  # noqa: BLE001
@@ -2616,6 +3217,7 @@ def build_watched_douban_section(
         ptgen_douban_index = {"by_imdb": {}, "by_douban_id": {}}
     ptgen_douban_by_imdb = ptgen_douban_index.get("by_imdb", {})
     ptgen_douban_by_id = ptgen_douban_index.get("by_douban_id", {})
+    ptgen_douban_by_title_year = ptgen_douban_index.get("by_title_year", {})
     targets = ratings_df[
         [
             "film_key",
@@ -2636,6 +3238,152 @@ def build_watched_douban_section(
         ]
     if max_new_lookups >= 0:
         lookup_frame = lookup_frame.head(max_new_lookups)
+
+    for row in targets.to_dict(orient="records"):
+        film_key_value = row["film_key"]
+        existing = cache.get(film_key_value) if isinstance(cache.get(film_key_value), dict) else {}
+        if has_positive_douban_rating(existing):
+            continue
+        public_entry = find_douban_entry_by_title_year(
+            public_douban_by_title_year,
+            [row.get("Name"), existing.get("metadata_title"), existing.get("match_name")],
+            row.get("Year"),
+        )
+        if public_entry:
+            cache[film_key_value] = build_douban_result_from_public_entry(
+                existing,
+                film_key_value,
+                public_entry,
+                "title_year:public_dataset",
+            )
+    write_json_cache(cache_path, cache)
+
+    for row in targets.to_dict(orient="records"):
+        film_key_value = row["film_key"]
+        existing = cache.get(film_key_value) if isinstance(cache.get(film_key_value), dict) else {}
+        if has_positive_douban_rating(existing):
+            continue
+        ptgen_entry = find_douban_entry_by_title_year(
+            ptgen_douban_by_title_year,
+            [row.get("Name"), existing.get("metadata_title"), existing.get("match_name")],
+            row.get("Year"),
+        )
+        if not ptgen_entry:
+            continue
+        try:
+            cache[film_key_value] = build_douban_result_from_ptgen_entry(
+                existing,
+                film_key_value,
+                ptgen_entry,
+                output_dir,
+                "title_year:ptgen_static",
+            )
+        except Exception as exc:  # noqa: BLE001
+            cache[film_key_value] = {
+                **existing,
+                "film_key": film_key_value,
+                "douban_status": "error",
+                "douban_cache_version": WATCHED_DOUBAN_CACHE_VERSION,
+                "douban_error": normalize_cell(exc),
+                "douban_updated_at": pd.Timestamp.now("UTC").isoformat(),
+            }
+    write_json_cache(cache_path, cache)
+
+    try:
+        imdb_by_title_year = load_imdb_title_year_index(output_dir, targets.rename(columns={"Name": "name", "Year": "year"}))
+    except Exception as exc:  # noqa: BLE001
+        print(f"Warning: IMDb title/year fallback unavailable for watched films: {exc}", file=sys.stderr)
+        imdb_by_title_year = {}
+    for row in targets.to_dict(orient="records"):
+        film_key_value = row["film_key"]
+        existing = cache.get(film_key_value) if isinstance(cache.get(film_key_value), dict) else {}
+        if has_positive_douban_rating(existing):
+            continue
+        historical_override = WATCHED_DOUBAN_HISTORICAL_RATING_OVERRIDES.get(film_key_value)
+        if historical_override:
+            cache[film_key_value] = build_douban_result_from_historical_override(
+                existing,
+                film_key_value,
+                historical_override,
+            )
+            continue
+        override = WATCHED_DOUBAN_SUBJECT_OVERRIDES.get(film_key_value)
+        if override:
+            override_id, override_source = override
+            ptgen_entry = ptgen_douban_by_id.get(override_id) or {
+                "douban_id": override_id,
+                "douban_title": normalize_cell(row.get("Name")),
+                "douban_year": normalize_cell(row.get("Year")),
+            }
+            try:
+                cache[film_key_value] = build_douban_result_from_ptgen_entry(
+                    existing,
+                    film_key_value,
+                    ptgen_entry,
+                    output_dir,
+                    f"{override_id}:{override_source}",
+                )
+            except Exception as exc:  # noqa: BLE001
+                cache[film_key_value] = {
+                    **existing,
+                    "film_key": film_key_value,
+                    "douban_id": override_id,
+                    "douban_status": "error",
+                    "douban_cache_version": WATCHED_DOUBAN_CACHE_VERSION,
+                    "douban_error": normalize_cell(exc),
+                    "douban_updated_at": pd.Timestamp.now("UTC").isoformat(),
+                }
+            continue
+        imdb_id = normalize_cell(existing.get("imdb_id"))
+        imdb_entry = None
+        if not imdb_id:
+            imdb_entry = find_imdb_entry_by_title_year(
+                imdb_by_title_year,
+                [row.get("Name"), existing.get("metadata_title"), existing.get("match_name")],
+                row.get("Year"),
+            )
+            imdb_id = normalize_cell((imdb_entry or {}).get("imdb_id"))
+        if not imdb_id:
+            continue
+        existing = {
+            **existing,
+            "film_key": film_key_value,
+            "imdb_id": imdb_id,
+            "imdb_score": (imdb_entry or {}).get("imdb_score", existing.get("imdb_score")),
+            "imdb_votes": (imdb_entry or {}).get("imdb_votes", existing.get("imdb_votes")),
+            "imdb_match_source": (imdb_entry or {}).get("imdb_match_source", existing.get("imdb_match_source")),
+        }
+        cache[film_key_value] = existing
+        public_entry = public_douban_by_imdb.get(imdb_id)
+        if public_entry:
+            cache[film_key_value] = build_douban_result_from_public_entry(
+                existing,
+                film_key_value,
+                public_entry,
+                f"{imdb_id}:public_dataset",
+            )
+            continue
+        ptgen_entry = ptgen_douban_by_imdb.get(imdb_id)
+        if not ptgen_entry:
+            continue
+        try:
+            cache[film_key_value] = build_douban_result_from_ptgen_entry(
+                existing,
+                film_key_value,
+                ptgen_entry,
+                output_dir,
+                f"{imdb_id}:ptgen_imdb_map",
+            )
+        except Exception as exc:  # noqa: BLE001
+            cache[film_key_value] = {
+                **existing,
+                "film_key": film_key_value,
+                "douban_status": "error",
+                "douban_cache_version": WATCHED_DOUBAN_CACHE_VERSION,
+                "douban_error": normalize_cell(exc),
+                "douban_updated_at": pd.Timestamp.now("UTC").isoformat(),
+            }
+    write_json_cache(cache_path, cache)
 
     if not lookup_frame.empty:
         max_workers = max(1, workers)
@@ -2697,12 +3445,17 @@ def build_watched_douban_section(
                 }
         write_json_cache(cache_path, cache)
 
+        unresolved_rows_for_wikidata = [
+            row
+            for row in lookup_frame.to_dict(orient="records")
+            if not has_watched_douban_entry(cache.get(row["film_key"]))
+        ]
         imdb_ids = [
             normalize_cell(cache.get(row["film_key"], {}).get("imdb_id"))
-            for row in lookup_frame.to_dict(orient="records")
+            for row in unresolved_rows_for_wikidata
         ]
         imdb_to_douban = fetch_wikidata_douban_id_map(imdb_ids)
-        for row in lookup_frame.to_dict(orient="records"):
+        for row in unresolved_rows_for_wikidata:
             film_key_value = row["film_key"]
             existing = cache.get(film_key_value) if isinstance(cache.get(film_key_value), dict) else {}
             if has_watched_douban_entry(existing):
@@ -2877,8 +3630,10 @@ def build_watched_douban_section(
     enriched["douban_title"] = enriched["film_key"].map(lambda key: cache.get(key, {}).get("douban_title"))
     enriched["douban_status"] = enriched["film_key"].map(lambda key: cache.get(key, {}).get("douban_status"))
     enriched["imdb_id"] = enriched["film_key"].map(lambda key: cache.get(key, {}).get("imdb_id"))
+    enriched["imdb_score"] = enriched["film_key"].map(lambda key: cache.get(key, {}).get("imdb_score"))
+    enriched["imdb_votes"] = enriched["film_key"].map(lambda key: cache.get(key, {}).get("imdb_votes"))
 
-    rated = enriched[enriched["douban_rating"].notna()].copy()
+    rated = enriched[enriched["douban_rating"].notna() & enriched["user_rating"].notna()].copy()
     rated["douban_gap"] = rated["douban_rating"] / 2 - rated["user_rating"]
     rows = enriched[
         [
@@ -2891,6 +3646,9 @@ def build_watched_douban_section(
             "douban_url",
             "douban_title",
             "douban_status",
+            "imdb_id",
+            "imdb_score",
+            "imdb_votes",
             "genres",
             "countries",
             "directors",
@@ -3476,7 +4234,7 @@ def score_recommendations(
             if item["films"] >= 8:
                 decade_part = 0.09 * item["bonus"]
                 decade_conf = min(1.0, item["films"] / 25.0)
-                reasons.append((f"年代 {row['decade_label']}", decade_part))
+                reasons.append((f"Decade {row['decade_label']}", decade_part))
 
         runtime_part = 0.0
         runtime_conf = 0.0
@@ -3485,35 +4243,35 @@ def score_recommendations(
             if item["films"] >= 8:
                 runtime_part = 0.05 * item["bonus"]
                 runtime_conf = min(1.0, item["films"] / 25.0)
-                reasons.append((f"片长 {row['runtime_bucket']}", runtime_part))
+                reasons.append((f"Runtime {row['runtime_bucket']}", runtime_part))
 
         for value, bonus, _count in director_hits:
-            reasons.append((f"导演 {value}", 0.33 * bonus))
+            reasons.append((f"Director {value}", 0.33 * bonus))
         for value, bonus, _count in genre_hits:
-            reasons.append((f"类型 {value}", 0.26 * bonus))
+            reasons.append((f"Genre {value}", 0.26 * bonus))
         for value, bonus, _count in country_hits:
-            reasons.append((f"国家 / 地区 {value}", 0.12 * bonus))
+            reasons.append((f"Country / region {value}", 0.12 * bonus))
         for value, bonus, _count in actor_hits:
-            reasons.append((f"演员 {value}", 0.08 * bonus))
+            reasons.append((f"Actor {value}", 0.08 * bonus))
 
         site_part = 0.0
         if pd.notna(row["site_average_rating"]):
             site_part = 0.23 * (float(row["site_average_rating"]) - site_mean)
-            reasons.append((f"站内口碑 {float(row['site_average_rating']):.2f}", site_part))
+            reasons.append((f"Letterboxd reputation {float(row['site_average_rating']):.2f}", site_part))
 
         list_part = 0.10 * float(row["list_signal"])
         if row["source_count"] > 1:
-            reasons.append((f"出现在 {int(row['source_count'])} 个自建 lists", list_part))
+            reasons.append((f"Appears in {int(row['source_count'])} exported lists", list_part))
         elif row["source_lists"]:
-            reasons.append((f"来自 {row['source_lists'][0]}", list_part))
+            reasons.append((f"From {row['source_lists'][0]}", list_part))
         elif row["in_watchlist"]:
-            reasons.append(("官方 watchlist 收录", list_part))
+            reasons.append(("In official watchlist", list_part))
 
         availability_part = 0.08 * float(row.get("availability_signal", 0.0) or 0.0)
         if row.get("currently_streaming"):
             provider_text = ", ".join(ensure_list(row.get("providers"))[:3])
-            suffix = " 等" if len(ensure_list(row.get("providers"))) > 3 else ""
-            reasons.append((f"加拿大区可看：{provider_text}{suffix}", availability_part))
+            suffix = " and more" if len(ensure_list(row.get("providers"))) > 3 else ""
+            reasons.append((f"Available in Canada: {provider_text}{suffix}", availability_part))
 
         predicted_rating = global_mean + director_part + genre_part + country_part + actor_part + decade_part + runtime_part + site_part
         predicted_rating = float(np.clip(predicted_rating, 0.5, 5.0))
@@ -3529,7 +4287,7 @@ def score_recommendations(
             )
         )
         priority_score = predicted_rating + confidence * 0.22 + list_part + availability_part
-        explanation = "；".join(
+        explanation = "; ".join(
             reason for reason, score in sorted(reasons, key=lambda item: item[1], reverse=True) if score > 0.02
         )[:240]
 
@@ -3557,7 +4315,7 @@ def score_recommendations(
                 "exclusive_streaming": bool(row.get("exclusive_streaming")),
                 "discovery_only": bool(row.get("discovery_only")),
                 "list_categories": ensure_list(row.get("list_categories")),
-                "reason": explanation or "历史评分特征、站内口碑与片单覆盖信号",
+                "reason": explanation or "Historical taste, Letterboxd reputation, and list coverage signals",
             }
         )
 
@@ -4058,6 +4816,41 @@ def build_streaming_section(
     catalog_timeout: int,
     refresh_cache: bool,
 ) -> dict[str, Any]:
+    if catalog_timeout == 0:
+        cached_section = load_cached_streaming_section(output_dir)
+        if cached_section is not None:
+            cached_section = refresh_cached_streaming_douban_section(
+                cached_section,
+                output_dir=output_dir,
+                max_douban_lookups=max_douban_lookups,
+                workers=max(1, workers // 2),
+                refresh_cache=refresh_cache,
+            )
+            cached_section = refresh_cached_streaming_watch_state(
+                cached_section,
+                ratings_df=ratings_df,
+                output_dir=output_dir,
+            )
+            cached_section = refresh_cached_streaming_imdb_section(
+                cached_section,
+                output_dir=output_dir,
+                max_imdb_lookups=max_new_lookups,
+                workers=max(1, workers),
+                refresh_cache=refresh_cache,
+            )
+            cached_stats = cached_section.setdefault("stats", {})
+            cached_stats["fallback_used"] = True
+            cached_stats["fallback_reason"] = "Streaming catalog fetch disabled for deterministic rebuild"
+            return cached_section
+        empty_section = empty_streaming_section()
+        empty_section["provider_warnings"] = [
+            {
+                "provider": "Streaming",
+                "warning": "Streaming catalog fetch disabled and no cached snapshot was available.",
+            }
+        ]
+        return empty_section
+
     try:
         streaming_catalog, provider_warnings = run_with_timeout(
             catalog_timeout,
@@ -4078,6 +4871,13 @@ def build_streaming_section(
                     cached_section,
                     ratings_df=ratings_df,
                     output_dir=output_dir,
+                )
+                cached_section = refresh_cached_streaming_imdb_section(
+                    cached_section,
+                    output_dir=output_dir,
+                    max_imdb_lookups=max_new_lookups,
+                    workers=max(1, workers),
+                    refresh_cache=refresh_cache,
                 )
                 cached_stats = cached_section.setdefault("stats", {})
                 cached_stats["fallback_used"] = True
@@ -4116,6 +4916,13 @@ def build_streaming_section(
             cached_section,
             ratings_df=ratings_df,
             output_dir=output_dir,
+        )
+        cached_section = refresh_cached_streaming_imdb_section(
+            cached_section,
+            output_dir=output_dir,
+            max_imdb_lookups=max_new_lookups,
+            workers=max(1, workers),
+            refresh_cache=refresh_cache,
         )
         cached_stats = cached_section.setdefault("stats", {})
         cached_stats["fallback_used"] = True
@@ -4266,6 +5073,19 @@ def build_streaming_section(
     streaming_df["metadata_title"] = streaming_df["film_key"].map(
         lambda key: lookup_cache.get(key, {}).get("metadata_title")
     )
+    streaming_df["imdb_id"] = streaming_df["film_key"].map(
+        lambda key: lookup_cache.get(key, {}).get("imdb_id")
+    )
+    cached_imdb_score = pd.to_numeric(
+        streaming_df["film_key"].map(lambda key: lookup_cache.get(key, {}).get("imdb_score")),
+        errors="coerce",
+    )
+    cached_imdb_votes = pd.to_numeric(
+        streaming_df["film_key"].map(lambda key: lookup_cache.get(key, {}).get("imdb_votes")),
+        errors="coerce",
+    )
+    streaming_df["imdb_score"] = cached_imdb_score.fillna(streaming_df["imdb_score"])
+    streaming_df["imdb_votes"] = cached_imdb_votes.fillna(streaming_df["imdb_votes"])
     streaming_df["douban_rating"] = streaming_df["film_key"].map(
         lambda key: lookup_cache.get(key, {}).get("douban_rating")
     )
@@ -4376,8 +5196,9 @@ def build_streaming_section(
                 "exclusive": False,
                 "watched": True,
                 "user_rating": user_rating_lookup.get(watched_key),
-                "imdb_score": None,
-                "imdb_votes": None,
+                "imdb_id": normalize_cell(watched_row.get("imdb_id")),
+                "imdb_score": pd.to_numeric(watched_row.get("imdb_score"), errors="coerce"),
+                "imdb_votes": pd.to_numeric(watched_row.get("imdb_votes"), errors="coerce"),
                 "jw_score": None,
                 "tmdb_score": None,
                 "lookup_priority": 0,
@@ -4502,6 +5323,7 @@ def build_streaming_section(
             "site_rating_count",
             "douban_rating",
             "douban_url",
+            "imdb_id",
             "imdb_score",
             "imdb_votes",
         ]
@@ -4583,11 +5405,15 @@ def format_year_value(value: Any) -> str:
 
 
 def fetch_rss_feed_entries(feed: dict[str, str]) -> list[dict[str, Any]]:
-    xml_text = urlopen(
-        Request(feed["url"], headers={"User-Agent": "Mozilla/5.0"}),
-        timeout=30,
-    ).read()
-    root = ET.fromstring(xml_text)
+    try:
+        xml_text = urlopen(
+            Request(feed["url"], headers={"User-Agent": "Mozilla/5.0"}),
+            timeout=6,
+        ).read()
+        root = ET.fromstring(xml_text)
+    except (HTTPError, URLError, TimeoutError, OSError, ET.ParseError) as exc:
+        print(f"Warning: skipped RSS feed {feed.get('label')}: {normalize_cell(exc)}", file=sys.stderr)
+        return []
     entries: list[dict[str, Any]] = []
     for item in root.findall(".//item")[:10]:
         title = clean_html_excerpt(item.findtext("title"))
@@ -4617,20 +5443,20 @@ def fetch_rss_feed_entries(feed: dict[str, str]) -> list[dict[str, Any]]:
 def classify_news_entry(row: dict[str, Any]) -> str:
     haystack = normalize_loose_title(" ".join([row.get("title", ""), row.get("summary", "")]))
     if any(token in haystack for token in ["box office", "gross", "record", "opening weekend"]):
-        return "票房 / 行业"
+        return "Box office / industry"
     if any(token in haystack for token in ["festival", "cannes", "venice", "berlin", "oscars", "awards", "wins", "winner"]):
-        return "奖项 / 影展"
+        return "Awards / festivals"
     if any(token in haystack for token in ["director", "filmmaker", "auteur", "sets", "slate", "casts", "starring"]):
-        return "导演 / 项目"
+        return "Directors / projects"
     if any(token in haystack for token in ["trailer", "review", "release", "opens", "premiere"]):
-        return "近期作品"
-    return "行业动态"
+        return "New releases"
+    return "Industry news"
 
 
 def daily_relevance_sentence(signals: list[str]) -> str:
     if not signals:
-        return "可作为今天的电影行业观察。"
-    return f"相关线索：{'、'.join(signals[:2])}。"
+        return "A useful film-industry note for today."
+    return f"Relevant signals: {', '.join(signals[:2])}."
 
 
 def build_daily_signal_section(
@@ -4734,31 +5560,31 @@ def build_daily_signal_section(
             for title in top_titles:
                 normalized = normalize_loose_title(title)
                 if normalized and len(normalized) >= 4 and normalized in haystack:
-                    matched_signals.append(f"片名: {title}")
+                    matched_signals.append(f"Title: {title}")
                     score += 3.0
 
             for director in top_directors:
                 normalized = normalize_loose_title(director)
                 if normalized and normalized in haystack:
-                    matched_signals.append(f"创作者: {director}")
+                    matched_signals.append(f"Creator: {director}")
                     score += 2.2
 
             for genre in top_genres:
                 normalized = normalize_loose_title(genre)
                 if normalized and normalized in haystack:
-                    matched_signals.append(f"类型: {genre}")
+                    matched_signals.append(f"Genre: {genre}")
                     score += 1.6
 
             for region in top_regions:
                 normalized = normalize_loose_title(region)
                 if normalized and normalized in haystack:
-                    matched_signals.append(f"地区: {region}")
+                    matched_signals.append(f"Region: {region}")
                     score += 1.3
 
             category = classify_news_entry(row)
-            if category in {"奖项 / 影展", "票房 / 行业", "近期作品"}:
+            if category in {"Awards / festivals", "Box office / industry", "New releases"}:
                 score += 0.9
-            if category == "导演 / 项目":
+            if category == "Directors / projects":
                 score += 0.7
 
             scored_rows.append(
@@ -4796,14 +5622,14 @@ def build_daily_signal_section(
 
         fun_facts: list[str] = []
         if top_directors:
-            fun_facts.append(f"导演线索：当前评分样本里最稳定的导演信号包括 {', '.join(top_directors[:3])}。")
+            fun_facts.append(f"Director signal: the most stable high-rating director matches include {', '.join(top_directors[:3])}.")
         if top_genres:
-            fun_facts.append(f"类型线索：按样本量校正后，高分偏好最稳定的类型包括 {', '.join(top_genres[:3])}。")
+            fun_facts.append(f"Genre signal: after sample-size smoothing, your strongest genre matches include {', '.join(top_genres[:3])}.")
         if streaming.get("top_unwatched"):
             top_streaming = streaming["top_unwatched"][0]
             providers = ", ".join(ensure_list(top_streaming.get("providers"))[:2])
             fun_facts.append(
-                f"补片线索：当前可看未看片里，{top_streaming.get('name')} ({format_year_value(top_streaming.get('year'))}) 的 Letterboxd 分数最高，可在 {providers} 找到。"
+                f"Watch cue: among currently available unwatched titles, {top_streaming.get('name')} ({format_year_value(top_streaming.get('year'))}) has the highest Letterboxd score and is available on {providers}."
             )
 
         return {
@@ -4815,7 +5641,7 @@ def build_daily_signal_section(
                     "source": row["source"],
                     "url": row["url"],
                     "published_at": row.get("published_at"),
-                    "summary": f"{row['title']}。{daily_relevance_sentence(row.get('matched_signals', []))}",
+                    "summary": f"{row['title']}. {daily_relevance_sentence(row.get('matched_signals', []))}",
                     "matched_signals": row.get("matched_signals", []),
                     "match_score": row.get("match_score"),
                 }
@@ -4850,19 +5676,19 @@ def build_custom_insights(
     if animation_profile:
         top = animation_profile[0]
         insights.append(
-            f"在动画样本中，{top['country']} 是占比最高的来源地区，平均分为 {top['avg_rating']:.1f}。"
+            f"In your animation sample, {top['country']} is the largest source region, with an average rating of {top['avg_rating']:.1f}."
         )
 
     if genre_country["top_combos"]:
         combo = genre_country["top_combos"][0]
         insights.append(
-            f"当前加权表现最强的国家 / 地区 × 类型组合之一是 {combo['country']} × {combo['genre']}，样本 {combo['films']} 部，平均分 {combo['avg_rating']:.1f}。"
+            f"One of the strongest country/region × genre combinations is {combo['country']} × {combo['genre']}: {combo['films']} films with an average rating of {combo['avg_rating']:.1f}."
         )
 
     if tags["social_stats"]:
         best_social = max(tags["social_stats"], key=lambda row: (row["avg_rating"], row["watches"]))
         insights.append(
-            f"在 tags 记录的观影语境里，{best_social['social_context']} 的平均分最高，为 {best_social['avg_rating']:.1f}。"
+            f"Among tagged viewing contexts, {best_social['social_context']} has the highest average rating at {best_social['avg_rating']:.1f}."
         )
 
     social_delta = tags["social_genre_delta"]
@@ -4870,35 +5696,35 @@ def build_custom_insights(
         top_delta = max(social_delta, key=lambda row: row["diff"])
         if top_delta["diff"] > 0:
             insights.append(
-                f"社交观影抬升最明显的类型是 {top_delta['genre']}，比 solo 观影高 {top_delta['diff']:.1f} 分。"
+                f"Social viewing lifts {top_delta['genre']} the most, by {top_delta['diff']:.1f} points versus solo viewing."
             )
         else:
             insights.append(
-                f"当前样本里社交观影未显示稳定加分；最接近持平的类型是 {top_delta['genre']}，与 solo 观影差值 {top_delta['diff']:.1f} 分。"
+                f"Social viewing does not show a stable positive lift in the current sample; {top_delta['genre']} is closest to neutral at {top_delta['diff']:.1f} points versus solo viewing."
             )
 
     if reviews["positive_terms"]:
         pos = reviews["positive_terms"][0]["term"]
         neg = reviews["negative_terms"][0]["term"] if reviews["negative_terms"] else "logic"
-        insights.append(f"高分评论中更常出现的词是 {pos}，低分评论中更常出现的词是 {neg}。")
+        insights.append(f"Your higher-rated reviews over-index on the word “{pos}”; lower-rated reviews over-index on “{neg}”.")
 
     if reviews["theme_stats"]:
         theme = max(reviews["theme_stats"], key=lambda row: row["avg_rating"])
         insights.append(
-            f"提到 {theme['theme']} 的评论在当前样本中的平均分为 {theme['avg_rating']:.1f}。"
+            f"Reviews mentioning {theme['theme']} average {theme['avg_rating']:.1f} in the current sample."
         )
 
     if lists["preference_country_bias"]:
         bias = lists["preference_country_bias"][0]
         insights.append(
-            f"偏好声明型 lists 相对整个片库最明显地偏向 {bias['country']}。"
+            f"Your taste-signal lists lean most clearly toward {bias['country']} relative to the full watched library."
         )
 
     if streaming["top_unwatched"]:
         top_streaming = streaming["top_unwatched"][0]
         providers = ", ".join(top_streaming["providers"][:2])
         insights.append(
-            f"当前可看且评分较高的未看影片里，{top_streaming['name']} ({int(top_streaming['year'])}) 的优先级较高，可在 {providers} 找到。"
+            f"Among high-scoring currently available unwatched titles, {top_streaming['name']} ({int(top_streaming['year'])}) is a strong priority and is available on {providers}."
         )
 
     if not recommendations.empty:
@@ -4909,7 +5735,7 @@ def build_custom_insights(
         providers = ", ".join(top_row["providers"][:2])
         source = providers if providers else ", ".join(top_row["source_lists"][:2])
         insights.append(
-            f"在 watchlist 和自建 lists 之外，{top_row['name']} ({int(top_row['year'])}) 是当前外部发现池里信号较强的一部，主要线索来自 {source}。"
+            f"Outside your watchlist and exported lists, {top_row['name']} ({int(top_row['year'])}) is one of the stronger discovery-pool signals, mainly from {source}."
         )
 
     return insights
@@ -4928,7 +5754,14 @@ def rerank_rows(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
     return ranked
 
 
-def format_static_value(value: Any) -> str:
+def format_static_year(value: Any) -> str:
+    year_text = normalize_year_text(value)
+    return year_text or "—"
+
+
+def format_static_value(value: Any, key: str = "") -> str:
+    if "year" in normalize_cell(key).lower():
+        return format_static_year(value)
     if value is None or (isinstance(value, float) and math.isnan(value)):
         return "—"
     if isinstance(value, bool):
@@ -4947,14 +5780,14 @@ def format_static_value(value: Any) -> str:
 
 def render_table(rows: list[dict[str, Any]], columns: list[tuple[str, str]]) -> str:
     if not rows:
-        return "<p class='muted'>暂无数据。</p>"
+        return "<p class='muted'>No data yet.</p>"
     head = "".join(f"<th>{html.escape(label)}</th>" for _, label in columns)
     body_rows = []
     for row in rows:
         body_rows.append(
             "<tr>"
             + "".join(
-                f"<td>{html.escape(format_static_value(row.get(key)))}</td>"
+                f"<td>{html.escape(format_static_value(row.get(key), key))}</td>"
                 for key, _label in columns
             )
             + "</tr>"
@@ -4965,23 +5798,23 @@ def render_table(rows: list[dict[str, Any]], columns: list[tuple[str, str]]) -> 
 def render_daily_signal_items(signal: dict[str, Any]) -> str:
     items = signal.get("items") or []
     if not items:
-        return "<p class='muted'>暂无当日信号。</p>"
+        return "<p class='muted'>No daily signals yet.</p>"
     cards = []
     for item in items:
         tags = "".join(
             f"<span class='signal-tag'>{html.escape(tag)}</span>"
             for tag in ensure_list(item.get("matched_signals"))[:4]
         )
-        published = normalize_cell(item.get("published_at"))[:10] if normalize_cell(item.get("published_at")) else "最近"
+        published = normalize_cell(item.get("published_at"))[:10] if normalize_cell(item.get("published_at")) else "Recent"
         headline = normalize_cell(item.get("headline")) or normalize_cell(item.get("title")) or "Untitled"
         summary = normalize_cell(item.get("summary"))
         if summary.startswith(headline):
             summary = summary[len(headline):].lstrip("。.:： ")
         cards.append(
             "<article class='signal-card'>"
-            f"<div class='signal-meta'>{html.escape(item.get('category', '今日线索'))} · {html.escape(item.get('source', ''))} · {html.escape(published)}</div>"
+            f"<div class='signal-meta'>{html.escape(item.get('category', 'Daily signal'))} · {html.escape(item.get('source', ''))} · {html.escape(published)}</div>"
             f"<h3><a href=\"{html.escape(item.get('url', '#'))}\" target=\"_blank\" rel=\"noopener noreferrer\">{html.escape(headline)}</a></h3>"
-            f"<p>{html.escape(summary or '可作为今天的电影行业观察。')}</p>"
+            f"<p>{html.escape(summary or 'A useful film-industry note for today.')}</p>"
             f"<a class='signal-source' href=\"{html.escape(item.get('url', '#'))}\" target=\"_blank\" rel=\"noopener noreferrer\">Source</a>"
             f"<div class='signal-tags'>{tags}</div>"
             "</article>"
@@ -5022,7 +5855,7 @@ def build_html(payload: dict[str, Any]) -> str:
             for index, text in enumerate(daily_signal_facts, start=1)
         )
         if daily_signal_facts
-        else "<p class='muted'>暂无新的摘要条目。</p>"
+        else "<p class='muted'>No new summary items yet.</p>"
     )
     list_summary_html = render_table(
         payload["lists"]["list_summary"][:10],
@@ -5045,7 +5878,7 @@ def build_html(payload: dict[str, Any]) -> str:
     )
 
     return f"""<!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -5541,13 +6374,13 @@ def build_html(payload: dict[str, Any]) -> str:
 </head>
 <body>
   <div class="language-toggle" role="group" aria-label="Language">
-    <button type="button" data-language-choice="zh" class="active">中文</button>
-    <button type="button" data-language-choice="en">EN</button>
+    <button type="button" data-language-choice="zh">中文</button>
+    <button type="button" data-language-choice="en" class="active">EN</button>
   </div>
   <div class="page">
     <section class="hero">
       <h1>Letterboxd<br>Custom Research Desk</h1>
-      <p data-i18n="heroLead">这个页面汇总的是 Letterboxd 原生会员页之外更适合横向比较的观察维度，包括国家 / 地区 × 类型结构、加拿大流媒体可看范围、观影语境标签、review 用词、lists 意图，以及不限于 watchlist 的候选推荐。</p>
+      <p data-i18n="heroLead">A shareable research page for genre × region patterns, Canadian streaming options, viewing-context tags, review language, list intent, and recommendations beyond the official watchlist.</p>
       <div class="metrics">
         <div class="metric"><div class="label" data-i18n="ratedFilms">Rated films</div><div class="value">{payload['metrics']['unique_rated_films']}</div></div>
         <div class="metric"><div class="label" data-i18n="watchEvents">Watch events</div><div class="value">{payload['metrics']['watch_events']}</div></div>
@@ -5562,12 +6395,12 @@ def build_html(payload: dict[str, Any]) -> str:
 
     <section class="section">
       <h2 data-i18n="tasteBriefTitle">Today's Taste Brief</h2>
-      <p class="lead" data-i18n="tasteBriefLead">本区把最新 Letterboxd 数据、可看片单和电影行业信号压缩成可快速阅读的判断线索。</p>
+      <p class="lead" data-i18n="tasteBriefLead">A compact briefing that combines the newest Letterboxd data, watch availability, and film-industry signals into quickly readable clues.</p>
       <div class="brief-grid">{insights_html}</div>
       <div class="grid-2" style="margin-top:18px;">
         <div class="mini-card">
           <h3 data-i18n="dailyRadarTitle">Daily Film Radar</h3>
-          <p class="lead" data-i18n="dailyRadarLead">每天从电影新闻源中提取作品、导演、奖项和产业动态，只保留能提供补片或理解行业的短句。</p>
+          <p class="lead" data-i18n="dailyRadarLead">Updated from film-news feeds with short notes about noteworthy works, directors, awards, releases, box office, and industry movement.</p>
           <div class="daily-meta-grid">
             <div><strong>{html.escape(daily_signal_updated)}</strong><span>updated</span></div>
             <div><strong>{daily_signal_item_count}</strong><span>signals</span></div>
@@ -5577,7 +6410,7 @@ def build_html(payload: dict[str, Any]) -> str:
         </div>
         <div class="mini-card">
           <h3 data-i18n="filmFactsTitle">Film Facts</h3>
-          <p class="lead" data-i18n="filmFactsLead">这些条目来自你的评分、tags、lists 和当前可看目录，会随每日同步更新。</p>
+          <p class="lead" data-i18n="filmFactsLead">Daily facts drawn from your ratings, tags, lists, and current streaming availability.</p>
           <div class="brief-grid">{daily_signal_fact_html}</div>
         </div>
       </div>
@@ -5585,7 +6418,7 @@ def build_html(payload: dict[str, Any]) -> str:
 
     <section class="section">
       <h2 data-i18n="doubanCoverageTitle">Watched Films: Douban Coverage</h2>
-      <p class="lead" data-i18n="doubanCoverageLead">本区为已评分影片补齐豆瓣评分，并将你的评分、Letterboxd 均分与豆瓣 10 分制评分放在同一张表内对照。匹配优先使用 IMDb / Douban subject ID，并以公开豆瓣电影数据索引补齐历史评分；live Douban API 只作为可用时的增量来源。</p>
+      <p class="lead" data-i18n="doubanCoverageLead">Adds Douban ratings for watched films and compares them with your rating, IMDb rating, and Letterboxd averages. Matching prioritizes IMDb IDs, Douban subject IDs, public Douban indexes, and live detail pages when available.</p>
       <div class="metrics">
         <div class="metric"><div class="label" data-i18n="matchedWatchedFilms">Matched watched films</div><div class="value">{watched_douban_stats.get('douban_rated_titles', 0)}</div></div>
         <div class="metric"><div class="label" data-i18n="coverage">Coverage</div><div class="value">{watched_douban_coverage}</div></div>
@@ -5602,34 +6435,34 @@ def build_html(payload: dict[str, Any]) -> str:
 
     <section class="section">
       <h2 data-i18n="streamingTitle">Canada Streaming Availability</h2>
-      <p class="lead" data-i18n="streamingLead">本区只保留能够稳定匹配到英文电影词条的加拿大流媒体目录。榜单优先展示已匹配 Letterboxd 评分的影片，并同步显示可用的豆瓣评分。</p>
+      <p class="lead" data-i18n="streamingLead">Canadian streaming catalogues matched to stable English film records. Rankings prioritize titles with Letterboxd scores and include Douban and IMDb ratings when matched.</p>
       <div class="controls">
-        <label for="streaming-provider-filter" data-i18n="providerLabel">平台：</label>
+        <label for="streaming-provider-filter" data-i18n="providerLabel">Provider:</label>
         <select id="streaming-provider-filter"></select>
-        <label for="streaming-watch-filter" data-i18n="watchStateLabel">观看状态：</label>
+        <label for="streaming-watch-filter" data-i18n="watchStateLabel">Watch status:</label>
         <select id="streaming-watch-filter">
-          <option value="unwatched" data-i18n="unwatchedOption">没看过</option>
-          <option value="watched" data-i18n="watchedOption">我看过的</option>
-          <option value="all" data-i18n="allOption">全部</option>
+          <option value="unwatched" data-i18n="unwatchedOption">Unwatched</option>
+          <option value="watched" data-i18n="watchedOption">Watched</option>
+          <option value="all" data-i18n="allOption">All</option>
         </select>
-        <label for="streaming-exclusive-filter" data-i18n="exclusiveLabel">平台独占：</label>
+        <label for="streaming-exclusive-filter" data-i18n="exclusiveLabel">Exclusivity:</label>
         <select id="streaming-exclusive-filter">
-          <option value="all" data-i18n="allOption">全部</option>
-          <option value="exclusive" data-i18n="exclusiveOnlyOption">只看独占</option>
-          <option value="multi" data-i18n="multiPlatformOption">只看多平台</option>
+          <option value="all" data-i18n="allOption">All</option>
+          <option value="exclusive" data-i18n="exclusiveOnlyOption">Exclusive only</option>
+          <option value="multi" data-i18n="multiPlatformOption">Multi-platform only</option>
         </select>
-        <label for="streaming-score-filter" data-i18n="scoreMatchLabel">评分匹配：</label>
+        <label for="streaming-score-filter" data-i18n="scoreMatchLabel">Score match:</label>
         <select id="streaming-score-filter">
-          <option value="scored" data-i18n="scoredOnlyOption">只看已匹配 Letterboxd 评分</option>
-          <option value="all" data-i18n="allTitlesOption">全部标题</option>
+          <option value="scored" data-i18n="scoredOnlyOption">Matched Letterboxd scores only</option>
+          <option value="all" data-i18n="allTitlesOption">All titles</option>
         </select>
       </div>
       <div class="filter-group">
-        <div class="filter-group-label" data-i18n="includeGenresLabel">只看类型：可多选；不选表示不过滤</div>
+        <div class="filter-group-label" data-i18n="includeGenresLabel">Include genres: multi-select; empty means no include filter</div>
         <div id="streaming-genre-include-pills" class="pill-group"></div>
       </div>
       <div class="filter-group">
-        <div class="filter-group-label" data-i18n="excludeGenresLabel">排除类型：可多选；不选表示不排除</div>
+        <div class="filter-group-label" data-i18n="excludeGenresLabel">Exclude genres: multi-select; empty means no exclusions</div>
         <div id="streaming-genre-exclude-pills" class="pill-group"></div>
       </div>
       <p id="streaming-results-summary" class="results-summary"></p>
@@ -5646,41 +6479,41 @@ def build_html(payload: dict[str, Any]) -> str:
 
     <section class="section">
       <h2 data-i18n="recommendationsTitle">Recommendations Beyond Watchlist</h2>
-      <p class="lead" data-i18n="recommendationsLead">推荐池同时包含 watchlist、导出 lists 与当前流媒体目录里的外部发现条目；筛选器可分别限定 watchlist、lists、平台可看状态与类型范围。</p>
+      <p class="lead" data-i18n="recommendationsLead">The recommendation pool includes watchlist items, exported lists, and outside discoveries from current streaming catalogues. Filters can include or exclude each source.</p>
       <div class="controls">
-        <label for="recommendation-watchlist-filter" data-i18n="watchlistLabel">Watchlist：</label>
+        <label for="recommendation-watchlist-filter" data-i18n="watchlistLabel">Watchlist:</label>
         <select id="recommendation-watchlist-filter">
-          <option value="all" data-i18n="allOption">全部</option>
-          <option value="in" data-i18n="watchlistInOption">只看在 watchlist 里</option>
-          <option value="out" data-i18n="watchlistOutOption">排除 watchlist</option>
+          <option value="all" data-i18n="allOption">All</option>
+          <option value="in" data-i18n="watchlistInOption">Only in watchlist</option>
+          <option value="out" data-i18n="watchlistOutOption">Exclude watchlist</option>
         </select>
-        <label for="recommendation-list-filter" data-i18n="myListsLabel">我的 lists：</label>
+        <label for="recommendation-list-filter" data-i18n="myListsLabel">My lists:</label>
         <select id="recommendation-list-filter">
-          <option value="all" data-i18n="allOption">全部</option>
-          <option value="in" data-i18n="listsInOption">只看在我的 lists 里</option>
-          <option value="out" data-i18n="listsOutOption">排除我的 lists</option>
+          <option value="all" data-i18n="allOption">All</option>
+          <option value="in" data-i18n="listsInOption">Only in my lists</option>
+          <option value="out" data-i18n="listsOutOption">Exclude my lists</option>
         </select>
-        <label for="recommendation-streaming-filter" data-i18n="streamingAvailableLabel">平台可看：</label>
+        <label for="recommendation-streaming-filter" data-i18n="streamingAvailableLabel">Streaming:</label>
         <select id="recommendation-streaming-filter">
-          <option value="all" data-i18n="allOption">全部</option>
-          <option value="in" data-i18n="availableInOption">只看当前可看</option>
-          <option value="out" data-i18n="availableOutOption">排除当前可看</option>
+          <option value="all" data-i18n="allOption">All</option>
+          <option value="in" data-i18n="availableInOption">Currently available only</option>
+          <option value="out" data-i18n="availableOutOption">Exclude current availability</option>
         </select>
-        <label for="recommendation-provider-filter" data-i18n="providerLabel">平台：</label>
+        <label for="recommendation-provider-filter" data-i18n="providerLabel">Provider:</label>
         <select id="recommendation-provider-filter"></select>
-        <label for="recommendation-sort-filter" data-i18n="sortLabel">排序：</label>
+        <label for="recommendation-sort-filter" data-i18n="sortLabel">Sort:</label>
         <select id="recommendation-sort-filter">
-          <option value="priority" data-i18n="sortPriorityOption">按综合优先级</option>
-          <option value="predicted" data-i18n="sortPredictedOption">按预测喜欢程度</option>
-          <option value="site" data-i18n="sortSiteOption">按站内口碑</option>
+          <option value="priority" data-i18n="sortPriorityOption">Overall priority</option>
+          <option value="predicted" data-i18n="sortPredictedOption">Predicted taste fit</option>
+          <option value="site" data-i18n="sortSiteOption">Letterboxd reputation</option>
         </select>
       </div>
       <div class="filter-group">
-        <div class="filter-group-label" data-i18n="includeGenresLabel">只看类型：可多选；不选表示不过滤</div>
+        <div class="filter-group-label" data-i18n="includeGenresLabel">Include genres: multi-select; empty means no include filter</div>
         <div id="recommendation-genre-include-pills" class="pill-group"></div>
       </div>
       <div class="filter-group">
-        <div class="filter-group-label" data-i18n="excludeGenresLabel">排除类型：可多选；不选表示不排除</div>
+        <div class="filter-group-label" data-i18n="excludeGenresLabel">Exclude genres: multi-select; empty means no exclusions</div>
         <div id="recommendation-genre-exclude-pills" class="pill-group"></div>
       </div>
       <p id="recommendation-results-summary" class="results-summary"></p>
@@ -5692,9 +6525,9 @@ def build_html(payload: dict[str, Any]) -> str:
 
     <section class="section">
       <h2 data-i18n="genreCountryTitle">Genre × Country / Region</h2>
-      <p class="lead" data-i18n="genreCountryLead">选择一个类型后，可比较该类型在不同国家 / 地区之间的占比与平均分；展示层对香港、台湾、澳门统一按地区处理。</p>
+      <p class="lead" data-i18n="genreCountryLead">Choose a genre to compare its country / region mix and average ratings. Hong Kong, Taiwan, and Macau are presented as regions.</p>
       <div class="controls">
-        <label for="genre-select" data-i18n="genreLabel">类型：</label>
+        <label for="genre-select" data-i18n="genreLabel">Genre:</label>
         <select id="genre-select"></select>
       </div>
       <div class="grid-2">
@@ -5712,7 +6545,7 @@ def build_html(payload: dict[str, Any]) -> str:
 
     <section class="section">
       <h2 data-i18n="tagsTitle">Viewing Context Tags</h2>
-      <p class="lead" data-i18n="tagsLead">本区将 tags 视为观影语境元数据，拆分为社交关系、同伴、观看设备、地点与来源。未标记条目不进入占比图。</p>
+      <p class="lead" data-i18n="tagsLead">Tags are treated as viewing-context metadata: social setting, named companions, device, place, and source. Untagged watches are excluded from share charts.</p>
       <h3 data-i18n="tagCompositionTitle">Tag Composition</h3>
       <div class="grid-3">
         <div id="tag-device-pie" class="plot"></div>
@@ -5739,7 +6572,7 @@ def build_html(payload: dict[str, Any]) -> str:
 
     <section class="section">
       <h2 data-i18n="reviewsTitle">Review Language Patterns</h2>
-      <p class="lead" data-i18n="reviewsLead">本区从评论长度、主题与词汇分布三个角度整理 review 文本特征。</p>
+      <p class="lead" data-i18n="reviewsLead">Review text summarized through length, theme, and vocabulary patterns.</p>
       <div class="grid-2">
         <div id="review-length-chart" class="plot"></div>
         <div id="review-theme-chart" class="plot"></div>
@@ -5758,7 +6591,7 @@ def build_html(payload: dict[str, Any]) -> str:
 
     <section class="section">
       <h2 data-i18n="listsTitle">List Signals</h2>
-      <p class="lead" data-i18n="listsLead">本区按待看计划、偏好声明和主题整理三类意图汇总 lists，并重点展示更能代表个人口味的条目。</p>
+      <p class="lead" data-i18n="listsLead">Lists are grouped by watch plans, taste signals, and thematic collections, with emphasis on signals that reveal taste.</p>
       <div class="grid-2">
         <div class="mini-card">
           <h3 data-i18n="listInventoryTitle">List Inventory</h3>
@@ -5775,7 +6608,7 @@ def build_html(payload: dict[str, Any]) -> str:
       </div>
     </section>
 
-    <div class="footer"><span data-i18n="generatedAtLabel">页面生成时间：</span>{html.escape(payload['generated_at'])}<span data-i18n="embeddedDataLabel">。交互图表所需数据已内嵌在当前文件中。</span></div>
+    <div class="footer"><span data-i18n="generatedAtLabel">Generated at: </span>{html.escape(payload['generated_at'])}<span data-i18n="embeddedDataLabel">. Interactive chart data is embedded in this page.</span></div>
   </div>
 
   <script>
@@ -5980,10 +6813,10 @@ def build_html(payload: dict[str, Any]) -> str:
         stableScore: 'Stable score',
       }}
     }};
-    let currentLanguage = localStorage.getItem('letterboxd-report-language') || 'zh';
+    let currentLanguage = localStorage.getItem('letterboxd-report-language') || 'en';
 
     function t(key) {{
-      return (I18N[currentLanguage] && I18N[currentLanguage][key]) || I18N.zh[key] || key;
+      return (I18N[currentLanguage] && I18N[currentLanguage][key]) || I18N.en[key] || key;
     }}
 
     function applyLanguage(language, refresh = false) {{
@@ -6015,6 +6848,15 @@ def build_html(payload: dict[str, Any]) -> str:
         notation: Math.abs(number) >= 10000 ? 'compact' : 'standard',
         maximumFractionDigits: Math.abs(number) >= 10000 ? 1 : 0,
       }}).format(number);
+    }}
+
+    function formatYear(value) {{
+      if (value === null || value === undefined || value === '') return '—';
+      const number = Number(value);
+      if (Number.isFinite(number) && number >= 1000 && number <= 3000) {{
+        return String(Math.trunc(number));
+      }}
+      return String(value);
     }}
 
     function formatRating(value) {{
@@ -6176,7 +7018,7 @@ def build_html(payload: dict[str, Any]) -> str:
         mode: 'markers',
         x: scatterRows.map(row => row.user_rating),
         y: scatterRows.map(row => Number(row.douban_rating) / 2),
-        text: scatterRows.map(row => `${{row.name}} (${{row.year ?? '—'}})`),
+        text: scatterRows.map(row => `${{row.name}} (${{formatYear(row.year)}})`),
         customdata: scatterRows.map(row => [formatOneDecimal(row.douban_rating), formatRating(row.site_average_rating)]),
         marker: {{
           color: scatterRows.map(row => Number(row.douban_rating) / 2 - Number(row.user_rating)),
@@ -6203,7 +7045,7 @@ def build_html(payload: dict[str, Any]) -> str:
       Plotly.newPlot('watched-douban-gap-chart', [{{
         type: 'bar',
         orientation: 'h',
-        y: gapRows.map(row => wrapLabel(`${{shortenLabel(row.name, 42)}} (${{row.year ?? '—'}})`, 24)),
+        y: gapRows.map(row => wrapLabel(`${{shortenLabel(row.name, 42)}} (${{formatYear(row.year)}})`, 24)),
         x: gapRows.map(row => row.douban_gap),
         marker: {{color: gapRows.map(row => row.douban_gap >= 0 ? '#2d6f8e' : '#b75b49')}},
         customdata: gapRows.map(row => [formatRating(row.user_rating), formatOneDecimal(row.douban_rating)]),
@@ -6227,6 +7069,7 @@ def build_html(payload: dict[str, Any]) -> str:
           {{key: 'year', label: t('year')}},
           {{key: 'user_rating', label: t('yourRating')}},
           {{key: 'letterboxd', label: t('letterboxd')}},
+          {{key: 'imdb_score', label: 'IMDb'}},
           {{key: 'douban', label: t('douban')}},
           {{key: 'gap', label: currentLanguage === 'zh' ? '豆瓣差值' : 'Douban gap'}},
           {{key: 'genres', label: t('genres')}},
@@ -6238,9 +7081,10 @@ def build_html(payload: dict[str, Any]) -> str:
             : Number(row.douban_rating) / 2 - Number(row.user_rating);
           return {{
             name: row.name,
-            year: row.year ?? '—',
+            year: formatYear(row.year),
             user_rating: formatRating(row.user_rating),
             letterboxd: formatRating(row.site_average_rating),
+            imdb_score: row.imdb_score === null || row.imdb_score === undefined ? '—' : Number(row.imdb_score).toFixed(1),
             douban: formatOneDecimal(row.douban_rating),
             gap: formatSignedRating(gap),
             genres: (row.genres || []).join(' / ') || '—',
@@ -6408,7 +7252,7 @@ def build_html(payload: dict[str, Any]) -> str:
       }}));
       Plotly.newPlot('review-length-chart', traces, {{
         ...plotLayout,
-        title: plotTitle('不同评分下 review 字数分布'),
+        title: plotTitle('Review word-count distribution by rating'),
         yaxis: {{title: 'Words'}},
         xaxis: {{title: 'Rating'}},
       }}, plotConfig);
@@ -6558,21 +7402,21 @@ def build_html(payload: dict[str, Any]) -> str:
       Plotly.newPlot('streaming-provider-summary-chart', [
         {{
           type: 'bar',
-          name: '当前可看',
+          name: 'Available',
           x: summary.map(row => wrapLabel(row.provider, 14)),
           y: summary.map(row => row.available_titles),
           marker: {{color: '#2d6f8e'}},
         }},
         {{
           type: 'bar',
-          name: '你看过',
+          name: 'Watched by you',
           x: summary.map(row => wrapLabel(row.provider, 14)),
           y: summary.map(row => row.watched_titles),
           marker: {{color: '#b75b49'}},
         }},
         {{
           type: 'bar',
-          name: '平台独占',
+          name: 'Exclusive',
           x: summary.map(row => wrapLabel(row.provider, 14)),
           y: summary.map(row => row.exclusive_titles),
           marker: {{color: '#c48a3a'}},
@@ -6601,7 +7445,7 @@ def build_html(payload: dict[str, Any]) -> str:
       Plotly.newPlot('streaming-ranking-chart', [{{
         type: 'scatter',
         mode: 'markers+text',
-        y: topPlotRows.map(row => wrapLabel(`${{shortenLabel(row.name, 44)}} (${{row.year ?? '—'}})`, 28)),
+        y: topPlotRows.map(row => wrapLabel(`${{shortenLabel(row.name, 44)}} (${{formatYear(row.year)}})`, 28)),
         x: topPlotRows.map(row => row.letterboxd_rating),
         text: topPlotRows.map(row => formatRating(row.letterboxd_rating)),
         textposition: 'middle right',
@@ -6646,7 +7490,7 @@ def build_html(payload: dict[str, Any]) -> str:
         rows.slice(0, 80).map(row => ({{
           rank: row.rank ?? '—',
           name: row.name,
-          year: row.year ?? '—',
+          year: formatYear(row.year),
           genres: (row.genre_labels || []).length ? row.genre_labels.join(' / ') : '—',
           providers: row.available_on_tracked_platforms
             ? `<div class="inline-links">${{(row.provider_links || []).map(link => `<a href="${{link.url}}" target="_blank" rel="noopener noreferrer">${{link.provider}}</a>`).join('<br>') || '—'}}</div>`
@@ -6764,7 +7608,7 @@ def build_html(payload: dict[str, Any]) -> str:
       Plotly.newPlot('recommendation-priority-chart', [{{
         type: 'scatter',
         mode: 'markers+text',
-        y: topPlotRows.map(row => wrapLabel(`${{shortenLabel(row.name, 44)}} (${{row.year ?? '—'}})`, 28)),
+        y: topPlotRows.map(row => wrapLabel(`${{shortenLabel(row.name, 44)}} (${{formatYear(row.year)}})`, 28)),
         x: topPlotRows.map(row => row.priority_score),
         text: topPlotRows.map(row => Number(row.priority_score).toFixed(1)),
         textposition: 'middle right',
@@ -6811,7 +7655,7 @@ def build_html(payload: dict[str, Any]) -> str:
         source.slice(0, 40).map(row => ({{
           rank: row.filtered_rank,
           name: row.name,
-          year: row.year ?? '—',
+          year: formatYear(row.year),
           genres: (row.genres || []).join(' / ') || '—',
           priority_score: row.priority_score.toFixed ? row.priority_score.toFixed(1) : row.priority_score,
           predicted_rating: row.predicted_rating.toFixed ? row.predicted_rating.toFixed(2) : row.predicted_rating,
@@ -6905,6 +7749,54 @@ Then open `http://localhost:8000`.
 """
 
 
+def load_optional_csv(path: Path, columns: list[str]) -> pd.DataFrame:
+    if path.exists():
+        return load_csv(path)
+    return pd.DataFrame(columns=columns)
+
+
+def build_watched_movies_frame(watched_df: pd.DataFrame, ratings_df: pd.DataFrame) -> pd.DataFrame:
+    if watched_df.empty:
+        return ratings_df.copy()
+
+    watched = watched_df.copy()
+    ratings = ratings_df.copy()
+    for frame in (watched, ratings):
+        if "film_key" not in frame.columns:
+            frame["film_key"] = frame.apply(lambda row: film_key(row.get("Name"), row.get("Year")), axis=1)
+
+    rating_by_uri = ratings[
+        ["Letterboxd URI", "Rating", "Date", "film_key"]
+    ].rename(columns={"Rating": "rating_from_ratings", "Date": "rating_date"})
+    merged = watched.merge(
+        rating_by_uri,
+        how="left",
+        on="Letterboxd URI",
+        suffixes=("", "_rating_uri"),
+    )
+    missing_rating_mask = merged["rating_from_ratings"].isna() & merged["film_key"].notna()
+    if missing_rating_mask.any():
+        rating_by_key = (
+            ratings[["film_key", "Rating", "Date"]]
+            .drop_duplicates(subset=["film_key"])
+            .rename(columns={"Rating": "rating_from_key", "Date": "rating_date_key"})
+        )
+        merged = merged.merge(rating_by_key, how="left", on="film_key")
+        merged["Rating"] = merged["rating_from_ratings"].combine_first(merged.get("rating_from_key"))
+        merged["Date"] = merged["Date"].combine_first(merged["rating_date"]).combine_first(merged.get("rating_date_key"))
+    else:
+        merged["Rating"] = merged["rating_from_ratings"]
+        merged["Date"] = merged["Date"].combine_first(merged["rating_date"])
+
+    base_columns = ["Date", "Name", "Year", "Letterboxd URI", "Rating", "film_key"]
+    merged = merged[[column for column in base_columns if column in merged.columns]]
+    represented_keys = set(merged["film_key"].dropna().astype(str))
+    rating_extras = ratings[~ratings["film_key"].astype(str).isin(represented_keys)].copy()
+    if not rating_extras.empty:
+        merged = pd.concat([merged, rating_extras[base_columns]], ignore_index=True, sort=False)
+    return merged.drop_duplicates(subset=["film_key"], keep="first").reset_index(drop=True)
+
+
 def main() -> None:
     args = parse_args()
     input_dir = Path(args.input_dir).expanduser().resolve()
@@ -6916,7 +7808,9 @@ def main() -> None:
     if not cache_path.exists() and parent_cache_path.exists():
         cache_path.write_text(parent_cache_path.read_text(encoding="utf-8"), encoding="utf-8")
 
-    ratings_df = load_csv(input_dir / "ratings.csv")
+    ratings_export_df = load_optional_csv(input_dir / "ratings.csv", ["Date", "Name", "Year", "Letterboxd URI", "Rating"])
+    watched_export_df = load_optional_csv(input_dir / "watched.csv", ["Date", "Name", "Year", "Letterboxd URI"])
+    ratings_df = build_watched_movies_frame(watched_export_df, ratings_export_df)
     diary_df = load_csv(input_dir / "diary.csv")
     reviews_df = load_csv(input_dir / "reviews.csv")
     watchlist_df = load_csv(input_dir / "watchlist.csv")
@@ -6983,7 +7877,7 @@ def main() -> None:
     watched_douban_section, ratings_df = build_watched_douban_section(
         ratings_df,
         output_dir=output_dir,
-        max_new_lookups=max(0, args.watched_douban_lookups),
+        max_new_lookups=lookup_limit(args.watched_douban_lookups),
         workers=max(1, args.workers),
         refresh_cache=args.refresh_cache,
     )
@@ -7033,8 +7927,8 @@ def main() -> None:
     streaming_section = build_streaming_section(
         ratings_df,
         output_dir=output_dir,
-        max_new_lookups=max(0, args.streaming_lookups),
-        max_douban_lookups=max(0, args.douban_lookups),
+        max_new_lookups=lookup_limit(args.streaming_lookups),
+        max_douban_lookups=lookup_limit(args.douban_lookups),
         workers=max(1, args.streaming_workers),
         catalog_timeout=max(0, args.streaming_catalog_timeout),
         refresh_cache=args.refresh_cache,
@@ -7050,7 +7944,8 @@ def main() -> None:
     )
 
     metrics = {
-        "unique_rated_films": int(len(ratings_df)),
+        "unique_rated_films": int(ratings_df["user_rating"].notna().sum()),
+        "watched_films": int(len(ratings_df)),
         "watch_events": int(len(diary_df)),
         "tagged_watch_events": int(diary_df["tags_list"].apply(len).gt(0).sum()),
         "custom_lists": int(list_entries_df["list_title"].nunique()),
