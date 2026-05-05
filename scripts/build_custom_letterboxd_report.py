@@ -30,7 +30,8 @@ from xml.etree import ElementTree as ET
 import numpy as np
 import pandas as pd
 
-VENDOR_DIR = Path(__file__).resolve().parent.parent / ".vendor"
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+VENDOR_DIR = PROJECT_ROOT / ".vendor"
 if VENDOR_DIR.exists():
     sys.path.insert(0, str(VENDOR_DIR))
 
@@ -383,6 +384,32 @@ DOUBAN_CACHE_VERSION = 4
 WATCHED_DOUBAN_CACHE_VERSION = 9
 IMDB_RATING_CACHE_VERSION = 1
 IMDB_TITLE_INDEX_VERSION = 1
+RATING_SEED_DIR = PROJECT_ROOT / "data" / "rating-seeds"
+STREAMING_RATING_SEED_PATH = RATING_SEED_DIR / "streaming_rating_seed.json"
+WATCHED_RATING_SEED_PATH = RATING_SEED_DIR / "watched_rating_seed.json"
+DOUBAN_RATING_SEED_FIELDS = {
+    "douban_status",
+    "douban_cache_version",
+    "douban_id",
+    "douban_title",
+    "douban_url",
+    "douban_rating",
+    "douban_rating_count",
+    "douban_year",
+    "douban_match_key",
+    "douban_source",
+    "douban_source_url",
+    "douban_updated_at",
+}
+IMDB_RATING_SEED_FIELDS = {
+    "imdb_status",
+    "imdb_id",
+    "imdb_score",
+    "imdb_votes",
+    "imdb_match_source",
+    "imdb_rating_source",
+    "imdb_updated_at",
+}
 IMDB_TITLE_TYPE_WEIGHTS = {
     "movie": 60,
     "tvMovie": 55,
@@ -611,6 +638,61 @@ def load_json_cache(path: Path) -> dict[str, Any]:
 
 def write_json_cache(path: Path, payload: dict[str, Any]) -> None:
     path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+
+
+def seed_value_present(value: Any) -> bool:
+    if value is None:
+        return False
+    if isinstance(value, str) and not value.strip():
+        return False
+    numeric_value = pd.to_numeric(value, errors="coerce")
+    if pd.notna(numeric_value) and float(numeric_value) == 0:
+        return False
+    return True
+
+
+def apply_rating_seed_cache(cache: dict[str, Any], seed_path: Path, label: str) -> dict[str, Any]:
+    seed = load_json_cache(seed_path)
+    if not seed:
+        return cache
+
+    merged = dict(cache)
+    changed = 0
+    for film_key_value, seed_entry in seed.items():
+        if not isinstance(seed_entry, dict):
+            continue
+        existing = merged.get(film_key_value) if isinstance(merged.get(film_key_value), dict) else {}
+        next_entry = dict(existing)
+        next_entry.setdefault("film_key", existing.get("film_key") or seed_entry.get("film_key") or film_key_value)
+
+        seed_has_douban = has_positive_douban_rating(seed_entry)
+        existing_has_douban = has_positive_douban_rating(next_entry)
+        if seed_has_douban:
+            for field in DOUBAN_RATING_SEED_FIELDS:
+                value = seed_entry.get(field)
+                if not seed_value_present(value):
+                    continue
+                if not existing_has_douban or not seed_value_present(next_entry.get(field)):
+                    next_entry[field] = value
+
+        seed_imdb_score = pd.to_numeric(seed_entry.get("imdb_score"), errors="coerce")
+        existing_imdb_score = pd.to_numeric(next_entry.get("imdb_score"), errors="coerce")
+        seed_has_imdb = seed_value_present(seed_entry.get("imdb_id")) or pd.notna(seed_imdb_score)
+        if seed_has_imdb:
+            for field in IMDB_RATING_SEED_FIELDS:
+                value = seed_entry.get(field)
+                if not seed_value_present(value):
+                    continue
+                if pd.isna(existing_imdb_score) or not seed_value_present(next_entry.get(field)):
+                    next_entry[field] = value
+
+        if next_entry != existing:
+            merged[film_key_value] = next_entry
+            changed += 1
+
+    if changed:
+        print(f"Applied {changed} {label} rating seed entries from {seed_path}")
+    return merged
 
 
 def normalize_match_title(value: Any) -> str:
@@ -3032,6 +3114,7 @@ def update_streaming_douban_cache(
     refresh_cache: bool,
 ) -> dict[str, Any]:
     cache = load_json_cache(cache_path)
+    cache = apply_rating_seed_cache(cache, STREAMING_RATING_SEED_PATH, "streaming")
     lookup_frame = targets.copy()
     detail_budget = PtGenDetailBudget(max_ptgen_detail_lookups)
 
@@ -3324,6 +3407,7 @@ def build_watched_douban_section(
     cache = load_json_cache(cache_path)
     if not refresh_cache:
         cache = seed_watched_douban_cache_from_published_report(output_dir, cache)
+    cache = apply_rating_seed_cache(cache, WATCHED_RATING_SEED_PATH, "watched")
     try:
         public_douban_index = load_public_douban_dataset_index(output_dir)
     except Exception as exc:  # noqa: BLE001
