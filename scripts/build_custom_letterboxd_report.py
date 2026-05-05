@@ -8,6 +8,7 @@ import html
 import json
 import math
 import os
+import random
 import re
 import signal
 import sys
@@ -547,6 +548,8 @@ STREAMING_PROVIDERS = [
 ]
 _LETTERBOXD_THREAD_LOCAL = threading.local()
 _DOUBAN_THREAD_LOCAL = threading.local()
+_PTGEN_DETAIL_CACHE_LOCK = threading.Lock()
+_PTGEN_DETAIL_CACHE_BY_PATH: dict[str, dict[str, Any]] = {}
 
 
 def parse_args() -> argparse.Namespace:
@@ -577,6 +580,15 @@ def parse_args() -> argparse.Namespace:
         type=int,
         default=700,
         help="Max number of watched films to enrich with Douban ratings in this run",
+    )
+    parser.add_argument(
+        "--ptgen-detail-lookups",
+        type=int,
+        default=500,
+        help=(
+            "Max number of uncached PtGen Douban detail JSON files to fetch in this run. "
+            "This is separate from live Douban lookups and improves deterministic daily coverage."
+        ),
     )
     parser.add_argument(
         "--streaming-catalog-timeout",
@@ -1107,6 +1119,55 @@ def load_imdb_ratings_lookup(path: Path) -> dict[str, dict[str, Any]]:
     return lookup
 
 
+def load_imdb_ratings_by_id(output_dir: Path) -> dict[str, dict[str, Any]]:
+    imdb_dir = output_dir / "imdb-datasets"
+    ratings_path = imdb_dir / "title.ratings.tsv.gz"
+    download_binary_resource_if_missing(IMDB_TITLE_RATINGS_URL, ratings_path, timeout=45)
+    return load_imdb_ratings_lookup(ratings_path)
+
+
+def imdb_rating_entry_for_row(
+    row: dict[str, Any],
+    existing: dict[str, Any],
+    imdb_by_title_year: dict[str, dict[str, Any]],
+    imdb_by_id: dict[str, dict[str, Any]],
+) -> dict[str, Any] | None:
+    imdb_id = normalize_cell(row.get("imdb_id")) or normalize_cell(existing.get("imdb_id"))
+    title_entry = None
+    if not imdb_id:
+        title_entry = find_imdb_entry_by_title_year(
+            imdb_by_title_year,
+            [
+                row.get("Name"),
+                row.get("name"),
+                row.get("metadata_title"),
+                row.get("match_name"),
+                existing.get("metadata_title"),
+                existing.get("match_name"),
+            ],
+            row.get("Year") or row.get("year") or row.get("match_year") or existing.get("match_year"),
+        )
+        imdb_id = normalize_cell((title_entry or {}).get("imdb_id"))
+    if not imdb_id:
+        return None
+    id_entry = imdb_by_id.get(imdb_id, {})
+    score = id_entry.get("imdb_score", (title_entry or {}).get("imdb_score"))
+    votes = id_entry.get("imdb_votes", (title_entry or {}).get("imdb_votes"))
+    return {
+        "imdb_id": imdb_id,
+        "imdb_score": score,
+        "imdb_votes": votes,
+        "imdb_match_source": (
+            "imdb_title_ratings_by_id"
+            if id_entry
+            else (title_entry or {}).get("imdb_match_source")
+        ),
+        "imdb_rating_status": "matched" if pd.notna(pd.to_numeric(score, errors="coerce")) else "missing_rating",
+        "imdb_rating_cache_version": IMDB_RATING_CACHE_VERSION,
+        "imdb_rating_updated_at": pd.Timestamp.now("UTC").isoformat(),
+    }
+
+
 def load_imdb_title_year_index(output_dir: Path, targets: pd.DataFrame) -> dict[str, dict[str, Any]]:
     target_keys = imdb_title_target_keys(targets)
     if not target_keys:
@@ -1423,6 +1484,7 @@ def refresh_cached_streaming_douban_section(
     streaming: dict[str, Any],
     output_dir: Path,
     max_douban_lookups: int,
+    max_ptgen_detail_lookups: int,
     workers: int,
     refresh_cache: bool,
 ) -> dict[str, Any]:
@@ -1450,6 +1512,7 @@ def refresh_cached_streaming_douban_section(
         targets,
         cache_path=output_dir / "streaming_letterboxd_cache.json",
         max_new_lookups=max_douban_lookups,
+        max_ptgen_detail_lookups=max_ptgen_detail_lookups,
         workers=max(1, workers),
         refresh_cache=refresh_cache,
     )
@@ -1463,6 +1526,7 @@ def refresh_cached_streaming_douban_section(
     refreshed = sanitize_cached_streaming_section(refreshed)
     refreshed.setdefault("stats", {})["douban_fallback_enriched"] = True
     refreshed.setdefault("stats", {})["douban_lookups_requested"] = int(max_douban_lookups)
+    refreshed.setdefault("stats", {})["ptgen_detail_lookups_requested"] = int(max_ptgen_detail_lookups)
     return refreshed
 
 
@@ -2418,9 +2482,42 @@ def load_ptgen_douban_imdb_index(output_dir: Path) -> dict[str, dict[str, dict[s
     return {"by_imdb": by_imdb, "by_douban_id": by_douban_id, "by_title_year": by_title_year}
 
 
+def load_ptgen_detail_cache(output_dir: Path) -> dict[str, Any]:
+    detail_cache_path = output_dir / "ptgen_douban_detail_cache.json"
+    cache_key = str(detail_cache_path.resolve())
+    with _PTGEN_DETAIL_CACHE_LOCK:
+        if cache_key not in _PTGEN_DETAIL_CACHE_BY_PATH:
+            _PTGEN_DETAIL_CACHE_BY_PATH[cache_key] = load_json_cache(detail_cache_path)
+        return _PTGEN_DETAIL_CACHE_BY_PATH[cache_key]
+
+
+def has_cached_ptgen_detail(output_dir: Path, subject_id: str) -> bool:
+    cached = load_ptgen_detail_cache(output_dir).get(subject_id)
+    return isinstance(cached, dict) and cached.get("cache_version") == 1
+
+
+class PtGenDetailBudget:
+    def __init__(self, max_downloads: int) -> None:
+        self.max_downloads = int(max_downloads)
+        self.downloads_reserved = 0
+
+    def allow_detail_fetch(self, output_dir: Path, subject_id: str) -> bool:
+        if not subject_id:
+            return False
+        if has_cached_ptgen_detail(output_dir, subject_id):
+            return True
+        if self.max_downloads < 0:
+            self.downloads_reserved += 1
+            return True
+        if self.downloads_reserved >= self.max_downloads:
+            return False
+        self.downloads_reserved += 1
+        return True
+
+
 def fetch_ptgen_douban_detail(output_dir: Path, subject_id: str, allow_download: bool = True) -> dict[str, Any]:
     detail_cache_path = output_dir / "ptgen_douban_detail_cache.json"
-    detail_cache = load_json_cache(detail_cache_path)
+    detail_cache = load_ptgen_detail_cache(output_dir)
     cached = detail_cache.get(subject_id) if isinstance(detail_cache.get(subject_id), dict) else None
     if cached and cached.get("cache_version") == 1:
         return cached.get("payload") if isinstance(cached.get("payload"), dict) else {}
@@ -2443,7 +2540,8 @@ def fetch_ptgen_douban_detail(output_dir: Path, subject_id: str, allow_download:
         "updated_at": pd.Timestamp.now("UTC").isoformat(),
         "payload": payload,
     }
-    write_json_cache(detail_cache_path, detail_cache)
+    with _PTGEN_DETAIL_CACHE_LOCK:
+        write_json_cache(detail_cache_path, detail_cache)
     return payload
 
 
@@ -2929,11 +3027,13 @@ def update_streaming_douban_cache(
     targets: pd.DataFrame,
     cache_path: Path,
     max_new_lookups: int,
+    max_ptgen_detail_lookups: int,
     workers: int,
     refresh_cache: bool,
 ) -> dict[str, Any]:
     cache = load_json_cache(cache_path)
     lookup_frame = targets.copy()
+    detail_budget = PtGenDetailBudget(max_ptgen_detail_lookups)
 
     try:
         public_douban_index = load_public_douban_dataset_index(cache_path.parent)
@@ -2972,6 +3072,28 @@ def update_streaming_douban_cache(
     except Exception as exc:  # noqa: BLE001
         print(f"Warning: IMDb title/year fallback unavailable: {exc}", file=sys.stderr)
         imdb_by_title_year = {}
+    try:
+        imdb_by_id = load_imdb_ratings_by_id(cache_path.parent)
+    except Exception as exc:  # noqa: BLE001
+        print(f"Warning: IMDb rating-by-ID fallback unavailable: {exc}", file=sys.stderr)
+        imdb_by_id = {}
+    for row in targets.to_dict(orient="records"):
+        film_key_value = row["film_key"]
+        existing = cache.get(film_key_value) if isinstance(cache.get(film_key_value), dict) else {}
+        imdb_entry = imdb_rating_entry_for_row(row, existing, imdb_by_title_year, imdb_by_id)
+        if imdb_entry:
+            current_score = pd.to_numeric(existing.get("imdb_score"), errors="coerce")
+            incoming_score = pd.to_numeric(imdb_entry.get("imdb_score"), errors="coerce")
+            if normalize_cell(imdb_entry.get("imdb_id")) and (pd.isna(current_score) or pd.notna(incoming_score)):
+                cache[film_key_value] = {
+                    **existing,
+                    "film_key": film_key_value,
+                    **{
+                        key: value
+                        for key, value in imdb_entry.items()
+                        if value not in (None, "")
+                    },
+                }
     for row in targets.to_dict(orient="records"):
         film_key_value = row["film_key"]
         existing = cache.get(film_key_value) if isinstance(cache.get(film_key_value), dict) else {}
@@ -3016,7 +3138,7 @@ def update_streaming_douban_cache(
                 ptgen_entry,
                 cache_path.parent,
                 f"{imdb_id}:ptgen_imdb_map",
-                allow_detail_fetch=max_new_lookups != 0,
+                allow_detail_fetch=detail_budget.allow_detail_fetch(cache_path.parent, normalize_cell(ptgen_entry.get("douban_id"))),
             )
         except Exception as exc:  # noqa: BLE001
             cache[film_key_value] = {
@@ -3046,7 +3168,7 @@ def update_streaming_douban_cache(
                 ptgen_entry,
                 cache_path.parent,
                 "title_year:ptgen_static",
-                allow_detail_fetch=max_new_lookups != 0,
+                allow_detail_fetch=detail_budget.allow_detail_fetch(cache_path.parent, normalize_cell(ptgen_entry.get("douban_id"))),
             )
         except Exception as exc:  # noqa: BLE001
             cache[film_key_value] = {
@@ -3218,18 +3340,20 @@ def build_watched_douban_section(
     ptgen_douban_by_imdb = ptgen_douban_index.get("by_imdb", {})
     ptgen_douban_by_id = ptgen_douban_index.get("by_douban_id", {})
     ptgen_douban_by_title_year = ptgen_douban_index.get("by_title_year", {})
-    targets = ratings_df[
-        [
-            "film_key",
-            "Name",
-            "Year",
-            "user_rating",
-            "Letterboxd URI",
-            "canonical_url",
-            "site_average_rating",
-            "site_rating_count",
-        ]
-    ].copy()
+    target_columns = [
+        "film_key",
+        "Name",
+        "Year",
+        "user_rating",
+        "Letterboxd URI",
+        "canonical_url",
+        "site_average_rating",
+        "site_rating_count",
+    ]
+    for optional_column in ("metadata_title", "match_name", "imdb_id", "imdb_score", "imdb_votes"):
+        if optional_column in ratings_df.columns and optional_column not in target_columns:
+            target_columns.append(optional_column)
+    targets = ratings_df[target_columns].copy()
     targets = targets.rename(columns={"Letterboxd URI": "letterboxd_uri"})
     lookup_frame = targets.copy()
     if not refresh_cache:
@@ -3238,6 +3362,36 @@ def build_watched_douban_section(
         ]
     if max_new_lookups >= 0:
         lookup_frame = lookup_frame.head(max_new_lookups)
+
+    try:
+        imdb_by_title_year = load_imdb_title_year_index(output_dir, targets.rename(columns={"Name": "name", "Year": "year"}))
+    except Exception as exc:  # noqa: BLE001
+        print(f"Warning: IMDb title/year fallback unavailable for watched films: {exc}", file=sys.stderr)
+        imdb_by_title_year = {}
+    try:
+        imdb_by_id = load_imdb_ratings_by_id(output_dir)
+    except Exception as exc:  # noqa: BLE001
+        print(f"Warning: IMDb rating-by-ID fallback unavailable for watched films: {exc}", file=sys.stderr)
+        imdb_by_id = {}
+    for row in targets.to_dict(orient="records"):
+        film_key_value = row["film_key"]
+        existing = cache.get(film_key_value) if isinstance(cache.get(film_key_value), dict) else {}
+        imdb_entry = imdb_rating_entry_for_row(row, existing, imdb_by_title_year, imdb_by_id)
+        if not imdb_entry:
+            continue
+        current_score = pd.to_numeric(existing.get("imdb_score"), errors="coerce")
+        incoming_score = pd.to_numeric(imdb_entry.get("imdb_score"), errors="coerce")
+        if normalize_cell(imdb_entry.get("imdb_id")) and (pd.isna(current_score) or pd.notna(incoming_score)):
+            cache[film_key_value] = {
+                **existing,
+                "film_key": film_key_value,
+                **{
+                    key: value
+                    for key, value in imdb_entry.items()
+                    if value not in (None, "")
+                },
+            }
+    write_json_cache(cache_path, cache)
 
     for row in targets.to_dict(orient="records"):
         film_key_value = row["film_key"]
@@ -3289,11 +3443,6 @@ def build_watched_douban_section(
             }
     write_json_cache(cache_path, cache)
 
-    try:
-        imdb_by_title_year = load_imdb_title_year_index(output_dir, targets.rename(columns={"Name": "name", "Year": "year"}))
-    except Exception as exc:  # noqa: BLE001
-        print(f"Warning: IMDb title/year fallback unavailable for watched films: {exc}", file=sys.stderr)
-        imdb_by_title_year = {}
     for row in targets.to_dict(orient="records"):
         film_key_value = row["film_key"]
         existing = cache.get(film_key_value) if isinstance(cache.get(film_key_value), dict) else {}
@@ -4111,6 +4260,30 @@ def build_recommendation_pool(
             ),
             None,
         )
+        douban_rating = next(
+            (
+                float(pd.to_numeric(record.get("douban_rating"), errors="coerce"))
+                for record in sorted(records, key=metadata_richness, reverse=True)
+                if pd.notna(pd.to_numeric(record.get("douban_rating"), errors="coerce"))
+            ),
+            None,
+        )
+        imdb_score = next(
+            (
+                float(pd.to_numeric(record.get("imdb_score"), errors="coerce"))
+                for record in sorted(records, key=metadata_richness, reverse=True)
+                if pd.notna(pd.to_numeric(record.get("imdb_score"), errors="coerce"))
+            ),
+            None,
+        )
+        imdb_votes = next(
+            (
+                int(pd.to_numeric(record.get("imdb_votes"), errors="coerce"))
+                for record in sorted(records, key=metadata_richness, reverse=True)
+                if pd.notna(pd.to_numeric(record.get("imdb_votes"), errors="coerce"))
+            ),
+            None,
+        )
 
         pool_rows.append(
             {
@@ -4122,6 +4295,9 @@ def build_recommendation_pool(
                 "source_uri": normalize_source_uri(best.get("Letterboxd URI") or best.get("source_uri")),
                 "site_average_rating": site_average,
                 "site_rating_count": site_count,
+                "douban_rating": douban_rating,
+                "imdb_score": imdb_score,
+                "imdb_votes": imdb_votes,
                 "runtime_minutes": pd.to_numeric(best.get("runtime_minutes"), errors="coerce"),
                 "runtime_bucket": best.get("runtime_bucket"),
                 "decade_label": best.get("decade_label"),
@@ -4170,6 +4346,9 @@ def score_recommendations(
                 "confidence",
                 "site_average_rating",
                 "site_rating_count",
+                "douban_rating",
+                "imdb_score",
+                "imdb_votes",
                 "directors",
                 "genres",
                 "countries",
@@ -4303,6 +4482,13 @@ def score_recommendations(
                 if pd.notna(row["site_average_rating"])
                 else None,
                 "site_rating_count": int(row["site_rating_count"]) if pd.notna(row["site_rating_count"]) else None,
+                "douban_rating": round(float(row["douban_rating"]), 1)
+                if pd.notna(pd.to_numeric(row.get("douban_rating"), errors="coerce"))
+                else None,
+                "imdb_score": round(float(row["imdb_score"]), 1)
+                if pd.notna(pd.to_numeric(row.get("imdb_score"), errors="coerce"))
+                else None,
+                "imdb_votes": int(row["imdb_votes"]) if pd.notna(pd.to_numeric(row.get("imdb_votes"), errors="coerce")) else None,
                 "directors": ensure_list(row["directors"]),
                 "genres": ensure_list(row["genres"]),
                 "countries": ensure_list(row["countries"]),
@@ -4377,6 +4563,9 @@ def build_recommendation_payload(recommendations: pd.DataFrame) -> dict[str, Any
                 "confidence",
                 "site_average_rating",
                 "site_rating_count",
+                "douban_rating",
+                "imdb_score",
+                "imdb_votes",
                 "genres",
                 "countries",
                 "providers",
@@ -4812,6 +5001,7 @@ def build_streaming_section(
     output_dir: Path,
     max_new_lookups: int,
     max_douban_lookups: int,
+    max_ptgen_detail_lookups: int,
     workers: int,
     catalog_timeout: int,
     refresh_cache: bool,
@@ -4823,6 +5013,7 @@ def build_streaming_section(
                 cached_section,
                 output_dir=output_dir,
                 max_douban_lookups=max_douban_lookups,
+                max_ptgen_detail_lookups=max_ptgen_detail_lookups,
                 workers=max(1, workers // 2),
                 refresh_cache=refresh_cache,
             )
@@ -4864,6 +5055,7 @@ def build_streaming_section(
                     cached_section,
                     output_dir=output_dir,
                     max_douban_lookups=max_douban_lookups,
+                    max_ptgen_detail_lookups=max_ptgen_detail_lookups,
                     workers=max(1, workers // 2),
                     refresh_cache=refresh_cache,
                 )
@@ -4909,6 +5101,7 @@ def build_streaming_section(
             cached_for_guard,
             output_dir=output_dir,
             max_douban_lookups=max_douban_lookups,
+            max_ptgen_detail_lookups=max_ptgen_detail_lookups,
             workers=max(1, workers // 2),
             refresh_cache=refresh_cache,
         )
@@ -5033,6 +5226,7 @@ def build_streaming_section(
         streaming_df[["film_key", "name", "year", "runtime_minutes"]],
         cache_path=cache_path,
         max_new_lookups=max_douban_lookups,
+        max_ptgen_detail_lookups=max_ptgen_detail_lookups,
         workers=max(1, workers // 2),
         refresh_cache=refresh_cache,
     )
@@ -5357,6 +5551,8 @@ def build_streaming_section(
             "exclusive_titles": int(streaming_df["exclusive"].sum()),
             "warning_count": int(len(provider_warnings)),
             "new_lookups_requested": int(min(max_new_lookups, missing_before)) if max_new_lookups >= 0 else missing_before,
+            "douban_lookups_requested": int(max_douban_lookups),
+            "ptgen_detail_lookups_requested": int(max_ptgen_detail_lookups),
         },
         "top_unwatched": top_unwatched,
     }
@@ -5466,6 +5662,14 @@ def build_daily_signal_section(
     output_dir: Path,
 ) -> dict[str, Any]:
     try:
+        today_key = pd.Timestamp.now("UTC").date().isoformat()
+        latest_logged = ""
+        if "logged_date" in ratings_df.columns and ratings_df["logged_date"].notna().any():
+            latest_logged = pd.Timestamp(ratings_df["logged_date"].max()).date().isoformat()
+        seed_material = f"{today_key}|{len(ratings_df)}|{latest_logged}|{len(recommendations)}"
+        daily_seed = int(hashlib.sha256(seed_material.encode("utf-8")).hexdigest()[:12], 16)
+        rng = random.Random(daily_seed)
+
         global_mean = float(ratings_df["user_rating"].dropna().mean()) if not ratings_df.empty else 3.5
         genre_signal_frame = (
             ratings_df.explode("genres")
@@ -5599,7 +5803,7 @@ def build_daily_signal_section(
         scored_rows = sorted(
             scored_rows,
             key=lambda row: (
-                row["match_score"],
+                row["match_score"] + rng.random() * 0.25,
                 normalize_cell(row.get("published_at")),
             ),
             reverse=True,
@@ -5616,24 +5820,70 @@ def build_daily_signal_section(
         if not selected_rows:
             selected_rows = sorted(
                 news_rows,
-                key=lambda row: normalize_cell(row.get("published_at")),
+                key=lambda row: (normalize_cell(row.get("published_at")), rng.random()),
                 reverse=True,
             )[:4]
 
-        fun_facts: list[str] = []
+        fact_candidates: list[str] = []
         if top_directors:
-            fun_facts.append(f"Director signal: the most stable high-rating director matches include {', '.join(top_directors[:3])}.")
+            fact_candidates.append(f"Director signal: the most stable high-rating director matches include {', '.join(top_directors[:3])}.")
         if top_genres:
-            fun_facts.append(f"Genre signal: after sample-size smoothing, your strongest genre matches include {', '.join(top_genres[:3])}.")
+            fact_candidates.append(f"Genre signal: after sample-size smoothing, your strongest genre matches include {', '.join(top_genres[:3])}.")
+        if top_regions:
+            fact_candidates.append(f"Region signal: your strongest country/region cluster today is {', '.join(top_regions[:3])}.")
+        if not ratings_df.empty and "logged_date" in ratings_df.columns:
+            latest_rows = ratings_df.dropna(subset=["logged_date"]).sort_values("logged_date", ascending=False).head(6)
+            if not latest_rows.empty:
+                latest_row = latest_rows.iloc[daily_seed % len(latest_rows)]
+                latest_rating = pd.to_numeric(latest_row.get("user_rating"), errors="coerce")
+                rating_note = f"; its rating was {float(latest_rating):.1f}" if pd.notna(latest_rating) else ""
+                fact_candidates.append(
+                    f"Recent watch cue: {latest_row.get('Name')} ({format_year_value(latest_row.get('Year'))}) is part of the latest logged cluster{rating_note}."
+                )
+        if {"douban_rating", "user_rating"}.issubset(ratings_df.columns):
+            gap_frame = ratings_df[
+                ratings_df["douban_rating"].notna() & ratings_df["user_rating"].notna()
+            ].copy()
+            if not gap_frame.empty:
+                gap_frame["douban_gap_abs"] = (gap_frame["douban_rating"] / 2 - gap_frame["user_rating"]).abs()
+                gap_row = gap_frame.sort_values("douban_gap_abs", ascending=False).iloc[daily_seed % min(len(gap_frame), 20)]
+                fact_candidates.append(
+                    f"Rating-gap cue: {gap_row.get('Name')} ({format_year_value(gap_row.get('Year'))}) has one of the sharper Douban-versus-you gaps in the watched library."
+                )
         if streaming.get("top_unwatched"):
-            top_streaming = streaming["top_unwatched"][0]
+            streaming_pool = ensure_list(streaming["top_unwatched"])[:12]
+            top_streaming = streaming_pool[daily_seed % len(streaming_pool)]
             providers = ", ".join(ensure_list(top_streaming.get("providers"))[:2])
-            fun_facts.append(
+            fact_candidates.append(
                 f"Watch cue: among currently available unwatched titles, {top_streaming.get('name')} ({format_year_value(top_streaming.get('year'))}) has the highest Letterboxd score and is available on {providers}."
             )
+        if not recommendations.empty:
+            discovery = recommendations[
+                (~recommendations["in_watchlist"]) & (~recommendations["in_user_lists"])
+            ].head(30)
+            if not discovery.empty:
+                row = discovery.iloc[daily_seed % len(discovery)]
+                providers = ", ".join(ensure_list(row.get("providers"))[:2])
+                provider_note = f" and is available on {providers}" if providers else ""
+                fact_candidates.append(
+                    f"Discovery cue: {row.get('name')} ({format_year_value(row.get('year'))}) is outside exported lists/watchlist{provider_note}."
+                )
+        decade_counts = ratings_df["decade_label"].dropna().value_counts() if "decade_label" in ratings_df.columns else pd.Series(dtype=int)
+        if not decade_counts.empty:
+            decade_label = decade_counts.index[daily_seed % min(len(decade_counts), 8)]
+            fact_candidates.append(f"Viewing-history cue: {decade_label} is one of the densest decades in the watched data, with {int(decade_counts.loc[decade_label])} films.")
+
+        fact_candidates = unique_preserve_order([fact for fact in fact_candidates if normalize_cell(fact)])
+        if fact_candidates:
+            offset = daily_seed % len(fact_candidates)
+            fun_facts = (fact_candidates[offset:] + fact_candidates[:offset])[:4]
+        else:
+            fun_facts = []
 
         return {
             "generated_at": pd.Timestamp.now("UTC").isoformat(),
+            "seed_date": today_key,
+            "seed_value": daily_seed,
             "items": [
                 {
                     "category": row.get("category") or classify_news_entry(row),
@@ -5759,6 +6009,21 @@ def format_static_year(value: Any) -> str:
     return year_text or "—"
 
 
+def format_static_compact_number(value: Any, digits: int = 1) -> str:
+    number = pd.to_numeric(value, errors="coerce")
+    if pd.isna(number):
+        return "—"
+    number = float(number)
+    abs_number = abs(number)
+    if abs_number >= 1_000_000:
+        text = f"{number / 1_000_000:.{digits}f}".rstrip("0").rstrip(".")
+        return f"{text}M"
+    if abs_number >= 1_000:
+        text = f"{number / 1_000:.{digits}f}".rstrip("0").rstrip(".")
+        return f"{text}k"
+    return f"{number:.0f}"
+
+
 def format_static_value(value: Any, key: str = "") -> str:
     if "year" in normalize_cell(key).lower():
         return format_static_year(value)
@@ -5767,9 +6032,11 @@ def format_static_value(value: Any, key: str = "") -> str:
     if isinstance(value, bool):
         return "Yes" if value else "No"
     if isinstance(value, (int, np.integer)):
-        return f"{int(value):,}"
+        return format_static_compact_number(value)
     if isinstance(value, (float, np.floating)):
         number = float(value)
+        if abs(number) >= 1000:
+            return format_static_compact_number(number)
         if abs(number) >= 100 or number.is_integer():
             return f"{number:,.0f}"
         return f"{number:.2f}".rstrip("0").rstrip(".")
@@ -5910,6 +6177,7 @@ def build_html(payload: dict[str, Any]) -> str:
     body {{
       margin: 0;
       font-family: "IBM Plex Sans", "Avenir Next", sans-serif;
+      line-height: 1.5;
       background:
         radial-gradient(circle at top left, rgba(196,138,58,0.14), transparent 30%),
         linear-gradient(180deg, #fcfaf6 0%, var(--bg) 100%);
@@ -6096,6 +6364,7 @@ def build_html(payload: dict[str, Any]) -> str:
       border-radius: 18px;
       padding: 16px;
       min-width: 0;
+      overflow: hidden;
     }}
     .mini-card h3 {{
       margin: 0 0 8px;
@@ -6110,7 +6379,10 @@ def build_html(payload: dict[str, Any]) -> str:
     #streaming-table,
     #watched-douban-table,
     #recommendation-table {{
-      min-width: 1180px;
+      min-width: 1280px;
+    }}
+    #recommendation-table {{
+      min-width: 1380px;
     }}
     #genre-country-table {{
       min-width: 720px;
@@ -6123,6 +6395,7 @@ def build_html(payload: dict[str, Any]) -> str:
       word-break: normal;
       overflow-wrap: normal;
       white-space: nowrap;
+      line-height: 1.38;
     }}
     #streaming-table th:nth-child(1),
     #streaming-table td:nth-child(1),
@@ -6156,6 +6429,30 @@ def build_html(payload: dict[str, Any]) -> str:
       position: sticky;
       top: 0;
       white-space: nowrap;
+      z-index: 2;
+    }}
+    .sortable-heading {{
+      appearance: none;
+      border: 0;
+      background: transparent;
+      color: inherit;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 0;
+      font: inherit;
+      font-weight: 700;
+      white-space: nowrap;
+    }}
+    .sortable-heading.active {{
+      color: var(--teal);
+    }}
+    .sort-arrow {{
+      color: var(--muted);
+      font-size: 0.78rem;
+      min-width: 0.9em;
+      text-align: center;
     }}
     .table-wrap {{
       overflow: auto;
@@ -6287,6 +6584,7 @@ def build_html(payload: dict[str, Any]) -> str:
       font-size: 0.82rem;
       letter-spacing: 0.02em;
       text-transform: uppercase;
+      line-height: 1.35;
     }}
     .signal-tags {{
       display: flex;
@@ -6369,6 +6667,9 @@ def build_html(payload: dict[str, Any]) -> str:
       .table-wrap {{
         max-height: 360px;
       }}
+      .daily-meta-grid {{
+        grid-template-columns: 1fr;
+      }}
     }}
   </style>
 </head>
@@ -6382,14 +6683,14 @@ def build_html(payload: dict[str, Any]) -> str:
       <h1>Letterboxd<br>Custom Research Desk</h1>
       <p data-i18n="heroLead">A shareable research page for genre × region patterns, Canadian streaming options, viewing-context tags, review language, list intent, and recommendations beyond the official watchlist.</p>
       <div class="metrics">
-        <div class="metric"><div class="label" data-i18n="ratedFilms">Rated films</div><div class="value">{payload['metrics']['unique_rated_films']}</div></div>
-        <div class="metric"><div class="label" data-i18n="watchEvents">Watch events</div><div class="value">{payload['metrics']['watch_events']}</div></div>
-        <div class="metric"><div class="label" data-i18n="taggedWatches">Tagged watches</div><div class="value">{payload['metrics']['tagged_watch_events']}</div></div>
-        <div class="metric"><div class="label" data-i18n="writtenReviews">Written reviews</div><div class="value">{payload['reviews']['stats']['review_count']}</div></div>
-        <div class="metric"><div class="label" data-i18n="exportedLists">Exported lists</div><div class="value">{payload['metrics']['custom_lists']}</div></div>
-        <div class="metric"><div class="label" data-i18n="unseenCandidates">Unseen candidates</div><div class="value">{payload['metrics']['candidate_pool_size']}</div></div>
-        <div class="metric"><div class="label" data-i18n="doubanMatched">Douban matched</div><div class="value">{payload['metrics']['douban_rated_titles']}</div></div>
-        <div class="metric"><div class="label" data-i18n="streamingIndexed">Streaming indexed</div><div class="value">{payload['metrics']['streaming_indexed_titles']}</div></div>
+        <div class="metric"><div class="label" data-i18n="ratedFilms">Rated films</div><div class="value">{format_static_compact_number(payload['metrics']['unique_rated_films'])}</div></div>
+        <div class="metric"><div class="label" data-i18n="watchEvents">Watch events</div><div class="value">{format_static_compact_number(payload['metrics']['watch_events'])}</div></div>
+        <div class="metric"><div class="label" data-i18n="taggedWatches">Tagged watches</div><div class="value">{format_static_compact_number(payload['metrics']['tagged_watch_events'])}</div></div>
+        <div class="metric"><div class="label" data-i18n="writtenReviews">Written reviews</div><div class="value">{format_static_compact_number(payload['reviews']['stats']['review_count'])}</div></div>
+        <div class="metric"><div class="label" data-i18n="exportedLists">Exported lists</div><div class="value">{format_static_compact_number(payload['metrics']['custom_lists'])}</div></div>
+        <div class="metric"><div class="label" data-i18n="unseenCandidates">Unseen candidates</div><div class="value">{format_static_compact_number(payload['metrics']['candidate_pool_size'])}</div></div>
+        <div class="metric"><div class="label" data-i18n="doubanMatched">Douban matched</div><div class="value">{format_static_compact_number(payload['metrics']['douban_rated_titles'])}</div></div>
+        <div class="metric"><div class="label" data-i18n="streamingIndexed">Streaming indexed</div><div class="value">{format_static_compact_number(payload['metrics']['streaming_indexed_titles'])}</div></div>
       </div>
     </section>
 
@@ -6403,8 +6704,8 @@ def build_html(payload: dict[str, Any]) -> str:
           <p class="lead" data-i18n="dailyRadarLead">Updated from film-news feeds with short notes about noteworthy works, directors, awards, releases, box office, and industry movement.</p>
           <div class="daily-meta-grid">
             <div><strong>{html.escape(daily_signal_updated)}</strong><span>updated</span></div>
-            <div><strong>{daily_signal_item_count}</strong><span>signals</span></div>
-            <div><strong>{daily_signal_fact_count}</strong><span>facts</span></div>
+            <div><strong>{format_static_compact_number(daily_signal_item_count)}</strong><span>signals</span></div>
+            <div><strong>{format_static_compact_number(daily_signal_fact_count)}</strong><span>facts</span></div>
           </div>
           {daily_signal_html}
         </div>
@@ -6420,9 +6721,9 @@ def build_html(payload: dict[str, Any]) -> str:
       <h2 data-i18n="doubanCoverageTitle">Watched Films: Douban Coverage</h2>
       <p class="lead" data-i18n="doubanCoverageLead">Adds Douban ratings for watched films and compares them with your rating, IMDb rating, and Letterboxd averages. Matching prioritizes IMDb IDs, Douban subject IDs, public Douban indexes, and live detail pages when available.</p>
       <div class="metrics">
-        <div class="metric"><div class="label" data-i18n="matchedWatchedFilms">Matched watched films</div><div class="value">{watched_douban_stats.get('douban_rated_titles', 0)}</div></div>
+        <div class="metric"><div class="label" data-i18n="matchedWatchedFilms">Matched watched films</div><div class="value">{format_static_compact_number(watched_douban_stats.get('douban_rated_titles', 0))}</div></div>
         <div class="metric"><div class="label" data-i18n="coverage">Coverage</div><div class="value">{watched_douban_coverage}</div></div>
-        <div class="metric"><div class="label" data-i18n="missingAfterLookup">Missing after lookup</div><div class="value">{watched_douban_stats.get('missing_titles', 0)}</div></div>
+        <div class="metric"><div class="label" data-i18n="missingAfterLookup">Missing after lookup</div><div class="value">{format_static_compact_number(watched_douban_stats.get('missing_titles', 0))}</div></div>
       </div>
       <div class="grid-2" style="margin-top:18px;">
         <div id="watched-douban-scatter" class="plot"></div>
@@ -6632,20 +6933,20 @@ def build_html(payload: dict[str, Any]) -> str:
         unseenCandidates: '未看候选',
         doubanMatched: '豆瓣已匹配',
         streamingIndexed: '流媒体已索引',
-        tasteBriefTitle: 'Today\\'s Taste Brief',
+        tasteBriefTitle: '今日口味简报',
         tasteBriefLead: '本区把最新 Letterboxd 数据、可看片单和电影行业信号压缩成可快速阅读的判断线索。',
-        dailyRadarTitle: 'Daily Film Radar',
+        dailyRadarTitle: '每日电影雷达',
         dailyRadarLead: '每天从电影新闻源中提取作品、导演、奖项和产业动态，只保留能提供补片或理解行业的短句。',
-        filmFactsTitle: 'Film Facts',
+        filmFactsTitle: '电影知识条目',
         filmFactsLead: '这些条目来自你的评分、tags、lists 和当前可看目录，会随每日同步更新。',
-        doubanCoverageTitle: 'Watched Films: Douban Coverage',
+        doubanCoverageTitle: '已看电影：豆瓣覆盖',
         doubanCoverageLead: '本区为已评分影片补齐豆瓣评分，并将你的评分、Letterboxd 均分与豆瓣 10 分制评分放在同一张表内对照。匹配优先使用 IMDb / Douban subject ID，并以公开豆瓣电影数据索引补齐历史评分；live Douban API 只作为可用时的增量来源。',
         matchedWatchedFilms: '已匹配已看影片',
         coverage: '覆盖率',
         missingAfterLookup: '仍缺失',
-        streamingTitle: 'Canada Streaming Availability',
+        streamingTitle: '加拿大流媒体可看性',
         streamingLead: '本区只保留能够稳定匹配到英文电影词条的加拿大流媒体目录。榜单优先展示已匹配 Letterboxd 评分的影片，并同步显示可用的豆瓣评分。',
-        recommendationsTitle: 'Recommendations Beyond Watchlist',
+        recommendationsTitle: 'Watchlist 之外的推荐',
         recommendationsLead: '推荐池同时包含 watchlist、导出 lists 与当前流媒体目录里的外部发现条目；筛选器可分别限定 watchlist、lists、平台可看状态与类型范围。',
         genreCountryTitle: 'Genre × Country / Region',
         genreCountryLead: '选择一个类型后，可比较该类型在不同国家 / 地区之间的占比与平均分；展示层对 Hong Kong、Taiwan、Macau 统一按地区处理。',
@@ -6695,27 +6996,28 @@ def build_html(payload: dict[str, Any]) -> str:
         notAvailablePlatform: '未在追踪平台发现',
         allGenres: '全部类型',
         noExclusions: '不排除',
-        film: 'Film',
-        year: 'Year',
-        genres: 'Genres',
-        platforms: 'Platforms',
-        status: 'Status',
-        links: 'Links',
-        yourRating: 'Your rating',
+        film: '影片',
+        year: '年份',
+        genres: '类型',
+        platforms: '平台',
+        status: '状态',
+        links: '链接',
+        yourRating: '你的评分',
         letterboxd: 'Letterboxd',
         douban: 'Douban',
-        lbRating: 'LB rating',
-        lbRatings: 'LB ratings',
-        priority: 'Priority',
-        predicted: 'Predicted',
-        available: 'Available',
-        inYourData: 'In your data',
-        reason: 'Reason',
-        countryRegion: 'Country / Region',
-        films: 'Films',
-        avgRating: 'Avg rating',
-        shareInGenre: 'Share in genre',
-        stableScore: 'Stable score',
+        imdb: 'IMDb',
+        lbRating: 'LB 评分',
+        lbRatings: 'LB 评分数',
+        priority: '优先级',
+        predicted: '预测分',
+        available: '可看平台',
+        inYourData: '来源关系',
+        reason: '推荐理由',
+        countryRegion: '国家 / 地区',
+        films: '影片数',
+        avgRating: '平均分',
+        shareInGenre: '类型内占比',
+        stableScore: '稳定分',
       }},
       en: {{
         heroLead: 'A shareable research page for the questions Letterboxd Stats does not answer directly: genre × region patterns, Canadian streaming options, viewing-context tags, review language, list intent, and recommendations beyond the official watchlist.',
@@ -6796,10 +7098,11 @@ def build_html(payload: dict[str, Any]) -> str:
         platforms: 'Platforms',
         status: 'Status',
         links: 'Links',
-        yourRating: 'Your rating',
-        letterboxd: 'Letterboxd',
-        douban: 'Douban',
-        lbRating: 'LB rating',
+	        yourRating: 'Your rating',
+	        letterboxd: 'Letterboxd',
+	        douban: 'Douban',
+	        imdb: 'IMDb',
+	        lbRating: 'LB rating',
         lbRatings: 'LB ratings',
         priority: 'Priority',
         predicted: 'Predicted',
@@ -6844,10 +7147,11 @@ def build_html(payload: dict[str, Any]) -> str:
       if (value === null || value === undefined || value === '') return '—';
       const number = Number(value);
       if (!Number.isFinite(number)) return '—';
-      return new Intl.NumberFormat(currentLanguage === 'zh' ? 'zh-CN' : 'en-US', {{
-        notation: Math.abs(number) >= 10000 ? 'compact' : 'standard',
-        maximumFractionDigits: Math.abs(number) >= 10000 ? 1 : 0,
-      }}).format(number);
+      const absNumber = Math.abs(number);
+      const trim = (input) => input.toFixed(1).replace(/\\.0$/, '');
+      if (absNumber >= 1000000) return `${{trim(number / 1000000)}}M`;
+      if (absNumber >= 1000) return `${{trim(number / 1000)}}k`;
+      return String(Math.round(number));
     }}
 
     function formatYear(value) {{
@@ -6971,11 +7275,73 @@ def build_html(payload: dict[str, Any]) -> str:
     const streamingGenreExcludeSelection = new Set();
     const recommendationGenreIncludeSelection = new Set();
     const recommendationGenreExcludeSelection = new Set();
+    const tableSortState = {{
+      streaming: {{key: 'letterboxd_rating', direction: 'desc'}},
+      recommendations: {{key: 'priority_score', direction: 'desc'}},
+    }};
 
     function makeTable(el, columns, rows) {{
       const head = '<thead><tr>' + columns.map(col => `<th>${{col.label}}</th>`).join('') + '</tr></thead>';
       const body = '<tbody>' + rows.map(row => '<tr>' + columns.map(col => `<td>${{row[col.key] ?? ''}}</td>`).join('') + '</tr>').join('') + '</tbody>';
       el.innerHTML = head + body;
+    }}
+
+    function emptySortValue(value) {{
+      return value === null || value === undefined || value === '' || value === '—';
+    }}
+
+    function compareSortValues(left, right, direction, type = 'auto') {{
+      if (emptySortValue(left) && emptySortValue(right)) return 0;
+      if (emptySortValue(left)) return 1;
+      if (emptySortValue(right)) return -1;
+      const multiplier = direction === 'asc' ? 1 : -1;
+      const leftNumber = Number(left);
+      const rightNumber = Number(right);
+      if (type === 'number' || (type === 'auto' && Number.isFinite(leftNumber) && Number.isFinite(rightNumber))) {{
+        return (leftNumber - rightNumber) * multiplier;
+      }}
+      return String(left).localeCompare(String(right), currentLanguage === 'zh' ? 'zh-Hans-CN' : 'en', {{
+        numeric: true,
+        sensitivity: 'base',
+      }}) * multiplier;
+    }}
+
+    function renderSortableTable(el, columns, rows, tableKey, limit) {{
+      const state = tableSortState[tableKey] || {{key: columns[0]?.key, direction: 'asc'}};
+      const sortedRows = [...rows].sort((left, right) => {{
+        const column = columns.find(item => item.key === state.key) || columns[0];
+        const leftValue = column.sortValue ? column.sortValue(left) : left[column.key];
+        const rightValue = column.sortValue ? column.sortValue(right) : right[column.key];
+        const primary = compareSortValues(leftValue, rightValue, state.direction, column.type || 'auto');
+        if (primary !== 0) return primary;
+        return compareSortValues(left.name, right.name, 'asc', 'text');
+      }});
+      const visibleRows = limit ? sortedRows.slice(0, limit) : sortedRows;
+      const head = '<thead><tr>' + columns.map(col => {{
+        if (col.sortable === false) return `<th>${{col.label}}</th>`;
+        const active = state.key === col.key;
+        const arrow = active ? (state.direction === 'asc' ? '↑' : '↓') : '↕';
+        return `<th><button type="button" class="sortable-heading${{active ? ' active' : ''}}" data-table-key="${{tableKey}}" data-sort-key="${{col.key}}">${{col.label}} <span class="sort-arrow">${{arrow}}</span></button></th>`;
+      }}).join('') + '</tr></thead>';
+      const body = '<tbody>' + visibleRows.map(row => '<tr>' + columns.map(col => {{
+        const value = col.render ? col.render(row) : row[col.key];
+        return `<td>${{value ?? ''}}</td>`;
+      }}).join('') + '</tr>').join('') + '</tbody>';
+      el.innerHTML = head + body;
+      el.querySelectorAll('.sortable-heading').forEach(button => {{
+        button.addEventListener('click', () => {{
+          const nextKey = button.dataset.sortKey;
+          if (state.key === nextKey) {{
+            state.direction = state.direction === 'asc' ? 'desc' : 'asc';
+          }} else {{
+            state.key = nextKey;
+            const column = columns.find(item => item.key === nextKey);
+            state.direction = column?.defaultDirection || 'asc';
+          }}
+          if (tableKey === 'streaming') renderStreamingSection();
+          if (tableKey === 'recommendations') renderRecommendations();
+        }});
+      }});
     }}
 
     function renderPillGroup(containerId, options, selection, resetLabel, onChange) {{
@@ -7100,6 +7466,9 @@ def build_html(payload: dict[str, Any]) -> str:
         el.innerHTML = `<p class="muted">${{currentLanguage === 'zh' ? '这个类别暂无已标记数据。' : 'No tagged data in this category.'}}</p>`;
         return;
       }}
+      const legendLayout = window.innerWidth < 720
+        ? {{orientation: 'h', y: -0.28, x: 0, font: {{size: 10}}}}
+        : {{orientation: 'v', y: 1, x: 1.02, font: {{size: 11}}}};
       Plotly.newPlot(containerId, [{{
         type: 'pie',
         labels: rows.map(row => row.label),
@@ -7112,9 +7481,9 @@ def build_html(payload: dict[str, Any]) -> str:
       }}], {{
         ...plotLayout,
         title: plotTitle(title),
-        legend: {{orientation: 'h', y: -0.18, x: 0, font: {{size: 11}}}},
-        margin: {{t: 54, r: 16, b: 92, l: 16}},
-        height: 420,
+        legend: legendLayout,
+        margin: window.innerWidth < 720 ? {{t: 54, r: 16, b: 118, l: 16}} : {{t: 54, r: 164, b: 52, l: 16}},
+        height: window.innerWidth < 720 ? 470 : 430,
       }}, plotConfig);
     }}
 
@@ -7140,6 +7509,9 @@ def build_html(payload: dict[str, Any]) -> str:
     function renderGenreCountry(genre) {{
       const rows = data.genre_country.genre_profiles[genre] || [];
       const topRows = rows.slice(0, 10);
+      const genreLegendLayout = window.innerWidth < 720
+        ? {{orientation: 'h', y: -0.3, x: 0, font: {{size: 10}}}}
+        : {{orientation: 'v', y: 1, x: 1.02, font: {{size: 11}}}};
       Plotly.newPlot('genre-country-share', [{{
         type: 'pie',
         labels: topRows.map(row => row.country),
@@ -7152,9 +7524,9 @@ def build_html(payload: dict[str, Any]) -> str:
       }}], {{
         ...plotLayout,
         title: plotTitle(`${{genre}} source share by country / region`),
-        legend: {{orientation: 'h', y: -0.2, x: 0, font: {{size: 11}}}},
-        margin: {{t: 54, r: 18, b: 104, l: 18}},
-        height: 430,
+        legend: genreLegendLayout,
+        margin: window.innerWidth < 720 ? {{t: 54, r: 18, b: 124, l: 18}} : {{t: 54, r: 160, b: 48, l: 18}},
+        height: window.innerWidth < 720 ? 480 : 430,
       }}, plotConfig);
 
       const ratingRows = rows.filter(row => row.films >= 2).slice(0, 10);
@@ -7471,46 +7843,30 @@ def build_html(payload: dict[str, Any]) -> str:
         height: barChartHeight(topRows.length, 160, 34, 620),
       }}, plotConfig);
 
-      makeTable(
-        document.getElementById('streaming-table'),
-        [
-          {{key: 'rank', label: '#'}},
-          {{key: 'name', label: t('film')}},
-          {{key: 'year', label: t('year')}},
-          {{key: 'genres', label: t('genres')}},
-          {{key: 'providers', label: t('platforms')}},
-          {{key: 'letterboxd_rating', label: t('lbRating')}},
-          {{key: 'douban_rating', label: t('douban')}},
-          {{key: 'letterboxd_rating_count', label: t('lbRatings')}},
-          {{key: 'status', label: t('status')}},
-          {{key: 'user_rating', label: t('yourRating')}},
-          {{key: 'imdb_score', label: 'IMDb'}},
-          {{key: 'links', label: t('links')}},
-        ],
-        rows.slice(0, 80).map(row => ({{
-          rank: row.rank ?? '—',
-          name: row.name,
-          year: formatYear(row.year),
-          genres: (row.genre_labels || []).length ? row.genre_labels.join(' / ') : '—',
-          providers: row.available_on_tracked_platforms
-            ? `<div class="inline-links">${{(row.provider_links || []).map(link => `<a href="${{link.url}}" target="_blank" rel="noopener noreferrer">${{link.provider}}</a>`).join('<br>') || '—'}}</div>`
-            : `<span class="muted">${{currentLanguage === 'zh' ? '未在追踪平台发现' : 'Not available on tracked platforms'}}</span>`,
-          letterboxd_rating: row.letterboxd_rating === null || row.letterboxd_rating === undefined ? (currentLanguage === 'zh' ? '未匹配' : 'Unmatched') : formatRating(row.letterboxd_rating),
-          douban_rating: row.douban_rating === null || row.douban_rating === undefined ? '—' : formatOneDecimal(row.douban_rating),
-          letterboxd_rating_count: row.letterboxd_rating_count ? formatCount(row.letterboxd_rating_count) : '—',
-          status: row.watched
-            ? (!row.available_on_tracked_platforms
-              ? (currentLanguage === 'zh' ? '已看 · 暂无平台' : 'Watched · Not available')
-              : (row.exclusive ? (currentLanguage === 'zh' ? '已看 · 独占' : 'Watched · Exclusive') : (currentLanguage === 'zh' ? '已看' : 'Watched')))
-            : (row.exclusive ? (currentLanguage === 'zh' ? '未看 · 独占' : 'Unwatched · Exclusive') : (currentLanguage === 'zh' ? '未看' : 'Unwatched')),
-          user_rating: row.user_rating === null || row.user_rating === undefined ? '—' : formatRating(row.user_rating),
-          imdb_score: row.imdb_score === null || row.imdb_score === undefined ? '—' : Number(row.imdb_score).toFixed(1),
-          links: `<div class="inline-links">${{[
-            row.letterboxd_url ? `<a href="${{row.letterboxd_url}}" target="_blank" rel="noopener noreferrer">Letterboxd</a>` : '',
-            row.douban_url ? `<a href="${{row.douban_url}}" target="_blank" rel="noopener noreferrer">Douban</a>` : ''
-          ].filter(Boolean).join('<br>') || '—'}}</div>`,
-        }}))
-      );
+      const streamingColumns = [
+        {{key: 'rank', label: '#', type: 'number', defaultDirection: 'asc', render: row => row.rank ?? '—'}},
+        {{key: 'name', label: t('film'), type: 'text', render: row => row.name}},
+        {{key: 'year', label: t('year'), type: 'number', render: row => formatYear(row.year)}},
+        {{key: 'genres', label: t('genres'), type: 'text', sortValue: row => (row.genre_labels || []).join(' / '), render: row => (row.genre_labels || []).length ? row.genre_labels.join(' / ') : '—'}},
+        {{key: 'providers', label: t('platforms'), type: 'text', sortValue: row => row.available_on_tracked_platforms ? (row.providers || []).join(', ') : t('notAvailablePlatform'), render: row => row.available_on_tracked_platforms
+          ? `<div class="inline-links">${{(row.provider_links || []).map(link => `<a href="${{link.url}}" target="_blank" rel="noopener noreferrer">${{link.provider}}</a>`).join('<br>') || '—'}}</div>`
+          : `<span class="muted">${{t('notAvailablePlatform')}}</span>`}},
+        {{key: 'letterboxd_rating', label: t('lbRating'), type: 'number', defaultDirection: 'desc', render: row => row.letterboxd_rating === null || row.letterboxd_rating === undefined ? (currentLanguage === 'zh' ? '未匹配' : 'Unmatched') : formatRating(row.letterboxd_rating)}},
+        {{key: 'douban_rating', label: t('douban'), type: 'number', defaultDirection: 'desc', render: row => row.douban_rating === null || row.douban_rating === undefined ? '—' : formatOneDecimal(row.douban_rating)}},
+        {{key: 'imdb_score', label: t('imdb'), type: 'number', defaultDirection: 'desc', render: row => row.imdb_score === null || row.imdb_score === undefined ? '—' : Number(row.imdb_score).toFixed(1)}},
+        {{key: 'letterboxd_rating_count', label: t('lbRatings'), type: 'number', defaultDirection: 'desc', render: row => row.letterboxd_rating_count ? formatCount(row.letterboxd_rating_count) : '—'}},
+        {{key: 'status', label: t('status'), type: 'text', sortValue: row => row.availability_status || (row.watched ? 'watched' : 'unwatched'), render: row => row.watched
+          ? (!row.available_on_tracked_platforms
+            ? (currentLanguage === 'zh' ? '已看 · 暂无平台' : 'Watched · Not available')
+            : (row.exclusive ? (currentLanguage === 'zh' ? '已看 · 独占' : 'Watched · Exclusive') : (currentLanguage === 'zh' ? '已看' : 'Watched')))
+          : (row.exclusive ? (currentLanguage === 'zh' ? '未看 · 独占' : 'Unwatched · Exclusive') : (currentLanguage === 'zh' ? '未看' : 'Unwatched'))}},
+        {{key: 'user_rating', label: t('yourRating'), type: 'number', defaultDirection: 'desc', render: row => row.user_rating === null || row.user_rating === undefined ? '—' : formatRating(row.user_rating)}},
+        {{key: 'links', label: t('links'), sortable: false, render: row => `<div class="inline-links">${{[
+          row.letterboxd_url ? `<a href="${{row.letterboxd_url}}" target="_blank" rel="noopener noreferrer">Letterboxd</a>` : '',
+          row.douban_url ? `<a href="${{row.douban_url}}" target="_blank" rel="noopener noreferrer">Douban</a>` : ''
+        ].filter(Boolean).join('<br>') || '—'}}</div>`}},
+      ];
+      renderSortableTable(document.getElementById('streaming-table'), streamingColumns, rows, 'streaming', 80);
     }}
 
     function initRecommendationControls() {{
@@ -7638,37 +7994,29 @@ def build_html(payload: dict[str, Any]) -> str:
         height: barChartHeight(topRows.length, 160, 34, 620),
       }}, plotConfig);
 
-      makeTable(
-        document.getElementById('recommendation-table'),
-        [
-          {{key: 'rank', label: '#'}},
-          {{key: 'name', label: t('film')}},
-          {{key: 'year', label: t('year')}},
-          {{key: 'genres', label: t('genres')}},
-          {{key: 'priority_score', label: t('priority')}},
-          {{key: 'predicted_rating', label: t('predicted')}},
-          {{key: 'site_average_rating', label: 'LB'}},
-          {{key: 'availability', label: t('available')}},
-          {{key: 'membership', label: t('inYourData')}},
-          {{key: 'reason', label: t('reason')}},
-        ],
-        source.slice(0, 40).map(row => ({{
-          rank: row.filtered_rank,
-          name: row.name,
-          year: formatYear(row.year),
-          genres: (row.genres || []).join(' / ') || '—',
-          priority_score: row.priority_score.toFixed ? row.priority_score.toFixed(1) : row.priority_score,
-          predicted_rating: row.predicted_rating.toFixed ? row.predicted_rating.toFixed(2) : row.predicted_rating,
-          site_average_rating: row.site_average_rating ? formatRating(row.site_average_rating) : '—',
-          availability: row.currently_streaming ? ((row.providers || []).join(', ') || 'Yes') : '—',
-          membership: [
-            row.in_watchlist ? 'Watchlist' : null,
-            row.in_user_lists ? 'My lists' : null,
-            row.discovery_only ? (currentLanguage === 'zh' ? '外部发现' : 'External discovery') : null,
-          ].filter(Boolean).join(' / ') || '—',
-          reason: row.reason,
-        }}))
-      );
+      const recommendationColumns = [
+        {{key: 'filtered_rank', label: '#', type: 'number', defaultDirection: 'asc', render: row => row.filtered_rank}},
+        {{key: 'name', label: t('film'), type: 'text', render: row => row.name}},
+        {{key: 'year', label: t('year'), type: 'number', render: row => formatYear(row.year)}},
+        {{key: 'genres', label: t('genres'), type: 'text', sortValue: row => (row.genres || []).join(' / '), render: row => (row.genres || []).join(' / ') || '—'}},
+        {{key: 'priority_score', label: t('priority'), type: 'number', defaultDirection: 'desc', render: row => row.priority_score?.toFixed ? row.priority_score.toFixed(1) : row.priority_score}},
+        {{key: 'predicted_rating', label: t('predicted'), type: 'number', defaultDirection: 'desc', render: row => row.predicted_rating?.toFixed ? row.predicted_rating.toFixed(2) : row.predicted_rating}},
+        {{key: 'site_average_rating', label: 'LB', type: 'number', defaultDirection: 'desc', render: row => row.site_average_rating ? formatRating(row.site_average_rating) : '—'}},
+        {{key: 'douban_rating', label: t('douban'), type: 'number', defaultDirection: 'desc', render: row => row.douban_rating === null || row.douban_rating === undefined ? '—' : formatOneDecimal(row.douban_rating)}},
+        {{key: 'imdb_score', label: t('imdb'), type: 'number', defaultDirection: 'desc', render: row => row.imdb_score === null || row.imdb_score === undefined ? '—' : formatOneDecimal(row.imdb_score)}},
+        {{key: 'availability', label: t('available'), type: 'text', sortValue: row => row.currently_streaming ? ((row.providers || []).join(', ') || 'Yes') : '', render: row => row.currently_streaming ? ((row.providers || []).join(', ') || 'Yes') : '—'}},
+        {{key: 'membership', label: t('inYourData'), type: 'text', sortValue: row => [
+          row.in_watchlist ? 'Watchlist' : null,
+          row.in_user_lists ? 'My lists' : null,
+          row.discovery_only ? 'External discovery' : null,
+        ].filter(Boolean).join(' / '), render: row => [
+          row.in_watchlist ? 'Watchlist' : null,
+          row.in_user_lists ? 'My lists' : null,
+          row.discovery_only ? (currentLanguage === 'zh' ? '外部发现' : 'External discovery') : null,
+        ].filter(Boolean).join(' / ') || '—'}},
+        {{key: 'reason', label: t('reason'), type: 'text', render: row => row.reason}},
+      ];
+      renderSortableTable(document.getElementById('recommendation-table'), recommendationColumns, source, 'recommendations', 40);
     }}
 
     function refreshTranslatedViews() {{
@@ -7929,6 +8277,7 @@ def main() -> None:
         output_dir=output_dir,
         max_new_lookups=lookup_limit(args.streaming_lookups),
         max_douban_lookups=lookup_limit(args.douban_lookups),
+        max_ptgen_detail_lookups=lookup_limit(args.ptgen_detail_lookups),
         workers=max(1, args.streaming_workers),
         catalog_timeout=max(0, args.streaming_catalog_timeout),
         refresh_cache=args.refresh_cache,
@@ -7951,7 +8300,13 @@ def main() -> None:
         "custom_lists": int(list_entries_df["list_title"].nunique()),
         "candidate_pool_size": int(len(recommendations)),
         "streaming_indexed_titles": int(streaming_section["stats"]["scored_titles"]),
-        "douban_rated_titles": int(watched_douban_section["stats"]["douban_rated_titles"]),
+        "douban_rated_titles": int(
+            sum(
+                1
+                for row in ensure_list(streaming_section.get("rows"))
+                if pd.notna(pd.to_numeric(row.get("douban_rating"), errors="coerce"))
+            )
+        ),
     }
 
     payload = {

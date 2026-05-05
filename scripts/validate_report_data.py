@@ -36,6 +36,14 @@ def film_key(name: Any, year: Any) -> str:
     return f"{name_text} ({year_text})" if year_text else name_text
 
 
+def format_year(value: Any) -> str:
+    text = normalize(value)
+    if text.endswith(".0"):
+        text = text[:-2]
+    match = re.search(r"(?:19|20)\d{2}", text)
+    return match.group(0) if match else text
+
+
 def read_csv_rows(path: Path) -> list[dict[str, str]]:
     if not path.exists():
         return []
@@ -53,7 +61,7 @@ def first_missing(rows: list[dict[str, Any]], field: str, limit: int = 10_000) -
         if valid(row.get(field)):
             continue
         name = normalize(row.get("name") or row.get("Name"))
-        year = normalize(row.get("year") or row.get("Year"))
+        year = format_year(row.get("year") or row.get("Year"))
         status = normalize(row.get("douban_status") or row.get("imdb_rating_status") or row.get("letterboxd_status"))
         reason = ""
         if field == "douban_rating":
@@ -104,6 +112,7 @@ def main() -> None:
 
     visible_html = html.split("<script", 1)[0].replace("中文", "")
     year_comma_matches = sorted(set(re.findall(r"\b(?:1|2),\d{3}\b", visible_html)))
+    chinese_large_number_unit_matches = sorted(set(re.findall(r"\d+(?:\.\d+)?\s*万", visible_html)))
     chinese_visible_matches = sorted(set(re.findall(r"[\u4e00-\u9fff]+", visible_html)))
 
     missing_watched_from_report = sorted(watched_keys - watched_report_keys)
@@ -132,6 +141,7 @@ def main() -> None:
         "watched_export_missing_from_streaming": len(missing_watched_from_streaming),
         "rated_export_missing_user_rating": len(missing_user_ratings),
         "year_comma_display_matches": len(year_comma_matches),
+        "chinese_large_number_unit_matches": len(chinese_large_number_unit_matches),
         "english_visible_chinese_fragments": len(chinese_visible_matches),
     }
 
@@ -174,6 +184,10 @@ def main() -> None:
     lines.extend(["", "## Display Checks", ""])
     lines.append(f"- Year comma matches: {', '.join(year_comma_matches) if year_comma_matches else 'none'}")
     lines.append(
+        "- Chinese large-number unit matches: "
+        + (", ".join(chinese_large_number_unit_matches[:40]) if chinese_large_number_unit_matches else "none")
+    )
+    lines.append(
         "- Visible Chinese UI fragments in default English HTML: "
         + (", ".join(chinese_visible_matches[:40]) if chinese_visible_matches else "none")
     )
@@ -184,6 +198,8 @@ def main() -> None:
 
     if year_comma_matches:
         raise SystemExit("Year display validation failed: comma-formatted years found.")
+    if chinese_large_number_unit_matches:
+        raise SystemExit("Number display validation failed: Chinese large-number units found.")
     if chinese_visible_matches:
         raise SystemExit("English UI validation failed: Chinese visible UI fragments found.")
     if missing_watched_from_report or missing_watched_from_streaming or missing_user_ratings:

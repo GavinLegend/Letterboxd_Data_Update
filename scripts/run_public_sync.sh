@@ -28,6 +28,7 @@ PYTHONPATH="$VENDOR_DIR${PYTHONPATH:+:$PYTHONPATH}" \
   --streaming-workers 3 \
   --douban-lookups 0 \
   --watched-douban-lookups 0 \
+  --ptgen-detail-lookups 600 \
   --streaming-catalog-timeout 0
 
 PYTHONPATH="$VENDOR_DIR${PYTHONPATH:+:$PYTHONPATH}" \
