@@ -60,6 +60,7 @@ jobs:
           python -m py_compile scripts/*.py
 
       - name: Sync from public Letterboxd pages
+        id: sync-letterboxd
         env:
           PYTHONPATH: .vendor
           LETTERBOXD_USERNAME: goorison
@@ -69,6 +70,7 @@ jobs:
           if [ "$SCHEDULE_EXPR" = "43 9 * * 0" ]; then
             FULL_REFRESH_FLAG="--force-refresh-all-entry-pages"
           fi
+          set +e
           python scripts/sync_letterboxd_public.py \
             --username "$LETTERBOXD_USERNAME" \
             --output-dir data/public-sync/input \
@@ -76,8 +78,25 @@ jobs:
             --workers 6 \
             --refresh-recent 60 \
             $FULL_REFRESH_FLAG
+          SYNC_STATUS=$?
+          set -e
+
+          if [ "$SYNC_STATUS" -eq 75 ]; then
+            echo "upstream_blocked=true" >> "$GITHUB_OUTPUT"
+            echo "::warning::Letterboxd served a Cloudflare challenge. Keeping the published report unchanged and retrying on the next schedule."
+            {
+              echo "## Letterboxd sync paused"
+              echo
+              echo "Letterboxd served a Cloudflare challenge, so this run kept the last good report unchanged. The next scheduled run will try again automatically."
+            } >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+
+          echo "upstream_blocked=false" >> "$GITHUB_OUTPUT"
+          exit "$SYNC_STATUS"
 
       - name: Build report site
+        if: steps.sync-letterboxd.outputs.upstream_blocked != 'true'
         env:
           PYTHONPATH: .vendor
         run: |
@@ -92,6 +111,7 @@ jobs:
             --streaming-catalog-timeout 0
 
       - name: Validate generated data
+        if: steps.sync-letterboxd.outputs.upstream_blocked != 'true'
         env:
           PYTHONPATH: .vendor
         run: |
@@ -102,6 +122,7 @@ jobs:
             --output outputs/public-sync-report/share-site/missing_data_report.md
 
       - name: Update published root files
+        if: steps.sync-letterboxd.outputs.upstream_blocked != 'true'
         run: |
           cp outputs/public-sync-report/share-site/index.html ./index.html
           cp outputs/public-sync-report/share-site/custom-report-data.json ./custom-report-data.json
@@ -119,6 +140,7 @@ jobs:
           key: letterboxd-public-sync-${{ runner.os }}-${{ github.run_id }}
 
       - name: Commit and push if the site changed
+        if: steps.sync-letterboxd.outputs.upstream_blocked != 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"

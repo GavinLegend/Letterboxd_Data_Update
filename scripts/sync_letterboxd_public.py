@@ -49,6 +49,10 @@ MONTH_LOOKUP = {
 _THREAD_LOCAL = threading.local()
 
 
+class LetterboxdChallengeError(RuntimeError):
+    """Raised when Cloudflare serves a challenge instead of Letterboxd content."""
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="Sync public Letterboxd pages into a builder-compatible local export."
@@ -146,10 +150,22 @@ def fetch_text(url: str, timeout: int = DEFAULT_TIMEOUT_SECONDS) -> str:
                 timeout=timeout,
                 headers={"Accept-Language": "en-US,en;q=0.9"},
             )
+            if (
+                response.status_code == 403
+                and normalize_cell(response.headers.get("cf-mitigated")).lower()
+                == "challenge"
+            ):
+                raise LetterboxdChallengeError(
+                    f"Cloudflare challenge returned for {absolute_url(url)}"
+                )
             response.raise_for_status()
             if response.text:
                 return response.text
             raise RuntimeError("Empty response text")
+        except LetterboxdChallengeError:
+            # Retrying the same challenged request only increases the chance of
+            # further rate limiting. Let the workflow retry on its next schedule.
+            raise
         except Exception as exc:  # noqa: BLE001
             last_error = exc
             time.sleep(0.75 * (attempt + 1))
@@ -716,5 +732,18 @@ def main() -> None:
     print(json.dumps(summary, ensure_ascii=False, indent=2))
 
 
+def run() -> int:
+    try:
+        main()
+    except LetterboxdChallengeError as exc:
+        print(
+            "Letterboxd temporarily blocked automated HTML access; "
+            f"leaving the published report unchanged. {exc}",
+            file=sys.stderr,
+        )
+        return 75
+    return 0
+
+
 if __name__ == "__main__":
-    main()
+    raise SystemExit(run())
