@@ -1603,8 +1603,10 @@ def refresh_cached_streaming_douban_section(
         entry = cache.get(row.get("film_key"), {}) if isinstance(cache, dict) else {}
         if not isinstance(entry, dict):
             continue
-        row["douban_rating"] = entry.get("douban_rating")
-        row["douban_url"] = entry.get("douban_url")
+        if entry.get("douban_rating") is not None:
+            row["douban_rating"] = entry["douban_rating"]
+        if entry.get("douban_url"):
+            row["douban_url"] = entry["douban_url"]
     refreshed = sanitize_cached_streaming_section(refreshed)
     refreshed.setdefault("stats", {})["douban_fallback_enriched"] = True
     refreshed.setdefault("stats", {})["douban_lookups_requested"] = int(max_douban_lookups)

@@ -126,11 +126,20 @@ jobs:
 
       - name: Update published root files
         if: steps.sync-letterboxd.outputs.upstream_blocked != 'true'
+        id: update-report
         run: |
-          cp outputs/public-sync-report/share-site/index.html ./index.html
-          cp outputs/public-sync-report/share-site/custom-report-data.json ./custom-report-data.json
-          cp outputs/public-sync-report/share-site/.nojekyll ./.nojekyll
-          cp outputs/public-sync-report/share-site/missing_data_report.md ./missing_data_report.md
+          KEEP_EXISTING=$(python scripts/check_report_coverage.py \
+            --existing custom-report-data.json \
+            --candidate outputs/public-sync-report/share-site/custom-report-data.json)
+          echo "keep_existing=$KEEP_EXISTING" >> "$GITHUB_OUTPUT"
+          if [ "$KEEP_EXISTING" = "true" ]; then
+            echo "::warning::The public-page sync contains fewer records than the published report. Keeping the fuller snapshot."
+          else
+            cp outputs/public-sync-report/share-site/index.html ./index.html
+            cp outputs/public-sync-report/share-site/custom-report-data.json ./custom-report-data.json
+            cp outputs/public-sync-report/share-site/.nojekyll ./.nojekyll
+            cp outputs/public-sync-report/share-site/missing_data_report.md ./missing_data_report.md
+          fi
 
       - name: Save sync caches
         if: always()
@@ -148,7 +157,7 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git fetch origin main
           git pull --rebase --autostash origin main
-          if [ "${{ steps.sync-letterboxd.outputs.upstream_blocked }}" != "true" ]; then
+          if [ "${{ steps.sync-letterboxd.outputs.upstream_blocked }}" != "true" ] && [ "${{ steps.update-report.outputs.keep_existing }}" != "true" ]; then
             cp outputs/public-sync-report/share-site/index.html ./index.html
             cp outputs/public-sync-report/share-site/custom-report-data.json ./custom-report-data.json
             cp outputs/public-sync-report/share-site/.nojekyll ./.nojekyll
