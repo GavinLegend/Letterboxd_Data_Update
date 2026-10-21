@@ -6243,6 +6243,8 @@ def build_html(payload: dict[str, Any]) -> str:
   <meta name="twitter:title" content="{html.escape(share_title)}">
   <meta name="twitter:description" content="{html.escape(share_description)}">
   <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+  <link rel="stylesheet" href="recent-activity.css">
+  <script src="recent-activity.js" defer></script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap');
     :root {{
@@ -6776,6 +6778,13 @@ def build_html(payload: dict[str, Any]) -> str:
         <div class="metric"><div class="label" data-i18n="doubanMatched">Douban matched</div><div class="value">{format_static_compact_number(payload['metrics']['douban_rated_titles'])}</div></div>
         <div class="metric"><div class="label" data-i18n="streamingIndexed">Streaming indexed</div><div class="value">{format_static_compact_number(payload['metrics']['streaming_indexed_titles'])}</div></div>
       </div>
+    </section>
+
+    <section class="recent-activity" id="recent-activity" data-snapshot-date="{html.escape(payload['generated_at'][:10])}" aria-live="polite">
+      <h2>Recent public activity</h2>
+      <p class="recent-lead">Latest entries from Letterboxd.</p>
+      <ol><li>Loading recent activity…</li></ol>
+      <p class="snapshot-note">The analysis below was last rebuilt on {html.escape(payload['generated_at'][:10])}.</p>
     </section>
 
     <section class="section">

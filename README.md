@@ -16,7 +16,8 @@ This repository publishes a shareable Letterboxd analysis site to GitHub Pages a
 1. GitHub Actions fetches the public Letterboxd profile pages and RSS feed.
 2. The sync script rebuilds a local export-like folder with `ratings.csv`, `diary.csv`, `reviews.csv`, `watchlist.csv`, `profile.csv`, and `lists/*.csv`.
 3. The existing custom report generator rebuilds the site.
-4. If `index.html` or `custom-report-data.json` changed, the workflow commits the update back to `main`.
+4. If full-page fetching is challenged, the workflow keeps the last complete analysis and still refreshes `recent-activity.json` from the public RSS feed.
+5. The page shows recent public activity separately and identifies the date of the last complete analysis. Changed published files are committed to `main`.
 
 ## Schedule
 
@@ -27,6 +28,8 @@ This repository publishes a shareable Letterboxd analysis site to GitHub Pages a
 ## Important limitation
 
 This automation is based on public pages and RSS, not on the private Letterboxd export bundle or private API access. That means it can stay hands-off, but it may miss data that only exists in account exports or private content.
+
+Letterboxd sometimes serves a Cloudflare challenge to automated full-page requests. During those periods the RSS panel can stay current, but historical analysis totals, lists, tags, and recommendations remain at the last complete rebuild. A Letterboxd export is needed to reconcile a fully current snapshot if public-page access remains blocked.
 
 ## Local run
 

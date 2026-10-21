@@ -95,6 +95,9 @@ jobs:
           echo "upstream_blocked=false" >> "$GITHUB_OUTPUT"
           exit "$SYNC_STATUS"
 
+      - name: Refresh recent public activity from RSS
+        run: python scripts/refresh_recent_activity.py --output recent-activity.json
+
       - name: Build report site
         if: steps.sync-letterboxd.outputs.upstream_blocked != 'true'
         env:
@@ -140,23 +143,24 @@ jobs:
           key: letterboxd-public-sync-${{ runner.os }}-${{ github.run_id }}
 
       - name: Commit and push if the site changed
-        if: steps.sync-letterboxd.outputs.upstream_blocked != 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git fetch origin main
           git pull --rebase --autostash origin main
-          cp outputs/public-sync-report/share-site/index.html ./index.html
-          cp outputs/public-sync-report/share-site/custom-report-data.json ./custom-report-data.json
-          cp outputs/public-sync-report/share-site/.nojekyll ./.nojekyll
-          cp outputs/public-sync-report/share-site/missing_data_report.md ./missing_data_report.md
+          if [ "${{ steps.sync-letterboxd.outputs.upstream_blocked }}" != "true" ]; then
+            cp outputs/public-sync-report/share-site/index.html ./index.html
+            cp outputs/public-sync-report/share-site/custom-report-data.json ./custom-report-data.json
+            cp outputs/public-sync-report/share-site/.nojekyll ./.nojekyll
+            cp outputs/public-sync-report/share-site/missing_data_report.md ./missing_data_report.md
+          fi
 
-          if git diff --quiet -- index.html custom-report-data.json missing_data_report.md .nojekyll; then
+          if git diff --quiet -- index.html custom-report-data.json missing_data_report.md .nojekyll recent-activity.json; then
             echo "No published changes detected."
             exit 0
           fi
 
-          git add index.html custom-report-data.json missing_data_report.md .nojekyll
+          git add index.html custom-report-data.json missing_data_report.md .nojekyll recent-activity.json
           git commit -m "Auto-sync Letterboxd public report"
           for attempt in 1 2 3; do
             if git push origin HEAD:main; then

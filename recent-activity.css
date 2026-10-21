@@ -1,0 +1,10 @@
+.recent-activity { margin-top: 26px; padding: 22px 24px; background: var(--paper); border: 1px solid rgba(23,35,59,.1); border-radius: 18px; }
+.recent-activity h2 { margin: 0 0 6px; font: 600 1.55rem/1.2 "Fraunces", Georgia, serif; color: var(--ink); }
+.recent-activity p { margin: 0; color: var(--muted); }
+.recent-activity ol { list-style: none; padding: 0; margin: 18px 0 0; }
+.recent-activity li { display: flex; gap: 12px; align-items: baseline; justify-content: space-between; padding: 10px 0; border-top: 1px solid var(--line); }
+.recent-activity a { color: var(--ink); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.recent-activity a:hover, .recent-activity a:focus-visible { color: var(--accent); }
+.recent-activity time { color: var(--muted); text-align: right; font-size: .88rem; }
+.recent-activity .snapshot-note { margin-top: 15px; font-size: .88rem; }
+@media (max-width: 600px) { .recent-activity { padding: 18px; } .recent-activity li { display: block; } .recent-activity time { display: block; text-align: left; margin-top: 3px; } }
