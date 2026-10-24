@@ -1,7 +1,23 @@
 {
   "source": "https://letterboxd.com/goorison/rss/",
-  "latest_activity_at": "2026-10-21T18:05:00+00:00",
+  "latest_activity_at": "2026-10-24T02:48:58+00:00",
   "items": [
+    {
+      "title": "Ice Age",
+      "year": "2002",
+      "rating": "3.5",
+      "watched_date": "2026-10-23",
+      "published_at": "2026-10-24T02:48:58+00:00",
+      "url": "https://letterboxd.com/goorison/film/ice-age/1/"
+    },
+    {
+      "title": "The Human Condition III: A Soldier's Prayer",
+      "year": "1961",
+      "rating": "5.0",
+      "watched_date": "2026-10-23",
+      "published_at": "2026-10-23T21:26:00+00:00",
+      "url": "https://letterboxd.com/goorison/film/the-human-condition-iii-a-soldiers-prayer/"
+    },
     {
       "title": "Sherlock: The Abominable Bride",
       "year": "2016",
@@ -385,22 +401,6 @@
       "watched_date": "2011-02-19",
       "published_at": "2026-10-21T16:42:46+00:00",
       "url": "https://letterboxd.com/goorison/film/toy-story/1/"
-    },
-    {
-      "title": "Braveheart",
-      "year": "1995",
-      "rating": "3.5",
-      "watched_date": "2017-08-25",
-      "published_at": "2026-10-21T16:42:15+00:00",
-      "url": "https://letterboxd.com/goorison/film/braveheart/1/"
-    },
-    {
-      "title": "Shuke and Beita",
-      "year": "1989",
-      "rating": "3.5",
-      "watched_date": "2018-10-21",
-      "published_at": "2026-10-21T16:40:18+00:00",
-      "url": "https://letterboxd.com/goorison/film/shuke-and-beita/2/"
     }
   ]
 }
