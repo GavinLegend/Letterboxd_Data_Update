@@ -1,7 +1,15 @@
 {
   "source": "https://letterboxd.com/goorison/rss/",
-  "latest_activity_at": "2026-10-24T13:55:44+00:00",
+  "latest_activity_at": "2026-10-24T21:41:49+00:00",
   "items": [
+    {
+      "title": "Pressure",
+      "year": "2026",
+      "rating": "3.0",
+      "watched_date": "2026-10-24",
+      "published_at": "2026-10-24T21:41:49+00:00",
+      "url": "https://letterboxd.com/goorison/film/pressure-2026/"
+    },
     {
       "title": "Crossing A Dawn",
       "year": "2026",
@@ -393,14 +401,6 @@
       "watched_date": "2011-05-22",
       "published_at": "2026-10-21T16:43:53+00:00",
       "url": "https://letterboxd.com/goorison/film/detective-conan-the-time-bombed-skyscraper/1/"
-    },
-    {
-      "title": "Toy Story",
-      "year": "1995",
-      "rating": "3.5",
-      "watched_date": "2018-07-28",
-      "published_at": "2026-10-21T16:43:02+00:00",
-      "url": "https://letterboxd.com/goorison/film/toy-story/2/"
     }
   ]
 }
