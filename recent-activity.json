@@ -1,7 +1,23 @@
 {
   "source": "https://letterboxd.com/goorison/rss/",
-  "latest_activity_at": "2026-10-26T01:57:20+00:00",
+  "latest_activity_at": "2026-10-26T21:14:06+00:00",
   "items": [
+    {
+      "title": "Rose",
+      "year": "2026",
+      "rating": "3.5",
+      "watched_date": "2026-10-26",
+      "published_at": "2026-10-26T21:14:06+00:00",
+      "url": "https://letterboxd.com/goorison/film/rose-2026/"
+    },
+    {
+      "title": "Ice Age: The Meltdown",
+      "year": "2006",
+      "rating": "2.5",
+      "watched_date": "2026-10-26",
+      "published_at": "2026-10-26T14:47:45+00:00",
+      "url": "https://letterboxd.com/goorison/film/ice-age-the-meltdown/"
+    },
     {
       "title": "The Invite",
       "year": "2026",
@@ -385,22 +401,6 @@
       "watched_date": "2014-11-20",
       "published_at": "2026-10-21T16:45:05+00:00",
       "url": "https://letterboxd.com/goorison/film/titanic-1997/2/"
-    },
-    {
-      "title": "Titanic",
-      "year": "1997",
-      "rating": "3.5",
-      "watched_date": "2015-03-30",
-      "published_at": "2026-10-21T16:44:42+00:00",
-      "url": "https://letterboxd.com/goorison/film/titanic-1997/1/"
-    },
-    {
-      "title": "Detective Conan: The Time Bombed Skyscraper",
-      "year": "1997",
-      "rating": "2.5",
-      "watched_date": "2014-02-18",
-      "published_at": "2026-10-21T16:44:14+00:00",
-      "url": "https://letterboxd.com/goorison/film/detective-conan-the-time-bombed-skyscraper/2/"
     }
   ]
 }
