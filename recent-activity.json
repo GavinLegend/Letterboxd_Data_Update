@@ -1,7 +1,23 @@
 {
   "source": "https://letterboxd.com/goorison/rss/",
-  "latest_activity_at": "2026-10-26T21:14:06+00:00",
+  "latest_activity_at": "2026-10-27T03:39:38+00:00",
   "items": [
+    {
+      "title": "Tony",
+      "year": "2026",
+      "rating": "4.5",
+      "watched_date": "2026-10-26",
+      "published_at": "2026-10-27T03:39:38+00:00",
+      "url": "https://letterboxd.com/goorison/film/tony-2026/"
+    },
+    {
+      "title": "Ice Age: Dawn of the Dinosaurs",
+      "year": "2009",
+      "rating": "2.0",
+      "watched_date": "2026-10-26",
+      "published_at": "2026-10-27T00:04:54+00:00",
+      "url": "https://letterboxd.com/goorison/film/ice-age-dawn-of-the-dinosaurs/"
+    },
     {
       "title": "Rose",
       "year": "2026",
@@ -385,22 +401,6 @@
       "watched_date": "2012-10-20",
       "published_at": "2026-10-21T16:46:06+00:00",
       "url": "https://letterboxd.com/goorison/film/case-closed-the-fourteenth-target/2/"
-    },
-    {
-      "title": "Case Closed: The Fourteenth Target",
-      "year": "1998",
-      "rating": "3.5",
-      "watched_date": "2011-10-16",
-      "published_at": "2026-10-21T16:45:49+00:00",
-      "url": "https://letterboxd.com/goorison/film/case-closed-the-fourteenth-target/1/"
-    },
-    {
-      "title": "Titanic",
-      "year": "1997",
-      "rating": "3.5",
-      "watched_date": "2014-11-20",
-      "published_at": "2026-10-21T16:45:05+00:00",
-      "url": "https://letterboxd.com/goorison/film/titanic-1997/2/"
     }
   ]
 }
