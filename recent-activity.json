@@ -1,7 +1,15 @@
 {
   "source": "https://letterboxd.com/goorison/rss/",
-  "latest_activity_at": "2026-11-02T21:56:12+00:00",
+  "latest_activity_at": "2026-11-03T15:58:27+00:00",
   "items": [
+    {
+      "title": "Primetime",
+      "year": "2026",
+      "rating": "4.0",
+      "watched_date": "2026-11-03",
+      "published_at": "2026-11-03T15:58:27+00:00",
+      "url": "https://letterboxd.com/goorison/film/primetime-2026/"
+    },
     {
       "title": "Coraline",
       "year": "2009",
@@ -393,14 +401,6 @@
       "watched_date": "2011-02-09",
       "published_at": "2026-10-21T16:48:29+00:00",
       "url": "https://letterboxd.com/goorison/film/detective-conan-captured-in-her-eyes/1/"
-    },
-    {
-      "title": "Toy Story 2",
-      "year": "1999",
-      "rating": "3.0",
-      "watched_date": "2018-06-26",
-      "published_at": "2026-10-21T16:47:56+00:00",
-      "url": "https://letterboxd.com/goorison/film/toy-story-2/2/"
     }
   ]
 }
