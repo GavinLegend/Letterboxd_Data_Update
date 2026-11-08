@@ -1,7 +1,15 @@
 {
   "source": "https://letterboxd.com/goorison/rss/",
-  "latest_activity_at": "2026-11-04T17:45:24+00:00",
+  "latest_activity_at": "2026-11-08T20:39:24+00:00",
   "items": [
+    {
+      "title": "Wildwood",
+      "year": "2026",
+      "rating": "4.5",
+      "watched_date": "2026-11-08",
+      "published_at": "2026-11-08T20:39:24+00:00",
+      "url": "https://letterboxd.com/goorison/film/wildwood-2026/"
+    },
     {
       "title": "A Teacher",
       "year": "2020",
@@ -393,14 +401,6 @@
       "watched_date": "2014-07-05",
       "published_at": "2026-10-21T16:49:09+00:00",
       "url": "https://letterboxd.com/goorison/film/detective-conan-captured-in-her-eyes/3/"
-    },
-    {
-      "title": "Detective Conan: Captured in Her Eyes",
-      "year": "2000",
-      "rating": "3.0",
-      "watched_date": "2012-10-16",
-      "published_at": "2026-10-21T16:48:48+00:00",
-      "url": "https://letterboxd.com/goorison/film/detective-conan-captured-in-her-eyes/2/"
     }
   ]
 }
