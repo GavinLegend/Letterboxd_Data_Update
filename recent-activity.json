@@ -1,7 +1,15 @@
 {
   "source": "https://letterboxd.com/goorison/rss/",
-  "latest_activity_at": "2026-11-13T04:22:00+00:00",
+  "latest_activity_at": "2026-11-14T11:08:11+00:00",
   "items": [
+    {
+      "title": "Making All Quiet on the Western Front",
+      "year": "2022",
+      "rating": "3.0",
+      "watched_date": "2026-11-13",
+      "published_at": "2026-11-14T11:08:11+00:00",
+      "url": "https://letterboxd.com/goorison/film/making-all-quiet-on-the-western-front/"
+    },
     {
       "title": "Ice Age: Continental Drift",
       "year": "2012",
@@ -393,14 +401,6 @@
       "watched_date": "2015-10-21",
       "published_at": "2026-10-21T16:52:06+00:00",
       "url": "https://letterboxd.com/goorison/film/case-closed-countdown-to-heaven/3/"
-    },
-    {
-      "title": "Case Closed: Countdown to Heaven",
-      "year": "2001",
-      "rating": "3.5",
-      "watched_date": "2012-02-28",
-      "published_at": "2026-10-21T16:49:52+00:00",
-      "url": "https://letterboxd.com/goorison/film/case-closed-countdown-to-heaven/2/"
     }
   ]
 }
