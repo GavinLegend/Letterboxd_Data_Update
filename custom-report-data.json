@@ -1988,6 +1988,274 @@
         "share_in_genre": 0.1516489988,
         "weighted_score": 3.7016891892
       }
+    ],
+    "all_genres_profile": [
+      {
+        "country": "USA",
+        "films": 247,
+        "avg_rating": 3.479757085,
+        "share_in_genre": 0.3568975225,
+        "weighted_score": 3.4784241413
+      },
+      {
+        "country": "China",
+        "films": 133,
+        "avg_rating": 2.9661654135,
+        "share_in_genre": 0.1879786036,
+        "weighted_score": 2.9787186822
+      },
+      {
+        "country": "Japan",
+        "films": 111,
+        "avg_rating": 3.5720720721,
+        "share_in_genre": 0.1777871622,
+        "weighted_score": 3.5659518214
+      },
+      {
+        "country": "UK",
+        "films": 54,
+        "avg_rating": 3.5185185185,
+        "share_in_genre": 0.0518178893,
+        "weighted_score": 3.5100768872
+      },
+      {
+        "country": "Unknown",
+        "films": 43,
+        "avg_rating": 3.3604651163,
+        "share_in_genre": 0.0726351351,
+        "weighted_score": 3.3634991374
+      },
+      {
+        "country": "Hong Kong",
+        "films": 39,
+        "avg_rating": 3.0256410256,
+        "share_in_genre": 0.0364583333,
+        "weighted_score": 3.0601037084
+      },
+      {
+        "country": "France",
+        "films": 25,
+        "avg_rating": 4.06,
+        "share_in_genre": 0.0240870335,
+        "weighted_score": 3.9684296365
+      },
+      {
+        "country": "South Korea",
+        "films": 19,
+        "avg_rating": 3.5789473684,
+        "share_in_genre": 0.0289977477,
+        "weighted_score": 3.5471504113
+      },
+      {
+        "country": "Germany",
+        "films": 17,
+        "avg_rating": 3.9117647059,
+        "share_in_genre": 0.0163449163,
+        "weighted_score": 3.8135456885
+      },
+      {
+        "country": "Taiwan",
+        "films": 11,
+        "avg_rating": 3.4545454545,
+        "share_in_genre": 0.0116835586,
+        "weighted_score": 3.438963964
+      },
+      {
+        "country": "Canada",
+        "films": 9,
+        "avg_rating": 3.4444444444,
+        "share_in_genre": 0.0074605856,
+        "weighted_score": 3.4295738046
+      },
+      {
+        "country": "Italy",
+        "films": 6,
+        "avg_rating": 4.0,
+        "share_in_genre": 0.0043637387,
+        "weighted_score": 3.7584459459
+      },
+      {
+        "country": "Spain",
+        "films": 4,
+        "avg_rating": 4.0,
+        "share_in_genre": 0.004786036,
+        "weighted_score": 3.6980574324
+      },
+      {
+        "country": "Sweden",
+        "films": 3,
+        "avg_rating": 4.0,
+        "share_in_genre": 0.0019305019,
+        "weighted_score": 3.6549227799
+      },
+      {
+        "country": "New Zealand",
+        "films": 3,
+        "avg_rating": 3.1666666667,
+        "share_in_genre": 0.0025337838,
+        "weighted_score": 3.2977799228
+      },
+      {
+        "country": "Denmark",
+        "films": 2,
+        "avg_rating": 4.5,
+        "share_in_genre": 0.0005228443,
+        "weighted_score": 3.7640765766
+      },
+      {
+        "country": "Malaysia",
+        "films": 2,
+        "avg_rating": 4.5,
+        "share_in_genre": 0.0007038288,
+        "weighted_score": 3.7640765766
+      },
+      {
+        "country": "Brazil",
+        "films": 2,
+        "avg_rating": 4.25,
+        "share_in_genre": 0.0007601351,
+        "weighted_score": 3.6807432432
+      },
+      {
+        "country": "Switzerland",
+        "films": 2,
+        "avg_rating": 3.25,
+        "share_in_genre": 0.0007601351,
+        "weighted_score": 3.3474099099
+      },
+      {
+        "country": "India",
+        "films": 2,
+        "avg_rating": 2.75,
+        "share_in_genre": 0.002027027,
+        "weighted_score": 3.1807432432
+      },
+      {
+        "country": "Qatar",
+        "films": 1,
+        "avg_rating": 5.0,
+        "share_in_genre": 0.0002815315,
+        "weighted_score": 3.7168918919
+      },
+      {
+        "country": "State of Palestine",
+        "films": 1,
+        "avg_rating": 5.0,
+        "share_in_genre": 0.0002815315,
+        "weighted_score": 3.7168918919
+      },
+      {
+        "country": "Poland",
+        "films": 1,
+        "avg_rating": 4.5,
+        "share_in_genre": 0.0004222973,
+        "weighted_score": 3.6168918919
+      },
+      {
+        "country": "Argentina",
+        "films": 1,
+        "avg_rating": 4.0,
+        "share_in_genre": 0.0003378378,
+        "weighted_score": 3.5168918919
+      },
+      {
+        "country": "Australia",
+        "films": 1,
+        "avg_rating": 4.0,
+        "share_in_genre": 0.0005630631,
+        "weighted_score": 3.5168918919
+      },
+      {
+        "country": "Belarus",
+        "films": 1,
+        "avg_rating": 4.0,
+        "share_in_genre": 0.0004222973,
+        "weighted_score": 3.5168918919
+      },
+      {
+        "country": "Netherlands",
+        "films": 1,
+        "avg_rating": 4.0,
+        "share_in_genre": 0.0003378378,
+        "weighted_score": 3.5168918919
+      },
+      {
+        "country": "Norway",
+        "films": 1,
+        "avg_rating": 4.0,
+        "share_in_genre": 0.0002413127,
+        "weighted_score": 3.5168918919
+      },
+      {
+        "country": "Russia",
+        "films": 1,
+        "avg_rating": 4.0,
+        "share_in_genre": 0.0004222973,
+        "weighted_score": 3.5168918919
+      },
+      {
+        "country": "Turkey",
+        "films": 1,
+        "avg_rating": 4.0,
+        "share_in_genre": 0.0002413127,
+        "weighted_score": 3.5168918919
+      },
+      {
+        "country": "USSR",
+        "films": 1,
+        "avg_rating": 4.0,
+        "share_in_genre": 0.0016891892,
+        "weighted_score": 3.5168918919
+      },
+      {
+        "country": "South Africa",
+        "films": 1,
+        "avg_rating": 3.5,
+        "share_in_genre": 0.0004222973,
+        "weighted_score": 3.4168918919
+      },
+      {
+        "country": "Belgium",
+        "films": 1,
+        "avg_rating": 3.0,
+        "share_in_genre": 0.0005630631,
+        "weighted_score": 3.3168918919
+      },
+      {
+        "country": "Latvia",
+        "films": 1,
+        "avg_rating": 3.0,
+        "share_in_genre": 0.0005630631,
+        "weighted_score": 3.3168918919
+      },
+      {
+        "country": "Thailand",
+        "films": 1,
+        "avg_rating": 3.0,
+        "share_in_genre": 0.0008445946,
+        "weighted_score": 3.3168918919
+      },
+      {
+        "country": "Morocco",
+        "films": 1,
+        "avg_rating": 2.5,
+        "share_in_genre": 0.0005630631,
+        "weighted_score": 3.2168918919
+      },
+      {
+        "country": "Ireland",
+        "films": 1,
+        "avg_rating": 2.0,
+        "share_in_genre": 0.0004222973,
+        "weighted_score": 3.1168918919
+      },
+      {
+        "country": "Mongolia",
+        "films": 1,
+        "avg_rating": 2.0,
+        "share_in_genre": 0.0008445946,
+        "weighted_score": 3.1168918919
+      }
     ]
   },
   "tags": {

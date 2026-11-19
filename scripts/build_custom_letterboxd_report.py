@@ -4682,6 +4682,30 @@ def build_recommendation_payload(recommendations: pd.DataFrame) -> dict[str, Any
     }
 
 
+def build_all_genres_profile(ratings_df: pd.DataFrame) -> list[dict[str, Any]]:
+    # Count each film once, regardless of how many genres it belongs to.
+    films = ratings_df[["film_key", "user_rating", "countries"]].drop_duplicates("film_key").copy()
+    if films.empty:
+        return []
+    films["countries"] = films["countries"].apply(
+        lambda values: list(dict.fromkeys(ensure_list(values))) or ["Unknown"]
+    )
+    films["country_weight"] = films["countries"].apply(lambda values: 1 / len(values))
+    countries = films.explode("countries").rename(columns={"countries": "country"})
+    stats = countries.groupby("country").agg(
+        films=("film_key", "nunique"),
+        avg_rating=("user_rating", "mean"),
+        weighted_units=("country_weight", "sum"),
+    ).reset_index()
+    stats["share_in_genre"] = stats["weighted_units"] / len(films)
+    stats["weighted_score"] = (
+        stats["avg_rating"] * stats["films"] + films["user_rating"].mean() * 4
+    ) / (stats["films"] + 4)
+    return serialize_frame(stats.sort_values(["films", "avg_rating"], ascending=[False, False])[
+        ["country", "films", "avg_rating", "share_in_genre", "weighted_score"]
+    ])
+
+
 def build_genre_country_section(ratings_df: pd.DataFrame) -> dict[str, Any]:
     scoped = ratings_df[["film_key", "user_rating", "genres", "countries"]].copy()
     scoped["countries"] = scoped["countries"].apply(lambda values: ensure_list(values) or ["Unknown"])
@@ -4767,6 +4791,7 @@ def build_genre_country_section(ratings_df: pd.DataFrame) -> dict[str, Any]:
         "count_matrix": count_matrix,
         "rating_matrix": rating_matrix,
         "genre_profiles": genre_profiles,
+        "all_genres_profile": build_all_genres_profile(ratings_df),
         "top_combos": top_combos,
     }
 
@@ -6182,7 +6207,6 @@ def build_html(payload: dict[str, Any]) -> str:
         "A shareable Letterboxd research report focused on genre-region patterns, streaming availability, review language, custom lists, and recommendation signals."
     )
     streaming_provider_labels = "、".join(provider["label"] for provider in STREAMING_PROVIDERS)
-    initial_genre = payload["genre_country"]["top_genres"][0] if payload["genre_country"]["top_genres"] else ""
     insights_html = "".join(
         "<article class='insight-card'>"
         f"<div class='kicker'>Signal {index}</div>"
@@ -7594,16 +7618,25 @@ def build_html(payload: dict[str, Any]) -> str:
 
     function renderGenreSelect() {{
       const select = document.getElementById('genre-select');
-      select.innerHTML = data.genre_country.top_genres.concat(
+      const selectedGenre = select.value || '__all__';
+      select.innerHTML = `<option value="__all__">${{t('allGenres')}}</option>` + data.genre_country.top_genres.concat(
         Object.keys(data.genre_country.genre_profiles).filter(g => !data.genre_country.top_genres.includes(g)).sort()
       ).map(genre => `<option value="${{genre}}">${{genre}}</option>`).join('');
-      select.value = {json.dumps(initial_genre, ensure_ascii=False)};
-      select.addEventListener('change', () => renderGenreCountry(select.value));
+      select.value = selectedGenre;
+      select.onchange = () => renderGenreCountry(select.value);
     }}
 
     function renderGenreCountry(genre) {{
-      const rows = data.genre_country.genre_profiles[genre] || [];
+      const isAll = genre === '__all__';
+      const genreLabel = isAll ? t('allGenres') : genre;
+      const rows = (isAll ? data.genre_country.all_genres_profile : data.genre_country.genre_profiles[genre]) || [];
       const topRows = rows.slice(0, 10);
+      if (isAll && rows.length > 10) {{
+        topRows.push({{
+          country: currentLanguage === 'zh' ? '其他国家 / 地区' : 'Other countries / regions',
+          share_in_genre: rows.slice(10).reduce((sum, row) => sum + row.share_in_genre, 0),
+        }});
+      }}
       const genreLegendLayout = window.innerWidth < 720
         ? {{orientation: 'h', y: -0.3, x: 0, font: {{size: 10}}}}
         : {{orientation: 'v', y: 1, x: 1.02, font: {{size: 11}}}};
@@ -7618,7 +7651,7 @@ def build_html(payload: dict[str, Any]) -> str:
         hovertemplate: '%{{label}}<br>Share: %{{percent}}<extra></extra>',
       }}], {{
         ...plotLayout,
-        title: plotTitle(`${{genre}} source share by country / region`),
+        title: plotTitle(currentLanguage === 'zh' ? `${{genreLabel}}：国家 / 地区占比` : `${{genreLabel}} source share by country / region`),
         legend: genreLegendLayout,
         margin: window.innerWidth < 720 ? {{t: 54, r: 18, b: 124, l: 18}} : {{t: 54, r: 160, b: 48, l: 18}},
         height: window.innerWidth < 720 ? 480 : 430,
@@ -7629,7 +7662,7 @@ def build_html(payload: dict[str, Any]) -> str:
         'genre-country-ratings',
         ratingRows,
         'country',
-        `${{genre}} average rating by country / region`,
+        currentLanguage === 'zh' ? `${{genreLabel}}：国家 / 地区平均评分` : `${{genreLabel}} average rating by country / region`,
         '#2d6f8e'
       );
 
@@ -8115,6 +8148,7 @@ def build_html(payload: dict[str, Any]) -> str:
     }}
 
     function refreshTranslatedViews() {{
+      renderGenreSelect();
       renderWatchedDoubanCharts();
       renderGenreCountry(document.getElementById('genre-select').value);
       renderHeatmaps();
